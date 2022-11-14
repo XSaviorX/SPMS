@@ -10,7 +10,7 @@ namespace DDNHRIS.Controllers
 {
     public class OPCRController : Controller
     {
-        SPMSDBEntities _db = new SPMSDBEntities();
+        SPMSDBEntities7 _db = new SPMSDBEntities7();
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string nums = "0123456789";
         Random random = new Random();
@@ -52,12 +52,12 @@ namespace DDNHRIS.Controllers
             return View();
         }
 
-        public ActionResult MFO_get()
-        {
-            var data = _db.loadDataViews.ToList();
+        //public ActionResult MFO_get()
+        //{
+        //    var data = _db.loadDataViews.ToList();
 
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public ActionResult MFO_getPerOffice(string _OfficeID, String opcrId)
@@ -83,7 +83,7 @@ namespace DDNHRIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult MFO_updateMFOSI(view_OPCRTable _OPCRData)
+        public ActionResult MFO_updateMFOSI(vSPMS_OPCRTable _OPCRData)
         {
             var updateMFO = _db.tAppropriationProjMFOes.FirstOrDefault(a => a.appropProjectId == _OPCRData.appropProjectId & a.MFOId == _OPCRData.MFOId);
             updateMFO.MFO = _OPCRData.MFO;
@@ -134,7 +134,7 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult MFO_getByID(string _OfficeID, string _MFO_ID, string _SI_ID)
         {
-            var query = from viewOPCR in _db.view_OPCRTable
+            var query = from viewOPCR in _db.vSPMS_OPCRTable
                         where viewOPCR.officeId == _OfficeID & viewOPCR.programTypeId == 0 & viewOPCR.MFOId == _MFO_ID & viewOPCR.indicatorId == _SI_ID
                         select viewOPCR;
             var data = query.ToList();
@@ -156,18 +156,18 @@ namespace DDNHRIS.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult MFO_getProjects(string _ProgramID)
-        {
-            var query = (from MFOProjects in _db.appropprojectids
-                         where MFOProjects.programId == _ProgramID & MFOProjects.budgetYear == 2022
-                         select MFOProjects).ToList();
-            //var data = query.ToList();
-            return Json(query, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpPost]
+        //public ActionResult MFO_getProjects(string _ProgramID)
+        //{
+        //    var query = (from MFOProjects in _db.appropprojectids
+        //                 where MFOProjects.programId == _ProgramID & MFOProjects.budgetYear == 2022
+        //                 select MFOProjects).ToList();
+        //    //var data = query.ToList();
+        //    return Json(query, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
-        public ActionResult MFO_insert(tAppropriationProjMFO _MFO, appropprojectid _AppropProjID)
+        public ActionResult MFO_insert(tAppropriationProjMFO _MFO, tAppropriationProj _AppropProjID)
         {
             string randomLetters = new string(Enumerable.Repeat(chars, 6)
         .Select(s => s[random.Next(s.Length)]).ToArray());
@@ -182,7 +182,7 @@ namespace DDNHRIS.Controllers
             {
                 MFOId = MFO_id,
                 MFO = _MFO.MFO,
-                appropProjectId = _AppropProjID.appropProjectId1,
+                //appropProjectId = _AppropProjID.appropProjectId1,
                 isActive = 0
             };
             _db.tAppropriationProjMFOes.Add(newMFOData);
@@ -266,7 +266,7 @@ namespace DDNHRIS.Controllers
         //}
 
         [HttpPost]
-        public ActionResult updateAssigned(view_OPCRTable ndata)
+        public ActionResult updateAssigned(vSPMS_OPCRTable ndata)
         {
             var text = "1";
             var update = _db.tAppropriationProjMFOInds.Where(a => a.MFOId == ndata.MFOId & a.indicatorId == ndata.indicatorId).FirstOrDefault();
@@ -293,7 +293,7 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult MFO_getOPCRData(string _OfficeID)
         {
-            var data = (from viewOPCR in _db.vprt_OPCR
+            var data = (from viewOPCR in _db.vSPMS_prtOPCR
                         where viewOPCR.officeId == _OfficeID & viewOPCR.programTypeId == 0
                         select viewOPCR).ToList();
 
