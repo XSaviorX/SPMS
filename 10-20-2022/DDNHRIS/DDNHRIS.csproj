@@ -180,8 +180,10 @@
     <Compile Include="Controllers\CMFOController.cs" />
     <Compile Include="Controllers\MFOStandardController.cs" />
     <Compile Include="Controllers\OPCRController.cs" />
+    <Compile Include="Controllers\SPMS_DivisionUtilityController.cs" />
     <Compile Include="Controllers\SPMS_DPCRController.cs" />
     <Compile Include="Controllers\SPMS_IPCRController.cs" />
+    <Compile Include="Controllers\SPMS_SignatoriesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3352,6 +3354,8 @@
     <Content Include="Scripts\AngularJS\OPCR\Standard.js" />
     <Content Include="Scripts\AngularJS\SPMS_DPCR\DPCR.js" />
     <Content Include="Scripts\AngularJS\SPMS_IPCR\SPMS_IPCR.js" />
+    <Content Include="Scripts\AngularJS\SPMS_UTILITY\DivisionUtility.js" />
+    <Content Include="Scripts\AngularJS\SPMS_UTILITY\Signatories.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\css\icons\fontawesome\fonts\fontawesome-webfont5b62.eot" />
@@ -3453,6 +3457,8 @@
     <Content Include="Views\SPMS_IPCR\SPMS_IPCR_RECOMMENDED.cshtml" />
     <Content Include="Views\SPMS_IPCR\SPMS_IPCR_ACTUAL.cshtml" />
     <Content Include="Views\SPMS_IPCR\SPMS_IPCR_SMPOR.cshtml" />
+    <Content Include="Views\SPMS_DivisionUtility\DivisionUtility.cshtml" />
+    <Content Include="Views\SPMS_Signatories\Signatories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
