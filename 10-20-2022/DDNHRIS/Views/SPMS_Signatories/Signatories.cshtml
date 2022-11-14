@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Signatories";
+}
+
+
+<div ng-controller="SPMS_Signatories" style="margin: 5px;">
+
+    <div class="bg-white p-20">
+        <h3>
+            <b>
+                SIGNATORIES
+            </b>
+        </h3>
+        <div class="row">
+         
+            <div class="col-lg-3">
+                <i class="bi bi-search" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                <input type="text" ng-model="search['F_Name']" placeholder="Search Employee . . ." class="form-control" style="padding-left:30px" />
+                <span ng-click="search = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-control">
+                    <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                    <select ng-model="supervisorFilter" style="position: absolute; left: 40px; top: 1px; height: 34px; border: none; width:80%" class="form-control">
+                        <option value=""> Supervisor </option>
+                        <option ng-repeat="supervisor in users" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+                    </select>
+                    <span ng-click="supervisorFilter = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-slate-300" style="font-weight: 500 ">
+                    <tr>
+                        <td width="50px"></td>
+                        <td>EMPLOYEE NAME</td>
+                        <td>SUPERVISOR</td>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                <tbody ng-repeat="user in users | filter: search | filter: {supervisorId: supervisorFilter}">
+                    <tr ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
+                        <td><input type="checkbox" style="height:25px; width:30px" ng-model="user.Selected"></td>
+                        <td>
+                            {{user.F_Name}}
+                        </td>
+                        <td>
+                            <select ng-model="user.supervisorId" class="form-control">
+                                <option value="">  </option>
+                                <option ng-repeat="supervisor in users" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+                            </select>
+                        </td>
+
+
+
+                    </tr>
+                </tbody>
+
+            </table>
+            <br />
+            <div style="position:absolute; bottom:5px">
+                <input class="btn btn-primary" type="button" value="Save Changes" ng-click="addManytoManySupervisor()" />
+                <input class="btn btn-primary" type="button" value="Add Supervisor" ng-click="GetValue()" />
+
+            </div>
+
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------- ADD SUPERVISORS TO MULTIPLE USERS MODAL --------------------------------------------------------------------------------------------------------------------------------->
+
+    <div class="modal fade" id="addMultiSup" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle"> SELECT SUPERVISOR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <select ng-model="supervisor" class="form-control">
+                            <option value="">  </option>
+                            <option ng-repeat="supervisor in users" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+
+                        </select>
+                    </div>
+                     
+                    <br />
+                    <table class="table table-responsive table-striped">
+                        <thead class="bg-slate-300">
+                            <tr>
+                                <th><i class="bi bi-person"></i> EMPLOYEE</th>
+                                <th>SUPERVISOR</th>
+                                <th>TOTAL: {{lengthUsers}}</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="user in selectedUsers">
+                            <tr>
+                                <td>
+                                    {{user.F_Name}}
+                                </td>
+                                <td colspan="2">
+                                    {{user.supervisorName}}
+                                </td>
+                              
+                            </tr>
+                        </tbody>
+                    </table><br />
+
+                    <button ng-click="addManytoOneSupervisor()" class="btn btn-primary form-control">SUBMIT</button>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SPMS_UTILITY/Signatories.js"></script>
+
+
+}

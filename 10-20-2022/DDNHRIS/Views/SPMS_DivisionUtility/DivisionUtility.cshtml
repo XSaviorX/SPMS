@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "DivisionUtility";
+}
+
+<div ng-controller="SPMS_DivisionUtility" style="margin: 5px;">
+    <div class="bg-white p-20">
+        <h3><b>DIVISION</b></h3>
+
+        <div class="row">
+
+            <div class="col-lg-3">
+                <i class="bi bi-search" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                <input type="text" ng-model="search['F_Name']" placeholder="Search Employee . . ." class="form-control" style="padding-left:30px" />
+                <span ng-click="search = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-control">
+                    <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                    <select ng-model="roleFilter" style="position: absolute; left: 40px; top: 1px; height: 34px; border: none; width:80%" class="form-control">
+                        <option value=""> Office Role </option>
+                        <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+                    </select>
+                    <span ng-click="roleFilter = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-control">
+                    <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                    <select ng-model="divisionFilter" style="position: absolute; left: 40px; top: 1px; height: 34px; border: none; width:80%" class="form-control">
+                        <option value=""> Division </option>
+                        <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
+                    </select>
+                    <span ng-click="divisionFilter = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+                </div>
+            </div>
+        </div><br />
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-slate-300" style="font-weight: 500 ">
+                    <tr>
+                        <td width="50px"></td>
+                        <td>EMPLOYEE NAME</td>
+                        <td>OFFICE ROLE</td>
+
+                        <td>DIVISION</td>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                <tbody ng-repeat="user in users | filter: search | filter: {officeRoleId: roleFilter, division: divisionFilter}">
+                    <tr ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
+
+                        <td><input ng-if="user.officeRoleId !== 'ORCKHKLG582947'" type="checkbox" style="height:25px; width:30px" ng-model="user.Selected"></td>
+
+                        <td>
+                            {{user.F_Name}}
+                        </td>
+                        <td>
+                            <select ng-model="user.officeRoleId" class="form-control">
+                                <option value="">  </option>
+                                <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+
+                            </select>
+
+                        </td>
+                        <td>
+                            <select ng-model="user.division" class="form-control">
+                                <option value="">  </option>
+                                <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
+
+                            </select>
+                        </td>
+
+
+                    </tr>
+                </tbody>
+
+            </table>
+            <div style="position:absolute; bottom:5px">
+
+                <input class="btn btn-primary" type="button" value="Save Changes" ng-click="addManytoManyDivision()" />
+
+                <input class="btn btn-primary" type="button" value="Multiple Save" ng-click="GetValue()" />
+
+                <button type="button" class="btn btn-primary" style="margin-left: 30px" data-toggle="modal" data-target="#addDivision">
+                    <i style="color: white" class="bi bi-plus-lg">  </i>DIVISION
+                </button>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------- UPDATE ROLE & DIVISION --------------------------------------------------------------------------------------------------------------------------------->
+
+    <div class="modal fade" id="addMultiSup" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle"> UPDATE ROLE & DIVISION</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Office Role</label>
+                            <select ng-model="officeRoleID" class="form-control">
+                                <option value="">  </option>
+                                <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Division</label>
+                            <select ng-model="divisionID" class="form-control">
+                                <option value="">  </option>
+                                <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <br />
+                    <table class="table table-responsive table-striped">
+                        <thead class="bg-slate-300">
+                            <tr>
+                                <th><i class="bi bi-person"></i> EMPLOYEE</th>
+                                <th>OFFICE ROLE</th>
+                                <th>DIVISION</th>
+                                <th>TOTAL: {{lengthUsers}}</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="user in selectedUsers">
+                            <tr>
+                                <td>
+                                    {{user.F_Name}}
+                                </td>
+
+                                <td>
+                                    {{user.description}}
+                                </td>
+                                <td colspan="2">{{user.divisionName}}</td>
+                            </tr>
+                        </tbody>
+                    </table><br />
+
+
+                </div>
+                <div class="modal-footer ">
+                    <div class="col-lg-4">
+                        <button ng-click="addManytoOneDivRole()" class="btn btn-primary form-control">SUBMIT</button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-------------------------------------------------------------------->
+    @*Modal for Adding DIVSION*@
+
+    <div class="modal fade" id="addDivision" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-slate-300" style=" padding: 20px">
+                    <h5 class="modal-title" id="ModalTitle" style="color:white"><strong>DIVISION REGISTRATION FORM</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="" style="margin-top: -10px; color: white">
+                        <i class="icon icon-close2"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+
+                                    <br />
+                                    <label class="labelForm"><b>Division Name</b></label>
+                                    <input ng-model="divname" type="text" class="form-control" />
+                                    <br />
+
+                                    <button id="btn_save" type="submit" class="btn btn-primary form-control" ng-click="divisionAdd(divname)">SAVE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section JavaScript{
+        <script src="~/Scripts/AngularJS/SPMS_UTILITY/DivisionUtility.js"></script>
+
+
+    }
+
+
