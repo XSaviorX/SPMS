@@ -104,6 +104,7 @@ namespace DDNHRIS.Reports.SPMS
             this.textBox23.Name = "textBox23";
             this.textBox23.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(27.7786865234375D), Telerik.Reporting.Drawing.Unit.Cm(0.81200170516967773D));
             this.textBox23.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox23.Style.Font.Bold = true;
             this.textBox23.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Cm(1D);
             this.textBox23.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox23.StyleName = "";

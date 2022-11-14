@@ -52,8 +52,6 @@ namespace DDNHRIS.Models.SPMS
         public virtual DbSet<tSPMS_EmployeeRole> tSPMS_EmployeeRole { get; set; }
         public virtual DbSet<tSPMS_Employees> tSPMS_Employees { get; set; }
         public virtual DbSet<tSPMS_Roles> tSPMS_Roles { get; set; }
-        public virtual DbSet<loadDataView> loadDataViews { get; set; }
-        public virtual DbSet<rOpcrStandard> rOpcrStandards { get; set; }
         public virtual DbSet<vSPMS_CheckListMFO> vSPMS_CheckListMFO { get; set; }
         public virtual DbSet<vSPMS_CMFO> vSPMS_CMFO { get; set; }
         public virtual DbSet<vSPMS_CommonMFO> vSPMS_CommonMFO { get; set; }

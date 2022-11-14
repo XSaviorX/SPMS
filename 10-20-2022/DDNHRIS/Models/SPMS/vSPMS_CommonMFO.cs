@@ -33,5 +33,6 @@ namespace DDNHRIS.Models.SPMS
         public Nullable<int> targetTypeId { get; set; }
         public string indicator { get; set; }
         public string MFO { get; set; }
+        public Nullable<int> isHrtgt { get; set; }
     }
 }

@@ -32,8 +32,6 @@
         <EntityTypeShape EntityType="HRISDBModel1.tSPMS_EmployeeRole" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Employees" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Roles" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.loadDataView" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.rOpcrStandard" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CheckListMFO" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CMFO" Width="1.5" PointX="6.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CommonMFO" Width="1.5" PointX="8.75" PointY="15.75" IsExpanded="true" />

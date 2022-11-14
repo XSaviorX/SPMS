@@ -133,6 +133,7 @@
           <Property Name="divisionId" Type="varchar" MaxLength="50" />
           <Property Name="categoryId" Type="int" />
           <Property Name="classificationId" Type="varchar" MaxLength="50" />
+          <Property Name="isHrtgt" Type="int" />
         </EntityType>
         <EntityType Name="tSPMS_DPCR">
           <Key>
@@ -405,40 +406,6 @@ warning 6002: The table/view 'HRISDB.dbo.tSPMS_Roles' does not have a primary ke
           <Property Name="isOPCR" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.loadDataView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="loadDataView">
-          <Key>
-            <PropertyRef Name="indicatorId" />
-          </Key>
-          <Property Name="MFOId" Type="varchar" MaxLength="30" />
-          <Property Name="MFO" Type="varchar(max)" />
-          <Property Name="indicator" Type="varchar(max)" />
-          <Property Name="target" Type="int" />
-          <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.rOpcrStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="rOpcrStandard">
-          <Key>
-            <PropertyRef Name="recNo" />
-          </Key>
-          <Property Name="indicatorId" Type="varchar" MaxLength="50" />
-          <Property Name="officeId" Type="varchar" MaxLength="50" />
-          <Property Name="targetId" Type="varchar" MaxLength="50" />
-          <Property Name="target" Type="int" />
-          <Property Name="indicator" Type="varchar(max)" />
-          <Property Name="MFO" Type="varchar(max)" />
-          <Property Name="categoryId" Type="int" />
-          <Property Name="description" Type="varchar" MaxLength="50" />
-          <Property Name="rating" Type="varchar" MaxLength="50" />
-          <Property Name="quantity" Type="varchar" MaxLength="50" />
-          <Property Name="quality" Type="varchar(max)" />
-          <Property Name="timeliness" Type="varchar(max)" />
-          <Property Name="recNo" Type="int" Nullable="false" />
-          <Property Name="targetUnit" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'HRISDB.dbo.vSPMS_CheckListMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vSPMS_CheckListMFO">
           <Key>
@@ -516,6 +483,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_CommonMFO' does not have a primar
           <Property Name="targetTypeId" Type="int" />
           <Property Name="indicator" Type="varchar(max)" />
           <Property Name="MFO" Type="varchar(max)" />
+          <Property Name="isHrtgt" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HRISDB.dbo.vSPMS_DisplayOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -542,13 +510,11 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_DPCR' does not have a primary key
         <EntityType Name="vSPMS_DPCR">
           <Key>
             <PropertyRef Name="recNo" />
+            
           </Key>
           <Property Name="recNo" Type="int" Nullable="false" />
           <Property Name="indicatorId" Type="varchar" MaxLength="50" />
           <Property Name="officeId" Type="varchar" MaxLength="50" />
-          <Property Name="MFOId" Type="varchar" MaxLength="30" />
-          <Property Name="MFO" Type="varchar(max)" />
-          <Property Name="indicator" Type="varchar(max)" />
           <Property Name="categoryId" Type="int" />
           <Property Name="targetId" Type="varchar" MaxLength="50" />
           <Property Name="target" Type="int" />
@@ -564,6 +530,9 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_DPCR' does not have a primary key
           <Property Name="canUpdate" Type="int" />
           <Property Name="targetUnit" Type="varchar" MaxLength="50" />
           <Property Name="targetIdparent" Type="varchar" MaxLength="50" />
+          <Property Name="indicator" Type="varchar(max)" />
+          <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MFO" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HRISDB.dbo.vSPMS_EmployeeAccountRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1109,34 +1078,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
     [tSPMS_Roles].[R_Description] AS [R_Description]
     FROM [dbo].[tSPMS_Roles] AS [tSPMS_Roles]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="loadDataView" EntityType="Self.loadDataView" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [loadDataView].[MFOId] AS [MFOId], 
-    [loadDataView].[MFO] AS [MFO], 
-    [loadDataView].[indicator] AS [indicator], 
-    [loadDataView].[target] AS [target], 
-    [loadDataView].[indicatorId] AS [indicatorId], 
-    [loadDataView].[appropProjectId] AS [appropProjectId]
-    FROM [dbo].[loadDataView] AS [loadDataView]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="rOpcrStandard" EntityType="Self.rOpcrStandard" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [rOpcrStandard].[indicatorId] AS [indicatorId], 
-    [rOpcrStandard].[officeId] AS [officeId], 
-    [rOpcrStandard].[targetId] AS [targetId], 
-    [rOpcrStandard].[target] AS [target], 
-    [rOpcrStandard].[indicator] AS [indicator], 
-    [rOpcrStandard].[MFO] AS [MFO], 
-    [rOpcrStandard].[categoryId] AS [categoryId], 
-    [rOpcrStandard].[description] AS [description], 
-    [rOpcrStandard].[rating] AS [rating], 
-    [rOpcrStandard].[quantity] AS [quantity], 
-    [rOpcrStandard].[quality] AS [quality], 
-    [rOpcrStandard].[timeliness] AS [timeliness], 
-    [rOpcrStandard].[recNo] AS [recNo], 
-    [rOpcrStandard].[targetUnit] AS [targetUnit]
-    FROM [dbo].[rOpcrStandard] AS [rOpcrStandard]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="vSPMS_CheckListMFO" EntityType="Self.vSPMS_CheckListMFO" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vSPMS_CheckListMFO].[recNo] AS [recNo], 
@@ -1201,7 +1142,8 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
     [vSPMS_CommonMFO].[targetUnit] AS [targetUnit], 
     [vSPMS_CommonMFO].[targetTypeId] AS [targetTypeId], 
     [vSPMS_CommonMFO].[indicator] AS [indicator], 
-    [vSPMS_CommonMFO].[MFO] AS [MFO]
+    [vSPMS_CommonMFO].[MFO] AS [MFO], 
+    [vSPMS_CommonMFO].[isHrtgt] AS [isHrtgt]
     FROM [dbo].[vSPMS_CommonMFO] AS [vSPMS_CommonMFO]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vSPMS_DisplayOPCR" EntityType="Self.vSPMS_DisplayOPCR" store:Type="Views" store:Schema="dbo">
@@ -1226,9 +1168,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
     [vSPMS_DPCR].[recNo] AS [recNo], 
     [vSPMS_DPCR].[indicatorId] AS [indicatorId], 
     [vSPMS_DPCR].[officeId] AS [officeId], 
-    [vSPMS_DPCR].[MFOId] AS [MFOId], 
-    [vSPMS_DPCR].[MFO] AS [MFO], 
-    [vSPMS_DPCR].[indicator] AS [indicator], 
     [vSPMS_DPCR].[categoryId] AS [categoryId], 
     [vSPMS_DPCR].[targetId] AS [targetId], 
     [vSPMS_DPCR].[target] AS [target], 
@@ -1243,7 +1182,10 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
     [vSPMS_DPCR].[divisionId] AS [divisionId], 
     [vSPMS_DPCR].[canUpdate] AS [canUpdate], 
     [vSPMS_DPCR].[targetUnit] AS [targetUnit], 
-    [vSPMS_DPCR].[targetIdparent] AS [targetIdparent]
+    [vSPMS_DPCR].[targetIdparent] AS [targetIdparent], 
+    [vSPMS_DPCR].[indicator] AS [indicator], 
+    [vSPMS_DPCR].[MFOId] AS [MFOId], 
+    [vSPMS_DPCR].[MFO] AS [MFO]
     FROM [dbo].[vSPMS_DPCR] AS [vSPMS_DPCR]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vSPMS_EmployeeAccountRoles" EntityType="Self.vSPMS_EmployeeAccountRoles" store:Type="Views" store:Schema="dbo">
@@ -1811,6 +1753,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="categoryId" Type="Int32" />
           <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isHrtgt" Type="Int32" />
         </EntityType>
         <EntityType Name="tSPMS_DPCR">
           <Key>
@@ -2076,36 +2019,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <Property Name="RID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="R_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="loadDataView">
-          <Key>
-            <PropertyRef Name="indicatorId" />
-          </Key>
-          <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="target" Type="Int32" />
-          <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="rOpcrStandard">
-          <Key>
-            <PropertyRef Name="recNo" />
-          </Key>
-          <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="target" Type="Int32" />
-          <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="categoryId" Type="Int32" />
-          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="recNo" Type="Int32" Nullable="false" />
-          <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="vSPMS_CheckListMFO">
           <Key>
             <PropertyRef Name="recNo" />
@@ -2178,6 +2091,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <Property Name="targetTypeId" Type="Int32" />
           <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isHrtgt" Type="Int32" />
         </EntityType>
         <EntityType Name="vSPMS_DisplayOPCR">
           <Key>
@@ -2204,7 +2118,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <Property Name="recNo" Type="Int32" Nullable="false" />
           <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="categoryId" Type="Int32" />
@@ -2714,8 +2628,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <EntitySet Name="tSPMS_EmployeeRole" EntityType="Self.tSPMS_EmployeeRole" />
           <EntitySet Name="tSPMS_Employees" EntityType="Self.tSPMS_Employees" />
           <EntitySet Name="tSPMS_Roles" EntityType="Self.tSPMS_Roles" />
-          <EntitySet Name="loadDataViews" EntityType="Self.loadDataView" />
-          <EntitySet Name="rOpcrStandards" EntityType="Self.rOpcrStandard" />
           <EntitySet Name="vSPMS_CheckListMFO" EntityType="Self.vSPMS_CheckListMFO" />
           <EntitySet Name="vSPMS_CMFO" EntityType="Self.vSPMS_CMFO" />
           <EntitySet Name="vSPMS_CommonMFO" EntityType="Self.vSPMS_CommonMFO" />
@@ -2873,6 +2785,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <EntitySetMapping Name="tSPMS_CommonMFO">
             <EntityTypeMapping TypeName="HRISDBModel1.tSPMS_CommonMFO">
               <MappingFragment StoreEntitySet="tSPMS_CommonMFO">
+                <ScalarProperty Name="isHrtgt" ColumnName="isHrtgt" />
                 <ScalarProperty Name="recNo" ColumnName="recNo" />
                 <ScalarProperty Name="MFOId" ColumnName="MFOId" />
                 <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
@@ -3164,38 +3077,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="loadDataViews">
-            <EntityTypeMapping TypeName="HRISDBModel1.loadDataView">
-              <MappingFragment StoreEntitySet="loadDataView">
-                <ScalarProperty Name="MFOId" ColumnName="MFOId" />
-                <ScalarProperty Name="MFO" ColumnName="MFO" />
-                <ScalarProperty Name="indicator" ColumnName="indicator" />
-                <ScalarProperty Name="target" ColumnName="target" />
-                <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
-                <ScalarProperty Name="appropProjectId" ColumnName="appropProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="rOpcrStandards">
-            <EntityTypeMapping TypeName="HRISDBModel1.rOpcrStandard">
-              <MappingFragment StoreEntitySet="rOpcrStandard">
-                <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
-                <ScalarProperty Name="officeId" ColumnName="officeId" />
-                <ScalarProperty Name="targetId" ColumnName="targetId" />
-                <ScalarProperty Name="target" ColumnName="target" />
-                <ScalarProperty Name="indicator" ColumnName="indicator" />
-                <ScalarProperty Name="MFO" ColumnName="MFO" />
-                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="quality" ColumnName="quality" />
-                <ScalarProperty Name="timeliness" ColumnName="timeliness" />
-                <ScalarProperty Name="recNo" ColumnName="recNo" />
-                <ScalarProperty Name="targetUnit" ColumnName="targetUnit" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vSPMS_CheckListMFO">
             <EntityTypeMapping TypeName="HRISDBModel1.vSPMS_CheckListMFO">
               <MappingFragment StoreEntitySet="vSPMS_CheckListMFO">
@@ -3247,6 +3128,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
           <EntitySetMapping Name="vSPMS_CommonMFO">
             <EntityTypeMapping TypeName="HRISDBModel1.vSPMS_CommonMFO">
               <MappingFragment StoreEntitySet="vSPMS_CommonMFO">
+                <ScalarProperty Name="isHrtgt" ColumnName="isHrtgt" />
                 <ScalarProperty Name="recNo" ColumnName="recNo" />
                 <ScalarProperty Name="MFOId" ColumnName="MFOId" />
                 <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />

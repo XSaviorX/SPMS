@@ -128,6 +128,7 @@
     <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="categoryId" Type="Int32" />
     <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isHrtgt" Type="Int32" />
   </EntityType>
   <EntityType Name="tSPMS_DPCR">
     <Key>
@@ -393,36 +394,6 @@
     <Property Name="RID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="R_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="loadDataView">
-    <Key>
-      <PropertyRef Name="indicatorId" />
-    </Key>
-    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="target" Type="Int32" />
-    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="rOpcrStandard">
-    <Key>
-      <PropertyRef Name="recNo" />
-    </Key>
-    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="target" Type="Int32" />
-    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="categoryId" Type="Int32" />
-    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="recNo" Type="Int32" Nullable="false" />
-    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="vSPMS_CheckListMFO">
     <Key>
       <PropertyRef Name="recNo" />
@@ -495,6 +466,7 @@
     <Property Name="targetTypeId" Type="Int32" />
     <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isHrtgt" Type="Int32" />
   </EntityType>
   <EntityType Name="vSPMS_DisplayOPCR">
     <Key>
@@ -521,7 +493,7 @@
     <Property Name="recNo" Type="Int32" Nullable="false" />
     <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="categoryId" Type="Int32" />
@@ -1031,8 +1003,6 @@
     <EntitySet Name="tSPMS_EmployeeRole" EntityType="Self.tSPMS_EmployeeRole" />
     <EntitySet Name="tSPMS_Employees" EntityType="Self.tSPMS_Employees" />
     <EntitySet Name="tSPMS_Roles" EntityType="Self.tSPMS_Roles" />
-    <EntitySet Name="loadDataViews" EntityType="Self.loadDataView" />
-    <EntitySet Name="rOpcrStandards" EntityType="Self.rOpcrStandard" />
     <EntitySet Name="vSPMS_CheckListMFO" EntityType="Self.vSPMS_CheckListMFO" />
     <EntitySet Name="vSPMS_CMFO" EntityType="Self.vSPMS_CMFO" />
     <EntitySet Name="vSPMS_CommonMFO" EntityType="Self.vSPMS_CommonMFO" />

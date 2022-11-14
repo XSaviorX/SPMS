@@ -130,6 +130,7 @@
     <EntitySetMapping Name="tSPMS_CommonMFO">
       <EntityTypeMapping TypeName="HRISDBModel1.tSPMS_CommonMFO">
         <MappingFragment StoreEntitySet="tSPMS_CommonMFO">
+          <ScalarProperty Name="isHrtgt" ColumnName="isHrtgt" />
           <ScalarProperty Name="recNo" ColumnName="recNo" />
           <ScalarProperty Name="MFOId" ColumnName="MFOId" />
           <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
@@ -421,38 +422,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="loadDataViews">
-      <EntityTypeMapping TypeName="HRISDBModel1.loadDataView">
-        <MappingFragment StoreEntitySet="loadDataView">
-          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
-          <ScalarProperty Name="MFO" ColumnName="MFO" />
-          <ScalarProperty Name="indicator" ColumnName="indicator" />
-          <ScalarProperty Name="target" ColumnName="target" />
-          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
-          <ScalarProperty Name="appropProjectId" ColumnName="appropProjectId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="rOpcrStandards">
-      <EntityTypeMapping TypeName="HRISDBModel1.rOpcrStandard">
-        <MappingFragment StoreEntitySet="rOpcrStandard">
-          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
-          <ScalarProperty Name="officeId" ColumnName="officeId" />
-          <ScalarProperty Name="targetId" ColumnName="targetId" />
-          <ScalarProperty Name="target" ColumnName="target" />
-          <ScalarProperty Name="indicator" ColumnName="indicator" />
-          <ScalarProperty Name="MFO" ColumnName="MFO" />
-          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="rating" ColumnName="rating" />
-          <ScalarProperty Name="quantity" ColumnName="quantity" />
-          <ScalarProperty Name="quality" ColumnName="quality" />
-          <ScalarProperty Name="timeliness" ColumnName="timeliness" />
-          <ScalarProperty Name="recNo" ColumnName="recNo" />
-          <ScalarProperty Name="targetUnit" ColumnName="targetUnit" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="vSPMS_CheckListMFO">
       <EntityTypeMapping TypeName="HRISDBModel1.vSPMS_CheckListMFO">
         <MappingFragment StoreEntitySet="vSPMS_CheckListMFO">
@@ -504,6 +473,7 @@
     <EntitySetMapping Name="vSPMS_CommonMFO">
       <EntityTypeMapping TypeName="HRISDBModel1.vSPMS_CommonMFO">
         <MappingFragment StoreEntitySet="vSPMS_CommonMFO">
+          <ScalarProperty Name="isHrtgt" ColumnName="isHrtgt" />
           <ScalarProperty Name="recNo" ColumnName="recNo" />
           <ScalarProperty Name="MFOId" ColumnName="MFOId" />
           <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />

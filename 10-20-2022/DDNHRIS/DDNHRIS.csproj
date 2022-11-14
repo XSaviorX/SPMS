@@ -214,12 +214,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\SessionViewModel.cs" />
-    <Compile Include="Models\SPMS\loadDataView.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SPMS\rOpcrStandard.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SPMS\SPMS.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

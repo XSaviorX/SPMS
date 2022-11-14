@@ -22,5 +22,6 @@ namespace DDNHRIS.Models.SPMS
         public string divisionId { get; set; }
         public Nullable<int> categoryId { get; set; }
         public string classificationId { get; set; }
+        public Nullable<int> isHrtgt { get; set; }
     }
 }
