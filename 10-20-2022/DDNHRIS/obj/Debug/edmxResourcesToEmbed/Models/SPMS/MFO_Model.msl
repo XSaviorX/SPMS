@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HRISDBModel1StoreContainer" CdmEntityContainer="OPCREntities">
+    <EntitySetMapping Name="tAppropriationProjs">
+      <EntityTypeMapping TypeName="HRISDBModel1.tAppropriationProj">
+        <MappingFragment StoreEntitySet="tAppropriationProj">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="appropProjectId" ColumnName="appropProjectId" />
+          <ScalarProperty Name="budgetYear" ColumnName="budgetYear" />
+          <ScalarProperty Name="projectId" ColumnName="projectId" />
+          <ScalarProperty Name="AIPCode" ColumnName="AIPCode" />
+          <ScalarProperty Name="fundSourceId" ColumnName="fundSourceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tAppropriationProjMFOes">
+      <EntityTypeMapping TypeName="HRISDBModel1.tAppropriationProjMFO">
+        <MappingFragment StoreEntitySet="tAppropriationProjMFO">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+          <ScalarProperty Name="MFO" ColumnName="MFO" />
+          <ScalarProperty Name="appropProjectId" ColumnName="appropProjectId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tAppropriationProjMFOInds">
+      <EntityTypeMapping TypeName="HRISDBModel1.tAppropriationProjMFOInd">
+        <MappingFragment StoreEntitySet="tAppropriationProjMFOInd">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+          <ScalarProperty Name="target" ColumnName="target" />
+          <ScalarProperty Name="targetUnit" ColumnName="targetUnit" />
+          <ScalarProperty Name="targetTypeId" ColumnName="targetTypeId" />
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tOffices">
+      <EntityTypeMapping TypeName="HRISDBModel1.tOffice">
+        <MappingFragment StoreEntitySet="tOffice">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="officeId" ColumnName="officeId" />
+          <ScalarProperty Name="officeCode" ColumnName="officeCode" />
+          <ScalarProperty Name="officeName" ColumnName="officeName" />
+          <ScalarProperty Name="officeNameShort" ColumnName="officeNameShort" />
+          <ScalarProperty Name="officeType" ColumnName="officeType" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="sortNo" ColumnName="sortNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tOfficeDivisions">
+      <EntityTypeMapping TypeName="HRISDBModel1.tOfficeDivision">
+        <MappingFragment StoreEntitySet="tOfficeDivision">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="divisionId" ColumnName="divisionId" />
+          <ScalarProperty Name="divisionName" ColumnName="divisionName" />
+          <ScalarProperty Name="officeId" ColumnName="officeId" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tOpcrPerformances">
+      <EntityTypeMapping TypeName="HRISDBModel1.tOpcrPerformance">
+        <MappingFragment StoreEntitySet="tOpcrPerformance">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="quality" ColumnName="quality" />
+          <ScalarProperty Name="timeliness" ColumnName="timeliness" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tPrograms">
+      <EntityTypeMapping TypeName="HRISDBModel1.tProgram">
+        <MappingFragment StoreEntitySet="tProgram">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="programId" ColumnName="programId" />
+          <ScalarProperty Name="aipCode" ColumnName="aipCode" />
+          <ScalarProperty Name="programName" ColumnName="programName" />
+          <ScalarProperty Name="officeId" ColumnName="officeId" />
+          <ScalarProperty Name="functionId" ColumnName="functionId" />
+          <ScalarProperty Name="fundSourceId" ColumnName="fundSourceId" />
+          <ScalarProperty Name="programTypeId" ColumnName="programTypeId" />
+          <ScalarProperty Name="programIdLF" ColumnName="programIdLF" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tProjects">
+      <EntityTypeMapping TypeName="HRISDBModel1.tProject">
+        <MappingFragment StoreEntitySet="tProject">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="projectId" ColumnName="projectId" />
+          <ScalarProperty Name="projectIdLF" ColumnName="projectIdLF" />
+          <ScalarProperty Name="aipReferenceCode" ColumnName="aipReferenceCode" />
+          <ScalarProperty Name="projectName" ColumnName="projectName" />
+          <ScalarProperty Name="programId" ColumnName="programId" />
+          <ScalarProperty Name="functionId" ColumnName="functionId" />
+          <ScalarProperty Name="fundSourceId" ColumnName="fundSourceId" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mfo_indicator">
+      <EntityTypeMapping TypeName="HRISDBModel1.mfo_indicator">
+        <MappingFragment StoreEntitySet="mfo_indicator">
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+          <ScalarProperty Name="MFO" ColumnName="MFO" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDisplayOPCRs">
+      <EntityTypeMapping TypeName="HRISDBModel1.vDisplayOPCR">
+        <MappingFragment StoreEntitySet="vDisplayOPCR">
+          <ScalarProperty Name="officeId" ColumnName="officeId" />
+          <ScalarProperty Name="officeNameShort" ColumnName="officeNameShort" />
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+          <ScalarProperty Name="MFO" ColumnName="MFO" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="quality" ColumnName="quality" />
+          <ScalarProperty Name="timeliness" ColumnName="timeliness" />
+          <ScalarProperty Name="programTypeId" ColumnName="programTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_OPCRTable">
+      <EntityTypeMapping TypeName="HRISDBModel1.view_OPCRTable">
+        <MappingFragment StoreEntitySet="view_OPCRTable">
+          <ScalarProperty Name="officeId" ColumnName="officeId" />
+          <ScalarProperty Name="programId" ColumnName="programId" />
+          <ScalarProperty Name="programTypeId" ColumnName="programTypeId" />
+          <ScalarProperty Name="projectId" ColumnName="projectId" />
+          <ScalarProperty Name="appropProjectId" ColumnName="appropProjectId" />
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+          <ScalarProperty Name="MFO" ColumnName="MFO" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="target" ColumnName="target" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+          <ScalarProperty Name="officeNameShort" ColumnName="officeNameShort" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="loadDataViews">
+      <EntityTypeMapping TypeName="HRISDBModel1.loadDataView">
+        <MappingFragment StoreEntitySet="loadDataView">
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="target" ColumnName="target" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+          <ScalarProperty Name="MFO" ColumnName="MFO" />
+          <ScalarProperty Name="MFOId" ColumnName="MFOId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="appropprojectids">
+      <EntityTypeMapping TypeName="HRISDBModel1.appropprojectid">
+        <MappingFragment StoreEntitySet="appropprojectid">
+          <ScalarProperty Name="programId" ColumnName="programId" />
+          <ScalarProperty Name="budgetYear" ColumnName="budgetYear" />
+          <ScalarProperty Name="appropProjectId1" ColumnName="appropProjectId" />
+          <ScalarProperty Name="projectName" ColumnName="projectName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tCommonMFOes">
+      <EntityTypeMapping TypeName="HRISDBModel1.tCommonMFO">
+        <MappingFragment StoreEntitySet="tCommonMFO">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="CMFO" ColumnName="CMFO" />
+          <ScalarProperty Name="CMFOId" ColumnName="CMFOId" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tCommonMFOInds">
+      <EntityTypeMapping TypeName="HRISDBModel1.tCommonMFOInd">
+        <MappingFragment StoreEntitySet="tCommonMFOInd">
+          <ScalarProperty Name="officeId" ColumnName="officeId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="CMFOId" ColumnName="CMFOId" />
+          <ScalarProperty Name="targetTypeId" ColumnName="targetTypeId" />
+          <ScalarProperty Name="targetUnit" ColumnName="targetUnit" />
+          <ScalarProperty Name="target" ColumnName="target" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vCMFOInds">
+      <EntityTypeMapping TypeName="HRISDBModel1.vCMFOInd">
+        <MappingFragment StoreEntitySet="vCMFOInd">
+          <ScalarProperty Name="officeNameShort" ColumnName="officeNameShort" />
+          <ScalarProperty Name="officeName" ColumnName="officeName" />
+          <ScalarProperty Name="target" ColumnName="target" />
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="CMFO" ColumnName="CMFO" />
+          <ScalarProperty Name="CMFOId" ColumnName="CMFOId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

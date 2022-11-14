@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Shifting";
+}
+
+
+
+
+	<!-- Page header -->
+<div class="page-header">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Fullcalendar</span> - Advanced Usage</h4>
+        </div>
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-component">
+        <ul class="breadcrumb">
+            <li><a href="index-2.html"><i class="icon-home2 position-left"></i> Home</a></li>
+            <li><a href="extension_fullcalendar_advanced.html">Fullcalendar</a></li>
+            <li class="active">Advanced usage</li>
+        </ul>
+        <ul class="breadcrumb-elements">
+            <li><a href="#"><i class="icon-comment-discussion position-left"></i> Support</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-gear position-left"></i>
+                    Settings
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                    <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                    <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /page header -->
+
+	<!-- Content area -->
+<div class="content">
+    <!-- External events -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">External events</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <p class="content-group">Add extended dragging functionality with <code>droppable</code> option. Data can be attached to the element in order to specify its duration when dropped. A Duration-ish value can be provided. This can either be done via jQuery or via an <code>data-duration</code> attribute. Please note: since droppable option operates with jQuery UI draggables, you must download the appropriate jQuery UI files and initialize a draggable element.</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="content-group" id="external-events">
+                        <h6>Draggable Events</h6>
+                        <div class="fc-events-container content-group">
+                            <div class="fc-event" data-color="#546E7A">07AM - 03PM</div>
+                            <div class="fc-event" data-color="#26A69A">03PM - 11PM</div>
+                            <div class="fc-event" data-color="#546E7A">11PM - 07AM</div>
+                            <div class="fc-event" data-color="#FF7043">08AM - 04PM</div>
+                            <div class="fc-event" data-color="#5C6BC0">04PM - 01AM</div>
+                            <div class="fc-event">Basketball</div>
+                            <div class="fc-event">Daily routine</div>
+                        </div>
+                        <div class="checkbox checkbox-right checkbox-switchery switchery-xs text-center">
+                            <label>
+                                <input type="checkbox" class="switch" checked="checked" id="drop-remove">
+                                Remove after drop
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="fullcalendar-external"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /external events -->
+     
+     
+</div>
+<!-- /content area -->
+
+@section JavaScript{    
+<script src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+<script src="~/Content/assets/js/core/libraries/jquery.min.js"></script>
+
+<script src="~/Content/assets/js/core/libraries/bootstrap.min.js"></script>
+
+<script src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>
+
+<script src="~/Content/assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+<script src="~/Content/assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script src="~/Content/assets/js/plugins/ui/moment/moment.min.js"></script>
+    
+<script src="~/Content/assets/js/plugins/ui/fullcalendar/fullcalendar.min.js"></script> 
+<script src="~/Content/assets/js/plugins/ui/fullcalendar/lang/all.js"></script>     
+<script src="~/Content/assets/js/pages/extra_fullcalendar_advanced.js"></script>
+}
+
+
+

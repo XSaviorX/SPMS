@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "WORK GROUP";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: middle;
+    }
+
+    .divScroll {
+        height: 350px;
+        overflow-y: scroll;
+    }
+</style>
+
+<div ng-controller="WorkGroupApp">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">Work Group</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- PUBLICATION -->
+                        <div class="tab-pane fade in active" id="pending">
+
+                            <!-- PUBLICATION DATA -->
+                            <div class="panel panel-flat" style="min-height:300px;">
+                              
+
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <label class="no-margin-bottom">Department </label>
+                                                <select class="form-control select2 select-Custom text-semibold " ng-model="data.workGroupCode" id="dept" style="width:100%;"
+                                                        ng-options="c.workGroupCode as c.workGroupName for c in workGroup" value="{{c.workGroupCode}}" ng-change="loadEmpListByWorkGroup(data)">
+                                                    <option value="" selected="">-- Select --</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="no-margin-bottom">Employment Status</label>
+                                                <select class="form-control select2 select-Custom text-semibold " ng-model="data.employmentStatusCode" id="statCode" style="width:100%;"
+                                                        ng-options="c.employmentStatusCode as c.employmentStatus for c in emptStatus" value="{{c.employmentStatusCode}}" ng-change="loadEmpListByWorkGroup(data)"></select>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="text-muted no-margin-bottom text-white" style="width:100%;"> Update </label>
+                                                <button class="btn btn-default  text-semibold   text-blue-800" ng-show="checkChanges == true">
+                                                    Show
+                                                </button>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="text-muted no-margin-bottom text-white" style="width:100%;">  </label>
+                                                <ul class="icons-list pull-right">
+
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle text-blue-800" ng-click="printPreview(data)">
+                                                            <i class="icon-printer2 position-left"></i>
+                                                            Report                                                            
+                                                        </a>
+                                                     
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>EMPLOYEE NAME</th>
+                                                <th>POSITION TITLE</th>                                               
+                                              
+                                                <th>CHARGES</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in employee | filter:searchString">
+                                            <td class="text-center">
+                                                {{$index+1}}
+                                            </td>
+                                            <td> <span class="text-blue-800 text-semibold cursor-pointer" ng-click="openPositionQS(item)">{{item.fullNameLast}}</span>  </td>
+                                            <td>  {{item.positionTitle}}  </td>
+                                            <td>  {{item.projectName}}  </td>
+
+                                         
+                                            <td class="text-center text-blue-800 text-bold">
+                                              
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPUtility/WorkGroup.js"></script>
+    <script>
+        $("#dept").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#stat").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+    </script>
+
+}

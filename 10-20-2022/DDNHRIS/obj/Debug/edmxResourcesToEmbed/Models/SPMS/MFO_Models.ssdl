@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tAppropriationProj">
+    <Key>
+      <PropertyRef Name="appropProjectId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="budgetYear" Type="int" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" />
+    <Property Name="AIPCode" Type="varchar" MaxLength="30" />
+    <Property Name="fundSourceId" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFO">
+    <Key>
+      <PropertyRef Name="MFOId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFO" Type="text" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFOInd">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicator" Type="text" />
+    <Property Name="target" Type="int" />
+    <Property Name="targetUnit" Type="varchar" MaxLength="20" />
+    <Property Name="targetTypeId" Type="int" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tOffice">
+    <Key>
+      <PropertyRef Name="officeId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="officeCode" Type="varchar" MaxLength="10" />
+    <Property Name="officeName" Type="varchar" MaxLength="150" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="officeType" Type="int" />
+    <Property Name="tag" Type="int" />
+    <Property Name="sortNo" Type="int" />
+  </EntityType>
+  <EntityType Name="tOfficeDivision">
+    <Key>
+      <PropertyRef Name="divisionId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="divisionId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="divisionName" Type="varchar" MaxLength="150" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <EntityType Name="tProgram">
+    <Key>
+      <PropertyRef Name="programId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="programId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="aipCode" Type="varchar" MaxLength="30" />
+    <Property Name="programName" Type="varchar" MaxLength="1500" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="functionId" Type="varchar" MaxLength="30" />
+    <Property Name="fundSourceId" Type="varchar" MaxLength="6" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="programIdLF" Type="int" />
+    <Property Name="orderNo" Type="int" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <EntityType Name="tProject">
+    <Key>
+      <PropertyRef Name="projectId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="projectIdLF" Type="int" />
+    <Property Name="aipReferenceCode" Type="varchar" MaxLength="30" />
+    <Property Name="projectName" Type="varchar" MaxLength="250" />
+    <Property Name="programId" Type="varchar" MaxLength="30" />
+    <Property Name="functionId" Type="int" />
+    <Property Name="fundSourceId" Type="varchar" MaxLength="6" />
+    <Property Name="orderNo" Type="int" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'HRISDB.dbo.loadDataView' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="loadDataView">
+          <Property Name="MFO" Type="text" />
+          <Property Name="indicator" Type="text" />
+        </EntityType>-->
+  <EntityContainer Name="HRISDBModel1StoreContainer">
+    <EntitySet Name="tAppropriationProj" EntityType="Self.tAppropriationProj" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tAppropriationProjMFO" EntityType="Self.tAppropriationProjMFO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tAppropriationProjMFOInd" EntityType="Self.tAppropriationProjMFOInd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOffice" EntityType="Self.tOffice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOfficeDivision" EntityType="Self.tOfficeDivision" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tProgram" EntityType="Self.tProgram" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tProject" EntityType="Self.tProject" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

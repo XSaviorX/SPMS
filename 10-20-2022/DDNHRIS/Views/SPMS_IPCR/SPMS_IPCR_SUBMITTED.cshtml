@@ -1,0 +1,406 @@
+﻿
+@{
+    ViewBag.Title = "SPMS_IPCR_SUBMITTED";
+}
+
+
+
+<style type="text/css">
+
+
+    .my-custom-scrollbar {
+        position: relative;
+        height: 50vh;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+
+    .lbl_opcrTableH {
+        text-align: center;
+    }
+
+    .searchBar {
+        width: 50%;
+    }
+
+    .performanceTD {
+        height: 45px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .bi {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .bi {
+        left: 0px;
+    }
+
+    .right-addon .bi {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    .inheritBg {
+        background-color: inherit
+    }
+
+    select {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        select::-ms-expand {
+            display: none;
+        }
+
+    .selectFilter {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        .selectFilter::-ms-expand {
+            display: none;
+        }
+
+    .lg-btn-add-mfo {
+        border: dashed 2px;
+        font-size: 40px;
+        padding: 10px;
+        width: 350px;
+        height: 120px;
+        margin-top: 300px;
+        border-color: lightgray;
+        border-radius: 30px
+    }
+
+    .lg-txt-add-mfo {
+        color: dimgray;
+        font-family: Bahnschrift Light
+    }
+
+    .lg-btn-sel-mfo {
+        border: dashed 2px;
+        font-size: 40px;
+        padding: 10px;
+        width: 350px;
+        height: 120px;
+        margin-top: 300px;
+        border-color: lightgray;
+        border-radius: 30px
+    }
+
+    .lg-txt-sel-mfo {
+        color: dimgray;
+        font-family:
+    }
+
+    .div-bg {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .cat-style {
+        border: solid;
+        border-color: #EEEEEE;
+        height: 36px;
+        width: 232px;
+        padding-left: 1px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .i-style {
+        background-color: #EEEEEE;
+        padding: 6px;
+    }
+
+    .sel-style {
+        width: 150px;
+        height: 30px;
+        border: none
+    }
+
+    .root-num {
+        background-color: #088fbb;
+        color: white;
+        padding: 3px 8px 3px 8px;
+    }
+
+    .btn-sublist {
+        background-color: #e8f9fa;
+        color: #7ABACC;
+        font-size: 23px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-add-mfo {
+        background-color: #e8f9fa;
+        color: dodgerblue;
+        font-size: 23px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-update {
+        background-color: #dafad7;
+        color: #48ad3e;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-remove {
+        background-color: #fcf2f2;
+        color: red;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-addots {
+        background-color: #e8f9fa;
+        color: dodgerblue;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-eye {
+        background-color: #ccebff;
+        color: #007acc;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .cl-num {
+        background-color: #7ABACC;
+        color: white;
+        padding: 3px 6px 3px 6px;
+        margin-left: 10px
+    }
+
+    .btn-update-cl {
+        background-color: #dafad7;
+        color: #48ad3e;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+
+    .rcorners2 {
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 30px;
+        margin-left: 10px;
+        margin-right: 30px;
+        height: 100px;
+        width: 300px;
+    }
+
+    .rcorners3 {
+        border-radius: 20px;
+        padding: 20px;
+    }
+
+    .headerLabel {
+        font-family: 'Segoe UI';
+        font-size: 25px;
+        color: white;
+        margin-bottom: -2px;
+        /*font-weight: bold;*/
+    }
+    .fonts {
+        font-family: 'Segoe UI';
+        font-size: 18px;
+        color: white;
+    }
+</style>
+<div ng-controller="SPMS_IPCR" style="margin: 5px;" ng-init="getListRequest()">
+
+    @* ================================= HEADER CONTENT ========================================== *@
+    <div class="row" style="margin-left:15px">
+        <div id="pending" class="rcorners2 col-lg-1" style="background-color: #27A95E ">
+            <label class="headerLabel">RECOMMENDED</label><br>
+            <label class="fonts">TOTAL: @ViewBag.pending</label>
+        </div>
+
+        <div id="pending" class="rcorners2 col-lg-1 bg-primary" style="">
+            <label class="headerLabel">APPROVED</label><br>
+            <label class="fonts">TOTAL: @ViewBag.approved</label>
+        </div>
+
+        <div id="pending" class="rcorners2 col-lg-1" style="background-color: #CC4400 ">
+            <label class="headerLabel">CANCELLED</label><br>
+            <label class="fonts">TOTAL: @ViewBag.cancelled</label>
+        </div>
+
+        <div id="pending" class="rcorners2 col-lg-1" style="background-color: #768DE4 ">
+            <label class="headerLabel">TOTAL REQUEST</label><br>
+            <label class="fonts">TOTAL: @ViewBag.totalrequest</label>
+        </div>
+    </div>
+    @* =========================================================================================== *@
+
+
+    @* ==================== MAIN CONTENT =========================== *@
+    <div class="container " style="width: 98%; height: 50vh; margin-left: 10px; margin-top: 20px; background-color: white;">
+
+        <div id="headerMainContent" style="margin-top: 10px;margin-left: 10px">
+            <label class="formLabels"> List of Submitted IPCR request </label>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 100px">Rec. #</th>
+                    <th style="width: 500px">Name</th>
+                    <th style="width: 150px">Division</th>
+                    <th style="width: 150px">Status</th>
+                    <th style="width: 150px"><center>Actions</center></th>
+                </tr>
+            </thead>
+        </table>
+        <div class="my-custom-scrollbar" style="height: 60vh">
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="items in requestsIPCR " >
+                        <td style="width: 100px" ng-model="">{{$index+1}}</td>
+                        <td style="width: 500px" ng-model="">{{items.F_Name}}</td>
+                        <td style="width: 150px" ng-model="">{{items.divisionName}}</td>
+                        <td style="width: 150px; text-indent:5px;">{{getStatus(items.r_Status)}}</></td>
+                        <th style="width: 150px;text-align:center"><button class="no-border" style="background-color:white"><i ng-click="getList(items.r_ipcrId)" class="icon icon-eye" style="color: blue" data-toggle="modal" data-target="#showRequestContent"></i></button></></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @* MODAL SECTION STARTS *@
+    <div class="modal fade" id="showRequestContent" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="" ng-init="">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary" id="modalheader">
+                    <h5 class="modal-title " id="ModalTitle" style="color:white"><strong>CONTENT OF REQUEST</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="" style="color:white">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table table-columned">
+                        <tbody>
+                            <tr>
+                                <td style="width: 100px">
+                                    <strong> OFFICE </strong>
+                                </td>
+                                <td ng-model="" colspan="3">
+                                    {{ipcr_ListItems[0].officeName}} ({{ipcr_ListItems[0].officeNameShort}})
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100px">
+                                    <strong> NAME </strong>
+                                </td>
+                                <td ng-model="" colspan="3">
+                                    <strong> {{ipcr_ListItems[0].F_Name}} </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100px">
+                                    <strong> Others </strong>
+                                </td>
+                                <td ng-model="" colspan="3">
+                                    {{ipcr_ListItems[0].year}} - {{getSem(ipcr_ListItems[0].semester)}} Semester  
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="table-responsive" style="display: block; overflow-y: hidden; ">
+                        <div class="my-custom-scrollbar">
+                            <table class="table table-bordered" style="">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="lbl_opcrTableH">
+                                            MFO
+                                        </th>
+                                        <th rowspan="2" class="lbl_opcrTableH">
+                                            SUCCESS INDICATORS
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody ng-repeat="(keyopcr , item) in ipcr_ListItems  | unique: 'i_MFOId'| groupBy:'categoryId'| orderBy:'categoryId'">
+                                    <tr ng-show="item.categoryId_CHANGED" style="background-color: #fcfcfc;">
+                                        <td colspan="8">
+                                            <span><i>{{item.description}} Function</i></span>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:30px" rowspan="{{rowCount(item.i_MFOId,item)}}">
+                                            <span class="btn-rounded root-num"> {{keyopcr + 1}}</span>
+                                        </td>
+                                        <td rowspan="{{rowCount(item.i_MFOId,item)}}">
+                                            <span ng-if="item.CLId != null"><b>{{item.CLDesc}}</b> </span>
+                                            <span ng-if="item.CLId == null"><b> {{item.MFO}}</b></span>
+
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="(key , itemList) in ipcr_ListItems| filter:{i_MFOId: item.i_MFOId}">
+                                        <td>
+                                            {{itemList.i_target}}   {{itemList.indicator}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <div ng-if="ipcr_ListItems[0].r_Status == 0" class="modal-footer">
+                        <button id="btn_reject" type="button" class="btn btn-warning" ng-click="updateRequest(ipcr_ListItems[0],3)">REJECT</button>
+                        <button id="btn_approve" type="button" class="btn btn-primary" ng-click="updateRequest(ipcr_ListItems[0], 1)">APPROVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @* END OF MODAL SECTION *@
+
+</div>
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SPMS_IPCR/SPMS_IPCR.js"></script>
+
+
+}

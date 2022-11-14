@@ -1,0 +1,376 @@
+﻿
+
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from demo.interface.club/limitless/layout_2/LTR/default/layout_navbar_sidebar_fixed.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 22 May 2018 07:33:32 GMT -->
+<!-- Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HRIS</title>
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+
+    <link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" />
+    <link href="~/Content/assets/icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/core.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/components.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/colors.css" rel="stylesheet" />
+    <script src="~/Content/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <link href="~/Content/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+    <style>
+        .navigation > li ul li a {
+            padding: 7px 20px;
+            padding-left: 51px;
+            min-height: 20px;
+        }
+
+        .navigation > li.active > a, .navigation > li.active > a:focus, .navigation > li.active > a:hover {
+            background-color: #205c8ca8;
+            color: #fff;
+        }
+
+        .logoutdrp > li > a:hover,
+        .logoutdrp > li > a:focus {
+            text-decoration: none !important;
+            color: #333 !important;
+            background-color: #f5f5f5 !important;
+        }
+        .h-5 {
+            height: 50px;
+        }
+
+        @*=============*@
+        .collapsible {
+            padding-left: 38px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+            .collapsible:hover {
+              
+            }
+
+        .contentSublist {
+            padding-left: 58px;
+            padding-bottom: 0px;
+            display: block;
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- /theme JS files -->
+</head>
+<body class="navbar-top" data-ng-app="myApp">
+    <!-- Main navbar -->
+    <div class="navbar navbar-default navbar-fixed-top header-highlight">
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="~/Home/Dashboard"><img src="~/Content/assets/images/HRISLogoLight.png" alt="" style="height:22px!important; margin-top:0px!important; font-weight:700!important; "></a>
+
+            <ul class="nav navbar-nav visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+                <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+
+            </ul>
+            <p class="navbar-text"><span class="label bg-success">Online</span></p>
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-bubbles4"></i>
+                        <span class="visible-xs-inline-block position-right">Messages</span>
+                        <span class="badge bg-warning-400">1</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-content width-350">
+                        <div class="dropdown-content-heading ">
+                            <span class="text-bold">Messages</span>
+                            @*<ul class="icons-list">
+                                    <li><a href="#"><i class="icon-compose"></i></a></li>
+                                </ul>*@
+                        </div>
+                        <ul class="media-list dropdown-content-body">
+                            <li class="media">
+                                <div class="media-left">
+                                    <img src="~/Content/assets/images/demo/images/eap.jpg" class="img-circle img-sm" alt="" />
+                                </div>
+                                <div class="media-body">
+                                    <a href="#" class="media-heading">
+                                        <span class="text-semibold text-blue-800">Edwin A. Palero</span>
+                                        @*<span class="media-annotation pull-right">04:58</span>*@
+                                    </a>
+                                    <span class="text-muted">Welcome to HRIS version 2.0</span>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="dropdown-content-footer">
+                            <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown dropdown-user">
+
+
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span><i class="icon-cog3"></i></span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+
+                        <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+                        <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
+                        <li class="divider"></li>
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li><a href="~/Account/Logout"><i class="icon-switch2"></i> Logout</a></li>
+                        }
+
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /main navbar -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main sidebar-fixed">
+                <div class="sidebar-content">
+                    <!-- User menu -->
+                    <div class="sidebar-user">
+                        <div class="category-content">
+                            <div class="media">
+
+                                @*@{
+                                        var imageBase64 = HttpContext.Current.Session["UImage"];
+                                        <a href="#" class="media-left"><img src="@imageBase64" class="img-circle img-sm" alt=""></a>
+                                    }*@
+
+
+                                <div class="media-body">
+                                    @*    <span class="media-heading text-semibold">@Session["_FullName"].ToString()</span>*@
+                                    <div class="text-muted">
+                                        <span style="font-family:'Arial Narrow', Arial, sans-serif">
+                                            @*@Session["_PositionTitle"].ToString()*@
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="media-right media-middle">
+                                    <ul class="icons-list">
+                                        <li>
+                                            <a href="#"><i class="icon-cog3"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /user menu -->
+                    <!-- Main navigation -->
+                    <div class="sidebar-category sidebar-category-visible">
+                        <div class="category-content no-padding">
+                            <ul class="navigation navigation-main navigation-accordion">
+
+
+                                @{
+
+                                    List<DDNHRIS.Models.MainMenuViewModel> myList = (List<DDNHRIS.Models.MainMenuViewModel>)Session["MenuList"];
+
+                                    if (myList != null)
+                                    {
+                                        foreach (var main in myList)
+                                        {
+                                            <li class="navigation-header" style="margin-bottom: 0px; line-height: 1; padding-bottom: 0px !important"><span class="text-semibold" style="font-size:14px!important; ">@main.mainMenuName</span> <i class="icon-menu"></i></li>
+                                            foreach (var item in main.menuList)
+                                            {
+                                                <li id="@item.groupCode">
+                                                    @if (item.levelNo == 0)
+                                                    {
+                                                        <a href="~/@item.controllerName/@item.methodName">
+                                                            <i class="@item.groupIcon"></i>&nbsp;<span></span>
+                                                            @item.menuName
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#">
+                                                            <i class="@item.groupIcon"></i>&nbsp;<span>@item.groupName</span>
+                                                        </a>
+                                                    }
+
+                                                    @if (item.levelNo == 1)
+                                                    {
+                                                        <ul>
+                                                            @foreach (var i in item.menuLink)
+                                                            {
+                                                                <li id="@i.menuCode" class="mySelMenu"><a href="~/@i.controllerName/@i.methodName">@i.menuName</a></li>
+                                                            }
+                                                        </ul>
+                                                    }
+                                                    else if (item.levelNo == 2)
+                                                    {
+
+                                                        <ul>
+                                                            @foreach (var itm in item.subGroupList)
+                                                            {
+
+                                                                <li class="mySelMenu">
+                                                                    <a href="#"><i class="@itm.subFontIcon"></i> @itm.subGroupName</a>
+                                                                    <ul>
+                                                                        @foreach (var i in itm.menuLink)
+                                                                        {
+                                                                            <li id="@i.menuCode" class=""><a href="~/@i.controllerName/@i.methodName">&nbsp;&nbsp; @i.menuName</a></li>
+                                                                        }
+                                                                    </ul>
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    }
+                                                </li>
+                                            }
+
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <li class="navigation-header" style="margin-bottom: 0px; line-height: 1; padding-bottom: 0px !important"><span class="text-semibold" style="font-size:14px!important; ">SPMS</span> <i class="icon-menu"></i></li>
+                                        @*                                        <li class=" list-group-item"><a href="http://localhost:2025/MFO/Index">MFO Standard</a></li>
+                                        *@
+
+                                        <li class="">
+                                            <a href="#" class="has-ul"><i class="icon-stack2"></i> <span>MAJOR FINAL OUTPUT</span></a>
+                                            <ul class="hidden-ul" style="display: none;">
+                                                <li>
+                                                    <a>MFO (Unique)</a>
+                                                    <ul>
+                                                        <li><a href="../MFOStandard/Office"><i class="icon-list"></i>List of MFO</a></li>
+                                                        <li><a href="../MFOStandard/RequestChanges"><i class="icon-clippy"></i>Calibration</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="../MFOStandard/CommonMFO">MFO (Common)</a></li>
+
+                                            </ul>
+                                        </li>
+
+                                        <li class="">
+                                            <a href="#" class="has-ul"><i class="icon-stack2"></i> <span>OPCR</span></a>
+                                            <ul class="hidden-ul" style="display: none;">
+                                                <li><a href="../OPCR/Target">Target</a></li>
+                                                <li><a href="../OPCR/Actual">Actual</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="">
+                                            <a href="#" class="has-ul"><i class="icon-stack2"></i> <span>DPCR</span></a>
+                                            <ul class="hidden-ul" style="display: none;">
+                                                <li><a href="../SPMS_DPCR/DPCR">Target</a></li>
+                                                <li><a href="../SPMS_DPCR/DPCR_Actual">Actual</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="">
+                                            <a href="#" class="has-ul"><i class="icon-stack2"></i> <span>IPCR</span></a>
+                                            <ul class="hidden-ul" style="display: none;">
+                                                <li><a href="../SPMS_IPCR/SPMS_IPCR">TARGET</a></li>
+                                                <li><a href="../SPMS_IPCR/SPMS_IPCR_ACTUAL">ACTUAL</a></li>
+                                                <li><a href="../SPMS_IPCR/SPMS_IPCR_MPOR">MPOR</a></li>
+                                                <li><a href="../SPMS_IPCR/SPMS_IPCR_SMPOR">SMPOR</a></li>
+                                                <li><a href="../SPMS_IPCR/SPMS_IPCR_SUBMITTED">SUBMITTED IPCRs</a></li>
+                                                <li><a href="../SPMS_IPCR/SPMS_IPCR_RECOMMENDED">RECOMMENDED IPCRs</a></li>
+                                            </ul>
+                                        </li>
+
+
+                                    }
+
+                                }
+
+
+
+
+
+                                <!-- /page kits -->
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /main navigation -->
+                </div>
+            </div>
+            <!-- /main sidebar -->
+            <!-- Main content -->
+
+            <div class="content-wrapper" style="overflow-y: hidden; ">
+                @RenderBody()
+            </div>
+
+
+
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+
+    <script src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+    <script src="~/Content/assets/js/core/libraries/jquery.min.js"></script>
+    <script src="~/Content/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>
+
+    <script src="~/Content/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script src="~/Content/assets/js/core/app.js"></script>
+    <script src="~/Content/assets/js/pages/layout_fixed_custom.js"></script>
+    <script src="~/Scripts/AngularJS/angular1.8.0.min.js"></script>
+    <script src="~/Scripts/AngularJS/myApp.js"></script>
+
+    @RenderSection("JavaScript", false)
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+        
+      
+        $(document).ready(function () {
+
+            @*var g = '@Session["GroupID"]';
+            var el = $('#' + g); el.addClass('active menu-open');*@
+            @*var l = '@Session["menuCode"]';
+        var il = $('#' + l); il.addClass('active');*@
+
+        });
+
+    </script>
+
+</body>
+ 
+</html>

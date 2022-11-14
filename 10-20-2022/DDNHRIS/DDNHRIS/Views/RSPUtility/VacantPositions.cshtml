@@ -1,0 +1,403 @@
+﻿@{
+    ViewBag.Title = "VacantPositions";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+</style>
+
+<div ng-controller="VacantPosition">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">VACANT POSITIONS</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#vacant" data-toggle="tab"><i class="icon-stack-text position-left"></i> Vacant List </a></li>
+                    <li><a href="#summary" data-toggle="tab"><i class="icon-file-check position-left"></i> Summary</a></li>
+                    <li><a href="#byOffice" data-toggle="tab"><i class="icon-home8 position-left"></i> Department</a></li>
+                    <li><a href="#byfunction" data-toggle="tab"><i class="icon-file-text position-left"></i> Print Vacant</a></li>
+
+
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-file-plus position-left"></i>
+                                Option
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" ng-click="showPrintModal()"><i class="icon-file-text2"></i> Preview by Office </a></li>
+                                <li><a href="#" ng-click="generateReport()"><i class="icon-file-text2"></i> Summary Report </a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!--  VACANT POSITION -->
+                        <div class="tab-pane fade in active" id="vacant">
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold text-blue-800">
+                                        VACANT POSITIONS
+                                    </h5>
+                                </div>
+
+                                <table class="table table-bordered table-striped">
+
+                                    <tbody>
+                                        <tr ng-repeat="item in vacantList">
+                                            <td class="text-center" style="width:90px!important;">{{$index+1}}</td>
+                                            <td class="text-center">
+                                                {{item.oldItemNo}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{item.itemNo}}
+                                            </td>
+                                            <td>
+                                                <span class="text-semibold">{{item.positionTitle}} <span class="text-grey-700 text-semibold">({{item.salaryGrade}}/1)</span>  </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-if="item.level == 1" class="text-semibold">1<sup>st</sup></span>
+                                                <span ng-if="item.level == 2" class="text-semibold">2<sup>nd</sup></span>
+                                            </td>
+                                            <td>{{item.shortDepartmentName}}</td>
+                                            <td class="text-center" style="padding:0px 0px 0px 0px;">
+                                                <button class="btn btn-default btn-xs text-blue-800 no-margin" ng-click="printPreview(item)">
+                                                    <i class="icon-printer2"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <!-- /traffic sources -->
+
+                        </div>
+
+                        <!--  VACANT POSITION -->
+                        <div class="tab-pane fade in" id="summary">
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold text-blue-800">
+                                        SUMMARY OF VACANT POSITIONS
+                                    </h5>
+                                </div>
+
+
+                                <table class="table table-bordered ">
+                                    <thead class="text-bold">
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>OFFICE NAME</th>
+                                            <th class="text-center">1<sup>st</sup></th>
+                                            <th class="text-center">2<sup>nd</sup></th>
+                                            <th class="text-center">TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="item in summData">
+                                        <td class="text-center">{{$index+1}}</td>
+                                        <td>{{item.functionName}}</td>
+                                        <td class="text-center">{{item.levelFirst}}</td>
+                                        <td class="text-center">{{item.levelSecond}}</td>
+                                        <td class="text-center">{{item.total}}</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <!-- /traffic sources -->
+
+                        </div>
+
+                        <!--  GENERATED REPORT -->
+                        <div class="tab-pane fade in" id="byOffice">
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <select class="form-control select2 select-Custom text-semibold text-grey-800" ng-model="data.functionCode" style="max-width:500px;" ng-disabled="isLoading"
+                                            ng-options="c.functionCode as c.departmentName for c in department" value="{{c.functionCode}}"
+                                            id="dept" ng-change="onSelectDepartment(data.functionCode)">
+                                        <option value="" selected="" disabled="disabled">-- Select Department--</option>
+                                    </select>
+                                    <div class="heading-elements">
+
+                                    </div>
+                                </div>
+
+
+                                <table class="table table-bordered table-striped table-hover ">
+                                    <thead class="text-bold">
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Old Item No</th>
+                                            <th class="text-center">Item No</th>
+                                            <th class="text-center">Position Title</th>
+                                            <th class="text-center">Level</th>
+                                            <th class="text-center">Rate/Month</th>
+                                            <th class="text-center" style="width:30%;">Remarks</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in vacantPositions">
+                                            <td class="text-center" style="width:90px!important;">{{$index+1}}</td>
+                                            <td class="text-center">
+                                                {{item.oldItemNo}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{item.itemNo}}
+                                            </td>
+                                            <td>
+                                                <span class="text-semibold">{{item.positionTitle}} <span class="text-grey-700 text-semibold">({{item.salaryGrade}}/1)</span>  </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-if="item.level == 1" class="text-semibold">1<sup>st</sup></span>
+                                                <span ng-if="item.level == 2" class="text-semibold">2<sup>nd</sup></span>
+                                            </td>
+                                            <td class="text-right">
+                                                {{item.rateMonth | number:2}}
+                                            </td>
+                                            <td>
+                                                {{item.vacatedBy}} <small class="label label-primary">{{item.vacatedStat}}</small>
+                                                
+                                            </td>
+
+                                        </tr>
+
+                                        <tr ng-show="isLoading == true">
+                                            <td colspan="7">
+                                                <span> Loading... <i class="icon-hour-glass"></i></span>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                            <!-- /traffic sources -->
+
+                        </div>
+
+                        <!--  GENERATED REPORT -->
+                        <div class="tab-pane fade in" id="byfunction">
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold text-blue-800">
+                                        Printing Vacant Position
+                                    </h5>
+
+                                </div>
+
+
+                                <table class="table table-bordered ">
+                                    <thead class="text-bold">
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>REPORT CODE</th>
+                                            <th>REPORT DATE</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="item in reportList">
+                                        <td class="text-center">{{$index+1}}</td>
+                                        <td>{{item.reportCode}}</td>
+                                        <td>{{item.reportDate}}</td>
+                                        <td class="text-center">
+                                            <span class="text-blue-800 cursor-pointer" ng-click="printSummary(item)"><i class="icon-printer2 "></i> Summary</span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <!-- /traffic sources -->
+
+                        </div>
+
+                        <!-- SUMMARY BY MONTH -->
+                        @*<div class="tab-pane fade" id="generated">
+
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <!-- User details -->
+                                        <div class="content-group">
+
+                                            <div class="panel  no-border-radius-top">
+                                                <!-- Navigation -->
+                                                <div class="panel-heading">
+                                                    <h6 class="panel-title">Month</h6>
+                                                    <div class="heading-elements">
+                                                        <a href="#" class="heading-text text-size-mini"><i class="icon-database-refresh"></i> </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="list-group no-border no-padding-top" ng-repeat="item in nosiPrinted">
+                                                    <a href="#" ng-click="selectMonth(item)" class="list-group-item"><i class="icon-folder4"></i> {{item.monthYear}}<span class="badge badge-primary">{{item.count}}</span> </a>
+                                                </div>
+
+                                                <!-- /navigation -->
+                                            </div>
+                                        </div>
+
+                                        <!-- /traffic sources -->
+                                    </div>
+
+                                    <div class="col-lg-9">
+
+                                        <!-- Profile info -->
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+
+                                            </div>
+
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr class="text-semibold">
+
+                                                        <th class="text-center">NAME OF APPOINTEE</th>
+                                                        <th class="text-center">SG/STEP</th>
+                                                        <th class="text-center">DATE</th>
+                                                        <th class="text-center" style="width:90px;">
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+
+                                            </table>
+
+                                        </div>
+                                        <!-- /traffic sources -->
+                                    </div>
+                                </div>
+
+
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Primary modal -->
+    <div id="modalPrint" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h6 class="modal-title">
+                        Printing
+                    </h6>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">SELECT OFFICE <span class="text-danger">*</span>  </label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="data.functionCode" style="width:100%;"
+                                        ng-options="c.functionCode as c.functionDesc for c in department" value="{{c.functionCode}}"
+                                        id="department"></select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="printVacantByOffice(data)">
+                        <i class="icon-printer2"></i>
+                        Preview
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPUtility/VacantPosition.js"></script>
+
+    <script>
+        $("#department").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+    </script>
+
+
+}

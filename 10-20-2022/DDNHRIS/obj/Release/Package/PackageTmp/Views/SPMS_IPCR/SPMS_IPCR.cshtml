@@ -1,0 +1,982 @@
+﻿
+@{
+    ViewBag.Title = "SMPS_IPCR";
+}
+<style type="text/css">
+
+
+    .my-custom-scrollbar {
+        position: relative;
+        height: 50vh;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+
+    .lbl_opcrTableH {
+        text-align: center;
+    }
+
+    .searchBar {
+        width: 50%;
+    }
+
+    .performanceTD {
+        height: 45px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .bi {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .bi {
+        left: 0px;
+    }
+
+    .right-addon .bi {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    .inheritBg {
+        background-color: inherit
+    }
+
+    select {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        select::-ms-expand {
+            display: none;
+        }
+
+    .selectFilter {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        .selectFilter::-ms-expand {
+            display: none;
+        }
+
+    .lg-btn-add-mfo {
+        border: dashed 2px;
+        font-size: 40px;
+        padding: 10px;
+        width: 350px;
+        height: 120px;
+        margin-top: 300px;
+        border-color: lightgray;
+        border-radius: 30px
+    }
+
+    .lg-txt-add-mfo {
+        color: dimgray;
+        font-family: Bahnschrift Light
+    }
+
+    .lg-btn-sel-mfo {
+        border: dashed 2px;
+        font-size: 40px;
+        padding: 10px;
+        width: 350px;
+        height: 120px;
+        margin-top: 300px;
+        border-color: lightgray;
+        border-radius: 30px
+    }
+
+    .lg-txt-sel-mfo {
+        color: dimgray;
+        font-family:
+    }
+
+    .div-bg {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .cat-style {
+        border: solid;
+        border-color: #EEEEEE;
+        height: 36px;
+        width: 232px;
+        padding-left: 1px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .i-style {
+        background-color: #EEEEEE;
+        padding: 6px;
+    }
+
+    .sel-style {
+        width: 150px;
+        height: 30px;
+        border: none
+    }
+
+    .root-num {
+        background-color: #088fbb;
+        color: white;
+        padding: 3px 8px 3px 8px;
+    }
+
+    .btn-sublist {
+        background-color: #e8f9fa;
+        color: #7ABACC;
+        font-size: 23px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-add-mfo {
+        background-color: #e8f9fa;
+        color: dodgerblue;
+        font-size: 23px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-update {
+        background-color: #dafad7;
+        color: #48ad3e;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-remove {
+        background-color: #fcf2f2;
+        color: red;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-addots {
+        background-color: #e8f9fa;
+        color: dodgerblue;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-eye {
+        background-color: #ccebff;
+        color: #007acc;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .cl-num {
+        background-color: #7ABACC;
+        color: white;
+        padding: 3px 6px 3px 6px;
+        margin-left: 10px
+    }
+
+    .btn-update-cl {
+        background-color: #dafad7;
+        color: #48ad3e;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+</style>
+<div ng-controller="SPMS_IPCR" style="margin: 5px;">
+    <div class="div-bg">
+        <center>
+            <div id="heading">
+                <h4><b>{{officeName.officeName}}</b></h4><br />
+                <h5><strong>INDIVIDUAL PERFORMANCE COMMITMENT AND REVIEW (IPCR)</strong></h5>
+            </div>
+        </center>
+        @*<div class="cat-style">
+            <i class="bi bi-funnel i-style"></i>
+            <select ng-model="categoryipcr" class="sel-style">
+                <option value="">Filter by Category</option>
+                <option value="1">Strategic Function</option>
+                <option value="2">Core Function</option>
+                <option value="3">Support Function</option>
+            </select>
+            <i class="bi bi-chevron-double-down"></i>
+            <span ng-click="categoryipcr = ''"><i class="bi bi-x i-style"></i></span>
+        </div>*@
+        <br>
+        <div class="table-responsive" style="display: block; overflow-y: hidden; ">
+            <div class="my-custom-scrollbar">
+                <table class="table table-bordered" style="">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="lbl_opcrTableH">
+                                <h5>MFO</h5>
+                            </th>
+                            <th rowspan="2" class="lbl_opcrTableH">
+                                <h5>SUCCESS INDICATORS</h5>
+                            </th>
+
+                            <th rowspan="2" class="lbl_opcrTableH" style="max-width: 180px; width: 180px">
+                                ACTION
+                            </th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody ng-repeat="(keyopcr , item) in list_ipcrwCat  | unique: 'i_MFOId'| groupBy:'categoryId'| orderBy:'categoryId'">
+                        <tr ng-show="item.categoryId_CHANGED" style="background-color: #fcfcfc;">
+                            <td colspan="8">
+                                <span><i>{{item.description}} Function</i></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:30px" rowspan="{{rowCount(item.i_MFOId,item)}}">
+                                <span class="btn-rounded root-num"> {{keyopcr + 1}}</span>
+                            </td>
+                            <td rowspan="{{rowCount(item.i_MFOId,item)}}">
+                                <span ng-if="item.CLId != null"><b>{{item.CLDesc}}</b> </span>
+                                <span ng-if="item.CLId == null"><b> {{item.MFO}}</b></span>
+
+                            </td>
+                        </tr>
+                        <tr ng-repeat="(key , itemList) in list_ipcrwCat| filter:{i_MFOId: item.i_MFOId}">
+
+                            <td>
+                                {{itemList.i_target}}   {{itemList.indicator}}
+                            </td>
+                            <td>
+                                <div ng-show="isVisible(itemList.r_Status)">
+                                    <i ng-click="getData(itemList)" data-toggle="modal" data-target="#add_OTS" class="bi bi-file-earmark-diff btn  btn-addots btn-rounded"></i>
+                                    <i ng-click="showOTS(itemList);setDefault()" data-toggle="modal" data-target="#ListOfOTS" class="bi bi-eye btn  btn-eye btn-rounded"></i>
+                                    <i ng-click="removeSI(itemList)" class="bi bi-trash3 btn btn-rounded btn-remove"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div style="padding: 5px;">
+        <div class="btn-group dropup " ng-show="showSubmitButton(list_ipcrwCat[0].r_Status)">
+            <button type="button" class="btn btn-primary" style="width: 160px" ng-click="submitRequest(list_ipcrwCat[0].r_ipcrId)"> SUBMIT TARGET</button>
+        </div>
+        <div class="btn-group dropup " ng-show="isVisible(list_ipcrwCat[0].r_Status)">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width: 180px"><i class="icon-cog5 position-left"></i> PRINT IPCR <span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-left bg-slate">
+                <li><a ng-click="prt_ipcrtarget()"><i class="bi bi-printer"> </i>TARGET</a></li>
+                <li><a ng-click="prt_ipcrstndrd()"><i class="bi bi-printer"> </i>STANDARD</a></li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="refreshModal()" data-toggle="modal" data-target="#assignMFO" style="float: right; margin-right: 30px;margin-top: 15px">
+            <i class="bi bi-arrow-left-right"></i> SELECT MFO
+        </button>
+        @* <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMFOForm" style="float: right; margin-right: 30px;margin-top: 15px">
+            <i class="bi bi-plus-lg"> </i>ADD MFO
+        </button>*@
+
+    </div>
+
+    <!------------------------------------------------------------------------------------- ASSIGN MFO MODAL --------------------------------------------------------------------------------------------------------------------------------->
+
+    <div class="modal fade" id="assignMFO" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">SELECT MFO</h5>
+                    <i ng-click="refreshModal()" class="bi bi-arrow-counterclockwise btn btn-rounded" style="position:absolute; right: 40px; top: 15px; background-color: #e6ffff; color: #00aeff; padding: 2px 6px 2px 6px; font-size: 20px "></i>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="table-responsive" style="display: block; overflow-x: hidden; height:40%;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <i class="bi bi-search" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                                    <input type="text" ng-model="search['MFO']" placeholder="Search MFO . . ." class="form-control" style="padding-left:30px" />
+                                    <span ng-click="search = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px; cursor: pointer;"></i></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-control">
+                                        <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                                        <select ng-model="category" style="position: absolute; left: 40px; top: 1px; height: 34px; border: none; width: 82%; cursor: pointer;" class="form-control">
+                                            <option value=""> Filter by Category </option>
+                                            <option value="1">Strategic Function</option>
+                                            <option value="2">Core Function</option>
+                                            <option value="3">Support Function</option>
+                                        </select>
+                                        <i class="bi bi-chevron-double-down" style=" padding: 6px; position: absolute; right: 45px; top: 2px"></i>
+                                        <span ng-click="category = ''"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px; cursor: pointer;"></i></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><br />
+                        <div class="my-custom-scrollbar">
+                            <table class="table table-striped">
+                                <thead style="background-color: #A2B5BB">
+                                    <tr>
+                                        <td>
+                                            <center>CATEGORY</center>
+                                        </td>
+                                        <td>
+                                            <center>MFO</center>
+                                        </td>
+                                        <td>
+                                            <center>SUCCESS INDICATORS</center>
+                                        </td>
+                                        <td>
+                                            <center>TARGET</center>
+                                        </td>
+                                        <td style="width: 150px">
+                                            <center>REMAINING</center>
+                                        </td>
+                                        <td>
+                                            <center>COMMITTED</center>
+                                        </td>
+                                        <td style="width: 130px">
+                                            <center>ACTION</center>
+                                        </td>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody ng-repeat="(key,assignMFO) in ipcr| filter: {MFOId: '!!'} | filter: {target: '!!'} | filter: search | filter: {categoryId: category} | filter:{divisionId:divisioncat} |unique: 'MFOId' | orderBy:'categoryId'">
+
+                                    <tr ng-style="assignMFO.isCLroot == 1 && {'background-color':'#F4F4F2'} || assignMFO.isCL == 1   && {'background-color': '#F4F4F2'}  ||  {'background-color': '#F9F9F9'} ">
+                                        <td rowspan="{{rowCount(assignMFO.MFOId,assignMFO)}}"><i ng-if="assignMFO.isCL !== 1">{{assignMFO.description}}</i></td>
+                                    </tr>
+
+                                    <tr ng-style="assignMFO.isCLroot == 1 && {'background-color':'#F4F4F2'} || assignMFO.isCL == 1   && {'background-color': '#F4F4F2'}  ||  {'background-color': '#F9F9F9'} ">
+                                        <td rowspan="{{rowCount(assignMFO.MFOId,assignMFO)}}"><b>{{assignMFO.MFO}}</b></td>
+                                    </tr>
+                                    <tr ng-if="ind.target != null" ng-repeat="ind in ipcr |  filter: {MFOId: assignMFO.MFOId} | unique: 'indicatorId' " ng-style="assignMFO.isCLroot == 1 && {'background-color':'#F4F4F2'} || assignMFO.isCL == 1   && {'background-color': '#F4F4F2'}  ||  {'background-color': '#F9F9F9'} ">
+                                        <td><b><i ng-style="ind.target == 0 ? myStyle={'color':'red'}:''"></i></b>  {{ind.indicator}} </td>
+                                        <td>{{ind.target}}</td>
+
+                                        <td>
+                                            <!--REMAINING COLUMN-->
+                                            <div ng-if="ind.committed !== committed ">
+                                                <div ng-if="committed > ind.committed">
+                                                    <input id="tRemaining{{key}}" class="form-control no-border remainingcss" style="background-color:inherit" type="number" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" ng-model="addminus = ind.tRemaining - (committed - ind.committed) " readonly="readonly" />
+                                                </div>
+                                                <div ng-if="committed < ind.committed">
+                                                    <input id="tRemaining{{key}}" class="form-control no-border" style="background-color:inherit" type="number" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" ng-model="addminus = ind.tRemaining + (ind.committed - committed)" readonly="readonly" />
+                                                </div>
+                                            </div>
+
+
+                                            <input class="form-control no-border" style="background-color:inherit" ng-if="ind.committed == committed" ng-model="ind.tRemaining" type="number" ng-value="ind.tRemaining" readonly="readonly" ng-style="assignMFO.isCLroot == 1 ? myStyle={'display':'none'}:''" />
+                                        </td>
+                                        <td style="width: 200px" ng-style="assignMFO.isCLroot == 1 && {'background-color':'#F4F4F2'} || assignMFO.isCL == 1   && {'background-color': '#F4F4F2'}  ||  {'background-color': '#F9F9F9'} ">
+                                            <!--COMMITTED COLUMN-->
+                                            <div class="row">
+
+                                                <div class="col-lg-7" ng-style="assignMFO.isCLroot == 1 ? myStyle={'display':'none'}:''">
+                                                    <input ng-model="committed" class="form-control" type="number" ng-focus="focus='true'" ng-init="committed = ind.committed " />
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <!-- save btn -->
+                                                    <div ng-if="ind.committed !== committed && committed > ind.committed">
+                                                        <span style="display:none">  {{addminus = ind.tRemaining - (committed - ind.committed)}}</span>
+                                                        <div ng-if="addminus < 0" style="position: absolute; width: 205px; background-color: white; padding: 5px; border: 1px solid; border-color: #ffc266; border-radius: 5px; z-index: 100 ">
+
+                                                            <i class="bi bi-exclamation-triangle btn-rounded " style="font-size: 20px; position: absolute; top: 7px; background-color: #fff5e6; color: #ff9900; padding: 0px 6px 0px 6px "></i>
+                                                            <div style="padding-left: 35px"><i>Value must be less than or equal to remaining target.</i></div>
+
+                                                        </div>
+                                                        <div ng-if="addminus >= 0">
+                                                            <i ng-click="saveIPCR(ind, committed); ind.committed = committed; ind.tRemaining = addminus; ind.i_EIC = currentUser; ind.status = true " class="bi bi-sd-card btn-rounded btn" style="background-color: #e6ffe6; color: forestgreen; padding: 5px 10px 5px 10px; font-size: 20px"></i>
+                                                            <span style="display:none">  {{addminus = ind.tRemaining - (committed - ind.committed)}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-if="ind.committed !== committed && committed < ind.committed">
+                                                        <div ng-if="committed < 0" style="position: absolute; width: 150px; height: 40px; background-color: white; padding: 5px; border: 1px solid; border-color: #ff8566; border-radius: 5px; z-index: 100 ">
+                                                            <i class="bi bi-x btn-rounded " style="font-size: 20px; position: absolute; top: 4px; background-color: #ffebe6; color: #ff3300; padding: 0px 6px 0px 6px "></i>
+                                                            <div style="padding-left: 38px; padding-top: 5px;"><i>Invalid value.</i></div>
+                                                        </div>
+                                                        <div ng-if="committed >= 0">
+                                                            <i ng-click="saveIPCR(ind, committed); ind.committed = committed; ind.tRemaining = addminus;  ind.i_EIC = currentUser; ind.status = true " class="bi bi-sd-card btn-rounded btn" style="background-color: #e6ffe6; color: forestgreen; padding: 5px 10px 5px 10px; font-size: 20px"></i>
+                                                            <span style="display:none">  {{addminus = ind.tRemaining + (ind.committed - committed)}}</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td ng-style="assignMFO.isCLroot == 1 && {'background-color':'#F4F4F2'} || assignMFO.isCL == 1   && {'background-color': '#F4F4F2'}  ||  {'background-color': '#F9F9F9'} ">
+                                            <i ng-if="ind.target != ind.tRemaining" ng-click="getUsers(ind)" class="bi bi-person-lines-fill btn btn-eye btn-rounded" data-toggle="modal" data-target="#viewMFO_user"></i>
+                                            <i ng-if="ind.status == true" ng-click="newUnassign(ind); ind.status = 'false'" class="bi bi-trash3 btn btn-rounded btn-remove"></i>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------------------------------------------------------- VIEW USERS MODAL --------------------------------------------------------------------------------------------------------------------------------->
+
+    <div class="modal fade" id="viewMFO_user" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content bg-slate">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">LIST OF EMPLOYEE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <table class="table table-responsive bg-slate-300">
+                        <thead>
+                            <tr>
+                                <th><i class="bi bi-person"></i> EMPLOYEE</th>
+                                <th><i class="bi bi-bullseye"></i> TARGET COMMITTED</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="user in users">
+                            <tr>
+                                <td>
+                                    {{user.i_EIC}}
+                                </td>
+                                <td>
+                                    <center> {{user.i_target}}</center>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------- ADD OTS MODAL --------------------------------------------------------------------------------------------------------------------------------->
+    <!--
+        <div class="modal fade" id="addOTS" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 class="modal-title" id="ModalTitle">OTS ADDING FORM</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+
+                 </div>
+                 <div class="modal-body">
+                     <span style="display:none">
+                         {{otsData.EIC =  otstempdata.i_EIC}}
+                         {{otsData.MFOId = otstempdata.i_MFOId}}
+                         {{otsData.indicatorId = otstempdata.i_indicatorId}}
+                         {{otsData.officeId = otstempdata.officeId}}
+                         {{otsData.targetId = otstempdata.targetId}}
+                         {{otsData.divisionId = otstempdata.divisionId}}
+                     </span>
+                     <label>Output</label>
+                     <textarea ng-model="otsData.output" type="text" class="form-control" style="height: 10vh;"></textarea><br />
+
+                     <div class="row">
+                      <div class="col-lg-4">
+                             <label>Quantity</label>
+                             <select ng-model="otsData.r_quantity" class="form-control">
+                                 <option></option>
+                                 <option>5</option>
+                                 <option>4</option>
+                                 <option>3</option>
+                                 <option>2</option>
+                                 <option>1</option>
+                             </select>
+
+                         </div>
+                         <div class="col-lg-4">
+                             <label>Quality</label>
+                             <select ng-model="otsData.r_quality" class="form-control">
+                                 <option></option>
+                                 <option>5</option>
+                                 <option>4</option>
+                                 <option>3</option>
+                                 <option>2</option>
+                                 <option>1</option>
+                             </select>
+
+                         </div>
+                         <div class="col-lg-4">
+                             <label>Timeliness</label>
+                             <select ng-model="otsData.r_timeliness" class="form-control">
+                                 <option></option>
+                                 <option>5</option>
+                                 <option>4</option>
+                                 <option>3</option>
+                                 <option>2</option>
+                                 <option>1</option>
+                             </select>
+
+                         </div>
+
+                     </div><br />
+                     <div class="row">
+                         <div class="col-lg-6">
+                             <label>Date Started  / Time</label>
+                             <input ng-model="otsData.dateStarted" type="datetime-local" class="form-control" />
+                         </div>
+                         <div class="col-lg-6">
+                             <label>Date Finished / Time</label>
+                             <input ng-model="otsData.dateFinished" type="datetime-local" class="form-control" />
+
+                         </div>
+
+                     </div><br />
+
+                     <div class="row" style="padding-bottom: 30px">
+                         <div class="col-lg-6">
+                             <label>Approve by</label>
+                             <input ng-model="otsData.approvedby" type="text" class="form-control" />
+                         </div>
+                         <div class="col-lg-6">
+                             <center>
+                                 <button ng-click="addOTS(otsData)" class="btn btn-primary" style="width: 420px; height: 50px; margin-top: 20px;">
+                                     SUBMIT
+                                 </button>
+                             </center>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+
+                 </div>
+             </div>
+
+         </div>
+     </div>
+     -->
+    <!------------------------------------------------------------------------------------- SHOW OTS MODAL --------------------------------------------------------------------------------------------------------------------------------->
+    <!--
+    <div class="modal fade" id="showOTS" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">LIST OF OTS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="my-custom-scrollbar">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        #
+                                    </td>
+                                    <td>
+                                        OUTPUT
+                                    </td>
+                                    <td>
+                                        QUANTITY
+                                    </td>
+                                    <td>
+                                        QUALITY
+                                    </td>
+                                    <td>
+                                        TIMELINESS
+                                    </td>
+                                    <td>
+                                        DATE STARTED / TIME
+                                    </td>
+                                    <td>
+                                        DATE FINISHED / TIME
+                                    </td>
+                                    <td>
+                                        TOTAL TIME / DAY ACCUMULATED
+                                    </td>
+                                    <td>
+                                        STATUS
+                                    </td>
+                                    <td>
+                                        APPROVED BY
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="item in show_ots">
+                                <tr>
+                                    <td>
+                                        {{$index + 1}}
+                                    </td>
+                                    <td>
+                                        {{item.output}}
+                                    </td>
+                                    <td>
+                                        {{item.r_quantity}}
+                                    </td>
+                                    <td>
+                                        {{item.r_quality}}
+                                    </td>
+                                    <td>
+                                        {{item.r_timeliness}}
+                                    </td>
+                                    <td>
+                                        {{item.dateStarted}} <input type="datetime" ng-value="item.dateStarted" />
+                                    </td>
+                                    <td>
+                                        <input type="date" ng-model="item.dateFinished" ng-init="item.dateFinished" ng-value="item.dateFinished" /><br />
+                                        <span ng-bind="convertToDate(item.dateFinished) | date:'medium'"></span>
+                                        @*<span>{{'1660615620000'| date:"MM/dd/yyyy 'at' h:mma"}}</span>
+                                            {{item.dateFinished}}*@
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        {{item.status}}
+                                    </td>
+                                    <td>
+                                        {{item.approvedby}}
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>-->
+    <!---- SHOW ADD OTS MODAL----->
+    <div class="modal fade" id="add_OTS" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="" ng-init="">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="modalheader" style="padding: 15px; background-color: dodgerblue">
+                    <h5 class="modal-title" id="ModalTitle" style="color: white"><strong>OUTPUT TRACKING SHEET (OTS)</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="" style="margin-top: -10px; color: white">
+                        <i class="icon icon-close2"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="margin-top: -10px">
+
+                        <table class="table table-columned ">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 200px">
+                                        <strong> MAJOR FINAL OUTPUT </strong>
+                                    </td>
+                                    <td ng-model="" colspan="3">
+                                        {{otstempdata.MFO}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 200px">
+                                        <strong> SUCCESS INDICATOR </strong>
+                                    </td>
+                                    <td ng-model="" colspan="3">
+                                        <strong>{{otstempdata.target}}</strong> {{otstempdata.indicator}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 200px">
+                                        <strong> Other Details </strong>
+                                    </td>
+                                    <td ng-model="" colspan="3">
+                                        2022 - First Semester   |   {{otstempdata.description}} Function
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+
+                        <table class="table table-condensed table-borderless" style="row-gap: -10px">
+
+                            <tbody>
+                                <tr>
+                                    <td style="width: 200px">
+                                        DATE
+                                    </td>
+                                    <td>
+                                        <input type="date" ng-model="dateToday" class="form-control" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 200px">
+                                        QUANTITY
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="ots.r_quantity" class="form-control" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 200px">
+                                        QUALITY
+                                    </td>
+                                    <td>
+                                        @*<input type="number" ng-model="ots.quality" class="form-control" />*@
+                                        <select class="form-control textSize" id="OTS_selectedQly" ng-model="ots.r_quality" onchange="" style="width: 100%">
+                                            <option ng-repeat="ots_std in ots_standard | filter: {targetId: otstempdata.targetId} | filter: {quality: '!!'}" ng-value="{{ots_std.rating}}">{{ots_std.rating}} - {{ots_std.quality}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 200px">
+                                        TIMELINESS
+                                    </td>
+                                    <td>
+                                        @*<input type="number" ng-model="ots.timeliness" class="form-control" />*@
+                                        <select class="form-control textSize" id="OTS_selectedQly" ng-model="ots.r_timeliness" onchange="" style="width: 100%">
+                                            <option ng-repeat="ots_std in ots_standard | filter: {targetId: otstempdata.targetId} | filter: {timeliness: '!!'}" ng-value="{{ots_std.rating}}">{{ots_std.rating}} - {{ots_std.timeliness}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <button id="btn_approve" type="button" class="btn btn-primary" ng-click="addOTS(ots,otstempdata, dateToday | date, month)" style="float: right; margin-right: 25px">ADD</button>
+                        <br />
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--- SHOW LIST OF OTS MODAL ---->
+    <div class="modal fade" id="ListOfOTS" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="" ng-init="" style="">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="modalheader" style="padding: 15px; background-color: dodgerblue">
+                    <h5 class="modal-title" id="ModalTitle" style="color: white"><strong>OUTPUT TRACKING SHEET (OTS)</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="" style="margin-top: -10px; color: white">
+                        <i class="icon icon-close2"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="margin-top: -10px">
+
+                        <table class="table table-columned ">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 200px">
+                                        <strong> MAJOR FINAL OUTPUT </strong>
+                                    </td>
+                                    <td ng-model="" colspan="3">
+                                        {{mfoData.MFO}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 200px">
+                                        <strong> SUCCESS INDICATOR </strong>
+                                    </td>
+                                    <td ng-model="" colspan="3">
+                                        <strong> {{mfoData.i_actQuantity}} </strong> / <strong>{{mfoData.i_target}}</strong> {{mfoData.indicator}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 200px">
+                                        <strong> Other Details </strong>
+                                    </td>
+                                    <td ng-model="" colspan="3">
+                                        {{mfoData.year}} - First Semester   |   {{mfoData.description}} Function
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                        @*<div class="col-lg-2">
+                                <h6 style="color: #003561; margin-bottom: 5px"><strong>OTS TABLE</strong></h6>
+                            </div>*@
+
+                        <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active"
+                                   data-toggle="tab"
+                                   href="#showTableOTS"
+                                   role="tab"
+                                   aria-selected="true">OTS TABLE</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link"
+                                   data-toggle="tab"
+                                   href="#showStandard"
+                                   role="tab"
+                                   aria-selected="false"
+                                   ng-click="getStandard(mfoData.targetId)">INDICATOR STANDARD</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content clearfix" id="SPMS-content">
+                            <div class="tab-pane active" id="showTableOTS">
+
+                                <div class="row">
+                                    <div class="col-lg-1" style="width:50px">
+                                        <i ng-click="filterVisbility()" class="bi bi-filter btn btn-rounded" style="background-color: #f5f7fa; color: #84b3fa; font-size: 20px; padding: 5px 10px 5px 10px;"></i>
+                                    </div>
+                                    <div class="col-lg-2" ng-hide="filterShow">
+                                        <p style="margin-top: 10px">TABLE FILTER</p>
+                                    </div>
+                                    <div ng-show="filterShow">
+                                        <div class="col-lg-5">
+                                            <div class="box" style="border: solid; border-color: #EEEEEE; height: 36px; width: 232px; padding-left: 1px; border-radius: 5px;">
+                                                <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px;"></i>
+                                                <select ng-change="setDefault()" style="width: 150px; height: 30px; border:none" class="selectFilter" id="selectedYear" ng-model="s_month">
+                                                    <option value="1">January</option>
+                                                    <option value="2">February</option>
+                                                    <option value="3">March</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">August</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">October</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">December</option>
+                                                </select>
+                                                <i class="bi bi-chevron-double-down"></i>
+                                                <span ng-click="dropdownClrCat()"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; "></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-custom-scrollbar">
+
+                                    <table class="table table-striped">
+                                        <thead class="form-group">
+                                            <tr>
+                                                <td><strong> DATE </strong></td>
+                                                <td><center><strong> QUANTITY </strong></center></td>
+                                                <td><center><strong> QUALITY </strong></center></td>
+                                                <td><center><strong> TIMELINESS </strong></center></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="otsrecord in show_ots | filter:{month: s_month}" ng-init="getTotalQty(otsrecord.r_quantity)">
+                                                <td ng-model="otsrecord.dateCreated">{{formatDateToString(otsrecord.dateCreated) | date}}</td>
+                                                <td ng-model="otsrecord.r_quantity"><center>{{otsrecord.r_quantity}}</center></td>
+                                                <td ng-model="otsrecord.r_quality"><center>{{otsrecord.r_quality}}</center></td>
+                                                <td ng-model="otsrecord.r_timeliness"><center>{{otsrecord.r_timeliness}}</center></td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td style="text-align:right">
+                                                    <strong>
+                                                        TOTAL:
+                                                    </strong>
+                                                </td>
+                                                <td ng-model="total_qty" style="text-align:center;">
+                                                    <strong>{{total_qty}}</strong>
+                                                </td>
+                                                <td ng-model="" style="text-align:center">
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            @*<tr>
+                                                    <td style="text-align:right">
+                                                        <strong>
+                                                            EQUIVALENT :
+                                                        </strong>
+                                                    </td>
+                                                    <td ng-model="equiv_qty" style="text-align:center">
+                                                        {{equiv_qty}}
+                                                    </td>
+                                                    <td ng-model="" style="text-align:center">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>*@
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane fade" id="showStandard">
+                                <div class="my-custom-scrollbar">
+
+                                    <table class="table table-striped">
+                                        <thead class="form-group">
+                                            <tr>
+                                                <td><strong> RATING </strong></td>
+                                                <td><center><strong> QUANTITY </strong></center></td>
+                                                <td><center><strong> QUALITY </strong></center></td>
+                                                <td><center><strong> TIMELINESS </strong></center></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="std in show_standard">
+                                                <td ng-model="std.rating">{{std.rating}}</td>
+                                                <td ng-model="std.quantity"><center>{{std.quantity}}</center></td>
+                                                <td ng-model="std.quality"><center>{{std.quality}}</center></td>
+                                                <td ng-model="std.timeliness"><center>{{std.timeliness}}</center></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SPMS_IPCR/SPMS_IPCR.js"></script>
+
+
+}

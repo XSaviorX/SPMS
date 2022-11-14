@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "MonthlySavings";
+}
+
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+<div ng-controller="MonthlySavings">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">PS MONTHLY SAVINGS</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li><a href="~/Home/Dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li><a href="#">R.S.P</a></li>
+                <li class="active">Plantilla</li>
+            </ul>
+            <ul class="breadcrumb-elements">
+
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear position-left"></i>
+                            Settings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="~/Plantilla/Proposed"><i class="icon-user-lock"></i> Proposed Plantilla</a></li>
+                            <li><a href="~/RSPUtility/VacantPositions"><i class="icon-accessibility"></i> Vacant Positions</a></li>
+                        </ul>
+                    </li>*@
+
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+        <!-- Form horizontal -->
+        <div class="panel panel-flat">
+
+            <div class="panel-body" style="min-height:300px;">
+
+                <div class="form-group">
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <select class="form-control select2  select-Custom" ng-model="departmentCode"
+                                        ng-change="onChangeData()"
+                                        ng-options="c.departmentCode as c.departmentNameShort for c in department" value="{{c.departmentCode}}" id="dept"></select>
+                                
+                            </div>
+
+                            <div class="col-lg-2">
+
+                                <select class="form-control select2  select-Custom" ng-model="monthYearCode"
+                                        ng-change="onChangeData()"
+                                        ng-options="c.monthYearCode as c.monthYearName for c in monthList" value="{{c.monthYearCode}}" id="month"></select>
+
+                            </div>
+
+                            
+
+                            <div class="col-lg-4">
+
+                                <button class="btn btn-primary bg-blue-800" ng-disabled="bDisable"  ng-click="createSavingsReport()">
+                                    View Report
+                                </button>
+
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-default  text-blue-800 btn-sm" ng-disabled="bPrintDisable" ng-click="printPreview()"> <i class="icon-printer2"></i> Print Preview </button>
+                                </div>
+
+                                @*<div class="btn-group pull-right">
+                                        <button type="button" class="btn btn-default dropdown-toggle text-blue-800 btn-sm" data-toggle="dropdown" ng-disabled="bDisable"> <i class="icon-printer2"></i> <span class="caret"></span></button>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li ng-click="openModalMonthlySaving()"><a href="#"><i class="icon-printer4"></i> Monthly Savings</a></li>
+                                        </ul>
+                                    </div>*@
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-12 table-responsive">
+
+                            <h4 class="page-title text-danger text-bold" ng-show="isLoading == true">
+                                Wait, loading data...
+                            </h4>
+
+                            <table class="table table-striped table-responsive">
+                                <tr ng-repeat="item in savingsList">
+
+                                    <td class="text-center" style="width:70px!important;">
+                                        {{$index+1}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{item.itemNo}}
+                                    </td>
+                                    <td>
+                                        {{item.positionTitle}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{item.salaryGrade}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{item.monthlyRate}}
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /form horizontal -->
+
+    </div>
+    <!-- /content area -->
+    <!-- Modal JOB DESCRIPTION -->
+    <div class="modal fade" id="modalSelectMonth" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard3"></i>  Select Month  </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <select class="form-control select2  select-Custom" ng-model="monthYearCode"
+                                        ng-options="c.monthYearCode as c.monthYearName for c in monthList" value="{{c.monthYearCode}}" id="month"></select>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-click="createSavingsReport()"> Create Report</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section JavaScript{
+
+
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPUtility/MonthlySavings.js"></script>
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script>
+
+        $("#dept").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+    </script>
+
+}

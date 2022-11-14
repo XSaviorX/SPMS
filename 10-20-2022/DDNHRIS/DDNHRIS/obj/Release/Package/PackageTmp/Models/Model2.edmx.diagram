@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec06e3c1638a4399adc0fc3dbcda4a67" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="HRISModel.tAttShiftingEmpScheme" Width="2.25" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISModel.tapp212FamilyBackground" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISModel.tapp212EducLevel" Width="1.5" PointX="7.125" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISModel.tapp212EducBackground" Width="1.5" PointX="8.875" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISModel.tapp212Trainings" Width="1.5" PointX="10.5" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISModel.tappEmployee" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HRISModel.tAttDailyLog" Width="1.5" PointX="3.25" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tAppropriationProj">
+    <Key>
+      <PropertyRef Name="appropProjectId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="budgetYear" Type="int" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" />
+    <Property Name="AIPCode" Type="varchar" MaxLength="30" />
+    <Property Name="fundSourceId" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFO">
+    <Key>
+      <PropertyRef Name="MFOId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFO" Type="text" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFOInd">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicator" Type="text" />
+    <Property Name="target" Type="int" />
+    <Property Name="targetUnit" Type="varchar" MaxLength="20" />
+    <Property Name="targetTypeId" Type="int" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tCommonMFO">
+    <Key>
+      <PropertyRef Name="CMFOId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CMFOId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CMFO" Type="varchar" MaxLength="50" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tCommonMFOInd">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="indicator" Type="varchar" MaxLength="50" />
+    <Property Name="target" Type="int" />
+    <Property Name="targetUnit" Type="varchar" MaxLength="50" />
+    <Property Name="targetTypeId" Type="int" />
+    <Property Name="CMFOId" Type="varchar" MaxLength="50" />
+    <Property Name="officeId" Type="varchar" MaxLength="50" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tOffice">
+    <Key>
+      <PropertyRef Name="officeId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="officeCode" Type="varchar" MaxLength="10" />
+    <Property Name="officeName" Type="varchar" MaxLength="150" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="officeType" Type="int" />
+    <Property Name="tag" Type="int" />
+    <Property Name="sortNo" Type="int" />
+  </EntityType>
+  <EntityType Name="tOfficeDivision">
+    <Key>
+      <PropertyRef Name="divisionId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="divisionId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="divisionName" Type="varchar" MaxLength="150" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <EntityType Name="tOpcrPerformance">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MFOId" Type="varchar" MaxLength="50" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="50" />
+    <Property Name="rating" Type="varchar" MaxLength="50" />
+    <Property Name="quantity" Type="varchar" MaxLength="50" />
+    <Property Name="quality" Type="varchar" MaxLength="50" />
+    <Property Name="timeliness" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tProgram">
+    <Key>
+      <PropertyRef Name="programId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="programId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="aipCode" Type="varchar" MaxLength="30" />
+    <Property Name="programName" Type="varchar" MaxLength="1500" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="functionId" Type="varchar" MaxLength="30" />
+    <Property Name="fundSourceId" Type="varchar" MaxLength="6" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="programIdLF" Type="int" />
+    <Property Name="orderNo" Type="int" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <EntityType Name="tProject">
+    <Key>
+      <PropertyRef Name="projectId" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="projectIdLF" Type="int" />
+    <Property Name="aipReferenceCode" Type="varchar" MaxLength="30" />
+    <Property Name="projectName" Type="varchar" MaxLength="250" />
+    <Property Name="programId" Type="varchar" MaxLength="30" />
+    <Property Name="functionId" Type="int" />
+    <Property Name="fundSourceId" Type="varchar" MaxLength="6" />
+    <Property Name="orderNo" Type="int" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.appropprojectid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="appropprojectid">
+    <Key>
+      <PropertyRef Name="appropProjectId" />
+    </Key>
+    <Property Name="projectName" Type="varchar" MaxLength="250" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="budgetYear" Type="int" />
+    <Property Name="programId" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.loadDataView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="loadDataView">
+    <Key>
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFO" Type="text" />
+    <Property Name="indicator" Type="text" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.mfo_indicator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="mfo_indicator">
+    <Key>
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFO" Type="text" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicator" Type="text" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vCMFOInd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vCMFOInd">
+    <Key>
+      <PropertyRef Name="CMFOId" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="CMFOId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CMFO" Type="varchar" MaxLength="50" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="indicator" Type="varchar" MaxLength="50" />
+    <Property Name="target" Type="int" />
+    <Property Name="officeName" Type="varchar" MaxLength="150" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vDisplayOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vDisplayOPCR">
+    <Key>
+      <PropertyRef Name="officeId" />
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="officeId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFO" Type="text" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicator" Type="text" />
+    <Property Name="rating" Type="varchar" MaxLength="50" />
+    <Property Name="quantity" Type="varchar" MaxLength="50" />
+    <Property Name="quality" Type="varchar" MaxLength="50" />
+    <Property Name="timeliness" Type="varchar" MaxLength="50" />
+    <Property Name="programTypeId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.view_OPCRTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_OPCRTable">
+    <Key>
+      <PropertyRef Name="officeId" />
+      <PropertyRef Name="programId" />
+      <PropertyRef Name="projectId" />
+      <PropertyRef Name="appropProjectId" />
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="officeId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="programId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MFO" Type="text" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicator" Type="text" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="HRISDBModel1StoreContainer">
+    <EntitySet Name="tAppropriationProj" EntityType="Self.tAppropriationProj" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tAppropriationProjMFO" EntityType="Self.tAppropriationProjMFO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tAppropriationProjMFOInd" EntityType="Self.tAppropriationProjMFOInd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tCommonMFO" EntityType="Self.tCommonMFO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tCommonMFOInd" EntityType="Self.tCommonMFOInd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOffice" EntityType="Self.tOffice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOfficeDivision" EntityType="Self.tOfficeDivision" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOpcrPerformance" EntityType="Self.tOpcrPerformance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tProgram" EntityType="Self.tProgram" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tProject" EntityType="Self.tProject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="appropprojectid" EntityType="Self.appropprojectid" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [appropprojectid].[projectName] AS [projectName], 
+    [appropprojectid].[appropProjectId] AS [appropProjectId], 
+    [appropprojectid].[budgetYear] AS [budgetYear], 
+    [appropprojectid].[programId] AS [programId]
+    FROM [dbo].[appropprojectid] AS [appropprojectid]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="loadDataView" EntityType="Self.loadDataView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [loadDataView].[MFOId] AS [MFOId], 
+    [loadDataView].[MFO] AS [MFO], 
+    [loadDataView].[indicator] AS [indicator], 
+    [loadDataView].[target] AS [target], 
+    [loadDataView].[indicatorId] AS [indicatorId]
+    FROM [dbo].[loadDataView] AS [loadDataView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="mfo_indicator" EntityType="Self.mfo_indicator" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [mfo_indicator].[MFOId] AS [MFOId], 
+    [mfo_indicator].[MFO] AS [MFO], 
+    [mfo_indicator].[indicatorId] AS [indicatorId], 
+    [mfo_indicator].[indicator] AS [indicator]
+    FROM [dbo].[mfo_indicator] AS [mfo_indicator]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vCMFOInd" EntityType="Self.vCMFOInd" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vCMFOInd].[CMFOId] AS [CMFOId], 
+    [vCMFOInd].[CMFO] AS [CMFO], 
+    [vCMFOInd].[indicatorId] AS [indicatorId], 
+    [vCMFOInd].[indicator] AS [indicator], 
+    [vCMFOInd].[target] AS [target], 
+    [vCMFOInd].[officeName] AS [officeName], 
+    [vCMFOInd].[officeNameShort] AS [officeNameShort]
+    FROM [dbo].[vCMFOInd] AS [vCMFOInd]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDisplayOPCR" EntityType="Self.vDisplayOPCR" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vDisplayOPCR].[officeId] AS [officeId], 
+    [vDisplayOPCR].[officeNameShort] AS [officeNameShort], 
+    [vDisplayOPCR].[MFOId] AS [MFOId], 
+    [vDisplayOPCR].[MFO] AS [MFO], 
+    [vDisplayOPCR].[indicatorId] AS [indicatorId], 
+    [vDisplayOPCR].[indicator] AS [indicator], 
+    [vDisplayOPCR].[rating] AS [rating], 
+    [vDisplayOPCR].[quantity] AS [quantity], 
+    [vDisplayOPCR].[quality] AS [quality], 
+    [vDisplayOPCR].[timeliness] AS [timeliness], 
+    [vDisplayOPCR].[programTypeId] AS [programTypeId]
+    FROM [dbo].[vDisplayOPCR] AS [vDisplayOPCR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_OPCRTable" EntityType="Self.view_OPCRTable" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_OPCRTable].[officeId] AS [officeId], 
+    [view_OPCRTable].[programId] AS [programId], 
+    [view_OPCRTable].[programTypeId] AS [programTypeId], 
+    [view_OPCRTable].[projectId] AS [projectId], 
+    [view_OPCRTable].[appropProjectId] AS [appropProjectId], 
+    [view_OPCRTable].[MFOId] AS [MFOId], 
+    [view_OPCRTable].[MFO] AS [MFO], 
+    [view_OPCRTable].[indicatorId] AS [indicatorId], 
+    [view_OPCRTable].[target] AS [target], 
+    [view_OPCRTable].[indicator] AS [indicator], 
+    [view_OPCRTable].[officeNameShort] AS [officeNameShort]
+    FROM [dbo].[view_OPCRTable] AS [view_OPCRTable]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

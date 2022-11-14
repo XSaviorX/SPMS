@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tAppropriationProj">
+    <Key>
+      <PropertyRef Name="appropProjectId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="budgetYear" Type="Int32" />
+    <Property Name="projectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AIPCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fundSourceId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFO">
+    <Key>
+      <PropertyRef Name="MFOId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFOInd">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="targetTypeId" Type="Int32" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tOffice">
+    <Key>
+      <PropertyRef Name="officeId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="officeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="officeType" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="sortNo" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tOfficeDivision">
+    <Key>
+      <PropertyRef Name="divisionId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="divisionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tProgram">
+    <Key>
+      <PropertyRef Name="programId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="programId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="aipCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="programName" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="functionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fundSourceId" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="programTypeId" Type="Int32" />
+    <Property Name="programIdLF" Type="Int32" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tProject">
+    <Key>
+      <PropertyRef Name="projectId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="projectIdLF" Type="Int32" />
+    <Property Name="aipReferenceCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="projectName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="programId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="functionId" Type="Int32" />
+    <Property Name="fundSourceId" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="HRISDBEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tAppropriationProjs" EntityType="Self.tAppropriationProj" />
+    <EntitySet Name="tAppropriationProjMFOes" EntityType="Self.tAppropriationProjMFO" />
+    <EntitySet Name="tAppropriationProjMFOInds" EntityType="Self.tAppropriationProjMFOInd" />
+    <EntitySet Name="tOffices" EntityType="Self.tOffice" />
+    <EntitySet Name="tOfficeDivisions" EntityType="Self.tOfficeDivision" />
+    <EntitySet Name="tPrograms" EntityType="Self.tProgram" />
+    <EntitySet Name="tProjects" EntityType="Self.tProject" />
+  </EntityContainer>
+</Schema>

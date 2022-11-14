@@ -1,0 +1,417 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+<div ng-controller="PlantillaCurrent">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">PLANTILLA</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+        @*<div class="breadcrumb-line breadcrumb-line-component">
+                <ul class="breadcrumb">
+                    <li><a href="~/Home/Dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                    <li><a href="#">R.S.P</a></li>
+                    <li class="active">Plantilla</li>
+                </ul>
+                <ul class="breadcrumb-elements">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear position-left"></i>
+                            Settings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="~/Plantilla/Proposed"><i class="icon-user-lock"></i> Proposed Plantilla</a></li>
+                            <li><a href="~/RSPUtility/VacantPositions"><i class="icon-accessibility"></i> Vacant Positions</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>*@
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+        <!-- Form horizontal -->
+        <div class="panel panel-flat">
+
+            <div class="panel-body" style="min-height:300px;">
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <select class="form-control select2  select-Custom" ng-model="deptFunctionCode"
+                                ng-change="functionChange()"
+                                ng-options="c.functionCode as c.departmentName for c in functionList" value="{{c.functionCode}}" id="DeptStructure"></select>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-link dropdown-toggle text-blue-800 btn-sm" data-toggle="dropdown" ng-disabled="bDisable"> <i class="icon-cog3"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="showVacantPosition()"><a href="#"><i class="icon-list"></i> Vacant </a></li>
+                                <li ng-click="showUnfundedPosition()"><a href="#"><i class="icon-list"></i> Unfunded </a></li>
+                                <li class="divider"></li>
+
+                                <li ng-click="printCSCForm('CSC')"><a href="#"><i class="icon-printer2"></i> CSC Format</a></li>
+                                @*<li ng-click="printCSCForm('DBM')"><a href="#"><i class="icon-printer2"></i> DBM Format</a></li>*@
+                                <li ng-click="printVacantPositions()"><a href="#"><i class="icon-printer2"></i> Vacant Positions</a></li>
+
+                                <li ng-click="printUnFundedForm('DBM')"><a href="#"><i class="icon-printer4"></i> DBM Unfunded</a></li>
+
+                            </ul>
+                        </div>
+                        
+                    </div>
+                     
+
+                    <div class="col-lg-12 table-responsive">
+
+                        <h4 class="page-title text-danger text-bold" ng-show="isLoading == true">
+                            Wait, loading data...
+                        </h4>
+                        
+                        <table class="table table-borderless table-responsive">
+                            <tr ng-repeat="item in plantilla" class="no-margin">
+                                <td class="no-padding">
+                                    <label class="text-bold page-title no-margin-top no-margin-bottom" style="margin-top:0px!important"> {{item.structureName}}</label>
+                                    <table class="table table-striped table-responsive">
+                                        <tr ng-repeat="itm in item.positionList">
+                                           
+                                            <td style="width:30%;">
+                                                <span class="label label-danger" ng-show="itm.isFunded == false">{{itm.itemNo}}</span>
+                                                <span ng-show="itm.isFunded == true">{{itm.itemNo}}</span>
+                                                -
+                                                <span class="text-muted text-semibold" ng-show="itm.isFunded == false">{{itm.positionTitle}}</span>
+                                                <span ng-show="itm.isFunded == true">{{itm.positionTitle}}</span>
+                                               
+                                            </td>
+
+                                            <td class="text-center" style="width:20px!important;">
+                                                <span class="text-muted" ng-show="itm.isFunded == false">{{itm.salaryGrade}}/1</span>
+                                                <span ng-show="itm.isFunded == true">{{itm.salaryGrade}}/{{itm.step}}</span>
+                                            </td>
+                                            <td class="text-right" style="width:150px!important;">
+                                                <span class="text-muted" ng-show="itm.isFunded == false"> {{itm.proposeYearRate | number:2}}</span>
+                                                <span ng-show="itm.isFunded == true"> {{itm.proposeYearRate | number:2}}</span>
+                                            </td>
+                                            <td style="width:500px!important;">
+
+                                                <span class="text-danger text-bold" ng-show="itm.fullNameLast == null && itm.isFunded == false">
+                                                    (UNFUNDED)
+                                                    <span ng-show="itm.fundStat == 2"><sup class="text-info-700"><i class="icon-git-merge"></i></sup></span>
+                                                     
+                                                </span>
+                                                <span class="text-primary text-bold" ng-show="itm.fullNameLast == null && itm.isFunded == true">(VACANT)</span>
+                                                <span class="" ng-show="itm.fullNameLast != null">{{itm.fullNameLast}}</span>
+
+                                            </td>
+                                            <td style="width:20px!important;">
+                                                <span ng-show="itm.fullNameLast != null ">  {{formatDate(itm.birthDate)}}</span>
+                                            </td>
+
+                                            <td style="width:200px!important;">
+                                                {{itm.eligibilityName}}
+                                            </td>
+
+                                            <td style="width:20px!important;">
+                                                <span ng-show="itm.fullNameLast != null ">  {{itm.empStatus}}</span>
+                                            </td>
+
+
+                                            <td style="width:20px!important;">
+                                                <span ng-show="itm.fullNameLast != null ">  {{formatDate(itm.origApptDate)}}</span>
+                                            </td>
+                                            <td style="width:20px!important;">
+                                                <span ng-show="itm.fullNameLast != null ">  {{formatDate(itm.lastPromDate)}}</span>
+                                            </td>
+
+                                            <td class="text-center" style="width:10px!important;">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-down12"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            @*<li><a href="#" ng-show="itm.fullNameLast != null && itm.isFunded == true" ng-click="PrintPreview(item.appointmentCode)"><i class="icon-user-check"></i>View Profile</a></li>*@
+                                                            <li><a href="#" ng-click="viewQualification(itm)"><i class="icon-clipboard3"></i> Qualification (Q.S.)</a></li>
+                                                            <li><a href="#" ng-click="viewJobDesc(itm)"><i class="icon-clipboard3"></i> Job Description</a></li>
+                                                            <li class="divider"></li>
+                                                            <li ng-click="fundPosition(itm)"><a href="#" ng-show="itm.isFunded == false"><i class="icon-stack-check text-danger"></i> Fund Position</a></li>
+                                                            <li ng-click="fundPosNextYear(itm)"><a href="" ng-show="itm.isFunded == false"><i class="icon-stack-check text-danger"></i> Fund Next Year</a></li>
+                                                            <li><a href="#" ng-show="itm.isFunded == true  && itm.fullNameLast == null"><i class="icon-stack-cancel text-danger"></i> Unfund Position</a></li>
+                                                            <li class="text-muted" ng-show="itm.isFunded == true && itm.fullNameLast != null"><a href="#" class="text-muted text-grey" ng-disabled="true"><i class="icon-stack-cancel text-muted"></i> Unfund Position</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /form horizontal -->
+
+    </div>
+    <!-- /content area -->
+    <!-- Modal QUALIFICATION STANDARD -->
+    <div class="modal fade" id="modalQualification" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard3"></i> Q.S. <span class="text-bold text-blue-800">{{position.positionTitle}}</span> </h5>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Educaton</label>
+                                <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="4" cols="50" ng-readonly="isReadOnly" ng-model="qStan.QSEducation"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Experience</label>
+                                <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="4" cols="50" ng-readonly="isReadOnly" ng-model="qStan.QSExperience"></textarea>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Training </label>
+                                <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="4" cols="50" ng-readonly="isReadOnly" ng-model="qStan.QSTraining"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom">Eligibility <span class="text-danger"> (for Publication) </span></label>
+                                <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="3" cols="50" ng-readonly="isReadOnly" ng-model="qStan.QSEligibility"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom">Eligibility</label>
+                                <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="3" cols="50" ng-readonly="isReadOnly" ng-model="qStan.QSEligibilityPub"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted no-margin-bottom">Notation</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="qStan.QSNotation" class="form-control text-semibold">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" ng-disabled="bDisable" ng-show="isReadOnly == false" ng-click="setEditMode(0)">Cancel</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="setEditMode(1)" ng-show="isReadOnly == true">Edit</button>
+                    <button type="button" class="btn btn-primary pull-left " ng-disabled="bDisable" ng-show="isReadOnly == false" ng-click="updateQStandard(qStan)">Update Standard</button>
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" ng-show="isReadOnly == true" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal JOB DESCRIPTION -->
+    <div class="modal fade" id="modalJobDescription" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard3"></i>  J.D. <span class="text-bold text-blue-800"> {{position.itemNo}}-{{position.positionTitle}}</span></h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group" ng-if="jdEditMode == false">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <table class="table table-responsive">
+                                    <tr ng-repeat="item in jobDesc">
+                                        <td style="width:30px!important">
+                                            {{item.jobSeqNo}}
+                                        </td>
+                                        <td>
+                                            {{item.jobDesc}}
+                                            <table class="table table-bordered">
+
+                                                <tr ng-repeat="itm in item.jobDescSubList">
+                                                    <td>
+                                                        {{item.jobSeqNo}}.{{itm.subJDNo}} - {{itm.subDesc}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-danger icon-pencil3" style="cursor:pointer;" ng-click="JDEdit()"></span>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+
+                                        <td style="width:50px!important;">
+                                            {{item.percentage}}%
+                                        </td>
+                                        <td style="width:50px!important;">
+                                            <span class="text-danger icon-pencil3" style="cursor:pointer;" ng-click="JDEdit(item)"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="jdEditMode == true">
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="text-muted no-margin-bottom">Job Seq. No.</label>
+                                    <input type="text" ng-readonly="isReadOnly" ng-model="jobDescItem.jobSeqNo" class="form-control text-semibold">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="text-muted no-margin-bottom">Job Description</label>
+                                    <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="3" cols="50" ng-readonly="isReadOnly" ng-model="jobDescItem.jobDesc"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="text-muted no-margin-bottom">Percentage</label>
+                                    <input type="text" ng-readonly="isReadOnly" ng-model="jobDescItem.percentage" class="form-control text-semibold">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary pull-left" ng-disabled="bDisable" ng-show="jdEditMode == false" ng-click="CreateJobDesc()"><i class="icon-plus3"></i> Add Job Desc </button>
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" ng-show="jdEditMode == false" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" ng-show="jdEditMode == true" ng-click="cancelJDEdit()">Cancel</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="jdEditMode == true" ng-click="SaveUpdateJobDesc(jobDescItem)">{{transTag}} Job Description</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal FUNDING POSITION -->
+    <div class="modal fade" id="modalFundingPosition" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">  <span class="text-bold text-blue-800"> Funding Position </span></h5>
+                </div>
+                <div class="modal-body">
+ 
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Item Number <code>NEW</code></label>
+                                <label class="form-control text-semibold">
+                                    {{newItemNo}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted no-margin-bottom">Position Title</label>
+                                <label class="form-control text-semibold">
+                                    {{positionData.positionTitle}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Salary Grade</label>
+                                <label class="form-control text-semibold">
+                                    {{positionData.salaryGrade}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                     
+                </div>
+                <div class="modal-footer">
+                    <label class="text-size-large cursor-pointer">
+                        <input type="checkbox" ng-model="checkStat" /> &nbsp; &nbsp;
+                    </label>
+                    <button type="button" class="btn btn-primary  bg-blue-800" ng-disabled="bDisable || checkStat == false" ng-click="submitPositionForFunding()"><i class="icon-database-add"></i> Update Position </button>
+                    <button type="button" class="btn btn-secondary pull-left " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+@section JavaScript{
+
+
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/Plantilla/Current.js"></script>
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script>
+
+        $("#DeptStructure").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+    </script>
+
+}

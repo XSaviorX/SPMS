@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "AppointeePosting";
+}
+
+@{
+    ViewBag.Title = "List";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 3px 20px;
+        line-height: 1.2;
+        vertical-align: top;
+    }
+</style>
+
+<div ng-controller="AppointeePosting">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4>
+                    <i class="icon-books"></i> <span class="text-semibold">
+                        APPOINTEE POSTING
+                    </span>
+                </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+
+        <!-- Toolbar -->
+        @*<div class="navbar navbar-default navbar-component navbar-xs">
+                <ul class="nav navbar-nav visible-xs-block">
+                    <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                </ul>
+                <div class="navbar-collapse collapse" id="navbar-filter">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#permanent" data-toggle="tab"><i class="icon-stack-text position-left"></i> PERMANENT</a></li>
+                        <li><a href="#coterm" data-toggle="tab"><i class="icon-stack-text position-left"></i> CO-TERMINOUS</a></li>
+
+                    </ul>
+
+                </div>
+            </div>*@
+        <!-- /toolbar -->
+
+    </div>
+
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- APPOINTMENT -->
+                        <div class="tab-pane fade in" id="permanent">
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <i class="icon-arrow-left32"></i>
+                                        PERMANENT APPOINTEE
+                                    </h5>
+
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class=" no-margin-bottom  text-semibold text-muted"> Position </label>
+                                                <select id="position" class="form-control select-Custom text-semibold" ng-model="formApp.publicationItemCode" ng-disabled="isReadOnly" style="width:100%;"
+                                                        ng-options="c.publicationItemCode as c.positionTitle for c in publicationItemList" value="{{c.publicationItemCode}}"
+                                                        ng-change="seletedPosition(formApp.publicationItemCode)">
+                                                    <option value="" selected="">-- Select --</option>
+                                                </select>
+                                                @*<span>CSC Posted: </span> &nbsp; &nbsp; &nbsp;
+                                                    <span>CSC Closing Date: </span>*@
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-md-5">
+                                                <label class="no-margin-bottom  text-semibold text-muted"> Name of Appointee </label>
+                                                <select id="employee" class="form-control select-Custom text-semibold" ng-model="formApp.EIC" ng-disabled="isReadOnly" style="width:100%;"
+                                                        ng-options="c.EIC as c.fullNameLast for c in employeeList" value="{{c.EIC}}">
+                                                    <option value="" selected="">-- Select --</option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label class="no-margin-bottom  text-semibold text-muted"> PSB DATE </label>
+                                                <input type="date" class="form-control text-semibold" ng-model="formApp.psbDate">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <button class="btn btn-primary" ng-disabled="bDisable" ng-click="submitAppointeePermanent(formApp)">
+                                                    <i class="icon-check"></i> Submit Appointee
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- POSTED -->
+                        <div class="tab-pane fade in active" id="coterm">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a href="~/Appointment/List"><i class="icon-arrow-left52 text-blue-800 cursor-pointer"></i>  </a>                                 
+                                        COTERMINOUS APPOINTEE
+                                    </h5>
+
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class=" no-margin-bottom  text-semibold text-muted"> Position </label>
+                                                <select id="position" class="form-control select-Custom text-semibold" ng-model="formApp.publicationItemCode" ng-disabled="isReadOnly" style="width:100%;"
+                                                        ng-options="c.publicationItemCode as c.positionTitle for c in coTermPositionList" value="{{c.publicationItemCode}}"
+                                                        ng-change="seletedPosition(formApp.publicationItemCode)">
+                                                    <option value="" selected="">-- Select --</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label class="no-margin-bottom  text-semibold text-muted"> Name of Appointee </label>
+                                                <select id="employee2" class="form-control select-Custom text-semibold" ng-model="formApp.EIC" ng-disabled="isReadOnly" style="width:100%;"
+                                                        ng-options="c.EIC as c.fullNameLast for c in employeeList" value="{{c.EIC}}">
+                                                    <option value="" selected="">-- Select --</option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <button class="btn btn-primary" ng-click="submitAppointeeCoTerm(formApp)">
+                                                    <i class="icon-check"></i> Submit Co-Terminous Appointee Data
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/inputmask/jquery.inputmask.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/Appointment/AppointeePosting.js"></script>
+
+    <script>
+
+        $("#position").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+        $("#employee").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#employee2").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+    </script>
+
+}
+

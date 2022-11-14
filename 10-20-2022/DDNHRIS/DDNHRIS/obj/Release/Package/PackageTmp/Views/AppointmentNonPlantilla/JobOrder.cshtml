@@ -1,0 +1,328 @@
+﻿@{
+    ViewBag.Title = "JobOrder";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+
+<!-- Vertical form options -->
+<div class="row" ng-controller="AppointmentJobOrder">
+
+    <div class="content">
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+
+
+                <!-- Page header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <div class="page-title">
+                            <h4><a href="~/AppointmentNonPlantilla/List" class="icon-arrow-left52 position-left"></a> <span class="text-semibold">JOB ORDER</span></h4>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /page header -->
+
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group  text-bold">
+                                <label class="no-margin-bottom">Appoinment Name <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control" ng-model="data.appointmentName" placeholder="(Appointment Description)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group  text-bold">
+                                <label class="no-margin-bottom">Period From </label>
+                                <input class="form-control required" type="date" ng-model="data.periodFrom" name="periodFrom">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group  text-bold">
+                                <label class="no-margin-bottom">Period To <span class="text-danger">*</span></label>
+                                <input class="form-control required" type="date" ng-model="data.periodTo" name="periodTo">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Source of Fund <span class="text-danger">*</span></label>
+                                <div class="input-group text-bold" style="width:100%">
+                                    <select class="form-control select2 select-Custom" ng-model="data.fundSourceCode" style="width:100%; "
+                                            ng-options="c.fundSourceCode as c.projectName for c in fundSourceList" value="{{c.fundSourceCode}}"
+                                            id="fundSource">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <p style="font-size:.3em;">&nbsp;</p>
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <!-- Scrollable table -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-blue-800 text-semibold">LIST OF APPOINTEE</h5>
+                                    <div class="heading-elements">
+
+                                        <button class="btn btn-sm btn-default text-blue-800 text-semibold" ng-click="openModalSelectEmp(data)">
+                                            <span class=" icon-user-plus "></span> &nbsp; Add Appointee
+                                        </button>
+
+                                        @*<button class="btn btn-sm btn-default text-info text-bold" ng-click="openModalSelectEmp()">
+                                                <span class="icon-plus-circle2 text-info "></span> &nbsp; Add
+                                            </button>*@
+
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive pre-scrollable">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>NAME OF APPOINTEE/S</th>
+                                                <th>POSITION TITLE</th>
+                                                <th>SALARY GRADE</th>
+                                                <th>DAILY WAGE</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr ng-repeat="item  in appointeeList">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{item.fullNameLast}}</td>
+                                                <td>{{item.positionTitle}}</td>
+                                                <td class="text-center">{{item.salaryGrade}}</td>
+                                                <td class="text-right"><span class="text-bold">P</span>&nbsp;{{item.rateDaily| number:2}}/D</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-xs text-danger no-margin-bottom no-margin-top" ng-click="deleteEmployee(item.EIC)">
+                                                        <i class="icon-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button class="btn btn-primary" ng-disabled="bDisable" ng-click="submitJobOrderAppointment(data)">
+                                <span class="icon-check"></span>  Save J.O. Appointment
+                            </button>                           
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Update Name Tile-->
+    @*<div class="modal fade" id="modalPeriod" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard4"></i> Employement Period </h4>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <div class="row">
+
+                        <div class="col-md-12" style="padding-top:5px; padding-bottom:0px;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Period To <span class="text-danger">*</span></label>
+                                        <input class="form-control required" type="date" ng-model="data.periodFrom" name="date">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Period To <span class="text-danger">*</span></label>
+                                        <input class="form-control required" type="date" ng-model="data.periodTo" name="date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info " ng-click="selectedPeriod(data)">Select Period</button>
+                </div>
+            </div>
+        </div>
+
+    </div>*@
+
+
+    <!-- Modal Select Appointee -->
+    <div class="modal fade" id="openModalSelectEmp" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-user-check"></i> Select Employee </h6>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Appointee <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.EIC" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in empList" value="{{c.EIC}}"
+                                        id="employee">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Position <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.positionCode" style="width:100%;"
+                                        ng-options="c.positionCode as c.positionTitle for c in positionList" value="{{c.positionCode}}"
+                                        id="position">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Sub-Position  </label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.subPositionCode" style="width:100%;"
+                                        ng-options="c.subPositionCode as c.subPositionTitle for c in subPositionList" value="{{c.subPositionCode}}"
+                                        id="subPosition">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Place of Assignment <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="empData.warmBodyGroupCode" style="width:100%;"
+                                        ng-options="c.warmBodyGroupCode as c.warmBodyGroupName for c in warmBodyList" value="{{c.warmBodyGroupCode}}"
+                                        id="warmBody">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary pull-left text-blue-800 " ng-disabled="bDisable" ng-click="refreshDataList()"><i class="icon-database-refresh"></i></button>
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="AddAppointee(empData)"> <i class="icon-check2"></i> Add to List</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Select Appointee -->
+    @*<div class="modal fade" id="modalPrintPreview" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+               
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <h3>New Appointment Created</h3>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info " ng-click="PrintPreview()">Print Preview</button>
+                </div>
+            </div>
+        </div>
+
+    </div>*@
+
+
+</div>
+<!-- /vertical form options -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/swal/sweetalert.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Scripts/AngularJS/AppointmentNonPlantilla/JobOrder.js"></script>
+
+    <script>
+        $("#fundSource").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#employee").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#position").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#subPosition").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#warmBody").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+    </script>
+}
+
+
+
+
+

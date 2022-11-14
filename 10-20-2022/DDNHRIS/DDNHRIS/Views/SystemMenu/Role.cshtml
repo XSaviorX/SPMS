@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "Role";
+}
+
+
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+<!-- SYSTEM ROLE-->
+<div ng-controller="SystemMenuRoleApp">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold"> SYSTEM ROLE  </span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li><a href="~/Home/Dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li><a href="#">System Role</a></li>
+                <li class="active">List</li>
+            </ul>
+            <ul class="breadcrumb-elements">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Create
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#" ng-click="openModal()"><i class="icon-plus3"></i> New Role</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Go to
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="~/SystemMenu/List"><i class="icon-arrow-right8"></i> Menu List</a></li>
+                        <li><a href="~/SystemMenu/Group"><i class="icon-arrow-right8"></i> Menu Group</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+        <!-- Form horizontal -->
+        <!-- Main charts -->
+        <div class="row">
+            <div class="col-lg-4">
+                <!-- Traffic sources -->
+                <!-- User details -->
+                <div class="content-group">
+
+                    <div class="panel no-border-top no-border-radius-top">
+                        <!-- Navigation -->
+                        <div class="panel-heading">
+                            <h6 class="panel-title">User Role</h6>
+                            <div class="heading-elements">
+                               
+                                <a href="#" class="heading-text text-size-mini"><i class="icon-plus2"></i> Add Role </a>
+                            </div>
+                        </div>
+
+                        <div class="list-group no-border no-padding-top" ng-repeat="item in roleList">
+
+                            <a href="#" ng-click="showRoleMenuList(item.roleID)" class="list-group-item"><i class="icon-bookmark"></i> {{item.roleName}}</a>
+                            
+                        </div>
+
+                        <div class="list-group no-border no-padding-top">                         
+                            <div class="list-group-divider"></div>
+                            <a href="#" class="list-group-item"><i class="icon-bookmark"></i> System Supervisor</a>
+                            <a href="#" class="list-group-item"><i class="icon-bookmark"></i> System Administrator </a>
+                        </div>
+                        <!-- /navigation -->
+                    </div>
+                </div>
+                <!-- /user details -->
+                <!-- /traffic sources -->
+            </div>
+            <div class="col-lg-8">
+                <!-- Sales stats -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Role: <span class="text-primary text-semibold"> {{role.roleName}} </span></h6>
+                        <div class="heading-elements">
+                            <a href="#" class="heading-text text-size-mini"   ng-click="openAddMenuToRole()"><i class="icon-plus2"></i> Add Menu </a>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Menu Name</th>
+                                    <th>URL</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in roleMenuList">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.menuName}}</td>
+                                    <td>{{item.controllerName}}/{{item.methodName}}</td>
+                                    <td>
+                                        <span class="icon-trash-alt text-danger" style="cursor:pointer" ng-click="removeMenuFromRole(item.menuCode)"> </span>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+
+                        <div style="padding:20PX; margin-bottom:20px;" ng-if="roleMenuList.length == 0">
+                            <label class="text-danger text-bold"> *** NO MENU FOUND *** </label>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /sales stats -->
+            </div>
+        </div>
+        <!-- /main charts -->
+        <!-- Footer -->
+        <div class="footer text-muted">
+            &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+        </div>
+        <!-- /footer -->
+    </div>
+    <!-- /content area -->
+     
+
+
+    <!-- Primary modal -->
+    <div id="modalAddMenuToRole" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> Add Role Menu</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Menu Group Name</label>
+                                <input type="text" class="form-control text-semibold" ng-model="data.groupName">
+                            </div>
+
+                            <div class="col-md-12" 
+                                style="width:100%; height: 400px;  overflow-y: scroll;">
+
+                                <table class="table">
+                                    <tr ng-repeat="item in menuList">
+                                        <td>
+                                            {{$index + 1}}
+                                        </td>
+                                        <td>
+                                            <span class="text-semibold ">{{item.menuName}}</span>
+                                        </td>
+
+                                        <td>
+                                            <a href="#">  {{item.controllerName}}\{{item.methodName}} </a>
+                                        </td>
+                                        <td>
+                                            <i class="{{item.fontIcon}}"></i> &nbsp; {{item.groupName}}
+                                        </td>
+
+                                        <td class="text-center">
+                                            <button ng-if="item.tag == 0" class="btn btn-default btn-xs"  ng-click="saveMenuToRole(item.menuCode)" >
+                                                <i class="icon-plus22"></i>
+                                            </button>
+                                            
+                                            <button ng-if="item.tag == 1" ng-disabled="true" class="btn btn-default btn-xs">
+                                                <i class="icon-check2"></i>
+                                            </button>
+
+                                        </td>
+
+
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveGroup(data)">Save Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+    <div id="modalAddSubGroup" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> Add Sub Group </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Sub Group Name</label>
+                                <input type="text" class="form-control text-semibold" ng-model="data.subGroupName">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="text-muted">Menu Group</label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="data.menuGroupCode" style="width:100%;"
+                                        ng-options="c.menuGroupCode as c.groupName for c in menuGroup" value="{{c.menuGroupCode}}"
+                                        id="menuGroup">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveSubGroup(data)">Save Sub Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SystemMenu/Role.js"></script>
+    <script src="~/Content/assets/plugins/swal/sweetalert.min.js"></script>
+    <script src="~/Content/assets/js/pages/user_profile_tabbed.js"></script>
+
+}
+
+
+
+
+
+

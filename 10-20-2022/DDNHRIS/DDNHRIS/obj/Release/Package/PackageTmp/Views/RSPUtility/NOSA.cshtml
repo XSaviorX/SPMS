@@ -1,0 +1,350 @@
+﻿@{
+    ViewBag.Title = "NOSA";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+</style>
+
+<div ng-controller="NOSA">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">NOTICE OF SALARY ADJUSTMENT (NOSA)</span> </h4>
+            </div>
+            <div class="heading-elements"> </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#plantilla" data-toggle="tab"><i class="icon-clipboard3 position-left"></i> PLANTILLA <span ng-show="pendingCount >= 1" class="badge badge-danger badge-inline position-right">{{pendingCount}}</span> </a></li>
+                    <li><a href="#casual" data-toggle="tab" ng-click="showNOSACasual()"><i class="icon-clipboard3 position-left"></i> CASUAL</a></li>
+                     
+
+                </ul>               
+            </div>
+ 
+
+        </div>
+        <!-- /toolbar -->
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!--  CSC Standard -->
+                        <div class="tab-pane fade in active" id="plantilla">
+                            <!-- Profile info -->
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <!-- User details -->
+                                    <div class="content-group">
+                                        <div class="panel  no-border-radius-top">
+                                            <!-- Navigation -->
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">OFFICE</h6>
+                                                <div class="heading-elements">
+                                                    <a href="#" class="heading-text text-size-mini"><i class="icon-database-refresh"></i> </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="list-group no-border no-padding-top no-padding-bottom text-size-small cursor-pointer " ng-repeat="item in officeList">
+                                                <span  ng-click="selectOffice(item)" class="list-group-item no-margin-top no-margin-bottom"><i class="icon-folder4"></i> {{item.officeName}}  <span class="text-danger text-bold" ng-if="item.count  >= 1">({{item.count}})</span> </span>
+                                            </div>
+
+                                            <!-- /navigation -->
+                                        </div>
+                                    </div>
+
+                                    <!-- /traffic sources -->
+                                </div>
+
+
+                                <div class="col-lg-10">
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title text-bold text-blue-800">
+                                                {{office.officeName}} <span class="text-danger-700" ng-show="office.count >= 1">({{office.count}})</span>
+                                            </h5>
+                                        </div>
+
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="text-semibold">
+                                                    <th class="text-center">NAME OF APPOINTEE</th>
+                                                    <th class="text-center">POSITION TITLE</th>
+                                                    <th class="text-center">SALARY FROM </th>
+                                                    <th class="text-center">SALARY TO</th>
+                                                    <th class="text-center">ADJUSTMENT</th>                                                  
+                                                    <th class="text-center" style="width:90px;">
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in nosaList | filter:officeName">
+                                                    <td>
+                                                        {{$index+1}}.) {{item.fullNameLast}}
+                                                    </td>
+                                                    <td> <span class="text-blue-800 text-semibold ">{{ ('0000' + item.itemNo).slice(-4) }} </span>  {{item.positionTitle}} <span class="text-muted text-semibold"> ({{item.salaryGrade}}<span ng-if="item.step >= 1">/{{item.step}})</span> </span> </td>
+                                                    <td class="text-right">{{item.salaryFrom | number:2}}</td>
+                                                    <td class="text-right">{{item.salaryTo | number:2}}</td>
+                                                    <td class="text-right">{{item.salaryAdd | number:2}}  {{item.tag}}</td>
+                                                   
+                                                    <td class="text-center text-blue-800 text-bold " ng-if="item.tag == null">
+                                                        
+                                                        <button class="btn btn-link btn-xs text-blue-800 no-margin no-padding " ng-disabled="bDisable" ng-click="modalNOSAData(item)">
+                                                            <i class="icon-printer2 text-danger-700 "></i>
+                                                        </button>
+
+                                                    </td>
+
+                                                    <td class="text-center text-blue-800 text-bold " ng-if="item.tag != null">
+                                                        <button class="btn btn-link btn-xs text-blue-800 no-margin no-padding" ng-show="item.tag == 0" ng-disabled="bDisable" ng-click="modalNOSAData(item)">
+                                                            <i class="icon-arrow-up-right32 text-primary-700  "></i>
+                                                        </button>
+                                                        <button class="btn btn-link btn-xs text-blue-800 no-margin no-padding" ng-show="item.tag == 1" ng-click="modalNOSAData(item)">
+                                                            <i class="icon-check2 text-primary-700  "></i>
+                                                        </button>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- NOSA CASUAL -->
+                        <div class="tab-pane fade" id="casual">
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <!-- Profile info -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title text-bold text-blue-800">
+                                               {{fundSourceData.projectName}} <span class="pull-right cursor-pointer text-size-small btn btn-link  " ng-click="selectFundSource()" ><i class="icon-pointer"></i> Select</span>
+                                            </h5>
+                                        </div>
+
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="text-semibold">
+                                                    <th class="text-center">NAME OF APPOINTEE</th>
+                                                    <th class="text-center">POSITION TITLE</th>
+                                                    <th class="text-center">SALARY FROM </th>
+                                                    <th class="text-center">SALARY TO</th>
+                                                    <th class="text-center">ADJUSTMENT</th>                                                   
+                                                    <th class="text-center" style="width:90px;">
+                                                        <i class="icon-plus-circle2 "></i>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in casualList">
+                                                    <td>
+                                                        {{$index+1}}.) {{item.fullNameLast}}
+                                                    </td>
+                                                    <td>  {{item.positionTitle}} <span class="text-muted text-semibold"> ({{item.salaryGrade}}/1)</span>  </td>
+                                                    <td class="text-right">{{item.salaryFrom | number:2}}</td>
+                                                    <td class="text-right">{{item.salaryTo | number:2}}</td>
+                                                    <td class="text-right">{{item.salaryAdd | number:2}}</td>
+
+                                                    <td class="text-center text-blue-800 text-bold">
+                                                        <button class="btn btn-link btn-xs text-blue-800 no-margin no-padding" @*ng-if="item.tag == null"*@ ng-click="modalNOSACasualData(item)">
+                                                            <i class="icon-printer2 text-danger-700"></i>
+                                                        </button>
+                                                        <button class="btn btn-link btn-xs text-blue-800 no-margin no-padding" ng-if="item.tag != null" ng-click="modalNOSACasualData(item)">
+                                                            <i class="icon-printer2 text-danger-700 " ng-if="item.tag == 1"></i>
+                                                            <i class="icon-printer2 text-primary-700  " ng-if="item.tag == 0"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <!-- /traffic sources -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                 
+            </div>
+
+        </div>
+
+
+
+        <!-- Primary modal -->
+        <div id="modalNOSAPrint" class="modal fade" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        @*<h6 class="modal-title"> <i class="icon-stamp"></i> &nbsp; {{postData.fullNameFirst}} <small class="text-white">({{postData.positionTitle}})</small></h6>*@
+
+                        <h6 class="modal-title">
+                            NOSA PRINTING
+                        </h6>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label class="no-margin-bottom"> EMPLOYEE (Title Name) <span class="text-danger">*</span>  </label>                                    
+                                    <input class="form-control text-size-large text-semibold " ng-model="nosaData.fullNameTitle" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label class="no-margin-bottom">POSITION TITLE <span class="text-danger">*</span>  </label>
+                                    <label class="form-control  text-semibold text-size-large">
+                                        {{nosaData.positionTitle}} <span class="text-muted text-semibold">({{nosaData.salaryGrade}}<span  ng-if="nosaData.step >= 1">/{{nosaData.step}}</span>)</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="no-margin-bottom">OFFICE <span class="text-danger">*</span>  </label>
+                                    <label class="form-control  text-semibold text-size-large text-center ">
+                                        {{nosaData.shortDepartmentName}}
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom">SALARY FROM<span class="text-danger">*</span></label>
+                                    <label class="form-control text-right text-semibold text-size-large">
+                                        {{nosaData.salaryFrom | number:2}}
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom"> SALARY TO <span class="text-danger">*</span></label>
+                                    <label class="form-control text-right text-semibold text-size-large">
+                                        {{nosaData.salaryTo | number:2}}
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom"> ADJUSTMENT <span class="text-danger">*</span></label>
+                                    <label class="form-control  text-semibold  text-right  text-size-large">
+                                        {{nosaData.salaryAdd | number:2}}
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-rounded btn-primary bg-blue-800 pull-left text-size-mini" ng-show="nosaData.tag ==  0" ng-click="postNosaToDB(nosaData)" ng-disabled="bDisable"> <i class="icon-database-check"></i>  POST NOSA</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="printPreview(nosaData)">
+                            <i class="icon-printer2"></i>
+                            Print NOSA
+                        </button>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+              
+        <!-- Primary modal -->
+        <div id="modalSeletFundSource" class="modal fade" data-keyboard="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        
+                        <h6 class="modal-title">
+                            Fund Source
+                        </h6>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="no-margin-bottom"> Employee Title Name <span class="text-danger">*</span>  </label>
+                                    <select class="form-control select2 select-Custom" ng-model="data.fundSourceCode" style="width:100%;"
+                                            ng-options="c.fundSourceCode as c.projectName for c in fundSourceList" value="{{c.fundSourceCode}}"
+                                            id="fundSource">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                         
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="fundSourceSelected(data.fundSourceCode)">
+                            <i class="icon-printer2"></i>
+                            Select
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    <!-- /content area -->
+    @section JavaScript{
+        <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+        <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+        <script src="~/Content/assets/plugins/moments/moment.js"></script>
+        <script src="~/Scripts/AngularJS/RSPUtility/NOSA.js"></script>
+
+ 
+        <script>
+            $("#fundSource").select2({
+                placeholder: '-- Select --',
+                allowClear: true
+            });
+        </script>
+
+    }

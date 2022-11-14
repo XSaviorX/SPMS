@@ -1,0 +1,555 @@
+﻿@{
+    ViewBag.Title = "Print";
+}
+
+<style>
+    .page-title {
+        padding: 32px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 2px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+</style>
+
+<link href="~/Content/Limitless2/css/icomoon_styles.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<div style="width:100%!important;" ng-controller="AppointmentNPPrinting">
+    <!-- Main content -->
+
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4> <a href="~/AppointmentNonPlantilla/List"><i class="icon-arrow-left52 position-left"></i></a> <span class="text-semibold">APPOINTMENT </span> - Printing</h4>
+            </div>
+
+        </div>
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li><a href="#"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li>Appointment</li>
+                @*<li><a href="#"><i class="icon-home2 position-left"></i>Appointment</a></li>*@
+                <li class="active">Print Appointment Forms</li>
+            </ul>
+            <ul class="breadcrumb-elements">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle text-blue-800" data-toggle="dropdown" ng-click="printPreview()">
+                            <i class="icon-printer2 position-left"></i>
+                            Appointment
+                        </a>                      
+                    </li>                    
+                </ul>
+        </div>
+
+    </div>
+
+
+    <!-- Content area -->
+    <div class="content" style="width:100%!important;">
+
+        <!-- Support tickets -->
+        <div class="panel panel-flat">
+
+            <div class="panel-heading">
+                <h5 class="panel-title text-semibold">LIST OF APPOINTEE</h5>
+                @*<div class="heading-elements">
+                   
+                </div>*@
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 table-responsive" style="min-height:400px;">
+
+
+                        <table class="table table-bordered">
+
+                            <tr ng-repeat="item in appointeeList">
+
+                                <td>
+                                    <span class="text-semibold text-size-large">
+                                        {{item.fullNameLast}}
+                                        <br /> <small class="text-muted">({{item.positionTitle}})</small>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <ul class="list-inline no-margin" style="margin-top:10px!important;">                                      
+                                     
+                                        <li><a href="#" ng-click="modalApptForm(item, 'ASSUMPTION')"><i class="icon-file-text2 position-left"></i> Assumption to Duty &nbsp;</a></li>
+                                        <li><a href="#" ng-click="modalApptForm(item, 'OATH')"><i class="icon-file-text2 position-left"></i> Oath of Office &nbsp;</a></li>
+                                        <li><a href="#" ng-click="modalApptForm(item, 'PDF')"><i class="icon-file-text2 position-left"></i> PDF </a></li>
+                                    </ul>
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /content area -->
+        <!-- /support tickets -->
+        <!-- 2 columns form -->
+
+
+    </div>
+    <!-- /main content -->
+    <!-- /OATH -->
+    <div id="modalFormDataOath" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-printer2"></i> &nbsp; {{apptData.fullNameFirst}} <small class="text-white">({{apptData.positionTitle}})</small></h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Complete Present Address <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.completeAddress">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <label class="no-margin-bottom">Govt. Issued ID <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDName">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Govt. ID Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDNo">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Date Issued <span class="text-danger">*</span> </label>
+                                <input type="date" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDIssued">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printApptForms(oathData,'OATH')"><i class="icon-printer2"></i> Oath of Duty</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == false" ng-click="updateOathData(oathData)">&nbsp; Update &nbsp;</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /ASSUMPTION -->
+    <div id="modalFormDataAssumption" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-printer2"></i> &nbsp; {{apptData.fullNameFirst}} <small class="text-white">({{apptData.positionTitle}})</small></h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Assumption Date   </label>
+                                <input type="date" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="assumptData.assumptionDate">
+                            </div>
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Name of Appointee <span class="text-danger ">*</span>  <span class="text-italic text-muted">(Title Name)</span> </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="true" ng-model="assumptData.fullNameTitle">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Name Prefix <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-change="changePreSuffix()" ng-readonly="isReadOnly" ng-model="assumptData.namePrefix">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Name Suffix</label>
+                                <input type="text" class="form-control text-semibold" ng-change="changePreSuffix()" ng-readonly="isReadOnly" ng-model="assumptData.nameSuffix">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">P.G. Department Head <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="assumptData.PGHeadName">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">P.G. Dept. Head Position<span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold " ng-readonly="isReadOnly" ng-model="assumptData.PGHeadPosition">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printApptForms(assumptData,'ASSUMPTION')"><i class="icon-printer2"></i> Assumption</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == false" ng-click="updateAssumptionData(assumptData)">&nbsp; Update &nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Position Description Form (PDF) -->
+    <div id="modalFormDataPDF" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-printer2"></i> &nbsp; {{apptData.fullNameFirst}} <small class="text-white">({{apptData.positionTitle}})</small></h6>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Present Approp Act</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.presentAppropAct" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Previous Approp Act</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.previousAppropAct" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Other Compensation</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.otherCompensation" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Position Title of Immediate Supervisor <span class="text-danger">*</span></label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.positionSupervisor" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Position Title of Next Higher Supervisor <span class="text-danger">*</span></label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.positionSupervisorNext" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Directly Supervised Positions</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.supervisedPositions" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Directly Supervised Item No</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.supervisedItemNo" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Machine, Equipment, Tools Used</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.machineToolsUsed" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+
+                            <div class="col-md-12 ">
+                                <h6 class="no-margin-bottom text-bold"> Contacts / Clients / Stakeholders</h6>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <table class="table table-borderless tbl-sm">
+                                    <thead class="bg-blue-700">
+                                        <tr>
+                                            <td style="width:50%!important;">
+                                                <span class="text-white text-bold">INTERNAL</span>
+                                            </td>
+                                            <td class="text-center">Occasional</td>
+                                            <td class="text-center">Frequent</td>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Executive/ Managerial
+                                        </td>
+                                        <td class="text-center text-size-large">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoManagerial" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFManagerial == 0" ng-model="pdfData.PDFManagerial" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoManagerial" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFManagerial == 1" ng-model="pdfData.PDFManagerial" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Supervisors
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoSupervisory" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFSupervisor == 0" ng-model="pdfData.PDFSupervisor" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoSupervisory" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFSupervisor == 1" ng-model="pdfData.PDFSupervisor" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Non-supervisors
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoNonSupervisory" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFNonSupervisor == 0" ng-model="pdfData.PDFNonSupervisor" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoNonSupervisory" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFNonSupervisor == 1" ng-model="pdfData.PDFNonSupervisor" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Staff
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoStaff" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFStaff == 0" ng-model="pdfData.PDFStaff" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoStaff" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFStaff == 1" ng-model="pdfData.PDFStaff" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <table class="table table-borderless tbl-sm">
+                                    <thead class="bg-blue-700">
+                                        <tr>
+                                            <td style="width:50%;">
+                                                <span class="text-white text-bold">EXTERNAL</span>
+                                            </td>
+                                            <td class="text-center">Occasional</td>
+                                            <td class="text-center">Frequent</td>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            General Public
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoGenPublic" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFGenPublic == 0" ng-model="pdfData.PDFGenPublic" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoGenPublic" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFGenPublic == 1" ng-model="pdfData.PDFGenPublic" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Other Agencies
+                                        </td>
+                                        <td class="text-center ">
+                                            <label class="text-size-large">
+                                                &nbsp; <input type="radio" name="PDFOtherAgency" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFOtherAgency == 0" ng-model="pdfData.PDFOtherAgency" />
+                                            </label>
+
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="text-size-large">
+                                                &nbsp; <input type="radio" name="PDFOtherAgency" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFOtherAgency == 1" ng-model="pdfData.PDFOtherAgency" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            Other Specify
+                                            <input type="text" ng-model="pdfData.PDFOthers" ng-readonly="isReadOnly" class="form-control" />
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <h6 class="no-margin-bottom text-bold no-margin-top"> Working Condition</h6>
+                            </div>
+
+                            <div class="col-md-6">
+                                <table class="table table-borderless tbl-sm">
+
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Office Work
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConOffice" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConOffice == 0" ng-model="pdfData.PDFWorkConOffice" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConOffice" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConOffice == 1" ng-model="pdfData.PDFWorkConOffice" />
+                                            </label>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                <table class="table table-borderless tbl-sm">
+
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Field Work
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConField" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConField == 0" ng-model="pdfData.PDFWorkConField" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConField" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConField == 1" ng-model="pdfData.PDFWorkConField" />
+                                            </label>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <label class="no-margin-bottom">GENERAL FUNCTION OF THE UNIT OR SECTION <span class="text-danger">*</span></label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.PDFGenFunc" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <label class="no-margin-bottom">GENERAL FUNCTION OF THE POSITION (Job Summary) <span class="text-danger">*</span></label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.PDFGenFuncPosition" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printPDF('FRONT')"> <i class="icon-printer2"></i> PDF (Front)</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printPDF('BACK')"> <i class="icon-printer2"></i> PDF (Back)</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-show="isReadOnly == false" ng-click="updatePDFData(pdfData)"><i class="icon-check"></i>  Update &nbsp;</button>
+                    <button type="button" class="btn btn-default" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- /main content -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/AppointmentNonPlantilla/Printing.js"></script>
+
+}
+
+
+
+
+
+
+
+
+

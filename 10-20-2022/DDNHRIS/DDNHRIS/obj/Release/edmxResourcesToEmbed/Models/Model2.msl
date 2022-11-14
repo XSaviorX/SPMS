@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HRISModelStoreContainer" CdmEntityContainer="HRISEntities">
+    <EntitySetMapping Name="tAttShiftingEmpSchemes">
+      <EntityTypeMapping TypeName="HRISModel.tAttShiftingEmpScheme">
+        <MappingFragment StoreEntitySet="tAttShiftingEmpScheme">
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+          <ScalarProperty Name="controlNo" ColumnName="controlNo" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="entryDate" ColumnName="entryDate" />
+          <ScalarProperty Name="In1" ColumnName="In1" />
+          <ScalarProperty Name="Out1" ColumnName="Out1" />
+          <ScalarProperty Name="In2" ColumnName="In2" />
+          <ScalarProperty Name="Out2" ColumnName="Out2" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+          <ScalarProperty Name="encoderEIC" ColumnName="encoderEIC" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="isNoBreak" ColumnName="isNoBreak" />
+          <ScalarProperty Name="returnTag" ColumnName="returnTag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tapp212FamilyBackground">
+      <EntityTypeMapping TypeName="HRISModel.tapp212FamilyBackground">
+        <MappingFragment StoreEntitySet="tapp212FamilyBackground">
+          <ScalarProperty Name="fUser" ColumnName="fUser" />
+          <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+          <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="fMaMidName" ColumnName="fMaMidName" />
+          <ScalarProperty Name="fMaFName" ColumnName="fMaFName" />
+          <ScalarProperty Name="fMaSname" ColumnName="fMaSname" />
+          <ScalarProperty Name="fMaMaiden" ColumnName="fMaMaiden" />
+          <ScalarProperty Name="fPaExtn" ColumnName="fPaExtn" />
+          <ScalarProperty Name="fPaMidName" ColumnName="fPaMidName" />
+          <ScalarProperty Name="fPaFName" ColumnName="fPaFName" />
+          <ScalarProperty Name="fPaSName" ColumnName="fPaSName" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tapp212EducLevel">
+      <EntityTypeMapping TypeName="HRISModel.tapp212EducLevel">
+        <MappingFragment StoreEntitySet="tapp212EducLevel">
+          <ScalarProperty Name="fDesc" ColumnName="fDesc" />
+          <ScalarProperty Name="fLevel" ColumnName="fLevel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tapp212EducBackground">
+      <EntityTypeMapping TypeName="HRISModel.tapp212EducBackground">
+        <MappingFragment StoreEntitySet="tapp212EducBackground">
+          <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+          <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="fIncludeTag" ColumnName="fIncludeTag" />
+          <ScalarProperty Name="fUser" ColumnName="fUser" />
+          <ScalarProperty Name="fCAV" ColumnName="fCAV" />
+          <ScalarProperty Name="fHighestEduc" ColumnName="fHighestEduc" />
+          <ScalarProperty Name="fRemarks" ColumnName="fRemarks" />
+          <ScalarProperty Name="fHonors" ColumnName="fHonors" />
+          <ScalarProperty Name="fToDT" ColumnName="fToDT" />
+          <ScalarProperty Name="fFromDT" ColumnName="fFromDT" />
+          <ScalarProperty Name="fHighLevel" ColumnName="fHighLevel" />
+          <ScalarProperty Name="fYearGrad" ColumnName="fYearGrad" />
+          <ScalarProperty Name="fCorsCateg" ColumnName="fCorsCateg" />
+          <ScalarProperty Name="fDegree" ColumnName="fDegree" />
+          <ScalarProperty Name="fSchoolName" ColumnName="fSchoolName" />
+          <ScalarProperty Name="fLevelTag" ColumnName="fLevelTag" />
+          <ScalarProperty Name="fContrlNo" ColumnName="fContrlNo" />
+          <ScalarProperty Name="fRecNo" ColumnName="fRecNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tapp212Trainings">
+      <EntityTypeMapping TypeName="HRISModel.tapp212Trainings">
+        <MappingFragment StoreEntitySet="tapp212Trainings">
+          <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+          <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="fUser" ColumnName="fUser" />
+          <ScalarProperty Name="fDateEncod" ColumnName="fDateEncod" />
+          <ScalarProperty Name="fGroupTag" ColumnName="fGroupTag" />
+          <ScalarProperty Name="fTrainType" ColumnName="fTrainType" />
+          <ScalarProperty Name="fTrainClas" ColumnName="fTrainClas" />
+          <ScalarProperty Name="fVenue" ColumnName="fVenue" />
+          <ScalarProperty Name="fConducted" ColumnName="fConducted" />
+          <ScalarProperty Name="fHoursNo" ColumnName="fHoursNo" />
+          <ScalarProperty Name="ftoDT" ColumnName="ftoDT" />
+          <ScalarProperty Name="fFromDT" ColumnName="fFromDT" />
+          <ScalarProperty Name="fTitle" ColumnName="fTitle" />
+          <ScalarProperty Name="ID_no" ColumnName="ID_no" />
+          <ScalarProperty Name="fRecNo" ColumnName="fRecNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tappEmployees">
+      <EntityTypeMapping TypeName="HRISModel.tappEmployee">
+        <MappingFragment StoreEntitySet="tappEmployee">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="birthPlace1" ColumnName="birthPlace1" />
+          <ScalarProperty Name="birthDate1" ColumnName="birthDate1" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactNo" ColumnName="contactNo" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="sufixTitle" ColumnName="sufixTitle" />
+          <ScalarProperty Name="prefixTitle" ColumnName="prefixTitle" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="fullnameLast" ColumnName="fullnameLast" />
+          <ScalarProperty Name="fullnameFirst" ColumnName="fullnameFirst" />
+          <ScalarProperty Name="birthplace" ColumnName="birthplace" />
+          <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+          <ScalarProperty Name="extName" ColumnName="extName" />
+          <ScalarProperty Name="middleName" ColumnName="middleName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="idNo" ColumnName="idNo" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tAttDailyLogs">
+      <EntityTypeMapping TypeName="HRISModel.tAttDailyLog">
+        <MappingFragment StoreEntitySet="tAttDailyLog">
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="nonRegDay" ColumnName="nonRegDay" />
+          <ScalarProperty Name="SchemeCode" ColumnName="SchemeCode" />
+          <ScalarProperty Name="OverRide2" ColumnName="OverRide2" />
+          <ScalarProperty Name="OverRide1" ColumnName="OverRide1" />
+          <ScalarProperty Name="LastLog" ColumnName="LastLog" />
+          <ScalarProperty Name="Out2" ColumnName="Out2" />
+          <ScalarProperty Name="In2" ColumnName="In2" />
+          <ScalarProperty Name="Out1" ColumnName="Out1" />
+          <ScalarProperty Name="In1" ColumnName="In1" />
+          <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="RecNo" ColumnName="RecNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

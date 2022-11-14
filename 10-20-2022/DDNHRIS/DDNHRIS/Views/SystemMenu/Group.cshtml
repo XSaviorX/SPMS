@@ -1,0 +1,283 @@
+﻿@{
+    ViewBag.Title = "Group";
+}
+
+
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+<!-- SYSTEM MENU-->
+<div ng-controller="SystemMenuGroupApp">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold"> Menu  </span> - Group & Sub Group</h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li><a href="~/Home/Dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li class="active">Group</li>
+            </ul>
+            <ul class="breadcrumb-elements">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Create
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#" ng-click="openModal()"><i class="icon-plus-circle2"></i> New {{title}}</a></li>
+                    </ul>
+                </li>
+
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            View
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" ng-click="openModal_AddMenu()"><i class="icon-grid52"></i> Menu Group</a></li>
+                            <li><a href="#" ng-click="openModal_AddMenu()"><i class="icon-list"></i> Menu Sub Group</a></li>
+                        </ul>
+                    </li>*@
+
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Create
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" ng-click="openModal_AddMenu()"><i class="icon-plus22"></i> Menu Group</a></li>
+                            <li><a href="#" ng-click="openModal_AddMenu()"><i class="icon-plus22"></i> Menu Sub Group</a></li>
+                        </ul>
+                    </li>*@
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Go to
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#" ng-click="showBy(1)"><i class="icon-grid52"></i> Show Group</a></li>
+                        <li><a href="#" ng-click="showBy(2)"><i class="icon-list"></i> Show Sub Group</a></li>
+                        <li class="divider"></li>
+                        <li><a href="~/SystemMenu/List"><i class="icon-arrow-right8"></i> Menu List</a></li>
+                        <li><a href="~/SystemMenu/Role"><i class="icon-arrow-right8"></i> System Role</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+        <!-- Form horizontal -->
+        <div class="panel panel-flat" ng-if="title == 'Group'">
+            <!-- MENU GROUP -->
+            <div class="panel-body">
+                <h5 class="blog-title"><i class="icon-grid52"></i> Menu Group</h5>
+                <table class="table datatable-basic">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Group Name</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        <tr ng-repeat="item in menuGroup">
+                            <td>
+                                {{$index + 1}}
+                            </td>
+                            <td>
+                                <i class="{{item.fontIcon}}"></i> &nbsp; 
+                                <span class="text-semibold ">{{item.groupName}}</span>
+                            </td>
+
+                            
+
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-arrow-down32"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="#"><i class="icon-profile"></i> View Profile</a></li>
+                                            <li><a href="#"><i class="icon-file-excel"></i> View Logs</a></li>
+                                            <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- MENU GROUP -->
+
+        </div>
+        <!-- /form horizontal -->
+
+        <!-- Form horizontal -->
+        <div class="panel panel-flat" ng-if="title == 'Sub-Group'">
+            <!-- MENU SUB GROUP -->
+            <div class="panel-body">
+                <h5 class="blog-title"><i class="icon-list"></i> Sub Group</h5>
+                <table class="table datatable-basic">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sub Group Name</th>
+                            <th>Group Name</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr ng-repeat="item in menuSubGroup">
+                            <td>
+                                {{$index + 1}}
+                            </td>
+                            <td>
+                                <i class="{{item.subFontIcon}}"></i>
+                                <span class="text-semibold "> &nbsp; {{item.subGroupName}}</span>
+                            </td>
+                            <td>
+                                <i class="{{item.fontIcon}}"></i>
+                                <span class="text-semibold ">{{item.groupName}}</span>
+                            </td>
+
+
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-arrow-down32"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="#"><i class="icon-profile"></i> View Profile</a></li>
+                                            <li><a href="#"><i class="icon-file-excel"></i> View Logs</a></li>
+                                            <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- MENU GROUP -->
+
+        </div>
+        <!-- /form horizontal -->
+
+        <!-- Footer -->
+        <div class="footer text-muted">
+            &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+        </div>
+        <!-- /footer -->
+    </div>
+    <!-- /content area -->
+    <!-- /content area -->
+    <!-- Primary modal -->
+    <div id="modalAddGroup" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> Add Group</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Menu Group Name</label>
+                                <input type="text" class="form-control text-semibold" ng-model="data.groupName">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveGroup(data)">Save Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+    <div id="modalAddSubGroup" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> Add Sub Group </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Sub Group Name</label>
+                                <input type="text" class="form-control text-semibold" ng-model="data.subGroupName">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="text-muted">Menu Group</label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="data.menuGroupCode" style="width:100%;"
+                                        ng-options="c.menuGroupCode as c.groupName for c in menuGroup" value="{{c.menuGroupCode}}"
+                                        id="menuGroup">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                          
+                        </div>
+                    </div>
+ 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveSubGroup(data)">Save Sub Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SystemMenu/Group.js"></script>
+
+    <script src="~/Content/assets/plugins/swal/sweetalert.min.js"></script>
+}
+
+
+
+

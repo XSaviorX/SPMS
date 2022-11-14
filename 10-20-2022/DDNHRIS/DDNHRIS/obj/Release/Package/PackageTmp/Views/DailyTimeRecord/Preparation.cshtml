@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Preparation";
+}
+
+
+
+<style>
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 6px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+
+
+
+<div ng-controller="DTRPreparation">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">DAILY TIME RECORD</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+        @*<div class="breadcrumb-line breadcrumb-line-component">
+                <ul class="breadcrumb">
+                    <li><a href="~/Home/Dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                    <li><a href="#">R.S.P</a></li>
+                    <li class="active">Plantilla</li>
+                </ul>
+                <ul class="breadcrumb-elements">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear position-left"></i>
+                            View Settings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                            <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                            <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>*@
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+        <!-- Form horizontal -->
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="col-sm-4">
+                    <div class="form-group" style="max-width:450px;">
+                        <label class="text-muted no-margin-bottom" for="projectinput5">Employee</label>
+
+                        <select class="form-control  select-Custom" ng-model="data.EIC" style="width:100%;"
+                                ng-options="c.Value as c.Text for c in employeeList" value="{{c.Value}}"
+                                id="SelectEmployee"></select>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group" style="max-width:450px;">
+                        <label class="text-muted no-margin-bottom" for="projectinput5">Month</label>
+
+                        <select class="form-control select2 select-Custom" ng-model="data.month" style="width:100%;"
+                                ng-options="c.value as c.month for c in monthList" value="{{c.value}}"
+                                ng-change="ViewEmpStat()"
+                                id="SelectMonth">
+                            <option value="" selected="" disabled="disabled">-- Select Month --</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+
+                    <div class="form-group" style="max-width:450px;">
+                        <label class="text-muted no-margin-bottom" for="projectinput5">Period</label>
+                        <select class="form-control select2 select-Custom" ng-model="data.period" data-width="100%">
+                            <option value="" disabled>-- Select --</option>
+                            <option value="0">Full Month</option>
+                            <option value="1">1st Period</option>
+                            <option value="2">2nd Period</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-2">
+
+                    <div class="form-group" style="max-width:450px;">
+                        <label class="text-muted" for="projectinput5">&nbsp;</label>
+                        <button class="btn btn-default" ng-click="viewDTRLog(data)">
+                            Show DTR
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 table-responsive">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <td style="width:150px;">SCHEME</td>
+                                <td style="width:200px;">IN</td>           
+                                <td style="width:200px;">OUT</td>                             
+                                <td>REMARKS</td> 
+
+                                <td style="width:100px;">TARDY</td>
+                                <td style="width:100px;">UNDERTIME</td>
+                                <td style="width:100px;">PASS SLIP</td>
+                                <td></td>
+                             
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="item in logList">     
+                            <td>{{item.schemeName}}</td>                    
+                            <td class="text-center">{{item.logIn}}</td>
+                            <td class="text-center">{{item.logOut}}</td>
+                            
+                            <td>{{item.remarks}}</td>
+
+                            <td>{{item.isWorkingDay}}</td>
+                            <td>{{item.hasLog}}</td>
+
+                            <td>
+                                {{item.totalTardy}}
+                            </td>
+                            <td>
+                                {{item.totalUndertime}}
+                            </td>
+
+                            <td style="text-align:center; width:20px;">
+                                <button class="btn btn-danger " ng-click="modalJusty(item.logDate)" style="padding:0px 5px;">
+                                    <strong>J</strong>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /form horizontal -->
+
+    </div>
+    <!-- /content area -->
+    <!-- Modal Select Appointee -->
+    <div class="modal fade" id="openModalJusty" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard4"></i> Justification </h5>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Schedule <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="justy.scheme" style="width:100%;"
+                                        ng-options="c.Value as c.Text for c in schedList" value="{{c.Value}}"
+                                        id="scheme"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Log Type <span class="text-danger">*</span></label>                             
+                                <select class="form-control  select-Custom" ng-model="justy.logType" style="width:100%;"
+                                        ng-options="c.value as c.logType for c in logTypeList" value="{{c.value}}"
+                                        id="logType">                                    
+                                </select>
+                            </div>
+                        </div>                        
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Valid Date <span class="text-danger">(mm/dd/yyyy)*</span></label>
+                                <input type="date" class="form-control" ng-model="justy.date" /> 
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Valid Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" ng-model="justy.time" /> 
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Reason <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" ng-model="justy.reason" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">Approving Officer <span class="text-danger">*</span></label>
+                                <select class="form-control  select-Custom" ng-model="justy.approveEIC" style="width:100%;"
+                                        ng-options="c.Value as c.Text for c in approvingOfficerList" value="{{c.Value}}"
+                                        id="approveEIC"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info " ng-click="submitJusty(justy)">Add Justification</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/DailyTimeRecord/Preparation.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+}
+
+
+
+
+
+

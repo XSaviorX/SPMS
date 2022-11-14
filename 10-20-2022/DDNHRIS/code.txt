@@ -1,0 +1,20 @@
+CREATE TABLE [dbo].[tPDSSpecialSkill](
+	[recNo] [bigint] IDENTITY(1,1) NOT NULL,
+	[controlNo] [varchar](30) NOT NULL,
+	[EIC] [varchar](30) NULL,
+	[particulars] [varchar](2500) NULL,
+	[type] [varchar](30) NULL,
+	[tag] [int] NULL,
+	[pageNo] [int] NULL,
+ CONSTRAINT [PK_tPDSSpecialSkill] PRIMARY KEY CLUSTERED 
+(
+	[controlNo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+1.)  create table tPDSSpecialSkills
+2.) pageNo tPDSWorkExperience
+  

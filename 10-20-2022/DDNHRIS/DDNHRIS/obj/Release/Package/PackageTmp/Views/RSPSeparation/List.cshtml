@@ -1,0 +1,396 @@
+﻿@{
+    ViewBag.Title = "Separation";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+
+    .list-group-item {
+        background-color: transparent;
+        padding: 5px 20px;
+        border: 0;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+</style>
+
+<div ng-controller="Separation">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">SEPARATION</span></h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active" ng-click="tabSelect(0)"><a href="#listed" data-toggle="tab"><i class="icon-stack-text position-left"></i> Separation List</a></li>
+                    <li ng-click="tabSelect(1)"><a href="#forecasted" data-toggle="tab"><i class="icon-file-check position-left"></i> Forcasted</a></li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-file-plus position-left"></i>
+                                New Item
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-show="tabId == 0">
+                                    <button class="btn-link" style="padding:8px 15px;" ng-click="modalSeparation()">
+                                        <i class="icon-file-text2"></i> &nbsp; Separation
+                                    </button>
+                                </li>
+                                <li ng-show="tabId == 1">
+                                    <button class="btn-link" style="padding:8px 15px;" ng-click="modalForecasted()">
+                                        <i class="icon-calendar"></i> &nbsp; Forcasting
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-clippy"></i> Go to List</a></li>
+                                <li><a href="#"><i class="icon-search4"></i> Find</a></li>
+                            </ul>
+                        </li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+    </div>
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+
+                        <div class="tab-pane fade in active" id="listed">
+
+                            <div class="row">
+
+
+                                <div class="col-lg-3">
+                                    <!-- User details -->
+                                    <div class="content-group">
+
+                                        <div class="panel no-border-top no-border-radius-top">
+                                            <!-- Navigation -->
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">Month</h6>
+                                                <div class="heading-elements">
+                                                    <a href="#" class="heading-text text-size-mini"><i class="icon-database-refresh"></i> </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="list-group no-border no-padding-top" ng-repeat="item in separationList">
+                                                <a href="#" ng-click="selectMonth(item)" class="list-group-item"><i class="icon-folder4"></i> {{item.monthGroup}}<span class="badge badge-primary">{{item.count}}</span> </a>
+                                            </div>
+
+                                            <!-- /navigation -->
+                                        </div>
+                                    </div>
+                                    <!-- /user details -->
+                                    <!-- /traffic sources -->
+                                </div>
+
+                                <div class="col-lg-9">
+
+                                    <!-- Profile info -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title text-bold text-blue-800">
+                                                {{separationItem.monthGroup}}
+                                            </h5>
+                                        </div>
+
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="text-semibold">
+
+                                                    <th class="text-center">NAME OF APPOINTEE</th>
+                                                    <th class="text-center">SEPARATION TYPE</th>
+                                                    <th class="text-center">DATE</th>
+                                                    <th class="text-center" style="width:90px;">
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="item in separationItem.list">
+                                                    <td>
+                                                        @*<small>{{$index + 1}}.) &nbsp; </small>*@
+                                                        <span class="text-primary-800 text-bold">{{item.fullNameLast}}</span>
+                                                        <br />
+                                                        <small>
+                                                            <span class="text-semibold">{{item.positionTitle}}  </span>
+                                                        </small>
+                                                    </td>
+
+                                                    <td class="text-left">
+                                                        {{item.separationType}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{formatDate(item.effectiveDate)}}
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                    <!-- /traffic sources -->
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="tab-pane fade" id="forecasted">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold table-striped text-blue-800">
+                                        FORECASTED SEPARATION
+                                    </h5>
+                                </div>
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="text-semibold">
+                                            <th class="text-center">NAME OF APPOINTEE</th>
+                                            <th class="text-center">POSITION TITLE</th>
+                                            <th class="text-center">SEPARATION TYPE</th>
+                                            <th class="text-center">EFFECTIVE DATE</th>
+                                            <th class="text-center" style="width:90px;">
+                                                <i class="icon-plus3 text-blue-700" ng-if="apptData.tag == 0" ng-click="selectAppointee()" style="cursor:pointer;"></i>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in forcastList">
+
+                                            <td>
+                                                {{$index + 1}}.)
+                                                <span class="text-primary-800 text-bold">{{item.fullNameLast}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-semibold"> {{item.itemNo}} - {{item.positionTitle}}  </span>
+                                            </td>
+                                            <td class="text-left">
+                                                {{item.separationType}}
+                                            </td>
+                                            <td class="text-left">
+                                                {{formatDate(item.effectiveDate)}}
+                                            </td>
+                                            <td></td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                            <!-- /traffic sources -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Primary modal -->
+    <div id="modalSeparation" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-blue-800">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-file-text2"></i> Separation  </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="text-muted"> Status Group <span class="text-danger">*</span></label>
+                                <select class="form-control select-Custom" ng-model="data.empStatGroup" ng-disabled="loadingState" style="width:100%;"
+                                        ng-options="c.value as c.text for c in empStatGroupType" value="{{c.value}}" id="stat" ng-change="onChangeStatusGroup(data.empStatGroup)">
+                                    <option value="" disabled="disabled" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Employee Name <span class="text-danger">*</span></label>
+                                <select class="form-control select-Custom" ng-model="data.EIC" ng-disabled="loadingState" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in empList  | filter: {isPlantilla: groupTag}" value="{{c.EIC}}" id="employee">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="text-muted">Separation Cause <span class="text-danger">*</span></label>
+                                <select class="form-control select-Custom" ng-model="data.separationType" ng-disabled="loadingState" style="width:100%;"
+                                        ng-options="c.value as c.text for c in sepCauseList" value="{{c.value}}">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="text-muted">Effective Date <span class="text-danger">*</span></label>
+                                <input class="form-control required" type="date" ng-model="data.effectiveDate" name="date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Remarks</label>
+                                <input class="form-control" type="text" ng-model="data.remarks" />
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable || loadingstate"  ng-click="submitSeparation(data)">Save Separation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+    <!-- Primary modal -->
+    <div id="modalForCasting" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-danger-800">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-calendar"></i> Forecasting</h6>
+                </div>
+                <div class="modal-body">
+
+
+                 
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Employee Name <span class="text-danger">*</span></label>
+                                <select class="form-control select-Custom" ng-model="data.EIC" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in empList" value="{{c.EIC}}" id="employeeList">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="text-muted">Separation Cause <span class="text-danger">*</span></label>
+                                <select class="form-control select-Custom" ng-model="data.separationType" style="width:100%;"
+                                        ng-options="c.value as c.text for c in sepCauseList" value="{{c.value}}">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="text-muted">Effective Date <span class="text-danger">*</span></label>
+                                <input class="form-control required" type="date" ng-model="data.effectiveDate" name="date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted">Remarks</label>
+                                <input class="form-control" type="text" ng-model="data.remarks" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default text-danger-800 text-bold text-size-large" ng-disabled="bDisable" ng-click="submitForcastedSep(data)"> <i class="icon-check2"></i> Save Forecasted Separation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+
+</div>
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/inputmask/jquery.inputmask.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPSeparation/SeparationList.js"></script>
+
+    <script>
+        $("#employee").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#employeeList").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });        
+    </script>
+}

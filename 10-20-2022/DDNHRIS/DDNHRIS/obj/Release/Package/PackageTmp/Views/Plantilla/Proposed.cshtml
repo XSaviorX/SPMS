@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Proposed";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+
+<div ng-controller="PlantillaProposed">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">PLANTILLA</span> (Proposed) </h4>
+            </div>
+            @*<div class="heading-elements">
+                    <div class="heading-btn-group">
+                            <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                            <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                            <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+                        </div>
+                </div>*@
+        </div>
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li><a href="~/Home/Dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li><a href="#">R.S.P</a></li>
+                <li class="active">Plantilla</li>
+            </ul>
+            <ul class="breadcrumb-elements">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-gear position-left"></i>
+                        View Settings
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                        <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                        <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+        <!-- Form horizontal -->
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <select class="form-control select2  select-Custom" ng-model="deptFunctionCode"
+                                ng-change="onSelectOffice()"
+                                ng-options="c.functionCode as c.departmentName for c in functionList" value="{{c.functionCode}}" id="DeptStructure"></select>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <button class="btn btn-default" ng-click="printPreview()" ng-disabled="bDisable">
+                            <i class="icon-printer2"></i> Proposed Plantilla
+                        </button>
+                                             
+                        <button class="btn btn-default" ng-click="printPreviewUnfud()" ng-disabled="bDisable">
+                            <i class="icon-printer2"></i> Unfunded Position
+                        </button>
+
+
+                        <button class="btn btn-default" ng-click="printLPBForm()" ng-disabled="bDisable">
+                            <i class="icon-printer2"></i> LBP FORM No. 3
+                        </button>
+                        
+                        <button class="btn btn-default" ng-click="printLPBForm3A()" ng-disabled="bDisable">
+                            <i class="icon-printer2"></i> LBP FORM No. 3A
+                        </button>
+
+
+                    </div>
+
+                   
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /form horizontal -->
+
+    </div>
+    <!-- /content area -->
+</div>
+
+@section JavaScript{
+
+    <script src="~/Scripts/AngularJS/Plantilla/Proposed.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script>
+
+
+        $("#DeptStructure").select2({
+            placeholder: 'Select Structure',
+            allowClear: true
+        });
+
+
+    </script>
+
+}
+
+
+
+
+
+
+
+

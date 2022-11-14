@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "Programs";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+<div ng-controller="FundSourceProgram">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4> <a href="~/RSPFundSource/Projects"> <i class="icon-arrow-left52 position-left"></i> </a>  <span class="text-semibold">Source of Fund</span> - Programs </h4>
+                <ul class="breadcrumb position-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Source of Fund</a></li>
+                    <li class="active">Programs</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content">
+        <!-- Task manager table -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <input class="form-control" type="text" placeholder="Type to  Search" style="max-width:350px;" />
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li class="text-blue-800" ng-click="modalAdd()"> <a href="#"> <i class="icon-plus22"></i> Add Program </a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <table class="table tasks-list ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Program Name</th>
+                        <th class="text-left">Office</th>
+                        <th class="text-center text-muted" style="width: 30px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="item in programList">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            <div class="text-semibold text-blue-800"><a href="task_manager_detailed.html">{{item.programName}}</a></div>
+                        </td>
+                        <td class="text-left text-semibold">
+                            {{item.shortDepartmentName}}
+                        </td>
+
+                        <td class="text-center">
+                            <ul class="icons-list">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li ng-click="ViewDetail(item.fundSourceCode)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /task manager table -->
+
+    </div>
+
+
+    <!-- Primary modal -->
+    <div id="modalAddProgram" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> SOURCE OF FUNDS</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Office</label>
+
+                                <select class="form-control select2 select-Custom" ng-model="data.departmentCode" style="width:100%; "
+                                        ng-options="c.departmentCode as c.shortDepartmentName for c in deptList" value="{{c.departmentCode}}"
+                                        id="prog">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Name of Program</label>
+                                <input class="form-control" ng-model="data.programName" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="SubmitProgram(data)">Submit Program</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+
+
+</div>
+
+<!-- /main content -->
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/RSPFundSource/Programs.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+
+    @*<script>
+            $("#prog").select2({
+                placeholder: '-- Select Fund Source --',
+                allowClear: true
+            });
+
+        </script>*@
+}
+
+
+
+

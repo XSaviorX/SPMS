@@ -1,0 +1,2437 @@
+﻿@{
+    ViewBag.Title = "Application";
+}
+<link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" />
+<link href="~/Content/assets/css/colors.css" rel="stylesheet" />
+<link href="~/Content/assets/css/core.css" rel="stylesheet" />
+<link href="~/Content/assets/css/components.css" rel="stylesheet" />
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/assets/css/comptasstmntUI.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+
+    .tbl-xs > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 3px 10px;
+        line-height: 1.2;
+        vertical-align: top;
+    }
+
+    .option-input {
+        height: 20px;
+        width: 20px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+</style>
+
+<div ng-controller="ApplicantProfiling">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">APPLICANT PROFILING</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href=" #psbSchedule" data-toggle="tab"><i class="icon-calendar2 position-left"></i> PSB Schedule</a></li>
+                </ul>
+
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-file-plus position-left"></i>
+                                Add New
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" ng-click="modalOpenPSBSchedule()"><i class="icon-file-text2"></i> PSB Screening</a></li>
+                                @*<li><a href="#" ng-click="createPosition()"><i class="icon-file-text2"></i> Applicant</a></li>*@
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+    </div>
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- PBS SCHEDULE LIST -->
+                        <div class="tab-pane fade in active" id="psbSchedule">
+
+                            <div class="row" ng-show="tabId == 0">
+                                <div class="col-md-6" ng-repeat="item in positionList">
+                                    <div class="panel border-left-lg border-left-blue-800">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h6 class="no-margin-top" ng-click="showPositionData(item)"><a href="#">{{item.itemText}} - <span class="text-uppercase">{{item.positionTitle}}</span></a></h6>
+                                                    <p class="mb-15">{{item.departmentName}}</p>
+
+                                                    <a href="#" class="" ng-repeat="itm in item.applicantList"><img src="~/Content/assets/images/demo/users/NoImage.jpg" class="img-circle img-xs" alt="" data-popup="tooltip-custom" title={{itm.applicantName}} ng-click="selectApplicant(itm)"></a>
+                                                     
+                                                    <button class="btn btn-link" ng-click="addApplicant(item)">
+                                                        <i class="icon-plus22"></i>
+                                                    </button>
+
+                                                    @*<td>Custom color</td>
+                                                        <td><button type="button" class="btn btn-default btn-sm" data-popup="tooltip-custom" title="I'm a teal tooltip">Tooltip <i class="icon-play3 position-right"></i></button></td>
+                                                        <td>Tooltips support custom color styling through <code>template</code> option. To use, wrap <code>.tooltip-arrow</code> and <code>.tooltip-inner</code> in the div with a custom color class</td>
+                                                    *@
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer panel-footer-condensed">
+                                            <div class="heading-elements">
+                                                <span class="heading-text">PSB Date: <span class="text-semibold">{{formatDateLong(item.PSBDate)}}</span></span>
+                                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+
+                                                    <li class="dropdown">
+                                                        <a href="#" class="text-default dropdown-toggle" data-toggle="dropdown">Option <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
+                                                            <li><a href="#"><i class="icon-rotate-ccw2"></i> Re-schedule</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat" ng-show="tabId == 1">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title text-bold text-blue-800">
+                                        @*<span class="text-semibold"> {{('00000'+ pubItemData.itemNoText).slice(-4)}}  {{pubItemData.positionTitle}}</span>*@
+                                        <span class="text-semibold"> {{pubItemData.itemText}}  {{pubItemData.positionTitle}}</span>
+                                    </h4>
+                                    <div class="heading-elements">
+
+                                        <button class="btn btn-link" ng-click="backToList()">
+                                            <i class="icon-arrow-left16"></i> Back to List
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="text-semibold">
+                                            <th class="text-center">APPLICANT NAME</th>
+                                            <th class="text-center">POSITION</th>
+                                            <th class="text-center">STATUS</th>
+                                            <th class="text-center" style="width:90px;">
+                                                <span class="text-blue-800 text-semibold cursor-pointer" ng-click="addApplicant()">
+                                                    <i class="icon-plus2"></i> Add
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in applicantList">
+                                            <td>
+                                                <small>{{$index + 1}}.) </small>
+                                                <span class="text-primary-800 text-bold cursor-pointer" ng-click="viewApplicantProfile(item.applicationCode)"> {{item.applicantNameLast}}</span>
+                                                <sup ng-show="item.appTypeCode == 0"><small class="text-danger-800 text-size-small text-semibold" style="font-size:.95em;">(OUTSIDER)</small> </sup>
+                                            </td>
+                                            <td>
+                                                <small>
+                                                    <span class="text-semibold">{{item.applicantPositionTitle}} <span ng-if="item.applicantSalaryGrade >= 1">({{item.applicantSalaryGrade}} <span ng-if="item.applicantSalaryStep >= 1">{{item.applicantSalaryStep}}</span>)</span> </span>
+
+                                                    <span class="label label-primary pull-right " ng-show="item.employmentStatusTag != null">{{item.employmentStatusTag}}</span>
+
+                                                </small>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-link btn-xs text-blue-800 text-semibold no-padding no-margin" ng-click="viewApplicantProfile(item.applicationCode)">
+                                                    Profile  <i class="icon-arrow-right15"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <!-- /traffic sources -->
+                            <!-- Course overview -->
+                            <div class="panel panel-white" ng-show="tabId == 2">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title text-semibold ">
+                                        {{applicationData.applicantName}}
+                                    </h3>
+                                    <h4 class="no-margin-top no-margin-bottom">
+                                        <span class="text-semibold ">  @*  {{('00000'+applicationData.itemNo).slice(-4)}}*@  {{applicationData.applicantPositionTitle}} </span> <span class="text-muted text-semibold ">({{applicationData.applicantSalaryGrade}} <span ng-if="applicationData.applicantStep >= 1">/{{applicationData.applicantStep}}</span>)</span>
+                                    </h4>
+
+                                    <div class="heading-elements">
+
+                                        <button class="btn btn-link" ng-click="backToLevel1()">
+                                            <i class="icon-arrow-left16"></i> Back to List
+                                        </button>
+
+
+                                    </div>
+                                </div>
+                                <ul class="nav nav-lg nav-tabs nav-tabs-bottom nav-tabs-toolbar no-margin">
+                                    <li class="active"><a href="#profile" data-toggle="tab"><i class="icon-menu7 position-left"></i> Applicants Profile</a></li>
+                                    <li ng-click="viewAsessmentResult()"><a href="#assessment" data-toggle="tab"><i class="icon-people position-left"></i> Assessment Results</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="profile">
+                                        <div class="panel-body">
+                                            <div class="content-group-lg">
+                                                <h6 class="text-semibold no-margin-bottom">APPLICANT PROFILE</h6>
+                                            </div>
+                                            <h4 class="no-margin-top no-margin-bottom">
+                                                <span class="text-semibold ">  {{('00000'+applicationData.itemNo).slice(-4)}} - {{applicationData.positionTitle}} </span> <span class="label label-primary">SG{{applicationData.salaryGrade}}/1</span>
+                                            </h4>
+                                            <div class="row">
+                                                <!--  APPLICANTS PROFILE DATA -->
+                                                <div class="col-sm-12">
+
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="bg-blue-800">
+                                                                <th class="text-bold text-uppercase" style="width:25%;">
+
+                                                                </th>
+                                                                <th class="text-bold text-uppercase">
+                                                                    Qualification Standard
+
+                                                                    <span class="pull-right cursor-pointer" ng-click="printProfile()"> <i class="icon-printer2"></i> Profile</span>
+
+
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-bold">
+                                                                    <span>EDUCATION</span>
+                                                                    <span class="pull-right  text-blue-800 cursor-pointer pull-right " ng-click="modalProfileEducation()"><i class="icon-plus-circle2"></i></span>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-blue-800">{{applicationData.QSEducation}}</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="no-padding">
+                                                                    <table class="table table-borderless">
+
+                                                                        <tr ng-repeat="item in profileData.educationProfile">
+
+                                                                            <td class="text-semibold">
+                                                                                <i class="icon-check2 text-blue-800"></i> {{item.education}}
+                                                                                <small class="text-danger-600 pull-right cursor-pointer" ng-click="removeEducItem(item)"><i class="icon-cross3"></i></small>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-bold">
+                                                                    EXPERIENCE
+                                                                    <span class="pull-right  text-blue-800 cursor-pointer pull-right " ng-click="xxx()"><i class="icon-plus-circle2"></i></span>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-blue-800">{{applicationData.QSExperience}}</span>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="no-padding">
+                                                                    <table class="table table-borderless text-semibold ">
+                                                                        <tr ng-repeat="item in profileData.experienceProfile">
+                                                                            <td> <i class="icon-check2 text-blue-800"></i> {{item.periodFrom}} - {{item.periodTo}} <span class="text-bold text-blue-800">{{item.positionTitle}}</span> </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-bold">
+                                                                    TRAINING :
+                                                                    <span class="pull-right  text-blue-800 cursor-pointer pull-right " ng-click="openModalTraining()"><i class="icon-plus-circle2"></i></span>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-blue-800">{{applicationData.QSTraining}}</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="no-padding text-semibold">
+
+                                                                    <table class="table table-borderless">
+                                                                        <tr ng-repeat="item in profileData.trainingProfile">
+                                                                            <td>
+                                                                                <i class="icon-check2 text-blue-800"></i> <span class="text-blue-800 text-semibold"> {{item.hour}}<sub>HRS.</sub> </span> - {{item.trainingTitle}}
+                                                                                <small class="text-danger-600 pull-right cursor-pointer" ng-click="removeEducItem(item)"><i class="icon-cross3"></i></small>
+
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-bold">
+                                                                    ELIGIBILITY :
+                                                                    <span class="pull-right  text-blue-800 cursor-pointer pull-right " ng-click="openModalEligibility()"><i class="icon-plus-circle2"></i></span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-blue-800">{{applicationData.QSEligibility}}</span>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="no-padding">
+                                                                    <table class="table text-semibold table-borderless">
+
+                                                                        <tr ng-repeat="item in profileData.eligibilityProfile">
+                                                                            <td>
+                                                                                <i class="icon-check2 text-blue-800"></i> {{item.eligibilityName}}
+                                                                                <small class="text-danger-600 pull-right cursor-pointer" ng-click="removeEligibilityItem(item)"><i class="icon-cross3"></i></small>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-bold">
+                                                                    PEFORMANCE RATING
+                                                                    <span class="pull-right  text-blue-800 cursor-pointer pull-right " ng-click="openProfilePM(applicationData)"><i class="icon-plus-circle2"></i></span>
+                                                                </td>
+                                                                <td>
+                                                                    (1 Rating Period)
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="no-padding">
+
+                                                                    <table class="table text-semibold table-borderless">
+
+                                                                        <tr ng-repeat="item in profileData.performanceRating">
+                                                                            <td>
+                                                                                <i class="icon-check2 text-blue-800"></i> {{item.period}}
+                                                                                <small class="text-danger-600 pull-right cursor-pointer" ng-click="removePerformanceRating(item)"><i class="icon-cross3"></i></small>
+
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </table>
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+
+
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tab-pane fade in" id="assessment">
+                                        <div class="panel-body">
+                                            <div class="content-group-lg">
+                                                <h6 class="text-semibold no-margin-bottom">ASSESSMENT</h6>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+
+                                                    <table class="table table-bordered">
+
+                                                        <thead>
+                                                            <tr class="bg-blue-800">
+                                                                <th class="text-center" style="width:80%;">
+                                                                    CRITERIA
+                                                                </th>
+                                                                <th class="text-center" style="width:20%;">
+                                                                    TOTAL SCORE
+                                                                </th>
+                                                            </tr>
+
+                                                        </thead>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                1.)  PERFORMANCE RATING <span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.performanceScore}}</span>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-sm-9">
+                                                                        <table class="table table-bordered  tbl-xs">
+
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <th>AVERAGE NUMERICAL RATING OF THE LASTES TWO (20) IPCRs</th>
+                                                                                <th class="text-center">SCORE</th>
+                                                                            </tr>
+
+                                                                            <tbody>
+
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        4.90 and Above
+                                                                                    </td>
+                                                                                    <td class="text-center">20</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        4.70 - 4.89
+                                                                                    </td>
+                                                                                    <td class="text-center">19</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        4.50 - 4.69
+                                                                                    </td>
+                                                                                    <td class="text-center">18</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        4.31 - 4.49
+                                                                                    </td>
+                                                                                    <td class="text-center">17</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        4.00 - 4.30
+                                                                                    </td>
+                                                                                    <td class="text-center">16</td>
+                                                                                </tr>
+
+                                                                            </tbody>
+
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="alert alert-danger no-border text-center" ng-show="assmntResultData.performanceRating == null">
+                                                                    <span class="text-semibold">No Performance Rating!</span>
+                                                                    <br />
+                                                                    <button class="btn btn-default btn-xs">
+                                                                        Check Performance Rating
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                2.)  COMPETENCY ASSESSMENT <span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right">{{assmntResultData.comptAssmentScore}}</span>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row" style="font-size:.9em!important;">
+                                                                    <div class="col-sm-3">
+                                                                        <table class="table table-bordered table-responsive tbl-xs">
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <td colspan="2">1 : BASIC </td>
+                                                                            </tr>
+                                                                            <tr class="bg-slate-800">
+                                                                                <td>CRITERIA</td>
+                                                                                <td class="text-center">SCORE</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>SUPERIOR</td>
+                                                                                <td class="text-center">10</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>ADVANCE</td>
+                                                                                <td class="text-center">8</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>INTERMEDIATE</td>
+                                                                                <td class="text-center">7</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BASIC</td>
+                                                                                <td class="text-center">6</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <table class="table table-bordered table-striped tbl-xs">
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <td colspan="2">2 : INTERMEDIATE </td>
+                                                                            </tr>
+                                                                            <tr class="bg-slate-800">
+                                                                                <td>CRITERIA</td>
+                                                                                <td class="text-center">SCORE</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>SUPERIOR</td>
+                                                                                <td class="text-center">10</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>ADVANCE</td>
+                                                                                <td class="text-center">8</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>INTERMEDIATE</td>
+                                                                                <td class="text-center">6</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BASIC</td>
+                                                                                <td class="text-center">0</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <table class="table table-bordered table-striped tbl-xs">
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <td colspan="2">3 : ADVANCE </td>
+                                                                            </tr>
+                                                                            <tr class="bg-slate-800">
+                                                                                <td>CRITERIA</td>
+                                                                                <td class="text-center">SCORE</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>SUPERIOR</td>
+                                                                                <td class="text-center">10</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>ADVANCE</td>
+                                                                                <td class="text-center">6</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>INTERMEDIATE</td>
+                                                                                <td class="text-center">0</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BASIC</td>
+                                                                                <td class="text-center">0</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <table class="table table-bordered table-striped tbl-xs">
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <td colspan="2">4 : SUPERIOR </td>
+                                                                            </tr>
+                                                                            <tr class="bg-slate-800">
+                                                                                <td>CRITERIA</td>
+                                                                                <td class="text-center">SCORE</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>SUPERIOR</td>
+                                                                                <td class="text-center">10</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>ADVANCE</td>
+                                                                                <td class="text-center">0</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>INTERMEDIATE</td>
+                                                                                <td class="text-center">0</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BASIC</td>
+                                                                                <td class="text-center">0</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="alert alert-danger no-border text-center" ng-show="comptAssmntTag == 0">
+
+                                                                    <span class="text-semibold">Applicant not yet allowed!</span>
+                                                                    <br />
+                                                                    <button class="btn btn-default btn-xs" ng-disabled="bDisable" ng-click="checkApplicantCompetency()">
+                                                                        Allow the Competency Test
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="alert alert-success no-border text-center" ng-show="comptAssmntTag == 1">
+
+                                                                    <span class="text-semibold">Assessment is on going</span>
+                                                                    <br />
+                                                                    <button class="btn btn-default btn-xs" ng-disabled="bDisable" ng-click="checkComptAssmntEmail()">
+                                                                        Send Email Notification
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="alert alert-success no-border text-center" ng-show="comptAssmntTag == 2">
+                                                                    <span class="text-semibold">For Validation</span>
+                                                                </div>
+                                                                <div class="alert alert-success no-border text-center" ng-show="comptAssmntTag == 3">
+                                                                    <span class="text-semibold">For PGDH validation</span>
+                                                                </div>
+
+                                                                <div class="alert alert-success no-border text-center" ng-show="comptAssmntTag == 4">
+                                                                    <span class="text-semibold">COMPLETED</span>
+                                                                </div>
+
+                                                                <div class="alert alert-success no-border text-center" ng-show="comptAssmntTag >= 5">
+                                                                    <span class="text-bold">
+                                                                        <i class="icon-check"></i>
+                                                                        <br />
+                                                                        COMPLETED
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr @*ng-show="comptAssmntTag == 5"*@>
+                                                            <td colspan="2">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <table class="table table-bordered table-striped tbl-sm">
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <th style="vertical-align:middle"> COMPETENCY </th>
+                                                                                <th class="text-center" style="width:10%!important;  vertical-align:middle">STANDARD</th>
+                                                                                <th class="text-center" style=" width:10%!important; vertical-align:middle">PERSONAL ASSESSMENT</th>
+                                                                                <th class="text-center" style=" width:10%!important; vertical-align:middle">SUPERVISOR'S ASSESSMENT</th>
+                                                                                <th class="text-center bg-blue-800" style=" width:10%!important; vertical-align:middle; border:1PX solid">AVERAGE RATING</th>
+                                                                                <th class="text-center bg-blue-800" style=" width:10%!important; vertical-align:middle">EQUIVALENT SCORE</th>
+                                                                            </tr>
+                                                                            <tr class="text-semibold text-blue-800">
+                                                                                <th style="vertical-align:middle" colspan="6">CORE COMPETENCIES</th>
+                                                                            </tr>
+
+                                                                            <tr ng-repeat="item in competency.core">
+                                                                                <td>
+                                                                                    {{item.comptName}}
+                                                                                </td>
+                                                                                <td class="text-center">({{item.standard}})</td>
+                                                                                <td class="text-center">{{item.scoreSA | number:2}}</td>
+                                                                                <td class="text-center">{{item.scoreDS | number:2}}</td>
+                                                                                <td class="text-center">{{item.scoreAve | number:2}}</td>
+                                                                                <td class="text-center text-semibold">{{item.scoreEqv}}</td>
+                                                                            </tr>
+                                                                            <tr class="text-semibold text-blue-800" ng-show="competency.lead.length > 0">
+                                                                                <th style="vertical-align:middle" colspan="6">LEADERSHIP</th>
+                                                                            </tr>
+                                                                            <tr ng-repeat="item in competency.lead" ng-show="competency.lead.length > 0">
+                                                                                <td>
+                                                                                    {{item.comptName}}
+                                                                                </td>
+                                                                                <td class="text-center">({{item.standard}})</td>
+                                                                                <td class="text-center">{{item.scoreSA | number:2}}</td>
+                                                                                <td class="text-center">{{item.scoreDS | number:2}}</td>
+                                                                                <td class="text-center">{{item.scoreAve | number:2}}</td>
+                                                                                <td class="text-center text-semibold">{{item.scoreEqv}}</td>
+                                                                            </tr>
+                                                                            <tr class="text-semibold text-blue-800" ng-show="competency.tech.length > 0">
+                                                                                <th style="vertical-align:middle" colspan="6">TECHNICAL</th>
+                                                                            </tr>
+
+                                                                            <tr ng-repeat="item in competency.tech" ng-show="competency.tech.length > 0">
+                                                                                <td>
+                                                                                    {{item.comptName}}
+                                                                                </td>
+                                                                                <td class="text-center">({{item.standard}})</td>
+                                                                                <td class="text-center">{{item.scoreSA | number:2}}</td>
+                                                                                <td class="text-center">{{item.scoreDS | number:2}}</td>
+                                                                                <td class="text-center">{{item.scoreAve | number:2}}</td>
+                                                                                <td class="text-center text-semibold">{{item.scoreEqv}}</td>
+                                                                            </tr>
+
+
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                3.)  BEHAVIORAL EVENT INTERVIEW <span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.BEIScore}}</span>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><small>Based on Situation, Action, Task and Results (STAR) approach</small></td>
+                                                            <td>
+                                                                <div class="alert alert-danger no-border text-center">
+                                                                    <span class="text-semibold">No BEI Rating!</span>
+                                                                    <br />
+                                                                    <button class="btn btn-default btn-xs">
+                                                                        Check BEI Rating
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                4.)  PSYCHO-SOCIAL/POTENTIAL TEST <span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.psychoScore}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Average Rating : <span class="text-bold   label label-primary" style="font-size:1.5em; ">{{assmntResultData.psychoRating | number:2}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <div class="alert alert-danger no-border text-center" ng-show="comptAssmntTag <= 3">
+                                                                    <span class="text-semibold">No Psycho Social Rating!</span>
+                                                                    <br />
+                                                                    <button class="btn btn-default btn-xs">
+                                                                        Check Psycho Social Rating
+                                                                    </button>
+
+                                                                </div>
+
+                                                                <div class="alert alert-success no-border text-center no-margin-bottom" ng-show="comptAssmntTag >= 4">
+                                                                    <span class="text-bold">
+                                                                        <i class="icon-check"></i>   COMPLETED
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                5.)  RELEVANT EXPERIENCE <span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.experience}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <table class="table table-bordered table-striped tbl-sm">
+
+                                                                            <thead>
+                                                                                <tr class="text-semibold text-blue-800">
+                                                                                    <th>
+                                                                                        RELEVANT EXPERIENCE
+                                                                                    </th>
+                                                                                    <th class="text-center" style="width:20%!important">SCORE</th>
+                                                                                </tr>
+                                                                            </thead>
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    1. Complied more than 150%; of years required by xxxxxx
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(5, 10))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.experience" ng-value="10" />
+                                                                                        10
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    2. Complied more than 100%; of years required by xxxxxx
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(5, 7))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.experience" ng-value="7" />
+                                                                                        7
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    3. Complied minimum years of experience
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(5, 6))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.experience" ng-value="6" />
+                                                                                        6
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+
+
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                6.)  RELEVANT EDUCATION<span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.education}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <table class="table table-bordered table-striped tbl-sm">
+
+                                                                            <thead>
+                                                                                <tr class="text-semibold text-blue-800">
+                                                                                    <th>
+                                                                                        RELEVANT EDUCATION
+                                                                                    </th>
+                                                                                    <th class="text-center" style="width:20%!important">SCORE</th>
+                                                                                </tr>
+                                                                            </thead>
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    1. Completion of relevant master's degree relevant to the job
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(6, 10))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.education" ng-value="10" />
+                                                                                        10
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    2. Bachelor's degree relevant to the job
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(6, 7))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.education" ng-value="7" />
+                                                                                        7
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    3. Complied minimum years of experience
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(6, 6))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.education" ng-value="6" />
+                                                                                        6
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                7.)  RELEVANT TRAINING<span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.training}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <table class="table table-bordered table-striped tbl-sm">
+
+                                                                            <thead>
+                                                                                <tr class="text-semibold text-blue-800">
+                                                                                    <th>
+                                                                                        RELEVANT TRAINING
+                                                                                    </th>
+                                                                                    <th class="text-center" style="width:20%!important">SCORE</th>
+                                                                                </tr>
+                                                                            </thead>
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    1. Complied more than 150% of hours of training required xxxxxx
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(7, 10))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.training" ng-value="10" />
+                                                                                        10
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    2. Complied more than 100% of hours of training required by the xxxxx
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(7, 7))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.training" ng-value="7" />
+                                                                                        7
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    3. Complied minimum relevant training hours
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(7, 6))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.training" ng-value="6" />
+                                                                                        6
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                8.)  RELEVANT ELIGIBILITY<span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.eligibility}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <table class="table table-bordered table-striped tbl-sm">
+
+                                                                            <thead>
+                                                                                <tr class="text-semibold text-blue-800">
+                                                                                    <th>
+                                                                                        RELEVANT ELIGIBILITY
+                                                                                    </th>
+                                                                                    <th class="text-center" style="width:20%!important">SCORE</th>
+                                                                                </tr>
+                                                                            </thead>
+
+
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    1. Examination Rating is 5% above the passing rate
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(8, 10))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.eligibility" ng-value="10" />
+                                                                                        <span class="text-blue-800 text-bold">10</span>
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    2. Examination Rating is 2% higher then the passing rate
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(8, 7))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.eligibility" ng-value="7" />
+                                                                                        <span class="text-blue-800 text-bold">7</span>
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    3. Examination Rating is passing.
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(8, 6))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.eligibility" ng-value="6" />
+                                                                                        <span class="text-blue-800 text-bold">6</span>
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                        <tr class="text-semibold" style="background-color:#ececec; ">
+                                                            <td>
+                                                                9.)  RELEVANT WORK ACCOMPLISHMENT<span class="pull-right">(10%)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-bold text-size-large text-blue-800 pull-right"> {{assmntResultData.awardLevel}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <table class="table table-bordered table-striped tbl-sm">
+                                                                            <thead>
+                                                                                <tr class="text-semibold text-blue-800">
+                                                                                    <th>
+                                                                                        LEVELS OF RECOGNITION/AWARD
+                                                                                    </th>
+                                                                                    <th class="text-center" style="width:20%!important">SCORE</th>
+                                                                                </tr>
+                                                                            </thead>
+
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    1. National/International
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(9, 10))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.awardLevel" ng-value="10" />
+                                                                                        10
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    2. Regional
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <label ng-click="(submitRating(9, 7))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.awardLevel" ng-value="7" />
+                                                                                        7
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    3. Local (Provincial/Municipal)
+                                                                                </td>
+                                                                                <td class="text-center">
+
+                                                                                    <label ng-click="(submitRating(9, 6))">
+                                                                                        <input required type="radio" class="option-input radio" ng-model="assmntResultData.awardLevel" ng-value="6" />
+                                                                                        6
+                                                                                    </label>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                        <tr style="background-color:#ececec">
+                                                            <td class="text-center">
+                                                                <h4 class="no-margin">OVER-ALL TOTAL / SCORE</h4>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <h4 class="no-margin text-bold  text-blue-800">{{assmntResultData.total}}</h4>
+                                                            </td>
+                                                        </tr>
+
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /course overview -->
+
+                        </div>
+
+                        <!-- POSITIN LIST -->
+                        <div class="tab-pane fade in " id="applicantProfile">
+
+                            <div class="row" ng-show="tabId == 0">
+                                <div class="col-lg-3">
+
+                                    <div class="content-group">
+                                        <div class="panel  no-border-radius-top">
+                                            <!-- Filter -->
+                                            <div class="sidebar-category">
+
+                                                <div class="category-content no-padding">
+                                                    <div class="form-group " style="padding:20px 10px 0px 10px;">
+                                                        <div class="has-feedback has-feedback-left form-group no-padding-bottom no-margin-bottom ">
+                                                            <input type="search" ng-model='searchString' class="form-control" placeholder="Search Position">
+                                                            <div class="form-control-feedback">
+                                                                <i class="icon-search4 text-size-small text-muted"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <table class="table table-striped table-hover table-borderless no-margin">
+                                                        <tr ng-repeat="item in pubItemList  | filter :searchString">
+                                                            <td ng-click="showPositionData(item)">
+                                                                <span class="text-semibold"> {{('00000'+item.itemNo).slice(-4)}} </span> {{item.positionTitle}}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- /filter -->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-9">
+
+                                    <!-- Profile info -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title text-bold text-blue-800">
+                                                <span class="text-semibold"> {{('00000'+pubItemData.itemNo).slice(-4)}}  {{pubItemData.positionTitle}}</span>
+                                            </h5>
+                                        </div>
+
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="text-semibold">
+                                                    <th class="text-center">APPLICANT NAME</th>
+                                                    <th class="text-center">POSITION</th>
+                                                    <th class="text-center">STATUS</th>
+                                                    <th class="text-center" style="width:90px;">
+                                                        <span class="text-blue-800 text-semibold cursor-pointer" ng-click="addApplicant()">
+                                                            <i class="icon-plus2"></i> Add
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="item in applicantList">
+                                                    <td>
+                                                        <small>{{$index + 1}}.) </small>
+                                                        <span class="text-primary-800 text-bold cursor-pointer" ng-click="viewApplicantProfile(item.applicationCode)"> {{item.applicantNameLast}}</span>
+                                                        <sup ng-show="item.appTypeCode == 0"><small class="text-danger-800 text-size-small text-semibold" style="font-size:.95em;">(OUTSIDER)</small> </sup>
+                                                    </td>
+                                                    <td>
+                                                        <small>
+                                                            <span class="text-semibold">{{item.applicantPositionTitle}} <span ng-if="item.applicantSalaryGrade >= 1">({{item.applicantSalaryGrade}} <span ng-if="item.applicantSalaryStep >= 1">{{item.applicantSalaryStep}}</span>)</span> </span>
+
+                                                            <span class="label label-primary pull-right " ng-show="item.employmentStatusTag != null">{{item.employmentStatusTag}}</span>
+
+                                                        </small>
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-link btn-xs text-blue-800 text-semibold no-padding no-margin" ng-click="viewApplicantProfile(item.applicationCode)">
+                                                            Profile  <i class="icon-arrow-right15"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <!-- /traffic sources -->
+                                </div>
+                            </div>
+
+
+                            <!--  APPLICANTS PROFILE -->
+                            @*<div class="container-detached" ng-show="tabId == 1">
+                                    <div class="content-detached">
+
+
+                                    </div>
+                                </div>*@
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- Primary modal -->
+    <div id="modalAddApplication" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        {{modalHeading}}
+                    </h6>
+                </div>
+
+                <div class="modal-body" ng-show="modalTag == 0">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Applicant Type <span class="text-danger">*</span>  </label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="data.appTypeCode" style="width:100%;"
+                                        id="applicantType"
+                                        ng-change="changeApplicantType()">
+                                    <option value="" selected="">-- Select --</option>
+                                    <option value="1" selected> Insider</option>
+                                    <option value="0"> Outsider</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="data.appTypeCode != 0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Employee <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="data.EIC" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in employeeList" value="{{c.EIC}}"
+                                        id="employee">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="data.appTypeCode == 0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Applicant <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="data.applicantCode" style="width:100%;"
+                                        ng-options="c.applicantCode as c.fullNameLast for c in outsiderList" value="{{c.applicantCode}}"
+                                        id="applicant">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-body" ng-show="modalTag == 1">
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Last Name <span class="text-danger">*</span>  </label>
+                                <input class="form-control" ng-model="applData.lastName" autocomplete="off" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">First Name <span class="text-danger">*</span>  </label>
+                                <input class="form-control" ng-model="applData.firstName" autocomplete="off" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Ext. Name <span class="text-danger"></span>  </label>
+                                <input class="form-control" ng-model="applData.extName" autocomplete="off" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Middle Name <span class="text-danger">*</span>  </label>
+                                <input class="form-control" ng-model="applData.middleName" autocomplete="off" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="no-margin-bottom"> Birth Date <span class="text-danger">*</span>  </label>
+                                <input class="form-control" type="date" ng-model="applData.birthDate" />
+                            </div>
+                            <div class="col-md-5">
+                                <label class="no-margin-bottom"> Sex <span class="text-danger">*</span>  </label>
+                                <select name="sex" id="sex" class="form-control" ng-model="applData.sex">
+                                    <option value="" disabled="disabled">--SELECT--</option>
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-link pull-left text-primary-800" ng-show="modalTag == 0 && data.appTypeCode == 0" ng-click="addOutsiderApplicant()"> <i class="icon-user-plus"></i> Applicant </button>
+                    <button type="button" class="btn btn-link pull-left text-primary-800" ng-show="modalTag == 1" ng-click="backToApplicantSelection()"> <i class="icon-arrow-left16"></i>  </button>
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="saveApplicant(data)" ng-show="modalTag == 0">
+                        <i class="icon-check2"></i>
+                        Select Applicant
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="registerApplicant(applData)" ng-show="modalTag == 1">
+                        <i class="icon-floppy-disk"></i>
+                        Save Applicant Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Primary modal -->
+    <div id="modalProfileEduc" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        Relevant Education
+                    </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Applicant Type <span class="text-danger">*</span>  </label>
+                                @*<select class="form-control select2 select-Custom text-semibold" ng-model="data.appTypeCode" style="width:100%;"
+                                    id="applicantType"
+                                    ng-change="changeApplicantType()">
+                                    <option value="" selected="">-- Select --</option>
+                                    <option value="1" selected> Insider</option>
+                                    <option value="0"> Outsider</option>
+                                    </select>*@
+                                <select class="form-control  select-Custom" ng-model="data.appTypeCode"
+                                        ng-options="c.appTypeCode as c.text for c in applicantType" value="{{c.appTypeCode}}" id="applicantType">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-link pull-left text-primary-800"> <i class="icon-user-plus"></i> Applicant </button>
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="saveApplicant(data)">
+                        <i class="icon-floppy-disk"></i>
+                        &nbsp; Submit Education
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- PROFILE ITEM-->
+    @*<div id="modalAddProfile" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header bg-primary">
+        <h6 class="modal-title">
+        Add Application
+        </h6>
+        </div>
+        <div class="modal-body">
+
+        <div class="form-group">
+        <div class="row">
+        <div class="col-md-12">
+        <label class="no-margin-bottom">Education</label>
+        <textarea name="comment" class="form-control" form="usrform" ng-model="profileData.education"></textarea>
+        </div>
+
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="row">
+        <div class="col-md-12">
+        <label class="no-margin-bottom">Experience</label>
+        <textarea name="comment" class="form-control" form="usrform" ng-model="profileData.experience"></textarea>
+        </div>
+
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="row">
+        <div class="col-md-12">
+        <label class="no-margin-bottom">Training</label>
+        <textarea name="comment" class="form-control" form="usrform" ng-model="profileData.training"></textarea>
+        </div>
+
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="row">
+        <div class="col-md-12">
+        <label class="no-margin-bottom">Eligibility</label>
+        <textarea name="comment" class="form-control" form="usrform" ng-model="profileData.eligibility"></textarea>
+        </div>
+
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="row">
+        <div class="col-md-12">
+        <label class="no-margin-bottom">Performance Rating</label>
+        <textarea name="comment" class="form-control" form="usrform" ng-model="profileData.performanceRating"></textarea>
+        </div>
+
+        </div>
+        </div>
+
+        </div>
+        <div class="modal-footer">
+
+        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="saveProfileItem(profileData)">
+        <i class="icon-floppy-disk"></i>
+        Add Profile
+        </button>
+        </div>
+        </div>
+        </div>
+        </div>*@
+
+    <!-- EDUCATION ITEM-->
+    <div id="modalEducationProfile" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        EDUCATION
+                    </h6>
+                </div>
+                <div class="modal-body">
+                    <!-- Toolbar -->
+                    <div class="navbar navbar-default navbar-component navbar-xs">
+                        <ul class="nav navbar-nav visible-xs-block">
+                            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                        </ul>
+                        <div class="navbar-collapse collapse text-bold text-blue-800" id="navbar-filter">
+                            <ul class="nav navbar-nav">
+                                <li class="active "><a href="#pds" data-toggle="tab"><i class="icon-stack-text position-left"></i>Personal Data Sheet </a></li>
+                                <li><a href=" #entryForm" data-toggle="tab"><i class="icon-stack-text position-left"></i>  Entry Form  </a></li>
+                                <li ng-click="showHRISPDSV1()"><a href="#pds1" data-toggle="tab" class="text-danger-800"><i class="icon-stack-text position-left"></i>PDS (HRIS v1.0) </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /toolbar -->
+                    <div class="tabbable">
+                        <div class="tab-content">
+                            <!-- PDS V2 -->
+                            <div class="tab-pane fade in active" id="pds" style="min-height:350px;">
+                                <!-- Position Description Form -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class="panel-title text-blue-800 text-bold"> PERSONAL DATA SHEET (PDS)</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>Level</td>
+                                            <td>Degree</td>
+                                            <td>Highest Level</td>
+                                            <td>Year <br />Grad</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+
+                                    <tr ng-repeat="item in pdsEducation">
+                                        <td>
+                                            <span class="label label-primary">{{item.educLevelCode}}</span>
+                                        </td>
+                                        <td>
+                                            {{item.degree}}
+                                            <br />
+                                            {{item.schoolName}}
+                                        </td>
+                                        <td> {{item.highestLevel}}</td>
+                                        <td>
+                                            {{item.yearGraduated}}
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-xs btn-primary bg-blue-800" ng-if="item.isVerified == 0" ng-click="addEducProfileItem(item)">
+                                                <small>
+                                                    <i class="icon-plus2"></i>  Add
+                                                </small>
+                                            </button>
+                                            <button class="btn btn-xs btn-primary bg-blue-800" ng-if="item.isVerified == 1" ng-disabled="true">
+                                                <i class="icon-check2"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+
+
+                                </table>
+
+
+                            </div>
+
+                            <!-- ADD ENTRY -->
+                            <div class="tab-pane fade in" id="entryForm">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="no-margin-bottom">Level</label>
+                                            <select class="form-control select2  select-Custom" ng-model="pdsData.educLevelCode"
+                                                    ng-change="onSelectOffice()"
+                                                    ng-options="c.schoolLevelCode as c.schoolLevelName for c in schoolLevel" value="{{c.schoolLevelCode}}"></select>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label class="no-margin-bottom">Degree / Course</label>
+                                            <input class="form-control" ng-model="pdsData.degree" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <label class="no-margin-bottom">School Name</label>
+                                            <input class="form-control" ng-model="pdsData.schoolName" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Year Graduated</label>
+                                            <input class="form-control" placeholder="yyyy" ng-model="pdsData.yearGraduated" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label class="no-margin-bottom">Highest Grade/Level/Units Earned</label>
+                                            <input class="form-control" ng-model="pdsData.highestLevel" />
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Period of Attendance From  </label>
+                                            <input class="form-control" placeholder="yyyy" ng-model="pdsData.periodYearFrom" />
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Period of Attendance To </label>
+                                            <input class="form-control" placeholder="yyyy" ng-model="pdsData.periodYearTo" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-9">
+                                            <label class="no-margin-bottom">Scholars/Academic Honors Received</label>
+                                            <input class="form-control" ng-model="pdsData.honorsReceived" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <button class="btn btn-primary btn-rounded bg-blue-800" ng-click="savePDSEntry(pdsData)">
+                                                Save Education
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- PDS V1 -->
+                            <div class="tab-pane fade" id="pds1">
+                                <!-- Position Description Form -->
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class="panel-title text-blue-800 text-bold"> PDS (HRIS v1.0)</h5>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered">
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>LEVEL</th>
+                                                        <th>SCHOOL NAME</th>
+                                                        <th>Degree</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tr ng-repeat="item in hrisPDSV2EducList">
+                                                    <td>{{item.levelName}}</td>
+                                                    <td>
+                                                        {{item.schoolName}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.degree}}
+                                                    </td>
+                                                    <td class="text-center">
+
+                                                        <button class="btn btn-primary  btn-xs bg-blue-800 text-bold" ng-click="migratePDSV1ToV2(item)" ng-show="item.tag == 0">
+                                                            <small> Import </small>
+                                                        </button>
+
+                                                        <button class="btn btn-default   btn-xs text-blue-800 " ng-disabled="true" ng-show="item.tag == 1">
+                                                            <i class="icon-check2"></i>
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- TRAINING ITEM-->
+    <div id="modalTrainingProfile" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        TRAINING
+                    </h6>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Toolbar -->
+                    <div class="navbar navbar-default navbar-component navbar-xs">
+                        <ul class="nav navbar-nav visible-xs-block">
+                            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                        </ul>
+                        <div class="navbar-collapse collapse text-bold text-blue-800" id="navbar-filter">
+                            <ul class="nav navbar-nav">
+                                <li class="active "><a href="#trainingPDS" data-toggle="tab"><i class="icon-stack-text position-left"></i>TRANING LIST (PDS) </a></li>
+                                <li><a href=" #trainingForm" data-toggle="tab"><i class="icon-stack-text position-left"></i> TRAINING ENTRY FORM</a></li>
+                                <li ng-click="showHRISPDSV1Training()"><a href="#trainingPDS1" data-toggle="tab" class="text-danger-800"> <i class="icon-stack-text position-left"></i> PDS TRAINING (HRIS v1.0) </a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /toolbar -->
+
+                    <div class="tabbable">
+                        <div class="tab-content">
+
+                            <!-- PDS V2 -->
+                            <div class="tab-pane fade in active" id="trainingPDS" style="overflow-y: scroll; height:350px;">
+
+                                <table class="table table-bordered">
+
+                                    <tr ng-repeat="item in pdsTrainingList">
+                                        <td>
+                                            <span class="label label-primary">{{item.hoursNo}} hrs.</span>
+                                            <span>{{item.trainingTitle}}</span>
+                                        </td>
+
+                                        <td> {{formatDate(item.dateFrom)}} - {{formatDate(item.dateTo)}}</td>
+
+                                        <td> {{item.conductedBy}} </td>
+
+                                        <td class="text-center">
+                                            <button class="btn btn-xs btn-primary bg-blue-800" ng-if="item.tag == 0" ng-click="addTrainingProfile(item)">
+                                                <small>
+                                                    <i class="icon-plus2"></i>  Add
+                                                </small>
+                                            </button>
+                                            <button class="btn btn-xs btn-default text-blue-800 text-bold " ng-if="item.tag == 1" ng-disabled="true">
+                                                <i class="icon-check2"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+
+
+                                </table>
+
+
+                            </div>
+
+                            <!-- ADD ENTRY -->
+                            <div class="tab-pane fade in" id="trainingForm">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="no-margin-bottom">Level</label>
+                                            <input class="form-control" placeholder="(Title written on your cetificate)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Training Date From</label>
+                                            <input class="form-control" type="date" placeholder="mm/dd/yyyy" ng-model="pdsData.schoolName" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Training Date To</label>
+                                            <input class="form-control" type="date" placeholder="mm/dd/yyyy" ng-model="pdsData.yearGraduated" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Total Hours  </label>
+                                            <input class="form-control" type="number" ng-model="pdsData.periodYearFrom" />
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <label class="no-margin-bottom">Training Type <span class="codeview">(Managerial/Technical/Supervisory/etc) </span> </label>
+
+                                            <select class="form-control select2  select-Custom" ng-model="pdsTrainingData.trainingTypeCode"
+                                                    ng-options="c.trainingTypeCode as c.trainingTypeName for c in triningTypeList" value="{{c.trainingTypeCode}}"></select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <button class="btn btn-primary btn-rounded bg-blue-800" ng-click="savePDSTrainingEntry(pdsData)">
+                                                Save Training
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- PDS V1 -->
+                            <div class="tab-pane fade" id="trainingPDS1">
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12" style="overflow-y: scroll; height:350px;">
+
+                                            <table class="table table-bordered">
+
+                                                <tr ng-repeat="item in hris1PDSTraining">
+
+                                                    <td>
+                                                        {{item.trainingTitle}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.conductedBy}}
+                                                    </td>
+                                                    <td class="text-center">
+
+                                                        <button class="btn btn-primary  btn-xs bg-blue-800 text-bold" ng-click="migrateTrainingFromPDS1(item)" ng-show="item.tag == 0">
+                                                            <small> Import</small>
+                                                        </button>
+
+                                                        <button class="btn btn-default  btn-xs text-blue-800 " ng-disabled="true" ng-show="item.tag == 1">
+                                                            <i class="icon-check2"></i>
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL ELIGIBILITY -->
+    <div id="modalEligibility" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        ELIGIBILITY
+                    </h6>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" ng-show="eligFormTag == 1">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="alert alert-danger  no-border" ng-if="pdsEligibility.length == 0">
+
+                                    <h5>
+                                        No record found...
+                                    </h5>
+
+                                </div>
+
+                                <table class="table table-bordered">
+                                    <tr ng-repeat="item in pdsEligibility">
+                                        <td>
+                                            {{item.eligibilityName}}
+                                        </td>
+
+                                        <td class="text-center">
+                                            <button class="btn btn-xs btn-primary bg-blue-800" ng-if="item.tag == 0" ng-click="saveEligibilityProfile(item)">
+                                                <small>
+                                                    <i class="icon-plus2"></i>  Add
+                                                </small>
+                                            </button>
+                                            <button class="btn btn-xs btn-default text-blue-800 text-bold " ng-if="item.tag == 1" ng-disabled="true">
+                                                <i class="icon-check2"></i>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="eligFormTag == 2">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <h5 style="margin-top:0px; padding-bottom:10px;">
+                                    ELIGIBILITY ENTRY FORM
+                                </h5>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-9">
+                                            <label class="no-margin-bottom">Eligibility<span class="text-danger">*</span></label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large" ng-model="elig.eligibilityCode" style="width:100%;"
+                                                    ng-options="c.eligibilityCode as c.eligibilityName for c in eligType" value="{{c.eligibilityCode}}">
+                                                <option value="" selected="">-- Select --</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="no-margin-bottom">Rating <span class="text-danger">*</span></label>
+                                            <input type="text" ng-model="elig.rating" class="form-control text-semibold text-size-large">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <label class="no-margin-bottom">Place of Examination <span class="text-danger">*</span></label>
+                                            <input type="text" ng-model="elig.examPlace" class="form-control text-semibold text-size-large">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="no-margin-bottom">Examination Date<span class="text-danger">*</span></label>
+                                            <input type="date" ng-model="elig.examDate" class=" form-control text-semibold text-size-large ">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="no-margin-bottom">License No <code>* IF APPLICABLE</code></label>
+                                            <input id="text" type="text" ng-model="elig.licenseNo" class="form-control text-semibold text-size-large" autocomplete="off">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="no-margin-bottom">Validity <code>* IF APPLICABLE</code></label>
+                                            <input type="date" ng-model="elig.validityDate" class=" form-control text-semibold text-size-large">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-link text-blue-800 pull-left" ng-click="eligFormBack()" ng-show="eligFormTag == 2">
+                        <i class="icon-arrow-left16"></i>
+                    </button>
+
+                    <button class="btn btn-link text-blue-800 pull-left" ng-click="eligibilityForm()" ng-show="eligFormTag == 1">
+                        <i class="icon icon-plus3"></i> Eligibility
+                    </button>
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PERFORMANCE RATING -->
+    <div id="modalPerformanceMngt" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        PERFORMANCE MANAGEMENT
+                    </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div ng-show="spmsTag == 1">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="alert alert-danger  no-border" ng-if="pmList.length == 0">
+
+                                        <h5>
+                                            No record found...
+                                        </h5>
+
+                                    </div>
+
+
+                                    <table class="table table-bordered">
+                                        <tr ng-repeat="item in pmList">
+                                            <td>
+                                                {{item.details}}
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-xs btn-primary bg-blue-800" ng-if="item.tag == 0" ng-disabled="bDisable" ng-click="addPMProfile(item)">
+                                                    <small>
+                                                        <i class="icon-plus2"></i>  Add
+                                                    </small>
+                                                </button>
+                                                <button class="btn btn-xs btn-default text-blue-800 text-bold " ng-if="item.tag == 1" ng-disabled="true">
+                                                    <i class="icon-check2"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="spmsTag == 2">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom">Numerical Rating <span class="text-danger">*</span>  </label>
+                                    <input class="form-control" type="number" ng-model="pmData.ratingNum" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom">Adjectival Rating <span class="text-danger">*</span>  </label>
+                                    <select class="form-control select2 select-Custom text-semibold" ng-model="pmData.ratingAdj" style="width:100%;"
+                                            ng-options="c.code as c.text for c in spmsRating" value="{{c.code}}"
+                                            id="rating">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom">Semster Rating <span class="text-danger">*</span>  </label>
+                                    <select class="form-control select2 select-Custom text-semibold" ng-model="pmData.semester" style="width:100%;"
+                                            ng-options="c.code as c.semester for c in spmsSemester" value="{{c.code}}"
+                                            id="semester">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="no-margin-bottom">Latest Rating <span class="text-danger">*</span>  </label>
+                                    <select class="form-control select2 select-Custom text-semibold" ng-model="pmData.year" style="width:100%;"
+                                            ng-options="c.code as c.text for c in spmsYear" value="{{c.code}}"
+                                            id="semester">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-9">
+                                    <label class="no-margin-bottom">Remarks  </label>
+                                    <input class="form-control" ng-model="pmData.details" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-link text-blue-800 pull-left" ng-click="spmsForm()" ng-show="spmsTag == 1">
+                        <i class="icon icon-plus3"></i> PERFORMANCE RATING
+                    </button>
+
+                    <button class="btn btn-link text-blue-800 pull-left" ng-click="spmsFormBack()" ng-show="spmsTag == 2">
+                        <i class="icon-arrow-left16"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" ng-show="spmsTag == 2" ng-disabled="bDisable" ng-click="addIPCRRating(pmData)">
+                        <i class="icon-check"></i>
+                        SAVE
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL COMPETENCY TEEST -->
+    <div id="modalCompetencyAllow" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        COMPETENCY TEST ({{appType}})
+                    </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Applicant Name<span class="text-danger">*</span></label>
+                                <label class="form-control text-semibold text-size-large">{{applicationData.applicantName}}</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="appType == 'INSIDER'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Supervisor</label>
+                                <select class="form-control select2 select-Custom text-semibold text-size-large" ng-model="supervisorEIC" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in supervisors" value="{{c.EIC}}" id="supervisor">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    @*<div class="form-group" ng-show="appType != 'INSIDER'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Username </label>
+                                <label class="form-control text-semibold">
+                                    {{appUser}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="appType != 'INSIDER'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Password</label>
+                                <label class="form-control text-semibold">
+                                    {{appCode}}
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>*@
+
+                    <div class="form-group" ng-show="appType != 'INSIDER'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Email <span class="text-danger">*</span></label>
+                                <input class="form-control" type="email" ng-model="email"  />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="comptAssmntAllow()">
+                        <i class="icon-check"></i>
+                        Save Competency Assessment
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL APPLICANT'S PRFILE -->
+    <div id="modalApplicantProfile" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        {{applicantData.applicantName}}
+                    </h6>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4>
+                                    -- TO BE FINISH SOON --
+                                </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+
+
+                    <button type="button" class="btn btn-primary bg-blue-800 btn-rounded pull-left" ng-disabled="bDisable" ng-click="saveAppointee()">
+                        <i class="icon-check"></i>
+                        Set as Appointee
+                    </button>
+                     
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL APPLICANT'S PRFILE -->
+    <div id="modalComptAssmntEmail" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        Email
+                    </h6>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4>
+                                    {{emailStat}} Email Notification
+                                </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                     
+                    <button type="button" class="btn btn-primary bg-blue-800" ng-disabled="bDisable" ng-click="SendComptAssmntEmail()">
+                        <i class="icon-mail5"></i>
+                        {{emailStat}}  Email
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL APPLICANT'S PRFILE -->
+    <div id="modalCreatePSBSchedule" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        Create PSB Schedule
+                    </h6>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Select Item <span class="text-danger">*</span></label>
+                                
+                                <select class="form-control select2 select-Custom text-semibold text-size-large" ng-model="data.publicationItemCode" style="width:100%;"
+                                        ng-options="c.Value as c.Text for c in pubList" value="{{c.Value}}" id="position">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                                
+
+                            </div>
+
+                        </div>
+                    </div>
+               
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">PSB Date <span class="text-danger">*</span></label>
+                                <input class="form-control" type="date" ng-model="data.PSBDate" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary bg-blue-800" ng-disabled="bDisable" ng-click="submitPSBSchedule(data)">
+                        <i class="icon-floppy-disk"></i> &nbsp;
+                        Submit Schedule
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Content/assets/js/pages/components_popups.js"></script>
+    <script src="~/Scripts/AngularJS/RSPApplication/Profiling.js"></script>
+
+    <script>
+        $("#applicant").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#employee").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#applicantType").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+        $("#position").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+        $("#supervisor").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+
+
+        
+                
+    </script>
+}
+

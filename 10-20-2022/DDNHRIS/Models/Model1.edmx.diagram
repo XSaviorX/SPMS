@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8d48743abcab4fcc93d3164bbdd06bc0" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="HRISDBModel.tApplicant" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantEducation" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantFile" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantProfile" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantTraining" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgDepartment" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplication" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPosition" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionJobDesc" Width="1.5" PointX="6.75" PointY="8.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPublicationItem" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployee" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeeList" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionJobDesc" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionJobDescSub" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionQ" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPublicationItem" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysMenu" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysMenuUser" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysRoleMenu" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysUserRole" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationAssessment" Width="1.5" PointX="13.375" PointY="12.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPSBRating" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPApplication" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfileExpr" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionJobDescSub" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPSBPanel" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantEligibility" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPEligibility" Width="1.5" PointX="17.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

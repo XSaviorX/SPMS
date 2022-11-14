@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8d48743abcab4fcc93d3164bbdd06bc0" Name="Diagram1" ZoomLevel="10">
+        <EntityTypeShape EntityType="HRISDBModel.aTemp" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantComptAssmnt" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantComptAsst" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantEducation" Width="1.5" PointX="2.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantEligibility" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantIPCR" Width="1.5" PointX="4.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantProfile" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantTraining" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantWE" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicantWESAccomp" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAppointmentNPPosting" Width="1.5" PointX="4.625" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttEmpScheme" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttEmpSchemeDaily" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttEmpSchemeSched" Width="1.5" PointX="8.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttEmpSchemeSchedDetail" Width="1.5" PointX="6.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttHoliday" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttLogDevice" Width="1.5" PointX="0.625" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttLogScheme" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tJustifyApp" Width="1.5" PointX="12.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetency" Width="1.5" PointX="6.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetencyGroup" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetencyPosition" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetencyPositionMap" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetencyPositionTech" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetencyStandard" Width="1.5" PointX="14.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptAssessmentGroup" Width="1.5" PointX="2.375" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptCriteria" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptRespondent" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptRespondentAn" Width="1.5" PointX="11" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptResult" Width="1.5" PointX="12.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCoreTeamAccess" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDHRDFocal" Width="1.5" PointX="16.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDPsychoSocial" Width="1.5" PointX="2.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDPsychoSocialTest" Width="1.5" PointX="4.375" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDToolListed" Width="1.5" PointX="6.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDToolProgressive" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDYear" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOnlineRequest" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOnlineRequestItem" Width="1.5" PointX="16.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOnlineRequestLog" Width="1.5" PointX="20.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOnlineService" Width="1.5" PointX="16.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgCluster" Width="1.5" PointX="20.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgDepartment" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgDepartmentHead" Width="1.5" PointX="0.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgDivision" Width="1.5" PointX="4" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgFunction" Width="1.5" PointX="20.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgSection" Width="1.5" PointX="20.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgStructure" Width="1.5" PointX="5.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgStructurePlaceAssign" Width="1.5" PointX="7.375" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tOrgUnit" Width="1.5" PointX="20.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSWE" Width="1.5" PointX="44.5" PointY="47.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSWESAccomplishment" Width="1.5" PointX="50" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tReportBudgetarySaving" Width="1.5" PointX="14.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tReportPlantilla" Width="1.5" PointX="22.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSP201File" Width="1.5" PointX="16.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplication" Width="1.5" PointX="0.5" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationAssessment" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationComptAssmnt" Width="1.5" PointX="24.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationComptAssmntResult" Width="1.5" PointX="5.875" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationEducation" Width="1.5" PointX="7.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationEligibility" Width="1.5" PointX="24.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationLog" Width="1.5" PointX="24.625" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfile" Width="1.5" PointX="24.625" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationTraining" Width="1.5" PointX="18.875" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationWE" Width="1.5" PointX="20.875" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPAppointment" Width="1.5" PointX="24.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPAppointmentNature" Width="1.5" PointX="27.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPAppointmentNotify" Width="1.5" PointX="26.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApptNONPlantillaPosted" Width="1.5" PointX="26.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPEligibility" Width="1.5" PointX="26.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPempInfo" Width="1.5" PointX="26.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPEmployeePosition" Width="2.25" PointX="2.5" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPEmploymentStatu" Width="1.5" PointX="2.5" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPlantillaMagnaCarta" Width="1.5" PointX="28.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPMagnaCarta" Width="1.5" PointX="16.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPNONPlantilla" Width="1.5" PointX="28.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPNonPlantillaPersonnel" Width="1.5" PointX="18.875" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPNOSAMaster" Width="1.5" PointX="30.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPNOSI" Width="1.5" PointX="28.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPNOSIPropBudYear" Width="1.5" PointX="0.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPlantillaHazard" Width="1.5" PointX="30.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPlantillaPersonnel" Width="3" PointX="27" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPosition" Width="1.5" PointX="28.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionContract" Width="1.5" PointX="30.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionJobDesc" Width="1.5" PointX="30.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionJobDescSub" Width="1.5" PointX="30.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionLevel" Width="1.5" PointX="24.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionQ" Width="1.5" PointX="30.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionSub" Width="1.5" PointX="24.875" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPSBApp" Width="1.5" PointX="30.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPSBScreeningResult" Width="1.5" PointX="12.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPublicationItem" Width="1.5" PointX="32.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRata" Width="1.5" PointX="4.25" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRefFundAppr" Width="1.5" PointX="32.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRefFundSource" Width="1.5" PointX="32.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRefFundSourceDetail" Width="1.5" PointX="32.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRefProgram" Width="1.5" PointX="30.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPSalaryTable" Width="1.5" PointX="32.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPSalaryTableDetail" Width="1.5" PointX="0.75" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPSeparationCasual" Width="1.5" PointX="20.875" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPTransactionLog" Width="1.5" PointX="32.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPWarmBody" Width="1.5" PointX="34.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPWorkGroup" Width="1.5" PointX="34.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPWorkGroupAdmin" Width="1.5" PointX="34.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPWorkGroupEmp" Width="1.5" PointX="34.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPersonnelService" Width="1.5" PointX="34.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPlantillaCurrent" Width="1.5" PointX="5.875" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPlantillaUnfund" Width="1.5" PointX="34.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPrintReport" Width="1.5" PointX="26.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZServiceRecordTempRemark" Width="2.25" PointX="36.125" PointY="47.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSPMSrefAdjectivalRating" Width="1.5" PointX="0.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysMenu" Width="1.5" PointX="36.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysMenuGroup" Width="1.5" PointX="36.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysMenuSub" Width="1.5" PointX="8.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysMenuUser" Width="1.5" PointX="10.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysRole" Width="1.5" PointX="36.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysRoleMenu" Width="1.5" PointX="12.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.tSysRoleUser" Width="1.5" PointX="36.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zHRISEmployee" Width="1.5" PointX="14.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zRIMSJobDesc" Width="1.5" PointX="36.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zTempSalaryTab" Width="1.5" PointX="36.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zTempSSL2021" Width="1.5" PointX="36.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zRIMSPlantilla" Width="1.5" PointX="36.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zRIMSQ" Width="1.5" PointX="28.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vAttEmpSchemeDaily" Width="1.5" PointX="30.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDCompetencyPositionMap" Width="2.625" PointX="32.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDCompetencyStandard" Width="2.625" PointX="32.75" PointY="39.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDCompetencyStandardTech" Width="1.5" PointX="38.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDComptRespondent" Width="1.5" PointX="0.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDComptResult" Width="1.5" PointX="2.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDPsychoSocialTest" Width="1.5" PointX="4.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDToolList" Width="1.5" PointX="38.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDToolListed" Width="1.5" PointX="38.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDToolProgressive" Width="1.5" PointX="38.875" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vNOSA" Width="1.5" PointX="38.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vOnlineRequest" Width="1.5" PointX="20.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vOnlineRequestItem" Width="1.5" PointX="22.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vOrgStructure" Width="1.5" PointX="38.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRIMSPlantilla" Width="1.5" PointX="38.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentEligibility" Width="1.5" PointX="10.875" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentNPPosted" Width="1.5" PointX="40.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPApptNPPostedLatest" Width="1.5" PointX="40.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployee" Width="1.5" PointX="26.75" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeeCurrentPosition" Width="1.5" PointX="40.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeeLatest" Width="1.5" PointX="40.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeePlantilla" Width="1.5" PointX="12.75" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeePosition" Width="1.5" PointX="14.875" PointY="40.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeePositionLatest" Width="1.5" PointX="42.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPNONPlantillaPersonnel" Width="1.5" PointX="42.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPNOSIPropBudYear" Width="1.5" PointX="40.875" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPlantillaPersonnel" Width="1.5" PointX="56.375" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPlantillaPrinting" Width="1.5" PointX="8.875" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPlantillaPublication" Width="1.5" PointX="53.625" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionJobDesc" Width="1.5" PointX="44.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionJobDescSub" Width="1.5" PointX="44.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionPlantilla" Width="1.5" PointX="44.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionPlantillaNon" Width="1.5" PointX="44.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPSBAppCoTerm" Width="1.5" PointX="44.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPSBApplication" Width="1.5" PointX="49.875" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPublicationItem" Width="1.5" PointX="44.625" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPublicationItemLast" Width="1.5" PointX="28.75" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPRefFundSource" Width="1.5" PointX="26.625" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPRefProgram" Width="1.5" PointX="48.25" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPSalaryDetail" Width="1.5" PointX="44.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPSalaryDetailCurrent" Width="1.5" PointX="44.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPSalarySchedCasual" Width="1.5" PointX="6.5" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPSalarySchedJO" Width="1.5" PointX="4.75" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPSeparationCasual" Width="1.5" PointX="42.875" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPZPersonnelService" Width="1.5" PointX="46.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vSalaryTable" Width="1.5" PointX="46.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vSRecord" Width="1.5" PointX="10.875" PointY="41.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysMenu" Width="1.5" PointX="46.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysMenuUser" Width="1.5" PointX="46.375" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysRoleMenu" Width="1.5" PointX="46.5" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vSysUserRole" Width="1.5" PointX="50.125" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.zTempEmployeeInfo" Width="1.5" PointX="12.625" PointY="43.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentNotify" Width="1.5" PointX="51.5" PointY="1" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPSChecker" Width="1.5" PointX="48" PointY="17.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPVacantPositionData" Width="2.125" PointX="53.75" PointY="1" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPVacantPositionSum" Width="2.125" PointX="53.75" PointY="3.375" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPNOSA" Width="1.5" PointX="51.625" PointY="8.875" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPAppointmentCasualEmp" Width="2.875" PointX="56.75" PointY="15.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPAppointmentCasual" Width="2.5" PointX="56.25" PointY="1" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentPostedNP" Width="2.25" PointX="56.25" PointY="4.875" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPlantillaVacant" Width="1.5" PointX="53.375" PointY="7.625" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPSBApp" Width="1.5" PointX="60" PointY="15.375" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPSeparation" Width="1.5" PointX="59.25" PointY="1" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPositionJobDescStr" Width="1.5" PointX="61.625" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPNOSA" Width="1.5" PointX="61.75" PointY="3.5" />
+        <EntityTypeShape EntityType="HRISDBModel.vPDSEligibility" Width="1.5" PointX="51.625" PointY="47.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfileElig" Width="1.5" PointX="68.875" PointY="0.625" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfileExpr" Width="1.5" PointX="67" PointY="3" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfilePM" Width="1.5" PointX="68.875" PointY="3" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfileTraining" Width="1.5" PointX="68.875" PointY="6.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDCompetencyPositionGroup" Width="1.5" PointX="71" PointY="6.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPApplicationProfileEducation" Width="1.5" PointX="67.125" PointY="0.625" />
+        <EntityTypeShape EntityType="HRISDBModel.tSPMSIPRCRating" Width="1.5" PointX="69" PointY="25" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptAssessment" Width="1.5" PointX="74.125" PointY="13.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPApplication" Width="1.5" PointX="74.125" PointY="17.625" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptRespondentApplicant" Width="1.5" PointX="73" PointY="6.125" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDComptRespondentApplicant" Width="1.5" PointX="73.25" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDComptRespondentResult" Width="1.5" PointX="70.75" PointY="31.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDComptRespondentResult" Width="1.5" PointX="72.625" PointY="31.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vSPMSIPCRRating" Width="1.5" PointX="74.125" PointY="25.375" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPScreening" Width="1.5" PointX="70.75" PointY="34.625" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentNPEmployee" Width="1.875" PointX="66.625" PointY="30.625" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPSComputationMain" Width="1.5" PointX="72.625" PointY="36.5" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPZPSComputation" Width="1.5" PointX="76.5" PointY="31.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPSComputation" Width="1.5" PointX="74.625" PointY="31.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPublicationVacantForecast" Width="1.5" PointX="64" PointY="39.375" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPublicationVacantForecast" Width="1.5" PointX="61.875" PointY="39.625" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPositionQ" Width="1.5" PointX="53.5" PointY="38.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPAppointmentData" Width="1.5" PointX="64" PointY="0.625" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPSBSchedule" Width="1.5" PointX="55.25" PointY="38.25" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPSBSchedule" Width="1.5" PointX="57.125" PointY="38.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPSMonthlySaving" Width="1.5" PointX="75.875" PointY="25.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPublication" Width="1.5" PointX="14.75" PointY="17" />
+        <EntityTypeShape EntityType="HRISDBModel.tSystemEmailLog" Width="1.5" PointX="8.375" PointY="13.75" />
+        <EntityTypeShape EntityType="HRISDBModel.aaTable" Width="1.5" PointX="75.25" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPEmployee" Width="1.5" PointX="64.25" PointY="23.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tApplicant" Width="1.5" PointX="78.375" PointY="31.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tSALNData" Width="1.5" PointX="77.125" PointY="0.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZServiceRecordTemp" Width="2.125" PointX="33.75" PointY="47.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSEducationLevel" Width="2.375" PointX="46.5" PointY="47.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSEligibility" Width="1.5" PointX="42.75" PointY="47.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPServiceRecordRemark" Width="2.125" PointX="30.5" PointY="47.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPServiceRecordLog" Width="1.5" PointX="28.75" PointY="47.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tSystemLog" Width="1.5" PointX="0.75" PointY="45.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPSeparation" Width="1.5" PointX="68.125" PointY="43.125" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPEmployeeList" Width="1.5" PointX="69.75" PointY="43.125" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointment" Width="1.5" PointX="71.375" PointY="43.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRPTRAIData" Width="1.5" PointX="35" PointY="27" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPServiceRecord" Width="1.5" PointX="40.875" PointY="47.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRPTRAI" Width="1.5" PointX="73.125" PointY="43.125" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentNPP" Width="1.5" PointX="0.75" PointY="47.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSEducation" Width="1.5" PointX="53.625" PointY="47.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSChildren" Width="1.5" PointX="47.75" PointY="49.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRefAdrsBrgy" Width="1.5" PointX="0.625" PointY="55.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tRefAdrsCityMun" Width="1.5" PointX="2.25" PointY="55.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tRefAdrsProvince" Width="1.5" PointX="3.875" PointY="55.125" />
+        <EntityTypeShape EntityType="HRISDBModel.vRefAdrsBarangay" Width="1.5" PointX="0.625" PointY="57.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSProfile" Width="1.5" PointX="39.125" PointY="47.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSWorkExperience" Width="1.5" PointX="58.5" PointY="47.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSVoluntaryWork" Width="1.5" PointX="41" PointY="57.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSSpecialSkill" Width="1.5" PointX="45.375" PointY="58.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSTraining" Width="1.5" PointX="42.75" PointY="57.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tPDSReference" Width="1.5" PointX="47.5" PointY="58.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttLog" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPZPSByCharge" Width="1.5" PointX="5.75" PointY="55.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tPayrollRATA" Width="1.5" PointX="0.625" PointY="60.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPersonnelServData" Width="1.5" PointX="18.875" PointY="62.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPersonnelService" Width="1.5" PointX="20.5" PointY="62.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPLoyalty" Width="1.5" PointX="22.25" PointY="62.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tPayrollHazard" Width="1.5" PointX="24" PointY="62.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPPlantilla" Width="1.5" PointX="72" PointY="59.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDSurvey" Width="1.5" PointX="0.5" PointY="64.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDSurveyQuestion" Width="1.5" PointX="3.75" PointY="64.5" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPlantilla" Width="1.5" PointX="75.375" PointY="59.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDSurveyRespondent" Width="1.5" PointX="2.125" PointY="64.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tRSPRefFundPersonnelService" Width="1.5" PointX="25.625" PointY="62.375" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPAppointmentNonPlantilla" Width="1.5" PointX="78.5" PointY="59.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tReportBudgetaryReq" Width="1.5" PointX="84" PointY="35.625" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPPlantillaProposed" Width="1.5" PointX="86.125" PointY="35.75" />
+        <EntityTypeShape EntityType="HRISDBModel.vLNDSurveyRepondent" Width="1.5" PointX="82.625" PointY="1.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDSurveyReport" Width="1.5" PointX="84.5" PointY="1.625" />
+        <EntityTypeShape EntityType="HRISDBModel.tLNDSurveyResponse" Width="1.5" PointX="6.375" PointY="65.25" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttEmpWorkSched" Width="1.5" PointX="17.375" PointY="18.75" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttWorkSched" Width="1.5" PointX="1.125" PointY="71.375" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttWorkSchedTemplate" Width="1.5" PointX="3.125" PointY="72.125" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttWorkSchedDetail" Width="1.5" PointX="5.375" PointY="71.875" />
+        <EntityTypeShape EntityType="HRISDBModel.vRSPWorkGroupEmp" Width="1.5" PointX="7.625" PointY="72.5" />
+        <EntityTypeShape EntityType="HRISDBModel.tAttEmpDailyLog" Width="1.5" PointX="9.875" PointY="73.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

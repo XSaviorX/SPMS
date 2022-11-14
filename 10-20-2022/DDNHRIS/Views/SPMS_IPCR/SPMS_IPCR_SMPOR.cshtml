@@ -1,0 +1,554 @@
+﻿
+@{
+    ViewBag.Title = "SPMS_IPCR_SMPOR";
+}
+<style type="text/css">
+
+
+    .my-custom-scrollbar {
+        position: relative;
+        height: 50vh;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+
+    .lbl_mporTableH {
+        text-align: center;
+        font-size: small
+    }
+
+    .lbl_mporTableR {
+        text-align: center;
+        font-size: small
+    }
+
+    .searchBar {
+        width: 50%;
+    }
+
+    .performanceTD {
+        height: 45px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .bi {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .bi {
+        left: 0px;
+    }
+
+    .right-addon .bi {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    .inheritBg {
+        background-color: inherit
+    }
+
+    select {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        select::-ms-expand {
+            display: none;
+        }
+
+    .selectFilter {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        .selectFilter::-ms-expand {
+            display: none;
+        }
+
+    .lg-btn-add-mfo {
+        border: dashed 2px;
+        font-size: 40px;
+        padding: 10px;
+        width: 350px;
+        height: 120px;
+        margin-top: 300px;
+        border-color: lightgray;
+        border-radius: 30px
+    }
+
+    .lg-txt-add-mfo {
+        color: dimgray;
+        font-family: Bahnschrift Light
+    }
+
+    .lg-btn-sel-mfo {
+        border: dashed 2px;
+        font-size: 40px;
+        padding: 10px;
+        width: 350px;
+        height: 120px;
+        margin-top: 300px;
+        border-color: lightgray;
+        border-radius: 30px
+    }
+
+    .lg-txt-sel-mfo {
+        color: dimgray;
+        font-family:
+    }
+
+    .div-bg {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .cat-style {
+        border: solid;
+        border-color: #EEEEEE;
+        height: 36px;
+        width: 232px;
+        padding-left: 1px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .i-style {
+        background-color: #EEEEEE;
+        padding: 6px;
+    }
+
+    .sel-style {
+        width: 150px;
+        height: 30px;
+        border: none
+    }
+
+    .root-num {
+        background-color: #088fbb;
+        color: white;
+        padding: 3px 8px 3px 8px;
+    }
+
+    .btn-sublist {
+        background-color: #e8f9fa;
+        color: #7ABACC;
+        font-size: 23px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-add-mfo {
+        background-color: #e8f9fa;
+        color: dodgerblue;
+        font-size: 23px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-update {
+        background-color: #dafad7;
+        color: #48ad3e;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-remove {
+        background-color: #fcf2f2;
+        color: red;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-addots {
+        background-color: #e8f9fa;
+        color: dodgerblue;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .btn-eye {
+        background-color: #ccebff;
+        color: #007acc;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .cl-num {
+        background-color: #7ABACC;
+        color: white;
+        padding: 3px 6px 3px 6px;
+        margin-left: 10px
+    }
+
+    .btn-update-cl {
+        background-color: #dafad7;
+        color: #48ad3e;
+        font-size: 20px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .select {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 5px;
+        width: 30%;
+    }
+
+        .select select {
+            font-family: 'Arial';
+            display: inline-block;
+            width: 100%;
+            cursor: pointer;
+            padding: 8px 20px;
+            outline: 0;
+            border: 0px hidden #000000;
+            border-radius: 0px;
+            background: #ffffff;
+            color: #767676;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+            .select select::-ms-expand {
+                display: none;
+            }
+
+            .select select:hover,
+            .select select:focus {
+                color: #000000;
+                background: #e5e5e5;
+            }
+
+            .select select:disabled {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+
+    .select_arrow {
+        position: absolute;
+        top: 16px;
+        right: 15px;
+        pointer-events: none;
+        border-style: solid;
+        border-width: 8px 5px 0px 5px;
+        border-color: #7b7b7b transparent transparent transparent;
+    }
+
+    .select select:hover ~ .select_arrow,
+    .select select:focus ~ .select_arrow {
+        border-top-color: #000000;
+    }
+
+    .select select:disabled ~ .select_arrow {
+        border-top-color: #cccccc;
+    }
+</style>
+<div ng-controller="SPMS_IPCR" style="margin: 5px;" ng-init="loadDataSMPOR(2022,2)">
+    <div class="div-bg">
+        <center>
+            <div id="heading">
+                <h5 style="margin-bottom: -10px">Province of Davao del Norte</h5>
+                <h4 style="margin-bottom: -10px"><b>{{smporData[0].officeName}}</b></h4>
+                <h5 style="margin-bottom: -10px">Tagum City, Davao del Norte</h5>
+                <h4>SUMMARY OF MONTHLY PERFORMANCE OUTPUT REPORT</h4>
+            </div>
+        </center>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <span>Name: </span> <strong>{{smporData[0].F_Name}}</strong>
+            </div>
+            <div class="col-lg-4">
+                <center><span>Office / Division: </span> <strong> {{smporData[0].officeNameShort}} </strong></center>
+            </div>
+            <div class="col-lg-4" ng-show="smporData[0].r_semester == 1">
+                <center><strong> JANUARY TO JUNE {{smporData[0].r_year}} </strong></center>
+            </div>
+            <div class="col-lg-4" ng-show="smporData[0].r_semester == 2">
+                <center><strong> JULY TO DECEMBER {{smporData[0].r_year}} </strong></center>
+            </div>
+        </div>
+        <div class="table-responsive" style="display:block;">
+            <div class="my-custom-scrollbar" style="height: 63vh">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="5" class="lbl_mporTableH" style="width: 220px;">
+                                MAJOR FINAL OUTPUT
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="24" class="lbl_mporTableH" style="width: 320px;">
+                                ACCOMPLISHMENTS
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="8" class="lbl_mporTableH" style="width: 320px;">
+                                QUANTITY
+                            </th>
+                            <th colspan="8" class="lbl_mporTableH" style="width: 320px;">
+                                QUALITY
+                            </th>
+                            <th colspan="8" class="lbl_mporTableH" style="width: 320px;">
+                                TIMELINESS
+                            </th>
+                        </tr>
+                        <tr ng-show="smporData[0].r_semester == 1">
+                            <!-- QTY  -->
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JAN
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                FEB
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px;">
+                                MAR
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                APR
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                MAY
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JUN
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                TOTAL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                RATING
+                            </th>
+                            <!-- QLY  -->
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JAN
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                FEB
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px;">
+                                MAR
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                APR
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                MAY
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JUN
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                TOTAL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                RATING
+                            </th>
+                            <!-- TIME  -->
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JAN
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                FEB
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px;">
+                                MAR
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                APR
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                MAY
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JUN
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                TOTAL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                RATING
+                            </th>
+                        </tr>
+                        <tr ng-show="smporData[0].r_semester == 2">
+                            <!-- QTY  -->
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JUL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                AUG
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px;">
+                                SEP
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                OCT
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                NOV
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                DEC
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                TOTAL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                RATING
+                            </th>
+                            <!-- QLY  -->
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JUL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                AUG
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px;">
+                                SEP
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                OCT
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                NOV
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                DEC
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                TOTAL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                RATING
+                            </th>
+                            <!-- TIME  -->
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                JUL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                AUG
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px;">
+                                SEP
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                OCT
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                NOV
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                DEC
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                TOTAL
+                            </th>
+                            <th class="lbl_mporTableH" style="width: 64px; ">
+                                RATING
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="smpor in smporData | groupBy:'i_category'">
+                        <tr ng-show="smpor.i_category_CHANGED" class="bg-slate">
+                            <td class="no-border-right">
+                                {{smpor.description}} Function
+                            </td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <!-- QUALITY -->
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <!-- Timeliness -->
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                            <td class="no-border-right no-border-left"></td>
+                        </tr>
+                        <tr>
+                            <td class="">{{smpor.MFO ? smpor.MFO: smpor.CLDesc}}</td>
+                            <!-- QUANTITY -->
+                            <td class="lbl_mporTableR">{{smpor.qty_mFirst}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qty_mSecond}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qty_mThird}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qty_mFourth}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qty_mFifth}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qty_mSixth}}</td>
+                            <td class="lbl_mporTableR"><strong>{{smpor.qty_total}}</strong></td>
+                            <td class="lbl_mporTableR"><strong>{{smpor.qty_rating}}</strong></td>
+                            <!-- QUALITY -->
+                            <td class="lbl_mporTableR">{{smpor.qly_mFirst}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qly_mSecond}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qly_mThird}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qly_mFourth}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qly_mFifth}}</td>
+                            <td class="lbl_mporTableR">{{smpor.qly_mSixth}}</td>
+                            <td class="lbl_mporTableR"><strong>{{smpor.qly_total}}</strong></td>
+                            <td class="lbl_mporTableR"><strong>{{smpor.qly_rating}}</strong></td>
+                            <!-- Timeliness -->
+                            <td class="lbl_mporTableR">{{smpor.time_mFirst}}</td>
+                            <td class="lbl_mporTableR">{{smpor.time_mSecond}}</td>
+                            <td class="lbl_mporTableR">{{smpor.time_mThird}}</td>
+                            <td class="lbl_mporTableR">{{smpor.time_mFourth}}</td>
+                            <td class="lbl_mporTableR">{{smpor.time_mFifth}}</td>
+                            <td class="lbl_mporTableR">{{smpor.time_mSixth}}</td>
+                            <td class="lbl_mporTableR"><strong>{{smpor.time_total}}</strong></td>
+                            <td class="lbl_mporTableR"><strong>{{smpor.time_rating}}</strong></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SPMS_IPCR/SPMS_IPCR.js"></script>
+
+
+}

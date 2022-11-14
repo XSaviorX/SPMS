@@ -1,0 +1,349 @@
+﻿@{
+    ViewBag.Title = "APRDBoard";
+}
+
+<style>
+    .table2 {
+        margin-bottom: 0;
+    }
+
+    .table2 {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    table2 {
+        background-color: transparent;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .table2 > tbody > tr > td, .table2 > tbody > tr > th, .table2 > tfoot > tr > td, .table2 > tfoot > tr > th, .table2 > thead > tr > td, .table2 > thead > tr > th {
+        padding: 4px 15px;
+        line-height: 1.5384616;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+</style>
+
+
+<!-- Main content -->
+<div class="" ng-controller="APRDDash">
+    <!-- Page header -->
+    <div class="page-header">
+        <!-- Header content -->
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-home4 position-left"></i> <span class="text-semibold">DASHBOARD</span> - APRD</h4>
+                <ul class="breadcrumb position-right">
+                    <li><a href="">Home</a></li>
+                    <li class="active">DASHBOARD</li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /header content -->
+        <!-- Toolbar -->
+        @*<div class="navbar navbar-default navbar-component navbar-xs">
+                <ul class="nav navbar-nav visible-xs-block">
+                    <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                </ul>
+                <div class="navbar-collapse collapse" id="navbar-filter">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#activity" data-toggle="tab"><i class="icon-menu7 position-left"></i> Profile</a></li>
+                        <li><a href="#schedule" data-toggle="tab"><i class="icon-calendar3 position-left"></i> Schedule <span class="badge badge-success badge-inline position-right">32</span></a></li>
+                        <li><a href="#settings" data-toggle="tab"><i class="icon-cog3 position-left"></i> Settings</a></li>
+                        <li><a href="#settings" data-toggle="tab"><i class="icon-database position-left"></i> System Log</a></li>
+                    </ul>
+                    <div class="navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"><i class="icon-stack-text position-left"></i> Notes</a></li>
+                            <li><a href="#"><i class="icon-collaboration position-left"></i> Friends</a></li>
+                            <li><a href="#"><i class="icon-images3 position-left"></i> Photos</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#"><i class="icon-image2"></i> Update cover</a></li>
+                                    <li><a href="#"><i class="icon-clippy"></i> Update info</a></li>
+                                    <li><a href="#"><i class="icon-make-group"></i> Manage sections</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="icon-three-bars"></i> Activity log</a></li>
+                                    <li><a href="#"><i class="icon-cog5"></i> Profile settings</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+        <!-- /toolbar -->
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content" style="width:100%;">
+
+
+        <div class="row">
+
+
+
+            <div class="col-lg-9">
+                <!-- Available hours -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">WORKFORCE STATISTICAL DATA</h6>
+                        @*<div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>*@
+                    </div>
+                    <div class="panel-body">
+
+
+                        <div class="col-lg-5 ">
+
+                            <canvas id="myChart" style="width:100px; height:100px;"></canvas>
+
+
+                        </div>
+
+
+
+
+                        <div class="col-lg-7  table-responsive">
+                            <table class="table2  table-xs">
+                                <thead>
+                                    <tr class="text-right">
+                                        <th class="text-left">STATUS</th>
+                                        <th style="width:20%" class="text-center">MALE</th>
+                                        <th style="width:20%" class="text-center">FEMALE</th>
+                                        <th style="width:20%" class="text-center">TOTAL</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="item in workforce">
+                                        <td colspan="4" class="no-padding-left">
+                                            <label class="text-blue-700 text-semibold">{{item.groupName}}</label>
+                                            <table class="table2 table-striped  no-margin ">
+                                                <tr ng-repeat="itm in item.statusList">
+                                                    <td style="" class="no-border">{{itm.statusName}}</td>
+                                                    <td style="width:20%!important" class="no-border text-right">{{itm.maleCount}}</td>
+                                                    <td style="width:20%!important" class="no-border text-right">{{itm.femaleCount}}</td>
+                                                    <td style="width:20%!important" class="no-border text-right">{{itm.femaleCount + itm.maleCount}}</td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- /available hours -->
+            </div>
+
+            <div class="col-lg-3">
+
+                <!-- Navigation -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">APPOINTMENT </h6>
+                        <div class="heading-elements">
+                            <a href="" class="heading-text"> <i class="icon-reset"></i> </a>
+                        </div>
+                    </div>
+                    <div class="list-group no-border no-padding-top">
+                        <a href="#" class="list-group-item"><i class="icon-file-plus"></i>  NEW APPOINTMENT <span class="badge bg-danger pull-right">{{incomingAppt}}</span></a>
+                        <a href="#" class="list-group-item"><i class="icon-file-check"></i> FOR POSTING  <span class="badge bg-info pull-right">{{pendingAppt}}</span> </a>
+                    </div>
+                </div>
+                <!-- /navigation -->
+                <!-- Share your thoughts -->
+                <!-- Task details -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title"><i class="icon-files-empty position-left"></i> Other Task</h6>
+                         
+                    </div>
+                    <table class="table table-borderless table-xs content-group-sm">
+                        <tbody>
+                            <tr>
+                                <td><i class="icon-briefcase position-left"></i> NOSI</td>
+                                <td class="text-right"><span class="pull-right"><a href="#">0</a></span></td>
+                            </tr>
+                            <tr>
+                                <td><i class="icon-alarm-add position-left"></i> NOSA</td>
+                                <td class="text-right">0</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    @*<div class="panel-footer panel-footer-condensed">
+                        <div class="heading-elements">
+                            <ul class="list-inline list-inline-condensed heading-text">
+                                <li><a href="#" class="text-default"><i class="icon-pencil7"></i></a></li>
+                                <li><a href="#" class="text-default"><i class="icon-bin"></i></a></li>
+                            </ul>
+                            <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                <li><a href="#" class="text-default"><i class="icon-statistics"></i></a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i><span class="caret"></span></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
+                                        <li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
+                                        <li><a href="#"><i class="icon-user-plus"></i> Assign users</a></li>
+                                        <li><a href="#"><i class="icon-warning2"></i> Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>*@
+                </div>
+                <!-- /task details -->
+
+            </div>
+
+
+
+        </div>
+
+        @*<div class="row">
+
+            <div class="col-lg-7">
+                <!-- Task settings -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title"><i class="icon-cog3 position-left"></i> PUBLICATON</h6>
+                        <div class="heading-elements">
+                            
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>ITEM #</th>
+                                    <th>POSITION TITLE </th>
+                                    <th class="text-right">SALARY</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0001</td>
+                                    <td>COMPUTER PROGRAMER III (18)</td>
+                                    <td class="text-right">45,000.00</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-link btn-xs">
+                                            <i class="icon-chevron-right"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>0002</td>
+                                    <td>COMPUTER PROGRAMER III (15)</td>
+                                    <td class="text-right">40,000.00</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-link btn-xs">
+                                            <i class="icon-chevron-right"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /task settings -->
+            </div>
+            <div class="col-lg-5">
+                <!-- Task settings -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title"><i class="icon-cog3 position-left"></i>  SYSTEM LOG</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form action="#">
+                            <div class="form-group">
+                                <div class="checkbox checkbox-switchery checkbox-right switchery-xs">
+                                    <label class="display-block">
+                                        <input type="checkbox" class="switchery" checked="checked">
+                                        Publish after save
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-switchery checkbox-right switchery-xs">
+                                    <label class="display-block">
+                                        <input type="checkbox" class="switchery">
+                                        Allow comments
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-switchery checkbox-right switchery-xs">
+                                    <label class="display-block">
+                                        <input type="checkbox" class="switchery" checked="checked">
+                                        Allow users to edit the task
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-switchery checkbox-right switchery-xs">
+                                    <label class="display-block">
+                                        <input type="checkbox" class="switchery" checked="checked">
+                                        Use task timer
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-switchery checkbox-right switchery-xs">
+                                    <label class="display-block">
+                                        <input type="checkbox" class="switchery">
+                                        Auto saving
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-switchery checkbox-right switchery-xs">
+                                    <label class="display-block">
+                                        <input type="checkbox" class="switchery" checked="checked">
+                                        Allow attachments
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><button class="btn btn-default btn-sm btn-block" type="button">Reset</button></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><button class="btn btn-primary btn-sm btn-block" type="button">Save</button></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /task settings -->
+            </div>
+        </div>*@
+
+
+
+    </div>
+    <!-- /content area -->
+</div>
+<!-- /main content -->
+@section JavaScript{
+       
+    <script src="~/Content/assets/js/chart.min.js"></script>
+    <script src="~/Scripts/AngularJS/Home/APRDDash.js"></script>
+    
+}

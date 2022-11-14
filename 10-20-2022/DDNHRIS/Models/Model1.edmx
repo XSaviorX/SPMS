@@ -1,0 +1,2283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HRISDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tApplicant">
+          <Key>
+            <PropertyRef Name="applicantCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="middleName" Type="varchar" MaxLength="50" />
+          <Property Name="extName" Type="varchar" MaxLength="10" />
+          <Property Name="fullNameLast" Type="varchar" MaxLength="150" />
+          <Property Name="fullNameFirst" Type="varchar" MaxLength="150" />
+          <Property Name="birthDate" Type="date" />
+          <Property Name="birthPlace" Type="varchar" MaxLength="150" />
+          <Property Name="sex" Type="varchar" MaxLength="20" />
+          <Property Name="mobileNo" Type="varchar" MaxLength="30" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="30" />
+          <Property Name="password" Type="varchar" MaxLength="30" />
+          <Property Name="verificationCode" Type="varchar" MaxLength="10" />
+          <Property Name="isVerified" Type="bit" />
+          <Property Name="userEIC" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tApplicantEducation">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" />
+          <Property Name="schoolLevelCode" Type="varchar" MaxLength="20" />
+          <Property Name="schoolName" Type="varchar" MaxLength="150" />
+          <Property Name="degree" Type="varchar" MaxLength="150" />
+          <Property Name="yearGraduated" Type="varchar" MaxLength="20" />
+          <Property Name="highestLevel" Type="varchar" MaxLength="50" />
+          <Property Name="yearFrom" Type="int" />
+          <Property Name="yearTo" Type="int" />
+          <Property Name="academicHonor" Type="varchar" MaxLength="150" />
+          <Property Name="transDT" Type="datetime" />
+          <Property Name="educationNo" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tApplicantEligibility">
+          <Key>
+            <PropertyRef Name="eligibilityId" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eligibilityId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" />
+          <Property Name="eligibilityCode" Type="varchar" MaxLength="30" />
+          <Property Name="eligibilityName" Type="varchar" MaxLength="150" />
+          <Property Name="rating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="examDate" Type="date" />
+          <Property Name="examPlace" Type="varchar" MaxLength="150" />
+          <Property Name="licenseNo" Type="varchar" MaxLength="50" />
+          <Property Name="validityDate" Type="date" />
+          <Property Name="transDT" Type="datetime" />
+          <Property Name="eligibilityNo" Type="varchar" MaxLength="30" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tApplicantFile">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="fileTypeCode" Type="varchar" MaxLength="30" />
+          <Property Name="fileName" Type="varchar" MaxLength="150" />
+          <Property Name="fileCode" Type="varchar" MaxLength="30" />
+          <Property Name="uploadDT" Type="datetime" />
+          <Property Name="tag" Type="int" />
+        </EntityType>
+        <EntityType Name="tApplicantProfile">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="itemLevel" Type="varchar" MaxLength="1500" />
+          <Property Name="education" Type="varchar" MaxLength="1500" />
+          <Property Name="experience" Type="varchar" MaxLength="1500" />
+          <Property Name="training" Type="varchar" MaxLength="1500" />
+          <Property Name="eligibility" Type="varchar" MaxLength="1500" />
+          <Property Name="performanceRating" Type="varchar" MaxLength="1500" />
+          <Property Name="orderNo" Type="int" />
+          <Property Name="tag" Type="int" />
+        </EntityType>
+        <EntityType Name="tApplicantTraining">
+          <Key>
+            <PropertyRef Name="trainingCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="trainingCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" />
+          <Property Name="trainingTitle" Type="varchar" MaxLength="1500" />
+          <Property Name="fromDate" Type="date" />
+          <Property Name="toDate" Type="date" />
+          <Property Name="hours" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="conductedBy" Type="varchar" MaxLength="150" />
+          <Property Name="venue" Type="varchar" MaxLength="50" />
+          <Property Name="transDT" Type="datetime" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tOrgDepartment">
+          <Key>
+            <PropertyRef Name="departmentCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="departmentCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="departmentName" Type="varchar" MaxLength="150" />
+          <Property Name="shortDepartmentName" Type="varchar" MaxLength="10" />
+          <Property Name="orderNo" Type="int" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="functionCode" Type="varchar" MaxLength="6" />
+          <Property Name="functionName" Type="varchar" MaxLength="50" />
+          <Property Name="programActivity" Type="varchar" MaxLength="50" />
+          <Property Name="branch" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tRSPApplication">
+          <Key>
+            <PropertyRef Name="applicationCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" />
+          <Property Name="publicationItemCode" Type="varchar" MaxLength="30" />
+          <Property Name="transDT" Type="datetime" />
+          <Property Name="appTypeCode" Type="int" />
+          <Property Name="tag" Type="int" />
+          <Property Name="remarks" Type="varchar" MaxLength="1000" />
+          <Property Name="isComplete" Type="int" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tRSPApplicationAssessment">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="performanceRating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="performanceScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="performanceRemarks" Type="varchar" MaxLength="150" />
+          <Property Name="comptAssmentRating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="comptAssmentScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="beiRating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="beiScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="psychoRating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="psychoScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="educationScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="experienceScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="trainingScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="eligibilityScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="awardScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="totalScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="tag" Type="int" />
+        </EntityType>
+        <EntityType Name="tRSPApplicationProfileExpr">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="periodFrom" Type="date" />
+          <Property Name="periodTo" Type="date" />
+          <Property Name="periodText" Type="varchar" MaxLength="30" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="150" />
+          <Property Name="employmentStatus" Type="varchar" MaxLength="50" />
+          <Property Name="department" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tRSPEligibility">
+          <Key>
+            <PropertyRef Name="eligibilityCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eligibilityCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="eligibilityNameShort" Type="varchar" MaxLength="50" />
+          <Property Name="eligibilityName" Type="varchar" MaxLength="1000" />
+          <Property Name="orderNo" Type="int" />
+          <Property Name="isActive" Type="int" />
+          <Property Name="groupTag" Type="int" />
+        </EntityType>
+        <EntityType Name="tRSPPosition">
+          <Key>
+            <PropertyRef Name="positionCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="positionCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="150" />
+          <Property Name="shortPositionTitle" Type="varchar" MaxLength="50" />
+          <Property Name="acronym" Type="varchar" MaxLength="30" />
+          <Property Name="salaryGrade" Type="int" />
+          <Property Name="positionLevel" Type="int" />
+          <Property Name="positionCategory" Type="int" />
+          <Property Name="isActive" Type="int" />
+          <Property Name="keyPositionTag" Type="int" />
+          <Property Name="keyCSCLevel" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="tRSPPositionJobDesc">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="jobDescCode" Type="varchar" MaxLength="30" />
+          <Property Name="jobSeqNo" Type="int" />
+          <Property Name="jobDesc" Type="varchar(max)" />
+          <Property Name="percentage" Type="int" />
+        </EntityType>
+        <EntityType Name="tRSPPositionJobDescSub">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jobDescCode" Type="varchar" MaxLength="30" />
+          <Property Name="subJDNo" Type="int" />
+          <Property Name="subDesc" Type="varchar(max)" />
+          <Property Name="subPercentage" Type="int" />
+        </EntityType>
+        <EntityType Name="tRSPPSBPanel">
+          <Key>
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="namePrefix" Type="varchar" MaxLength="10" />
+          <Property Name="isActive" Type="int" />
+        </EntityType>
+        <EntityType Name="tRSPPSBRating">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="panelEIC" Type="varchar" MaxLength="30" />
+          <Property Name="score" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tRSPPublicationItem">
+          <Key>
+            <PropertyRef Name="publicationItemCode" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="publicationItemCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="publicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="PSBDate" Type="date" />
+          <Property Name="itemNoPub" Type="int" />
+          <Property Name="pageNoPub" Type="int" />
+          <Property Name="tag" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPApplication' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPApplication">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="applicationCode" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="applicationCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" />
+          <Property Name="applicantCode" Type="varchar" MaxLength="30" />
+          <Property Name="applicantName" Type="varchar" MaxLength="150" />
+          <Property Name="applicantNameLast" Type="varchar" MaxLength="150" />
+          <Property Name="applicantPositionTitle" Type="varchar" MaxLength="150" />
+          <Property Name="applicantSubPositionTitle" Type="varchar" MaxLength="1500" />
+          <Property Name="applicantSalaryGrade" Type="int" />
+          <Property Name="applicantStep" Type="int" />
+          <Property Name="publicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="publicationItemCode" Type="varchar" MaxLength="30" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="itemNo" Type="int" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="150" />
+          <Property Name="salaryGrade" Type="int" />
+          <Property Name="rateMonth" Type="money" />
+          <Property Name="QSEducation" Type="varchar" MaxLength="1500" />
+          <Property Name="QSExperience" Type="varchar" MaxLength="1500" />
+          <Property Name="QSTraining" Type="varchar" MaxLength="1500" />
+          <Property Name="QSEligibility" Type="varchar" MaxLength="1500" />
+          <Property Name="QSNotation" Type="varchar" MaxLength="5000" />
+          <Property Name="departmentCode" Type="varchar" MaxLength="20" />
+          <Property Name="departmentName" Type="varchar" MaxLength="150" />
+          <Property Name="placeOfAssignment" Type="varchar" MaxLength="1500" />
+          <Property Name="appTypeCode" Type="int" />
+          <Property Name="tag" Type="int" />
+          <Property Name="CSCPostedDate" Type="date" />
+          <Property Name="CSCClosingDate" Type="date" />
+          <Property Name="PSBDate" Type="date" />
+          <Property Name="publicationItemTag" Type="int" />
+          <Property Name="employmentStatus" Type="varchar" MaxLength="50" />
+          <Property Name="employmentStatusNameShort" Type="varchar" MaxLength="20" />
+          <Property Name="employmentStatusTag" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPEmployee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPEmployee">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idNo" Type="varchar" MaxLength="6" />
+          <Property Name="lastName" Type="varchar" MaxLength="30" />
+          <Property Name="firstName" Type="varchar" MaxLength="30" />
+          <Property Name="middleName" Type="varchar" MaxLength="30" />
+          <Property Name="extName" Type="varchar" MaxLength="4" />
+          <Property Name="fullNameLast" Type="varchar" MaxLength="150" />
+          <Property Name="fullNameFirst" Type="varchar" MaxLength="150" />
+          <Property Name="fullNameTitle" Type="varchar" MaxLength="150" />
+          <Property Name="namePrefix" Type="varchar" MaxLength="20" />
+          <Property Name="sex" Type="varchar" MaxLength="6" />
+          <Property Name="birthDate" Type="date" />
+          <Property Name="birthPlace" Type="varchar" MaxLength="50" />
+          <Property Name="dateOrigAppointment" Type="date" />
+          <Property Name="dateLastPromoted" Type="date" />
+          <Property Name="positionCode" Type="varchar" MaxLength="20" />
+          <Property Name="subPositionCode" Type="varchar" MaxLength="30" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="150" />
+          <Property Name="salaryGrade" Type="int" />
+          <Property Name="step" Type="int" />
+          <Property Name="employmentStatusCode" Type="varchar" MaxLength="20" />
+          <Property Name="employmentStatus" Type="varchar" MaxLength="50" />
+          <Property Name="departmentCode" Type="varchar" MaxLength="20" />
+          <Property Name="shortDepartmentName" Type="varchar" MaxLength="10" />
+          <Property Name="departmentName" Type="varchar" MaxLength="150" />
+          <Property Name="workGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="workGroupName" Type="varchar" MaxLength="150" />
+          <Property Name="workGroupDesc" Type="varchar" MaxLength="1500" />
+          <Property Name="tag" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPEmployeeList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPEmployeeList">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idNo" Type="varchar" MaxLength="6" />
+          <Property Name="lastName" Type="varchar" MaxLength="30" />
+          <Property Name="firstName" Type="varchar" MaxLength="30" />
+          <Property Name="middleName" Type="varchar" MaxLength="30" />
+          <Property Name="extName" Type="varchar" MaxLength="4" />
+          <Property Name="fullNameLast" Type="varchar" MaxLength="150" />
+          <Property Name="fullNameFirst" Type="varchar" MaxLength="150" />
+          <Property Name="fullNameTitle" Type="varchar" MaxLength="150" />
+          <Property Name="namePrefix" Type="varchar" MaxLength="20" />
+          <Property Name="nameSuffix" Type="varchar" MaxLength="25" />
+          <Property Name="birthDate" Type="date" />
+          <Property Name="birthPlace" Type="varchar" MaxLength="50" />
+          <Property Name="sex" Type="varchar" MaxLength="6" />
+          <Property Name="civilStatCode" Type="varchar" MaxLength="20" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="positionCode" Type="varchar" MaxLength="20" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="150" />
+          <Property Name="subPositionCode" Type="varchar" MaxLength="30" />
+          <Property Name="subPositionTitle" Type="varchar" MaxLength="1500" />
+          <Property Name="salaryGrade" Type="int" />
+          <Property Name="step" Type="int" />
+          <Property Name="salaryRate" Type="money" />
+          <Property Name="salaryType" Type="char" MaxLength="1" />
+          <Property Name="salaryDetailCode" Type="varchar" MaxLength="30" />
+          <Property Name="employmentStatusCode" Type="varchar" MaxLength="20" />
+          <Property Name="employmentStatus" Type="varchar" MaxLength="50" />
+          <Property Name="employmentStatusNameShort" Type="varchar" MaxLength="20" />
+          <Property Name="employmentStatusTag" Type="varchar" MaxLength="5" />
+          <Property Name="isPlantilla" Type="int" />
+          <Property Name="isGovService" Type="int" />
+          <Property Name="height" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="weight" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="bloodType" Type="varchar" MaxLength="5" />
+          <Property Name="GSISIDNo" Type="varchar" MaxLength="30" />
+          <Property Name="BPNo" Type="varchar" MaxLength="20" />
+          <Property Name="HDMFNo" Type="varchar" MaxLength="30" />
+          <Property Name="HDMFMID" Type="varchar" MaxLength="30" />
+          <Property Name="PHICNo" Type="varchar" MaxLength="30" />
+          <Property Name="SSSNo" Type="varchar" MaxLength="30" />
+          <Property Name="TINNo" Type="varchar" MaxLength="30" />
+          <Property Name="citizenship" Type="varchar" MaxLength="30" />
+          <Property Name="houseBlockNoResAddress" Type="varchar" MaxLength="50" />
+          <Property Name="streetResAddress" Type="varchar" MaxLength="100" />
+          <Property Name="subdivisionResAddress" Type="varchar" MaxLength="50" />
+          <Property Name="brgyResAddress" Type="varchar" MaxLength="50" />
+          <Property Name="cityMunResAddress" Type="varchar" MaxLength="50" />
+          <Property Name="provinceResAddress" Type="varchar" MaxLength="50" />
+          <Property Name="ZIPResAddress" Type="varchar" MaxLength="4" />
+          <Property Name="houseBlockNoPermAddress" Type="varchar" MaxLength="50" />
+          <Property Name="streetPermAddress" Type="varchar" MaxLength="50" />
+          <Property Name="subdivisionPermAddress" Type="varchar" MaxLength="50" />
+          <Property Name="brgyPermAddress" Type="varchar" MaxLength="50" />
+          <Property Name="cityMunPermAddress" Type="varchar" MaxLength="50" />
+          <Property Name="provincePermAddress" Type="varchar" MaxLength="50" />
+          <Property Name="ZIPPermAddress" Type="varchar" MaxLength="4" />
+          <Property Name="completeAddress" Type="varchar" MaxLength="1500" />
+          <Property Name="telephoneNo" Type="varchar" MaxLength="20" />
+          <Property Name="mobileNo" Type="varchar" MaxLength="13" />
+          <Property Name="isMobileVerified" Type="int" />
+          <Property Name="idDDNIssuedDate" Type="date" />
+          <Property Name="emailAddress" Type="varchar" MaxLength="50" />
+          <Property Name="dateOrigAppointment" Type="date" />
+          <Property Name="dateLastPromoted" Type="date" />
+          <Property Name="workGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="workGroupName" Type="varchar" MaxLength="150" />
+          <Property Name="tag" Type="int" />
+          <Property Name="fundSourceCode" Type="varchar" MaxLength="30" />
+          <Property Name="projectName" Type="varchar" MaxLength="5000" />
+          <Property Name="transCode" Type="varchar" MaxLength="30" />
+          <Property Name="isActivePosition" Type="int" />
+          <Property Name="periodTo" Type="date" />
+          <Property Name="effectiveDate" Type="date" />
+          <Property Name="appointmentItemCode" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPPositionJobDesc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPPositionJobDesc">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="jobDescCode" Type="varchar" MaxLength="30" />
+          <Property Name="jobDesc" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPPositionJobDescSub' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPPositionJobDescSub">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="jobDescCode" Type="varchar" MaxLength="30" />
+          <Property Name="subJDNo" Type="int" />
+          <Property Name="subDesc" Type="varchar(max)" />
+          <Property Name="subPercentage" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPPositionQS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPPositionQS">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="plantillaCode" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="QSEducation" Type="varchar" MaxLength="1500" />
+          <Property Name="QSExperience" Type="varchar" MaxLength="1500" />
+          <Property Name="QSTraining" Type="varchar" MaxLength="1500" />
+          <Property Name="QSEligibility" Type="varchar" MaxLength="1500" />
+          <Property Name="QSEligibilityPub" Type="varchar" MaxLength="1500" />
+          <Property Name="QSNotation" Type="varchar" MaxLength="5000" />
+          <Property Name="placeOfAssignment" Type="varchar" MaxLength="1500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vRSPPublicationItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRSPPublicationItem">
+          <Key>
+            <PropertyRef Name="publicationItemCode" />
+          </Key>
+          <Property Name="publicationItemCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="plantillaCode" Type="varchar" MaxLength="30" />
+          <Property Name="publicationDate" Type="date" />
+          <Property Name="CSCPostedDate" Type="date" />
+          <Property Name="CSCClosingDate" Type="date" />
+          <Property Name="PSBDate" Type="date" />
+          <Property Name="publicationCode" Type="varchar" MaxLength="30" />
+          <Property Name="itemNo" Type="int" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="1653" />
+          <Property Name="salaryGrade" Type="int" />
+          <Property Name="rateMonth" Type="money" />
+          <Property Name="QSEducation" Type="varchar" MaxLength="1500" />
+          <Property Name="QSExperience" Type="varchar" MaxLength="1500" />
+          <Property Name="QSTraining" Type="varchar" MaxLength="1500" />
+          <Property Name="QSEligibility" Type="varchar" MaxLength="1500" />
+          <Property Name="QSEligibilityPub" Type="varchar" MaxLength="1500" />
+          <Property Name="QSNotation" Type="varchar" MaxLength="5000" />
+          <Property Name="departmentCode" Type="varchar" MaxLength="20" />
+          <Property Name="departmentName" Type="varchar" MaxLength="150" />
+          <Property Name="placeOfAssignment" Type="varchar" MaxLength="1500" />
+          <Property Name="tag" Type="int" />
+          <Property Name="jobDesc" Type="varchar(max)" />
+          <Property Name="branch" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vSysMenu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSysMenu">
+          <Key>
+            <PropertyRef Name="menuCode" />
+          </Key>
+          <Property Name="menuCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="menuName" Type="varchar" MaxLength="50" />
+          <Property Name="controllerName" Type="varchar" MaxLength="50" />
+          <Property Name="methodName" Type="varchar" MaxLength="50" />
+          <Property Name="menuTypeNo" Type="int" />
+          <Property Name="orderNo" Type="int" />
+          <Property Name="menuGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="groupName" Type="varchar" MaxLength="50" />
+          <Property Name="fontIcon" Type="varchar" MaxLength="50" />
+          <Property Name="groupOrderNo" Type="int" />
+          <Property Name="groupTag" Type="int" />
+          <Property Name="menuSubGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="subGroupName" Type="varchar" MaxLength="50" />
+          <Property Name="subFontIcon" Type="varchar" MaxLength="50" />
+          <Property Name="subOrderNo" Type="int" />
+          <Property Name="subGroupTag" Type="int" />
+          <Property Name="tag" Type="int" />
+          <Property Name="linkIcon" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vSysMenuUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSysMenuUser">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" />
+          <Property Name="menuCode" Type="varchar" MaxLength="30" />
+          <Property Name="menuName" Type="varchar" MaxLength="50" />
+          <Property Name="controllerName" Type="varchar" MaxLength="50" />
+          <Property Name="methodName" Type="varchar" MaxLength="50" />
+          <Property Name="menuTypeNo" Type="int" />
+          <Property Name="orderNo" Type="int" />
+          <Property Name="menuGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="groupName" Type="varchar" MaxLength="50" />
+          <Property Name="fontIcon" Type="varchar" MaxLength="50" />
+          <Property Name="tag" Type="int" />
+          <Property Name="linkIcon" Type="varchar" MaxLength="50" />
+          <Property Name="groupOrderNo" Type="int" />
+          <Property Name="groupTag" Type="int" />
+          <Property Name="menuSubGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="subGroupName" Type="varchar" MaxLength="50" />
+          <Property Name="subFontIcon" Type="varchar" MaxLength="50" />
+          <Property Name="subOrderNo" Type="int" />
+          <Property Name="subGroupTag" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vSysRoleMenu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSysRoleMenu">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="menuCode" Type="varchar" MaxLength="30" />
+          <Property Name="menuName" Type="varchar" MaxLength="50" />
+          <Property Name="controllerName" Type="varchar" MaxLength="50" />
+          <Property Name="methodName" Type="varchar" MaxLength="50" />
+          <Property Name="menuTypeNo" Type="int" />
+          <Property Name="orderNo" Type="int" />
+          <Property Name="menuGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="groupName" Type="varchar" MaxLength="50" />
+          <Property Name="fontIcon" Type="varchar" MaxLength="50" />
+          <Property Name="groupOrderNo" Type="int" />
+          <Property Name="groupTag" Type="int" />
+          <Property Name="menuSubGroupCode" Type="varchar" MaxLength="30" />
+          <Property Name="subGroupName" Type="varchar" MaxLength="50" />
+          <Property Name="subFontIcon" Type="varchar" MaxLength="50" />
+          <Property Name="subOrderNo" Type="int" />
+          <Property Name="subGroupTag" Type="int" />
+          <Property Name="tag" Type="int" />
+          <Property Name="linkIcon" Type="varchar" MaxLength="50" />
+          <Property Name="roleID" Type="varchar" MaxLength="30" />
+          <Property Name="roleName" Type="varchar" MaxLength="50" />
+          <Property Name="roleDesc" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.vSysUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSysUserRole">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="EIC" Type="varchar" MaxLength="30" />
+          <Property Name="roleID" Type="varchar" MaxLength="30" />
+          <Property Name="roleName" Type="varchar" MaxLength="50" />
+          <Property Name="roleDesc" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="HRISDBModelStoreContainer">
+          <EntitySet Name="tApplicant" EntityType="Self.tApplicant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tApplicantEducation" EntityType="Self.tApplicantEducation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tApplicantEligibility" EntityType="Self.tApplicantEligibility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tApplicantFile" EntityType="Self.tApplicantFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tApplicantProfile" EntityType="Self.tApplicantProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tApplicantTraining" EntityType="Self.tApplicantTraining" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tOrgDepartment" EntityType="Self.tOrgDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPApplication" EntityType="Self.tRSPApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPApplicationAssessment" EntityType="Self.tRSPApplicationAssessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPApplicationProfileExpr" EntityType="Self.tRSPApplicationProfileExpr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPEligibility" EntityType="Self.tRSPEligibility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPPosition" EntityType="Self.tRSPPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPPositionJobDesc" EntityType="Self.tRSPPositionJobDesc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPPositionJobDescSub" EntityType="Self.tRSPPositionJobDescSub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPPSBPanel" EntityType="Self.tRSPPSBPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPPSBRating" EntityType="Self.tRSPPSBRating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tRSPPublicationItem" EntityType="Self.tRSPPublicationItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vRSPApplication" EntityType="Self.vRSPApplication" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPApplication].[recNo] AS [recNo], 
+    [vRSPApplication].[applicationCode] AS [applicationCode], 
+    [vRSPApplication].[EIC] AS [EIC], 
+    [vRSPApplication].[applicantCode] AS [applicantCode], 
+    [vRSPApplication].[applicantName] AS [applicantName], 
+    [vRSPApplication].[applicantNameLast] AS [applicantNameLast], 
+    [vRSPApplication].[applicantPositionTitle] AS [applicantPositionTitle], 
+    [vRSPApplication].[applicantSubPositionTitle] AS [applicantSubPositionTitle], 
+    [vRSPApplication].[applicantSalaryGrade] AS [applicantSalaryGrade], 
+    [vRSPApplication].[applicantStep] AS [applicantStep], 
+    [vRSPApplication].[publicationCode] AS [publicationCode], 
+    [vRSPApplication].[publicationItemCode] AS [publicationItemCode], 
+    [vRSPApplication].[plantillaCode] AS [plantillaCode], 
+    [vRSPApplication].[itemNo] AS [itemNo], 
+    [vRSPApplication].[positionTitle] AS [positionTitle], 
+    [vRSPApplication].[salaryGrade] AS [salaryGrade], 
+    [vRSPApplication].[rateMonth] AS [rateMonth], 
+    [vRSPApplication].[QSEducation] AS [QSEducation], 
+    [vRSPApplication].[QSExperience] AS [QSExperience], 
+    [vRSPApplication].[QSTraining] AS [QSTraining], 
+    [vRSPApplication].[QSEligibility] AS [QSEligibility], 
+    [vRSPApplication].[QSNotation] AS [QSNotation], 
+    [vRSPApplication].[departmentCode] AS [departmentCode], 
+    [vRSPApplication].[departmentName] AS [departmentName], 
+    [vRSPApplication].[placeOfAssignment] AS [placeOfAssignment], 
+    [vRSPApplication].[appTypeCode] AS [appTypeCode], 
+    [vRSPApplication].[tag] AS [tag], 
+    [vRSPApplication].[CSCPostedDate] AS [CSCPostedDate], 
+    [vRSPApplication].[CSCClosingDate] AS [CSCClosingDate], 
+    [vRSPApplication].[PSBDate] AS [PSBDate], 
+    [vRSPApplication].[publicationItemTag] AS [publicationItemTag], 
+    [vRSPApplication].[employmentStatus] AS [employmentStatus], 
+    [vRSPApplication].[employmentStatusNameShort] AS [employmentStatusNameShort], 
+    [vRSPApplication].[employmentStatusTag] AS [employmentStatusTag]
+    FROM [dbo].[vRSPApplication] AS [vRSPApplication]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRSPEmployee" EntityType="Self.vRSPEmployee" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPEmployee].[recNo] AS [recNo], 
+    [vRSPEmployee].[EIC] AS [EIC], 
+    [vRSPEmployee].[idNo] AS [idNo], 
+    [vRSPEmployee].[lastName] AS [lastName], 
+    [vRSPEmployee].[firstName] AS [firstName], 
+    [vRSPEmployee].[middleName] AS [middleName], 
+    [vRSPEmployee].[extName] AS [extName], 
+    [vRSPEmployee].[fullNameLast] AS [fullNameLast], 
+    [vRSPEmployee].[fullNameFirst] AS [fullNameFirst], 
+    [vRSPEmployee].[fullNameTitle] AS [fullNameTitle], 
+    [vRSPEmployee].[namePrefix] AS [namePrefix], 
+    [vRSPEmployee].[sex] AS [sex], 
+    [vRSPEmployee].[birthDate] AS [birthDate], 
+    [vRSPEmployee].[birthPlace] AS [birthPlace], 
+    [vRSPEmployee].[dateOrigAppointment] AS [dateOrigAppointment], 
+    [vRSPEmployee].[dateLastPromoted] AS [dateLastPromoted], 
+    [vRSPEmployee].[positionCode] AS [positionCode], 
+    [vRSPEmployee].[subPositionCode] AS [subPositionCode], 
+    [vRSPEmployee].[positionTitle] AS [positionTitle], 
+    [vRSPEmployee].[salaryGrade] AS [salaryGrade], 
+    [vRSPEmployee].[step] AS [step], 
+    [vRSPEmployee].[employmentStatusCode] AS [employmentStatusCode], 
+    [vRSPEmployee].[employmentStatus] AS [employmentStatus], 
+    [vRSPEmployee].[departmentCode] AS [departmentCode], 
+    [vRSPEmployee].[shortDepartmentName] AS [shortDepartmentName], 
+    [vRSPEmployee].[departmentName] AS [departmentName], 
+    [vRSPEmployee].[workGroupCode] AS [workGroupCode], 
+    [vRSPEmployee].[workGroupName] AS [workGroupName], 
+    [vRSPEmployee].[workGroupDesc] AS [workGroupDesc], 
+    [vRSPEmployee].[tag] AS [tag]
+    FROM [dbo].[vRSPEmployee] AS [vRSPEmployee]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRSPEmployeeList" EntityType="Self.vRSPEmployeeList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPEmployeeList].[recNo] AS [recNo], 
+    [vRSPEmployeeList].[EIC] AS [EIC], 
+    [vRSPEmployeeList].[idNo] AS [idNo], 
+    [vRSPEmployeeList].[lastName] AS [lastName], 
+    [vRSPEmployeeList].[firstName] AS [firstName], 
+    [vRSPEmployeeList].[middleName] AS [middleName], 
+    [vRSPEmployeeList].[extName] AS [extName], 
+    [vRSPEmployeeList].[fullNameLast] AS [fullNameLast], 
+    [vRSPEmployeeList].[fullNameFirst] AS [fullNameFirst], 
+    [vRSPEmployeeList].[fullNameTitle] AS [fullNameTitle], 
+    [vRSPEmployeeList].[namePrefix] AS [namePrefix], 
+    [vRSPEmployeeList].[nameSuffix] AS [nameSuffix], 
+    [vRSPEmployeeList].[birthDate] AS [birthDate], 
+    [vRSPEmployeeList].[birthPlace] AS [birthPlace], 
+    [vRSPEmployeeList].[sex] AS [sex], 
+    [vRSPEmployeeList].[civilStatCode] AS [civilStatCode], 
+    [vRSPEmployeeList].[plantillaCode] AS [plantillaCode], 
+    [vRSPEmployeeList].[positionCode] AS [positionCode], 
+    [vRSPEmployeeList].[positionTitle] AS [positionTitle], 
+    [vRSPEmployeeList].[subPositionCode] AS [subPositionCode], 
+    [vRSPEmployeeList].[subPositionTitle] AS [subPositionTitle], 
+    [vRSPEmployeeList].[salaryGrade] AS [salaryGrade], 
+    [vRSPEmployeeList].[step] AS [step], 
+    [vRSPEmployeeList].[salaryRate] AS [salaryRate], 
+    [vRSPEmployeeList].[salaryType] AS [salaryType], 
+    [vRSPEmployeeList].[salaryDetailCode] AS [salaryDetailCode], 
+    [vRSPEmployeeList].[employmentStatusCode] AS [employmentStatusCode], 
+    [vRSPEmployeeList].[employmentStatus] AS [employmentStatus], 
+    [vRSPEmployeeList].[employmentStatusNameShort] AS [employmentStatusNameShort], 
+    [vRSPEmployeeList].[employmentStatusTag] AS [employmentStatusTag], 
+    [vRSPEmployeeList].[isPlantilla] AS [isPlantilla], 
+    [vRSPEmployeeList].[isGovService] AS [isGovService], 
+    [vRSPEmployeeList].[height] AS [height], 
+    [vRSPEmployeeList].[weight] AS [weight], 
+    [vRSPEmployeeList].[bloodType] AS [bloodType], 
+    [vRSPEmployeeList].[GSISIDNo] AS [GSISIDNo], 
+    [vRSPEmployeeList].[BPNo] AS [BPNo], 
+    [vRSPEmployeeList].[HDMFNo] AS [HDMFNo], 
+    [vRSPEmployeeList].[HDMFMID] AS [HDMFMID], 
+    [vRSPEmployeeList].[PHICNo] AS [PHICNo], 
+    [vRSPEmployeeList].[SSSNo] AS [SSSNo], 
+    [vRSPEmployeeList].[TINNo] AS [TINNo], 
+    [vRSPEmployeeList].[citizenship] AS [citizenship], 
+    [vRSPEmployeeList].[houseBlockNoResAddress] AS [houseBlockNoResAddress], 
+    [vRSPEmployeeList].[streetResAddress] AS [streetResAddress], 
+    [vRSPEmployeeList].[subdivisionResAddress] AS [subdivisionResAddress], 
+    [vRSPEmployeeList].[brgyResAddress] AS [brgyResAddress], 
+    [vRSPEmployeeList].[cityMunResAddress] AS [cityMunResAddress], 
+    [vRSPEmployeeList].[provinceResAddress] AS [provinceResAddress], 
+    [vRSPEmployeeList].[ZIPResAddress] AS [ZIPResAddress], 
+    [vRSPEmployeeList].[houseBlockNoPermAddress] AS [houseBlockNoPermAddress], 
+    [vRSPEmployeeList].[streetPermAddress] AS [streetPermAddress], 
+    [vRSPEmployeeList].[subdivisionPermAddress] AS [subdivisionPermAddress], 
+    [vRSPEmployeeList].[brgyPermAddress] AS [brgyPermAddress], 
+    [vRSPEmployeeList].[cityMunPermAddress] AS [cityMunPermAddress], 
+    [vRSPEmployeeList].[provincePermAddress] AS [provincePermAddress], 
+    [vRSPEmployeeList].[ZIPPermAddress] AS [ZIPPermAddress], 
+    [vRSPEmployeeList].[completeAddress] AS [completeAddress], 
+    [vRSPEmployeeList].[telephoneNo] AS [telephoneNo], 
+    [vRSPEmployeeList].[mobileNo] AS [mobileNo], 
+    [vRSPEmployeeList].[isMobileVerified] AS [isMobileVerified], 
+    [vRSPEmployeeList].[idDDNIssuedDate] AS [idDDNIssuedDate], 
+    [vRSPEmployeeList].[emailAddress] AS [emailAddress], 
+    [vRSPEmployeeList].[dateOrigAppointment] AS [dateOrigAppointment], 
+    [vRSPEmployeeList].[dateLastPromoted] AS [dateLastPromoted], 
+    [vRSPEmployeeList].[workGroupCode] AS [workGroupCode], 
+    [vRSPEmployeeList].[workGroupName] AS [workGroupName], 
+    [vRSPEmployeeList].[tag] AS [tag], 
+    [vRSPEmployeeList].[fundSourceCode] AS [fundSourceCode], 
+    [vRSPEmployeeList].[projectName] AS [projectName], 
+    [vRSPEmployeeList].[transCode] AS [transCode], 
+    [vRSPEmployeeList].[isActivePosition] AS [isActivePosition], 
+    [vRSPEmployeeList].[periodTo] AS [periodTo], 
+    [vRSPEmployeeList].[effectiveDate] AS [effectiveDate], 
+    [vRSPEmployeeList].[appointmentItemCode] AS [appointmentItemCode]
+    FROM [dbo].[vRSPEmployeeList] AS [vRSPEmployeeList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRSPPositionJobDesc" EntityType="Self.vRSPPositionJobDesc" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPPositionJobDesc].[recNo] AS [recNo], 
+    [vRSPPositionJobDesc].[plantillaCode] AS [plantillaCode], 
+    [vRSPPositionJobDesc].[jobDescCode] AS [jobDescCode], 
+    [vRSPPositionJobDesc].[jobDesc] AS [jobDesc]
+    FROM [dbo].[vRSPPositionJobDesc] AS [vRSPPositionJobDesc]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRSPPositionJobDescSub" EntityType="Self.vRSPPositionJobDescSub" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPPositionJobDescSub].[recNo] AS [recNo], 
+    [vRSPPositionJobDescSub].[plantillaCode] AS [plantillaCode], 
+    [vRSPPositionJobDescSub].[jobDescCode] AS [jobDescCode], 
+    [vRSPPositionJobDescSub].[subJDNo] AS [subJDNo], 
+    [vRSPPositionJobDescSub].[subDesc] AS [subDesc], 
+    [vRSPPositionJobDescSub].[subPercentage] AS [subPercentage]
+    FROM [dbo].[vRSPPositionJobDescSub] AS [vRSPPositionJobDescSub]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRSPPositionQS" EntityType="Self.vRSPPositionQS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPPositionQS].[recNo] AS [recNo], 
+    [vRSPPositionQS].[plantillaCode] AS [plantillaCode], 
+    [vRSPPositionQS].[QSEducation] AS [QSEducation], 
+    [vRSPPositionQS].[QSExperience] AS [QSExperience], 
+    [vRSPPositionQS].[QSTraining] AS [QSTraining], 
+    [vRSPPositionQS].[QSEligibility] AS [QSEligibility], 
+    [vRSPPositionQS].[QSEligibilityPub] AS [QSEligibilityPub], 
+    [vRSPPositionQS].[QSNotation] AS [QSNotation], 
+    [vRSPPositionQS].[placeOfAssignment] AS [placeOfAssignment]
+    FROM [dbo].[vRSPPositionQS] AS [vRSPPositionQS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRSPPublicationItem" EntityType="Self.vRSPPublicationItem" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRSPPublicationItem].[publicationItemCode] AS [publicationItemCode], 
+    [vRSPPublicationItem].[plantillaCode] AS [plantillaCode], 
+    [vRSPPublicationItem].[publicationDate] AS [publicationDate], 
+    [vRSPPublicationItem].[CSCPostedDate] AS [CSCPostedDate], 
+    [vRSPPublicationItem].[CSCClosingDate] AS [CSCClosingDate], 
+    [vRSPPublicationItem].[PSBDate] AS [PSBDate], 
+    [vRSPPublicationItem].[publicationCode] AS [publicationCode], 
+    [vRSPPublicationItem].[itemNo] AS [itemNo], 
+    [vRSPPublicationItem].[positionTitle] AS [positionTitle], 
+    [vRSPPublicationItem].[salaryGrade] AS [salaryGrade], 
+    [vRSPPublicationItem].[rateMonth] AS [rateMonth], 
+    [vRSPPublicationItem].[QSEducation] AS [QSEducation], 
+    [vRSPPublicationItem].[QSExperience] AS [QSExperience], 
+    [vRSPPublicationItem].[QSTraining] AS [QSTraining], 
+    [vRSPPublicationItem].[QSEligibility] AS [QSEligibility], 
+    [vRSPPublicationItem].[QSEligibilityPub] AS [QSEligibilityPub], 
+    [vRSPPublicationItem].[QSNotation] AS [QSNotation], 
+    [vRSPPublicationItem].[departmentCode] AS [departmentCode], 
+    [vRSPPublicationItem].[departmentName] AS [departmentName], 
+    [vRSPPublicationItem].[placeOfAssignment] AS [placeOfAssignment], 
+    [vRSPPublicationItem].[tag] AS [tag], 
+    [vRSPPublicationItem].[jobDesc] AS [jobDesc], 
+    [vRSPPublicationItem].[branch] AS [branch]
+    FROM [dbo].[vRSPPublicationItem] AS [vRSPPublicationItem]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vSysMenu" EntityType="Self.vSysMenu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSysMenu].[menuCode] AS [menuCode], 
+    [vSysMenu].[menuName] AS [menuName], 
+    [vSysMenu].[controllerName] AS [controllerName], 
+    [vSysMenu].[methodName] AS [methodName], 
+    [vSysMenu].[menuTypeNo] AS [menuTypeNo], 
+    [vSysMenu].[orderNo] AS [orderNo], 
+    [vSysMenu].[menuGroupCode] AS [menuGroupCode], 
+    [vSysMenu].[groupName] AS [groupName], 
+    [vSysMenu].[fontIcon] AS [fontIcon], 
+    [vSysMenu].[groupOrderNo] AS [groupOrderNo], 
+    [vSysMenu].[groupTag] AS [groupTag], 
+    [vSysMenu].[menuSubGroupCode] AS [menuSubGroupCode], 
+    [vSysMenu].[subGroupName] AS [subGroupName], 
+    [vSysMenu].[subFontIcon] AS [subFontIcon], 
+    [vSysMenu].[subOrderNo] AS [subOrderNo], 
+    [vSysMenu].[subGroupTag] AS [subGroupTag], 
+    [vSysMenu].[tag] AS [tag], 
+    [vSysMenu].[linkIcon] AS [linkIcon]
+    FROM [dbo].[vSysMenu] AS [vSysMenu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vSysMenuUser" EntityType="Self.vSysMenuUser" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSysMenuUser].[recNo] AS [recNo], 
+    [vSysMenuUser].[EIC] AS [EIC], 
+    [vSysMenuUser].[menuCode] AS [menuCode], 
+    [vSysMenuUser].[menuName] AS [menuName], 
+    [vSysMenuUser].[controllerName] AS [controllerName], 
+    [vSysMenuUser].[methodName] AS [methodName], 
+    [vSysMenuUser].[menuTypeNo] AS [menuTypeNo], 
+    [vSysMenuUser].[orderNo] AS [orderNo], 
+    [vSysMenuUser].[menuGroupCode] AS [menuGroupCode], 
+    [vSysMenuUser].[groupName] AS [groupName], 
+    [vSysMenuUser].[fontIcon] AS [fontIcon], 
+    [vSysMenuUser].[tag] AS [tag], 
+    [vSysMenuUser].[linkIcon] AS [linkIcon], 
+    [vSysMenuUser].[groupOrderNo] AS [groupOrderNo], 
+    [vSysMenuUser].[groupTag] AS [groupTag], 
+    [vSysMenuUser].[menuSubGroupCode] AS [menuSubGroupCode], 
+    [vSysMenuUser].[subGroupName] AS [subGroupName], 
+    [vSysMenuUser].[subFontIcon] AS [subFontIcon], 
+    [vSysMenuUser].[subOrderNo] AS [subOrderNo], 
+    [vSysMenuUser].[subGroupTag] AS [subGroupTag]
+    FROM [dbo].[vSysMenuUser] AS [vSysMenuUser]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vSysRoleMenu" EntityType="Self.vSysRoleMenu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSysRoleMenu].[recNo] AS [recNo], 
+    [vSysRoleMenu].[menuCode] AS [menuCode], 
+    [vSysRoleMenu].[menuName] AS [menuName], 
+    [vSysRoleMenu].[controllerName] AS [controllerName], 
+    [vSysRoleMenu].[methodName] AS [methodName], 
+    [vSysRoleMenu].[menuTypeNo] AS [menuTypeNo], 
+    [vSysRoleMenu].[orderNo] AS [orderNo], 
+    [vSysRoleMenu].[menuGroupCode] AS [menuGroupCode], 
+    [vSysRoleMenu].[groupName] AS [groupName], 
+    [vSysRoleMenu].[fontIcon] AS [fontIcon], 
+    [vSysRoleMenu].[groupOrderNo] AS [groupOrderNo], 
+    [vSysRoleMenu].[groupTag] AS [groupTag], 
+    [vSysRoleMenu].[menuSubGroupCode] AS [menuSubGroupCode], 
+    [vSysRoleMenu].[subGroupName] AS [subGroupName], 
+    [vSysRoleMenu].[subFontIcon] AS [subFontIcon], 
+    [vSysRoleMenu].[subOrderNo] AS [subOrderNo], 
+    [vSysRoleMenu].[subGroupTag] AS [subGroupTag], 
+    [vSysRoleMenu].[tag] AS [tag], 
+    [vSysRoleMenu].[linkIcon] AS [linkIcon], 
+    [vSysRoleMenu].[roleID] AS [roleID], 
+    [vSysRoleMenu].[roleName] AS [roleName], 
+    [vSysRoleMenu].[roleDesc] AS [roleDesc]
+    FROM [dbo].[vSysRoleMenu] AS [vSysRoleMenu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vSysUserRole" EntityType="Self.vSysUserRole" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSysUserRole].[recNo] AS [recNo], 
+    [vSysUserRole].[EIC] AS [EIC], 
+    [vSysUserRole].[roleID] AS [roleID], 
+    [vSysUserRole].[roleName] AS [roleName], 
+    [vSysUserRole].[roleDesc] AS [roleDesc]
+    FROM [dbo].[vSysUserRole] AS [vSysUserRole]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HRISDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="fnGetStepIncInYear_Result">
+          <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="itemNo" Type="Int32" />
+          <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="step" Type="Int32" />
+          <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="dateLastPromoted" Type="DateTime" />
+          <Property Name="effectiveDate" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="iYear" Type="Int32" />
+          <Property Name="noOfYrs" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="fnStepNextYear_Result">
+          <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="itemNo" Type="Int32" />
+          <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="step" Type="Int32" />
+          <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="effectiveDate" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="iYear" Type="Int32" />
+          <Property Name="noOfYrs" Type="Int32" />
+        </ComplexType>
+        <EntityContainer Name="HRISDBEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="fnGetStepIncInYear" IsComposable="true" ReturnType="Collection(HRISDBModel.fnGetStepIncInYear_Result)">
+          <Parameter Name="stepDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="fnStepNextYear" IsComposable="true" ReturnType="Collection(HRISDBModel.fnStepNextYear_Result)">
+          <Parameter Name="stepDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MigrateBPNo" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(HRISDBModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(HRISDBModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="spAppointmentDeleteNP">
+          <Parameter Name="appointmentCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spAppointmentPosting">
+            <Parameter Name="transCode" Mode="In" Type="String" />
+            <Parameter Name="appointmentCode" Mode="In" Type="String" />
+            <Parameter Name="effectiveDate" Mode="In" Type="DateTime" />
+            <Parameter Name="tag" Mode="In" Type="Int32" />
+            <Parameter Name="userEIC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spAppointmentPostingCasual">
+            <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+            <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="userEIC" Mode="In" Type="String" />
+            <Parameter Name="annual" Mode="In" Type="Decimal" />
+            <Parameter Name="totalPS" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="spAppointmentPostingNP">
+            <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+            <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="workCode" Mode="In" Type="String" />
+            <Parameter Name="userEIC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spApptPostingNONPlantilla">
+            <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+            <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="userEIC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spLNDRespRatingCalQ">
+          <Parameter Name="respondentCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spLNDRespRatingCalQRemarks" />
+          <FunctionImport Name="spNOSA">
+            <Parameter Name="NOSACode" Mode="In" Type="String" />
+            <Parameter Name="userEIC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spNOSAPosting">
+          <Parameter Name="NOSACode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spNOSI" />
+          <FunctionImport Name="spNOSIPosting" />
+          <FunctionImport Name="spPSBApplicantProfile" ReturnType="Collection(HRISDBModel.spPSBApplicantProfile_Result)">
+          <Parameter Name="applicationCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spReGenItemNo">
+            <Parameter Name="functionCode" Mode="In" Type="String" />
+            <Parameter Name="startItemNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spRePostPlantillaPosition" />
+          <FunctionImport Name="spUpdateQS2" />
+          <FunctionImport Name="spAppointmentPostingNonPlan">
+            <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+            <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="workCode" Mode="In" Type="String" />
+            <Parameter Name="userEIC" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tApplicants" EntityType="HRISDBModel.tApplicant" />
+          <EntitySet Name="tApplicantEducations" EntityType="HRISDBModel.tApplicantEducation" />
+          <EntitySet Name="tApplicantFiles" EntityType="HRISDBModel.tApplicantFile" />
+          <EntitySet Name="tApplicantProfiles" EntityType="HRISDBModel.tApplicantProfile" />
+          <EntitySet Name="tApplicantTrainings" EntityType="HRISDBModel.tApplicantTraining" />
+          <EntitySet Name="tOrgDepartments" EntityType="HRISDBModel.tOrgDepartment" />
+          <EntitySet Name="tRSPApplications" EntityType="HRISDBModel.tRSPApplication" />
+          <EntitySet Name="tRSPPositions" EntityType="HRISDBModel.tRSPPosition" />
+          <EntitySet Name="tRSPPositionJobDescs" EntityType="HRISDBModel.tRSPPositionJobDesc" />
+          <EntitySet Name="tRSPPublicationItems" EntityType="HRISDBModel.tRSPPublicationItem" />
+          <EntitySet Name="vRSPEmployees" EntityType="HRISDBModel.vRSPEmployee" />
+          <EntitySet Name="vRSPEmployeeLists" EntityType="HRISDBModel.vRSPEmployeeList" />
+          <EntitySet Name="vRSPPositionJobDescs" EntityType="HRISDBModel.vRSPPositionJobDesc" />
+          <EntitySet Name="vRSPPositionJobDescSubs" EntityType="HRISDBModel.vRSPPositionJobDescSub" />
+          <EntitySet Name="vRSPPositionQS" EntityType="HRISDBModel.vRSPPositionQ" />
+          <EntitySet Name="vRSPPublicationItems" EntityType="HRISDBModel.vRSPPublicationItem" />
+          <EntitySet Name="vSysMenus" EntityType="HRISDBModel.vSysMenu" />
+          <EntitySet Name="vSysMenuUsers" EntityType="HRISDBModel.vSysMenuUser" />
+          <EntitySet Name="vSysRoleMenus" EntityType="HRISDBModel.vSysRoleMenu" />
+          <EntitySet Name="vSysUserRoles" EntityType="HRISDBModel.vSysUserRole" />
+          <EntitySet Name="tRSPApplicationAssessments" EntityType="HRISDBModel.tRSPApplicationAssessment" />
+          <EntitySet Name="tRSPPSBRatings" EntityType="HRISDBModel.tRSPPSBRating" />
+          <EntitySet Name="vRSPApplications" EntityType="HRISDBModel.vRSPApplication" />
+          <EntitySet Name="tRSPApplicationProfileExprs" EntityType="HRISDBModel.tRSPApplicationProfileExpr" />
+          <EntitySet Name="tRSPPositionJobDescSubs" EntityType="HRISDBModel.tRSPPositionJobDescSub" />
+          <EntitySet Name="tRSPPSBPanels" EntityType="HRISDBModel.tRSPPSBPanel" />
+          <EntitySet Name="tApplicantEligibilities" EntityType="HRISDBModel.tApplicantEligibility" />
+          <EntitySet Name="tRSPEligibilities" EntityType="HRISDBModel.tRSPEligibility" />
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spPSBApplicantProfile_Result">
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="counter" Nullable="true" />
+          <Property Type="Int32" Name="accCounter" Nullable="true" />
+          <Property Type="String" Name="fullNameLast" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="appTypeCode" Nullable="true" />
+          <Property Type="String" Name="education" Nullable="true" />
+          <Property Type="String" Name="experience" Nullable="true" />
+          <Property Type="String" Name="training" Nullable="true" />
+          <Property Type="String" Name="eligibility" Nullable="true" />
+          <Property Type="String" Name="ipcr" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="tApplicant">
+          <Key>
+            <PropertyRef Name="applicantCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicantCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="middleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="extName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="birthDate" Type="DateTime" Precision="0" />
+          <Property Name="birthPlace" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mobileNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="verificationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="isVerified" Type="Boolean" />
+          <Property Name="userEIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tApplicantEducation">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="schoolLevelCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="schoolName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="degree" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="yearGraduated" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="highestLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="yearFrom" Type="Int32" />
+          <Property Name="yearTo" Type="Int32" />
+          <Property Name="academicHonor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="transDT" Type="DateTime" Precision="3" />
+          <Property Name="educationNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tApplicantFile">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fileTypeCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fileName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fileCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="uploadDT" Type="DateTime" Precision="3" />
+          <Property Name="tag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tApplicantProfile">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="itemLevel" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="education" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="experience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="training" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="eligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="performanceRating" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="orderNo" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tApplicantTraining">
+          <Key>
+            <PropertyRef Name="trainingCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trainingCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="trainingTitle" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="fromDate" Type="DateTime" Precision="0" />
+          <Property Name="toDate" Type="DateTime" Precision="0" />
+          <Property Name="hours" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="conductedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="venue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="transDT" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tOrgDepartment">
+          <Key>
+            <PropertyRef Name="departmentCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departmentCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="shortDepartmentName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="orderNo" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="functionCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="functionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="programActivity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="branch" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tRSPApplication">
+          <Key>
+            <PropertyRef Name="applicationCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="publicationItemCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="transDT" Type="DateTime" Precision="3" />
+          <Property Name="appTypeCode" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="isComplete" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tRSPPosition">
+          <Key>
+            <PropertyRef Name="positionCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="positionCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="shortPositionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="acronym" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="positionLevel" Type="Int32" />
+          <Property Name="positionCategory" Type="Int32" />
+          <Property Name="isActive" Type="Int32" />
+          <Property Name="keyPositionTag" Type="Int32" />
+          <Property Name="keyCSCLevel" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tRSPPositionJobDesc">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="jobSeqNo" Type="Int32" />
+          <Property Name="jobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="percentage" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tRSPPublicationItem">
+          <Key>
+            <PropertyRef Name="publicationItemCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publicationItemCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="publicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PSBDate" Type="DateTime" Precision="0" />
+          <Property Name="itemNoPub" Type="Int32" />
+          <Property Name="pageNoPub" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vRSPEmployee">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="EIC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="middleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="extName" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="namePrefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="birthDate" Type="DateTime" Precision="0" />
+          <Property Name="birthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateOrigAppointment" Type="DateTime" Precision="0" />
+          <Property Name="dateLastPromoted" Type="DateTime" Precision="0" />
+          <Property Name="positionCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="subPositionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="step" Type="Int32" />
+          <Property Name="employmentStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="departmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="shortDepartmentName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="workGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="workGroupName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="workGroupDesc" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="tag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vRSPEmployeeList">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="EIC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="middleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="extName" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fullNameTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="namePrefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nameSuffix" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="birthDate" Type="DateTime" Precision="0" />
+          <Property Name="birthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="civilStatCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="positionCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="subPositionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subPositionTitle" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="step" Type="Int32" />
+          <Property Name="salaryRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="salaryType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="salaryDetailCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatusNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatusTag" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="isPlantilla" Type="Int32" />
+          <Property Name="isGovService" Type="Int32" />
+          <Property Name="height" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="bloodType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="GSISIDNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BPNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HDMFNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HDMFMID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PHICNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SSSNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TINNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="citizenship" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="houseBlockNoResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="streetResAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="subdivisionResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="brgyResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cityMunResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="provinceResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZIPResAddress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="houseBlockNoPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="streetPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subdivisionPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="brgyPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cityMunPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="provincePermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZIPPermAddress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="completeAddress" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="telephoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mobileNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="isMobileVerified" Type="Int32" />
+          <Property Name="idDDNIssuedDate" Type="DateTime" Precision="0" />
+          <Property Name="emailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateOrigAppointment" Type="DateTime" Precision="0" />
+          <Property Name="dateLastPromoted" Type="DateTime" Precision="0" />
+          <Property Name="workGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="workGroupName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="fundSourceCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="projectName" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="transCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="isActivePosition" Type="Int32" />
+          <Property Name="periodTo" Type="DateTime" Precision="0" />
+          <Property Name="effectiveDate" Type="DateTime" Precision="0" />
+          <Property Name="appointmentItemCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vRSPPositionJobDesc">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="jobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vRSPPositionJobDescSub">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subJDNo" Type="Int32" />
+          <Property Name="subDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="subPercentage" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vRSPPositionQ">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="plantillaCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="plantillaCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QSEducation" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSTraining" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSEligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSEligibilityPub" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSNotation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="placeOfAssignment" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vRSPPublicationItem">
+          <Key>
+            <PropertyRef Name="publicationItemCode" />
+          </Key>
+          <Property Name="publicationItemCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="publicationDate" Type="DateTime" Precision="0" />
+          <Property Name="CSCPostedDate" Type="DateTime" Precision="0" />
+          <Property Name="CSCClosingDate" Type="DateTime" Precision="0" />
+          <Property Name="PSBDate" Type="DateTime" Precision="0" />
+          <Property Name="publicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="itemNo" Type="Int32" />
+          <Property Name="positionTitle" Type="String" MaxLength="1653" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QSEducation" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSTraining" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSEligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSEligibilityPub" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSNotation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="departmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="placeOfAssignment" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="jobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="branch" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vSysMenu">
+          <Key>
+            <PropertyRef Name="menuCode" />
+          </Key>
+          <Property Name="menuCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="controllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="methodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="menuTypeNo" Type="Int32" />
+          <Property Name="orderNo" Type="Int32" />
+          <Property Name="menuGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="groupOrderNo" Type="Int32" />
+          <Property Name="groupTag" Type="Int32" />
+          <Property Name="menuSubGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subFontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subOrderNo" Type="Int32" />
+          <Property Name="subGroupTag" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="linkIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vSysMenuUser">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="menuCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="controllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="methodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="menuTypeNo" Type="Int32" />
+          <Property Name="orderNo" Type="Int32" />
+          <Property Name="menuGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="linkIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="groupOrderNo" Type="Int32" />
+          <Property Name="groupTag" Type="Int32" />
+          <Property Name="menuSubGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subFontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subOrderNo" Type="Int32" />
+          <Property Name="subGroupTag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vSysRoleMenu">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="menuCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="controllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="methodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="menuTypeNo" Type="Int32" />
+          <Property Name="orderNo" Type="Int32" />
+          <Property Name="menuGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="groupOrderNo" Type="Int32" />
+          <Property Name="groupTag" Type="Int32" />
+          <Property Name="menuSubGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subFontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subOrderNo" Type="Int32" />
+          <Property Name="subGroupTag" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="linkIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="roleID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="roleDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vSysUserRole">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="roleID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="roleDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tRSPApplicationAssessment">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="performanceRating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="performanceScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="comptAssmentRating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="comptAssmentScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="beiRating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="beiScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="psychoRating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="psychoScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="educationScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="experienceScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="trainingScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="eligibilityScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="awardScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="totalScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="performanceRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tRSPPSBRating">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="panelEIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="score" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="vRSPApplication">
+          <Key>
+            <PropertyRef Name="recNo" />
+            <PropertyRef Name="applicationCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="applicationCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="applicantName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="applicantNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="applicantPositionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="applicantSubPositionTitle" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="applicantSalaryGrade" Type="Int32" />
+          <Property Name="applicantStep" Type="Int32" />
+          <Property Name="publicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="publicationItemCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="itemNo" Type="Int32" />
+          <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="salaryGrade" Type="Int32" />
+          <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QSEducation" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSTraining" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSEligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="QSNotation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="departmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="placeOfAssignment" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="appTypeCode" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+          <Property Name="CSCPostedDate" Type="DateTime" Precision="0" />
+          <Property Name="CSCClosingDate" Type="DateTime" Precision="0" />
+          <Property Name="PSBDate" Type="DateTime" Precision="0" />
+          <Property Name="publicationItemTag" Type="Int32" />
+          <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatusNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatusTag" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tRSPApplicationProfileExpr">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="periodFrom" Type="DateTime" Precision="0" />
+          <Property Name="periodTo" Type="DateTime" Precision="0" />
+          <Property Name="periodText" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tRSPPositionJobDescSub">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subJDNo" Type="Int32" />
+          <Property Name="subDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="subPercentage" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tRSPPSBPanel">
+          <Key>
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EIC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="namePrefix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tApplicantEligibility">
+          <Key>
+            <PropertyRef Name="eligibilityId" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eligibilityId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="eligibilityCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="eligibilityName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="rating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="examDate" Type="DateTime" Precision="0" />
+          <Property Name="examPlace" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="licenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="validityDate" Type="DateTime" Precision="0" />
+          <Property Name="transDT" Type="DateTime" Precision="3" />
+          <Property Name="eligibilityNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tRSPEligibility">
+          <Key>
+            <PropertyRef Name="eligibilityCode" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eligibilityCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="eligibilityNameShort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eligibilityName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="orderNo" Type="Int32" />
+          <Property Name="isActive" Type="Int32" />
+          <Property Name="groupTag" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HRISDBModelStoreContainer" CdmEntityContainer="HRISDBEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="HRISDBModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="HRISDBModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="HRISDBModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="HRISDBModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HRISDBModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="HRISDBModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HRISDBModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="HRISDBModel.Store.sp_renamediagram" />
+          <EntitySetMapping Name="tApplicants">
+            <EntityTypeMapping TypeName="HRISDBModel.tApplicant">
+              <MappingFragment StoreEntitySet="tApplicant">
+                <ScalarProperty Name="userEIC" ColumnName="userEIC" />
+                <ScalarProperty Name="isVerified" ColumnName="isVerified" />
+                <ScalarProperty Name="verificationCode" ColumnName="verificationCode" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="mobileNo" ColumnName="mobileNo" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="birthPlace" ColumnName="birthPlace" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="fullNameFirst" ColumnName="fullNameFirst" />
+                <ScalarProperty Name="fullNameLast" ColumnName="fullNameLast" />
+                <ScalarProperty Name="extName" ColumnName="extName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tApplicantEducations">
+            <EntityTypeMapping TypeName="HRISDBModel.tApplicantEducation">
+              <MappingFragment StoreEntitySet="tApplicantEducation">
+                <ScalarProperty Name="educationNo" ColumnName="educationNo" />
+                <ScalarProperty Name="transDT" ColumnName="transDT" />
+                <ScalarProperty Name="academicHonor" ColumnName="academicHonor" />
+                <ScalarProperty Name="yearTo" ColumnName="yearTo" />
+                <ScalarProperty Name="yearFrom" ColumnName="yearFrom" />
+                <ScalarProperty Name="highestLevel" ColumnName="highestLevel" />
+                <ScalarProperty Name="yearGraduated" ColumnName="yearGraduated" />
+                <ScalarProperty Name="degree" ColumnName="degree" />
+                <ScalarProperty Name="schoolName" ColumnName="schoolName" />
+                <ScalarProperty Name="schoolLevelCode" ColumnName="schoolLevelCode" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tApplicantFiles">
+            <EntityTypeMapping TypeName="HRISDBModel.tApplicantFile">
+              <MappingFragment StoreEntitySet="tApplicantFile">
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="uploadDT" ColumnName="uploadDT" />
+                <ScalarProperty Name="fileCode" ColumnName="fileCode" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="fileTypeCode" ColumnName="fileTypeCode" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tApplicantProfiles">
+            <EntityTypeMapping TypeName="HRISDBModel.tApplicantProfile">
+              <MappingFragment StoreEntitySet="tApplicantProfile">
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="performanceRating" ColumnName="performanceRating" />
+                <ScalarProperty Name="eligibility" ColumnName="eligibility" />
+                <ScalarProperty Name="training" ColumnName="training" />
+                <ScalarProperty Name="experience" ColumnName="experience" />
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="itemLevel" ColumnName="itemLevel" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tApplicantTrainings">
+            <EntityTypeMapping TypeName="HRISDBModel.tApplicantTraining">
+              <MappingFragment StoreEntitySet="tApplicantTraining">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="transDT" ColumnName="transDT" />
+                <ScalarProperty Name="venue" ColumnName="venue" />
+                <ScalarProperty Name="conductedBy" ColumnName="conductedBy" />
+                <ScalarProperty Name="hours" ColumnName="hours" />
+                <ScalarProperty Name="toDate" ColumnName="toDate" />
+                <ScalarProperty Name="fromDate" ColumnName="fromDate" />
+                <ScalarProperty Name="trainingTitle" ColumnName="trainingTitle" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="trainingCode" ColumnName="trainingCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tOrgDepartments">
+            <EntityTypeMapping TypeName="HRISDBModel.tOrgDepartment">
+              <MappingFragment StoreEntitySet="tOrgDepartment">
+                <ScalarProperty Name="branch" ColumnName="branch" />
+                <ScalarProperty Name="programActivity" ColumnName="programActivity" />
+                <ScalarProperty Name="functionName" ColumnName="functionName" />
+                <ScalarProperty Name="functionCode" ColumnName="functionCode" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="shortDepartmentName" ColumnName="shortDepartmentName" />
+                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+                <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPApplications">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPApplication">
+              <MappingFragment StoreEntitySet="tRSPApplication">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="isComplete" ColumnName="isComplete" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="appTypeCode" ColumnName="appTypeCode" />
+                <ScalarProperty Name="transDT" ColumnName="transDT" />
+                <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPPositions">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPPosition">
+              <MappingFragment StoreEntitySet="tRSPPosition">
+                <ScalarProperty Name="keyCSCLevel" ColumnName="keyCSCLevel" />
+                <ScalarProperty Name="keyPositionTag" ColumnName="keyPositionTag" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="positionCategory" ColumnName="positionCategory" />
+                <ScalarProperty Name="positionLevel" ColumnName="positionLevel" />
+                <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+                <ScalarProperty Name="acronym" ColumnName="acronym" />
+                <ScalarProperty Name="shortPositionTitle" ColumnName="shortPositionTitle" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="positionCode" ColumnName="positionCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPPositionJobDescs">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPPositionJobDesc">
+              <MappingFragment StoreEntitySet="tRSPPositionJobDesc">
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+                <ScalarProperty Name="jobDesc" ColumnName="jobDesc" />
+                <ScalarProperty Name="jobSeqNo" ColumnName="jobSeqNo" />
+                <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPPublicationItems">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPPublicationItem">
+              <MappingFragment StoreEntitySet="tRSPPublicationItem">
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="pageNoPub" ColumnName="pageNoPub" />
+                <ScalarProperty Name="itemNoPub" ColumnName="itemNoPub" />
+                <ScalarProperty Name="PSBDate" ColumnName="PSBDate" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="publicationCode" ColumnName="publicationCode" />
+                <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPEmployees">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPEmployee">
+              <MappingFragment StoreEntitySet="vRSPEmployee">
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="workGroupDesc" ColumnName="workGroupDesc" />
+                <ScalarProperty Name="workGroupName" ColumnName="workGroupName" />
+                <ScalarProperty Name="workGroupCode" ColumnName="workGroupCode" />
+                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+                <ScalarProperty Name="shortDepartmentName" ColumnName="shortDepartmentName" />
+                <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+                <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+                <ScalarProperty Name="employmentStatusCode" ColumnName="employmentStatusCode" />
+                <ScalarProperty Name="step" ColumnName="step" />
+                <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="subPositionCode" ColumnName="subPositionCode" />
+                <ScalarProperty Name="positionCode" ColumnName="positionCode" />
+                <ScalarProperty Name="dateLastPromoted" ColumnName="dateLastPromoted" />
+                <ScalarProperty Name="dateOrigAppointment" ColumnName="dateOrigAppointment" />
+                <ScalarProperty Name="birthPlace" ColumnName="birthPlace" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="namePrefix" ColumnName="namePrefix" />
+                <ScalarProperty Name="fullNameTitle" ColumnName="fullNameTitle" />
+                <ScalarProperty Name="fullNameFirst" ColumnName="fullNameFirst" />
+                <ScalarProperty Name="fullNameLast" ColumnName="fullNameLast" />
+                <ScalarProperty Name="extName" ColumnName="extName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="idNo" ColumnName="idNo" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPEmployeeLists">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPEmployeeList">
+              <MappingFragment StoreEntitySet="vRSPEmployeeList">
+                <ScalarProperty Name="appointmentItemCode" ColumnName="appointmentItemCode" />
+                <ScalarProperty Name="effectiveDate" ColumnName="effectiveDate" />
+                <ScalarProperty Name="periodTo" ColumnName="periodTo" />
+                <ScalarProperty Name="isActivePosition" ColumnName="isActivePosition" />
+                <ScalarProperty Name="transCode" ColumnName="transCode" />
+                <ScalarProperty Name="projectName" ColumnName="projectName" />
+                <ScalarProperty Name="fundSourceCode" ColumnName="fundSourceCode" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="workGroupName" ColumnName="workGroupName" />
+                <ScalarProperty Name="workGroupCode" ColumnName="workGroupCode" />
+                <ScalarProperty Name="dateLastPromoted" ColumnName="dateLastPromoted" />
+                <ScalarProperty Name="dateOrigAppointment" ColumnName="dateOrigAppointment" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="idDDNIssuedDate" ColumnName="idDDNIssuedDate" />
+                <ScalarProperty Name="isMobileVerified" ColumnName="isMobileVerified" />
+                <ScalarProperty Name="mobileNo" ColumnName="mobileNo" />
+                <ScalarProperty Name="telephoneNo" ColumnName="telephoneNo" />
+                <ScalarProperty Name="completeAddress" ColumnName="completeAddress" />
+                <ScalarProperty Name="ZIPPermAddress" ColumnName="ZIPPermAddress" />
+                <ScalarProperty Name="provincePermAddress" ColumnName="provincePermAddress" />
+                <ScalarProperty Name="cityMunPermAddress" ColumnName="cityMunPermAddress" />
+                <ScalarProperty Name="brgyPermAddress" ColumnName="brgyPermAddress" />
+                <ScalarProperty Name="subdivisionPermAddress" ColumnName="subdivisionPermAddress" />
+                <ScalarProperty Name="streetPermAddress" ColumnName="streetPermAddress" />
+                <ScalarProperty Name="houseBlockNoPermAddress" ColumnName="houseBlockNoPermAddress" />
+                <ScalarProperty Name="ZIPResAddress" ColumnName="ZIPResAddress" />
+                <ScalarProperty Name="provinceResAddress" ColumnName="provinceResAddress" />
+                <ScalarProperty Name="cityMunResAddress" ColumnName="cityMunResAddress" />
+                <ScalarProperty Name="brgyResAddress" ColumnName="brgyResAddress" />
+                <ScalarProperty Name="subdivisionResAddress" ColumnName="subdivisionResAddress" />
+                <ScalarProperty Name="streetResAddress" ColumnName="streetResAddress" />
+                <ScalarProperty Name="houseBlockNoResAddress" ColumnName="houseBlockNoResAddress" />
+                <ScalarProperty Name="citizenship" ColumnName="citizenship" />
+                <ScalarProperty Name="TINNo" ColumnName="TINNo" />
+                <ScalarProperty Name="SSSNo" ColumnName="SSSNo" />
+                <ScalarProperty Name="PHICNo" ColumnName="PHICNo" />
+                <ScalarProperty Name="HDMFMID" ColumnName="HDMFMID" />
+                <ScalarProperty Name="HDMFNo" ColumnName="HDMFNo" />
+                <ScalarProperty Name="BPNo" ColumnName="BPNo" />
+                <ScalarProperty Name="GSISIDNo" ColumnName="GSISIDNo" />
+                <ScalarProperty Name="bloodType" ColumnName="bloodType" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="isGovService" ColumnName="isGovService" />
+                <ScalarProperty Name="isPlantilla" ColumnName="isPlantilla" />
+                <ScalarProperty Name="employmentStatusTag" ColumnName="employmentStatusTag" />
+                <ScalarProperty Name="employmentStatusNameShort" ColumnName="employmentStatusNameShort" />
+                <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+                <ScalarProperty Name="employmentStatusCode" ColumnName="employmentStatusCode" />
+                <ScalarProperty Name="salaryDetailCode" ColumnName="salaryDetailCode" />
+                <ScalarProperty Name="salaryType" ColumnName="salaryType" />
+                <ScalarProperty Name="salaryRate" ColumnName="salaryRate" />
+                <ScalarProperty Name="step" ColumnName="step" />
+                <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+                <ScalarProperty Name="subPositionTitle" ColumnName="subPositionTitle" />
+                <ScalarProperty Name="subPositionCode" ColumnName="subPositionCode" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="positionCode" ColumnName="positionCode" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="civilStatCode" ColumnName="civilStatCode" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="birthPlace" ColumnName="birthPlace" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="nameSuffix" ColumnName="nameSuffix" />
+                <ScalarProperty Name="namePrefix" ColumnName="namePrefix" />
+                <ScalarProperty Name="fullNameTitle" ColumnName="fullNameTitle" />
+                <ScalarProperty Name="fullNameFirst" ColumnName="fullNameFirst" />
+                <ScalarProperty Name="fullNameLast" ColumnName="fullNameLast" />
+                <ScalarProperty Name="extName" ColumnName="extName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="idNo" ColumnName="idNo" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPPositionJobDescs">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPPositionJobDesc">
+              <MappingFragment StoreEntitySet="vRSPPositionJobDesc">
+                <ScalarProperty Name="jobDesc" ColumnName="jobDesc" />
+                <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPPositionJobDescSubs">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPPositionJobDescSub">
+              <MappingFragment StoreEntitySet="vRSPPositionJobDescSub">
+                <ScalarProperty Name="subPercentage" ColumnName="subPercentage" />
+                <ScalarProperty Name="subDesc" ColumnName="subDesc" />
+                <ScalarProperty Name="subJDNo" ColumnName="subJDNo" />
+                <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPPositionQS">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPPositionQ">
+              <MappingFragment StoreEntitySet="vRSPPositionQS">
+                <ScalarProperty Name="placeOfAssignment" ColumnName="placeOfAssignment" />
+                <ScalarProperty Name="QSNotation" ColumnName="QSNotation" />
+                <ScalarProperty Name="QSEligibilityPub" ColumnName="QSEligibilityPub" />
+                <ScalarProperty Name="QSEligibility" ColumnName="QSEligibility" />
+                <ScalarProperty Name="QSTraining" ColumnName="QSTraining" />
+                <ScalarProperty Name="QSExperience" ColumnName="QSExperience" />
+                <ScalarProperty Name="QSEducation" ColumnName="QSEducation" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPPublicationItems">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPPublicationItem">
+              <MappingFragment StoreEntitySet="vRSPPublicationItem">
+                <ScalarProperty Name="branch" ColumnName="branch" />
+                <ScalarProperty Name="jobDesc" ColumnName="jobDesc" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="placeOfAssignment" ColumnName="placeOfAssignment" />
+                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+                <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+                <ScalarProperty Name="QSNotation" ColumnName="QSNotation" />
+                <ScalarProperty Name="QSEligibilityPub" ColumnName="QSEligibilityPub" />
+                <ScalarProperty Name="QSEligibility" ColumnName="QSEligibility" />
+                <ScalarProperty Name="QSTraining" ColumnName="QSTraining" />
+                <ScalarProperty Name="QSExperience" ColumnName="QSExperience" />
+                <ScalarProperty Name="QSEducation" ColumnName="QSEducation" />
+                <ScalarProperty Name="rateMonth" ColumnName="rateMonth" />
+                <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="itemNo" ColumnName="itemNo" />
+                <ScalarProperty Name="publicationCode" ColumnName="publicationCode" />
+                <ScalarProperty Name="PSBDate" ColumnName="PSBDate" />
+                <ScalarProperty Name="CSCClosingDate" ColumnName="CSCClosingDate" />
+                <ScalarProperty Name="CSCPostedDate" ColumnName="CSCPostedDate" />
+                <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSysMenus">
+            <EntityTypeMapping TypeName="HRISDBModel.vSysMenu">
+              <MappingFragment StoreEntitySet="vSysMenu">
+                <ScalarProperty Name="linkIcon" ColumnName="linkIcon" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="subGroupTag" ColumnName="subGroupTag" />
+                <ScalarProperty Name="subOrderNo" ColumnName="subOrderNo" />
+                <ScalarProperty Name="subFontIcon" ColumnName="subFontIcon" />
+                <ScalarProperty Name="subGroupName" ColumnName="subGroupName" />
+                <ScalarProperty Name="menuSubGroupCode" ColumnName="menuSubGroupCode" />
+                <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+                <ScalarProperty Name="groupOrderNo" ColumnName="groupOrderNo" />
+                <ScalarProperty Name="fontIcon" ColumnName="fontIcon" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="menuGroupCode" ColumnName="menuGroupCode" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="menuTypeNo" ColumnName="menuTypeNo" />
+                <ScalarProperty Name="methodName" ColumnName="methodName" />
+                <ScalarProperty Name="controllerName" ColumnName="controllerName" />
+                <ScalarProperty Name="menuName" ColumnName="menuName" />
+                <ScalarProperty Name="menuCode" ColumnName="menuCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSysMenuUsers">
+            <EntityTypeMapping TypeName="HRISDBModel.vSysMenuUser">
+              <MappingFragment StoreEntitySet="vSysMenuUser">
+                <ScalarProperty Name="subGroupTag" ColumnName="subGroupTag" />
+                <ScalarProperty Name="subOrderNo" ColumnName="subOrderNo" />
+                <ScalarProperty Name="subFontIcon" ColumnName="subFontIcon" />
+                <ScalarProperty Name="subGroupName" ColumnName="subGroupName" />
+                <ScalarProperty Name="menuSubGroupCode" ColumnName="menuSubGroupCode" />
+                <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+                <ScalarProperty Name="groupOrderNo" ColumnName="groupOrderNo" />
+                <ScalarProperty Name="linkIcon" ColumnName="linkIcon" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="fontIcon" ColumnName="fontIcon" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="menuGroupCode" ColumnName="menuGroupCode" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="menuTypeNo" ColumnName="menuTypeNo" />
+                <ScalarProperty Name="methodName" ColumnName="methodName" />
+                <ScalarProperty Name="controllerName" ColumnName="controllerName" />
+                <ScalarProperty Name="menuName" ColumnName="menuName" />
+                <ScalarProperty Name="menuCode" ColumnName="menuCode" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSysRoleMenus">
+            <EntityTypeMapping TypeName="HRISDBModel.vSysRoleMenu">
+              <MappingFragment StoreEntitySet="vSysRoleMenu">
+                <ScalarProperty Name="roleDesc" ColumnName="roleDesc" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="linkIcon" ColumnName="linkIcon" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="subGroupTag" ColumnName="subGroupTag" />
+                <ScalarProperty Name="subOrderNo" ColumnName="subOrderNo" />
+                <ScalarProperty Name="subFontIcon" ColumnName="subFontIcon" />
+                <ScalarProperty Name="subGroupName" ColumnName="subGroupName" />
+                <ScalarProperty Name="menuSubGroupCode" ColumnName="menuSubGroupCode" />
+                <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+                <ScalarProperty Name="groupOrderNo" ColumnName="groupOrderNo" />
+                <ScalarProperty Name="fontIcon" ColumnName="fontIcon" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="menuGroupCode" ColumnName="menuGroupCode" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="menuTypeNo" ColumnName="menuTypeNo" />
+                <ScalarProperty Name="methodName" ColumnName="methodName" />
+                <ScalarProperty Name="controllerName" ColumnName="controllerName" />
+                <ScalarProperty Name="menuName" ColumnName="menuName" />
+                <ScalarProperty Name="menuCode" ColumnName="menuCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSysUserRoles">
+            <EntityTypeMapping TypeName="HRISDBModel.vSysUserRole">
+              <MappingFragment StoreEntitySet="vSysUserRole">
+                <ScalarProperty Name="roleDesc" ColumnName="roleDesc" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPApplicationAssessments">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPApplicationAssessment">
+              <MappingFragment StoreEntitySet="tRSPApplicationAssessment">
+                <ScalarProperty Name="performanceRemarks" ColumnName="performanceRemarks" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="totalScore" ColumnName="totalScore" />
+                <ScalarProperty Name="awardScore" ColumnName="awardScore" />
+                <ScalarProperty Name="eligibilityScore" ColumnName="eligibilityScore" />
+                <ScalarProperty Name="trainingScore" ColumnName="trainingScore" />
+                <ScalarProperty Name="experienceScore" ColumnName="experienceScore" />
+                <ScalarProperty Name="educationScore" ColumnName="educationScore" />
+                <ScalarProperty Name="psychoScore" ColumnName="psychoScore" />
+                <ScalarProperty Name="psychoRating" ColumnName="psychoRating" />
+                <ScalarProperty Name="beiScore" ColumnName="beiScore" />
+                <ScalarProperty Name="beiRating" ColumnName="beiRating" />
+                <ScalarProperty Name="comptAssmentScore" ColumnName="comptAssmentScore" />
+                <ScalarProperty Name="comptAssmentRating" ColumnName="comptAssmentRating" />
+                <ScalarProperty Name="performanceScore" ColumnName="performanceScore" />
+                <ScalarProperty Name="performanceRating" ColumnName="performanceRating" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPPSBRatings">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPPSBRating">
+              <MappingFragment StoreEntitySet="tRSPPSBRating">
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="panelEIC" ColumnName="panelEIC" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRSPApplications">
+            <EntityTypeMapping TypeName="HRISDBModel.vRSPApplication">
+              <MappingFragment StoreEntitySet="vRSPApplication">
+                <ScalarProperty Name="employmentStatusTag" ColumnName="employmentStatusTag" />
+                <ScalarProperty Name="employmentStatusNameShort" ColumnName="employmentStatusNameShort" />
+                <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+                <ScalarProperty Name="publicationItemTag" ColumnName="publicationItemTag" />
+                <ScalarProperty Name="PSBDate" ColumnName="PSBDate" />
+                <ScalarProperty Name="CSCClosingDate" ColumnName="CSCClosingDate" />
+                <ScalarProperty Name="CSCPostedDate" ColumnName="CSCPostedDate" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="appTypeCode" ColumnName="appTypeCode" />
+                <ScalarProperty Name="placeOfAssignment" ColumnName="placeOfAssignment" />
+                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+                <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+                <ScalarProperty Name="QSNotation" ColumnName="QSNotation" />
+                <ScalarProperty Name="QSEligibility" ColumnName="QSEligibility" />
+                <ScalarProperty Name="QSTraining" ColumnName="QSTraining" />
+                <ScalarProperty Name="QSExperience" ColumnName="QSExperience" />
+                <ScalarProperty Name="QSEducation" ColumnName="QSEducation" />
+                <ScalarProperty Name="rateMonth" ColumnName="rateMonth" />
+                <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="itemNo" ColumnName="itemNo" />
+                <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+                <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+                <ScalarProperty Name="publicationCode" ColumnName="publicationCode" />
+                <ScalarProperty Name="applicantStep" ColumnName="applicantStep" />
+                <ScalarProperty Name="applicantSalaryGrade" ColumnName="applicantSalaryGrade" />
+                <ScalarProperty Name="applicantSubPositionTitle" ColumnName="applicantSubPositionTitle" />
+                <ScalarProperty Name="applicantPositionTitle" ColumnName="applicantPositionTitle" />
+                <ScalarProperty Name="applicantNameLast" ColumnName="applicantNameLast" />
+                <ScalarProperty Name="applicantName" ColumnName="applicantName" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPApplicationProfileExprs">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPApplicationProfileExpr">
+              <MappingFragment StoreEntitySet="tRSPApplicationProfileExpr">
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="periodText" ColumnName="periodText" />
+                <ScalarProperty Name="periodTo" ColumnName="periodTo" />
+                <ScalarProperty Name="periodFrom" ColumnName="periodFrom" />
+                <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPPositionJobDescSubs">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPPositionJobDescSub">
+              <MappingFragment StoreEntitySet="tRSPPositionJobDescSub">
+                <ScalarProperty Name="subPercentage" ColumnName="subPercentage" />
+                <ScalarProperty Name="subDesc" ColumnName="subDesc" />
+                <ScalarProperty Name="subJDNo" ColumnName="subJDNo" />
+                <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPPSBPanels">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPPSBPanel">
+              <MappingFragment StoreEntitySet="tRSPPSBPanel">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="namePrefix" ColumnName="namePrefix" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tApplicantEligibilities">
+            <EntityTypeMapping TypeName="HRISDBModel.tApplicantEligibility">
+              <MappingFragment StoreEntitySet="tApplicantEligibility">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="eligibilityNo" ColumnName="eligibilityNo" />
+                <ScalarProperty Name="transDT" ColumnName="transDT" />
+                <ScalarProperty Name="validityDate" ColumnName="validityDate" />
+                <ScalarProperty Name="licenseNo" ColumnName="licenseNo" />
+                <ScalarProperty Name="examPlace" ColumnName="examPlace" />
+                <ScalarProperty Name="examDate" ColumnName="examDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="eligibilityName" ColumnName="eligibilityName" />
+                <ScalarProperty Name="eligibilityCode" ColumnName="eligibilityCode" />
+                <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+                <ScalarProperty Name="eligibilityId" ColumnName="eligibilityId" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRSPEligibilities">
+            <EntityTypeMapping TypeName="HRISDBModel.tRSPEligibility">
+              <MappingFragment StoreEntitySet="tRSPEligibility">
+                <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="eligibilityName" ColumnName="eligibilityName" />
+                <ScalarProperty Name="eligibilityNameShort" ColumnName="eligibilityNameShort" />
+                <ScalarProperty Name="eligibilityCode" ColumnName="eligibilityCode" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

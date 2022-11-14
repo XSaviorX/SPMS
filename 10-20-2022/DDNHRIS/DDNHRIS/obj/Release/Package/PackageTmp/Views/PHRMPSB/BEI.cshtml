@@ -1,0 +1,516 @@
+﻿@{
+    ViewBag.Title = "PHRMPSB";
+}
+
+
+<link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/sliderUI/ui_slider.css" rel="stylesheet" />
+
+
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+
+    .tbl-xs > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 3px 10px;
+        line-height: 1.2;
+        vertical-align: top;
+    }
+
+    .option-input {
+        height: 20px;
+        width: 20px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+</style>
+
+<div ng-controller="PSBBEI">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">PHRMPSB</span> Behavioral Event Interview  (BEI)</h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href=" #psbSchedule" data-toggle="tab"><i class="icon-calendar2 position-left"></i> PSB Schedule</a></li>
+                    @*<li class=""><a href=" #psbSchedule" data-toggle="tab"><i class="icon-calendar2 position-left"></i> History</a></li>*@
+                </ul>
+
+            </div>
+        </div>
+        <!-- /toolbar -->
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- PBS SCHEDULE LIST -->
+                        <div class="tab-pane fade in active" id="psbSchedule">
+
+                            <div class="row" ng-show="tabId==0">
+
+                                <div class="col-md-12" ng-repeat="item in positionList">
+                                    <div class="panel border-left-xlg border-left-danger-800">
+                                        <div class="panel-body">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h6 class="no-margin-top" style="padding-bottom:0px; margin-bottom:0px;" ng-click="showPositionData(item)">
+
+                                                        <span class="text-blue-800 cursor-pointer">
+                                                            <strong>{{item.itemText}} - <span class="text-uppercase">{{item.positionTitle}}</span> </strong>
+                                                        </span>
+
+                                                    </h6>
+                                                    <p class="mb-15" style="margin-top:0px; padding-top:0px;">{{item.departmentName}}</p>
+
+                                                    <a href="#" class="" ng-repeat="itm in item.applicantList"><img src="~/Content/assets/images/demo/users/NoImage.jpg" class="img-circle img-xs" alt="" data-popup="tooltip-custom" title={{itm.applicantName}} ng-click="selectApplicant(itm)"></a>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer panel-footer-condensed">
+                                            <div class="heading-elements">
+
+                                                <span class="heading-text"><span class="badge badge-primary">{{item.applicantList.length}}</span> &nbsp; PSB Date: <span class="text-semibold">{{formatDateLong(item.PSBDate)}}</span></span>
+                                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+
+                                                    <li class="dropdown">
+                                                        <a href="#" class="text-default dropdown-toggle" data-toggle="dropdown">Option <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
+                                                            <li><a href="#"><i class="icon-rotate-ccw2"></i> Re-schedule</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Profile info -->
+                            <div class="panel panel-flat" ng-show="tabId == 1">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title text-bold text-blue-800">
+
+                                        @*<span class="text-semibold"> {{('00000'+ pubItemData.itemNoText).slice(-4)}}  {{pubItemData.positionTitle}}</span>*@
+                                        <span class="text-semibold"> {{pubItemData.itemText}}  {{pubItemData.positionTitle}}</span>
+                                    </h4>
+                                    <div class="heading-elements">
+
+                                        <button class="btn btn-link" ng-click="backToMain()">
+                                            <i class="icon-arrow-left16"></i> Back to List
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="text-semibold">
+
+                                            <th class="text-center" style="width:25px!important">#</th>
+                                            <th class="text-center">APPLICANT</th>
+                                            <th class="text-center" style="width:12%">PERSONAL BEARING (30%)</th>
+                                            <th class="text-center" style="width:12%">CLARITY OF EXPRESSION/ ARTICULATION (20%)</th>
+                                            <th class="text-center" style="width:12%">VIVIDNESS OF IDEAS OPINIONS (25%)</th>
+                                            <th class="text-center" style="width:12%">ALERTNESS IN RESPONDING (15%)</th>
+                                            <th class="text-center" style="width:12%">PROJECTION OF VOICE (10%)</th>
+                                            <th class="text-center" style="width:10%">TOTAL <br /> (100%)</th>
+                                            
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in applicantList">
+                                            <td>
+                                                {{$index + 1}}
+                                            </td>
+                                            <td>                                               
+                                                <span class="text-primary-800 text-bold cursor-pointer" ng-click="showRatingEntry(item)"> {{item.applicantNameLast}}</span> <span class="label label-primary pull-right " ng-show="item.employmentStatusTag != null">{{item.employmentStatusTag}}</span>
+                                                <br />
+                                                <small>
+                                                    <span class="text-semibold">{{item.applicantPositionTitle}} <span ng-if="item.applicantSalaryGrade >= 1">({{item.applicantSalaryGrade}} <span ng-if="item.applicantSalaryStep >= 1">{{item.applicantSalaryStep}}</span>)</span> </span>
+
+                                                </small>
+                                                <sup ng-show="item.appTypeCode == 0"><small class="text-danger-800 text-size-small text-semibold" style="font-size:.95em;">(Outsider)</small> </sup>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="text-center text-bold text-blue-800">{{item.personalRate}}</span>
+                                                <input type="range" ng-model="item.personalRate" min=0 max=30>
+                                            </td>
+                                            
+
+                                            <td class="text-center">
+                                                <span class="text-center text-bold text-blue-800">{{item.clarityRate}}</span>
+                                                <input type="range" ng-model="item.clarityRate" min=0 max=20>
+                                            </td>
+                                           
+
+                                            <td class="text-center">
+                                                <span class="text-center text-bold text-blue-800">{{item.vividnessRate}}</span>
+                                                <input type="range" ng-model="item.vividnessRate" min=0 max=25>
+                                            </td>
+
+
+                                            <td class="text-center">
+                                                <span class="text-center text-bold text-blue-800">{{item.alertnessRate}}</span>
+                                                <input type="range" ng-model="item.alertnessRate" min=0 max=15 ng-change="onChangeRating(item.applicationCode)">
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="text-center text-bold text-blue-800">{{item.projectionRate}}</span>
+                                                <input type="range" ng-model="item.projectionRate" min=0 max=10>
+                                            </td>
+                                          
+                                            <td class="text-center">
+                                                <h2 class="text-center text-bold text-blue-800" style="margin:0px; padding:0px;">{{item.personalRate + item.clarityRate + item.vividnessRate +  item.alertnessRate +  item.projectionRate}}</h2>                                               
+                                            </td>
+                                          
+                                            
+                                        </tr>
+
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <button class="btn btn-primary bg-blue-800" >
+                                                    Save Rating
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+
+                            </div>
+                            <!-- /traffic sources -->
+                            <!-- POSITIN LIST -->
+
+                            @*<div class="tab-pane fade in " id="applicantProfile" ng-show="tabId == 1">
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+
+                                        <div class="content-group">
+                                            <div class="panel  no-border-radius-top">
+                                                <!-- Filter -->
+                                                <div class="sidebar-category">
+
+                                                    <div class="category-content no-padding">
+                                                        <div class="form-group " style="padding:20px 10px 0px 10px;">
+                                                            <div class="has-feedback has-feedback-left form-group no-padding-bottom no-margin-bottom ">
+                                                                <input type="search" ng-model='searchString' class="form-control" placeholder="Search Position">
+                                                                <div class="form-control-feedback">
+                                                                    <i class="icon-search4 text-size-small text-muted"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <table class="table table-striped table-hover table-borderless no-margin">
+                                                            <tr ng-repeat="item in pubItemList  | filter :searchString">
+                                                                <td ng-click="showPositionData(item)">
+                                                                    <span class="text-semibold"> {{('00000'+item.itemNo).slice(-4)}} </span> {{item.positionTitle}}
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- /filter -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-9">
+
+                                        <!-- Profile info -->
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title text-bold text-blue-800">
+                                                    <span class="text-semibold"> {{('00000'+pubItemData.itemNo).slice(-4)}}  {{pubItemData.positionTitle}}</span>
+                                                </h5>
+                                            </div>
+
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr class="text-semibold">
+                                                        <th class="text-center">APPLICANT NAME</th>
+                                                        <th class="text-center">POSITION</th>
+                                                        <th class="text-center">STATUS</th>
+                                                        <th class="text-center" style="width:90px;">
+                                                            <span class="text-blue-800 text-semibold cursor-pointer" ng-click="addApplicant()">
+                                                                <i class="icon-plus2"></i> Add
+                                                            </span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr ng-repeat="item in applicantList">
+                                                        <td>
+                                                            <small>{{$index + 1}}.) </small>
+                                                            <span class="text-primary-800 text-bold cursor-pointer" ng-click="viewApplicantProfile(item.applicationCode)"> {{item.applicantNameLast}}</span>
+                                                            <sup ng-show="item.appTypeCode == 0"><small class="text-danger-800 text-size-small text-semibold" style="font-size:.95em;">(OUTSIDER)</small> </sup>
+                                                        </td>
+                                                        <td>
+                                                            <small>
+                                                                <span class="text-semibold">{{item.applicantPositionTitle}} <span ng-if="item.applicantSalaryGrade >= 1">({{item.applicantSalaryGrade}} <span ng-if="item.applicantSalaryStep >= 1">{{item.applicantSalaryStep}}</span>)</span> </span>
+
+                                                                <span class="label label-primary pull-right " ng-show="item.employmentStatusTag != null">{{item.employmentStatusTag}}</span>
+
+                                                            </small>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <button class="btn btn-link btn-xs text-blue-800 text-semibold no-padding no-margin" ng-click="viewApplicantProfile(item.applicationCode)">
+                                                                Profile  <i class="icon-arrow-right15"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <!-- /traffic sources -->
+                                    </div>
+                                </div>
+
+                            </div>*@
+
+                            <!-- Course overview -->
+                            @*<div class="panel panel-white" ng-show="tabId == 2">
+                                    <div class="panel-heading">
+                                        <img width="60" height="60" />
+                                        <h3 class="panel-title text-semibold ">
+                                            {{applicationData.applicantName}}
+                                        </h3>
+                                        <h4 class="no-margin-top no-margin-bottom">
+                                            <span class="text-semibold ">    {{applicationData.applicantPositionTitle}} </span> <span class="text-muted text-semibold ">({{applicationData.applicantSalaryGrade}} <span ng-if="applicationData.applicantStep >= 1">/{{applicationData.applicantStep}}</span>)</span>
+                                        </h4>
+
+                                        <div class="heading-elements">
+
+                                            <button class="btn btn-link" ng-click="backToApplicants()">
+                                                <i class="icon-arrow-left16"></i> Back to List
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped">
+                                                    <tr>
+                                                        <td>
+                                                            PERSONAL BEARING
+                                                        </td>
+                                                        <td>
+                                                            30%
+                                                        </td>
+                                                        <td>
+                                                            <div class="slidecontainer">
+                                                                <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                                                                <span id="demo"></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            CLARITY OF EXPRESSION/ ARTICULATION
+                                                        </td>
+                                                        <td>
+                                                            20%
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            VIVIDNESS OF IDEAS OPINIONS
+                                                        </td>
+                                                        <td>
+                                                            25%
+                                                        </td>
+                                                        <td>
+                                                            <div class="ui-slider-floats"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            ALERTNESS IN RESPONDING
+                                                        </td>
+                                                        <td>
+                                                            15%
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            PROJECTION OF VOICE
+                                                        </td>
+                                                        <td>
+                                                            10%
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            PROJECTION OF VOICE
+                                                        </td>
+                                                        <td>
+                                                            10%
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>*@
+                            <!-- /course overview -->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    @*MODAL*@
+    <div id="modalRating" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" style="overflow:hidden;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                @*<div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title"> &nbsp; </h6>
+                    </div>*@
+                <div class="modal-body">
+
+
+                    <table class="table table-borderless">
+                        <tr>                           
+                            <td>                               
+                                <label class="text-grey text-size-large" style="width:100%;" >PERSONAL BEARING (30%) <span class="text-blue-800 pull-right text-bold text-blue-800"> {{value1}}  </span> </label>                               
+                                <input type="range" name="range" ng-model="value1" min="{{min1}}" max="{{max1}}">
+                            </td>                           
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="text-grey text-size-large" style="width:100%;">CLARITY OF EXPRESSION/ ARTICULATION (20%)<span class="text-blue-800 pull-right text-bold text-blue-800">{{value2}}</span> </label>
+                                <input type="range" name="range" ng-model="value2" min="{{min2}}" max="{{max2}}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="text-grey text-size-large" style="width:100%;">CLARITY OF EXPRESSION/ ARTICULATION (20%)<span class="text-blue-800 pull-right text-bold text-blue-800">{{value3}}</span> </label>
+                                <input type="range" name="range" ng-model="value3" min="{{min3}}" max="{{max3}}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="text-grey-800 text-size-large" style="width:100%;">CLARITY OF EXPRESSION/ ARTICULATION (20%)<span class="text-blue-800 pull-right text-bold text-blue-800">{{value4}}</span> </label>
+                                <input type="range" name="range" ng-model="value4" min="{{min4}}" max="{{max4}}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="text-grey-300 text-size-large" style="width:100%;">CLARITY OF EXPRESSION/ ARTICULATION (10%)<span class="text-blue-800 pull-right text-bold text-blue-800">{{value5}}</span> </label>
+                                <input type="range" name="range" ng-model="value5" min="{{min5}}" max="{{max5}}">
+                            </td>
+                        </tr>
+                    </table>
+                 
+                </div>
+
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/js/plugins/sliders/slider_pips.min.js"></script>
+    <script src="~/Content/assets/js/pages/jqueryui_sliders.js"></script>
+<script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/PHRMPSB/BEI.js"></script>
+    
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+    </script>
+}
+

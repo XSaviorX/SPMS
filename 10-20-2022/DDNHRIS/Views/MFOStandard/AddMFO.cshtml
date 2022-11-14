@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "AddMFO";
+}
+
+<style type="text/css">
+    .labelForm {
+       font-family: 'Segoe UI'; 
+       font-size: 20px;
+    }
+
+    .textSize {
+        font-family: 'Segoe UI';
+        font-size: 15px;
+    }
+</style>
+<div ng-controller="MFOStandard" style="background-color: #2779e2;" ng-init="loadIDS()">
+    <section>
+        <div class="form-group" style="background-color: #2779e2; height: 0.5vh"> </div>
+        <div class="container h-100" style="background-color: white; width: 98%">
+            <div class="container h-100" style="background-color: white;">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-xl-9">
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black" style="margin-top:5vh">
+                                <h5 class="modal-title" id="ModalTitle" style="color: dodgerblue; font-size: 20px"><strong>MFO REGISTRATION FORM</strong></h5>
+                                
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="labelForm"><b>Offices</b></label>
+                                        <select class="form-control" id="selectedOffice" onchange="" style="width: 100%">
+                                            <option></option>
+                                            <option ng-repeat="item in offices" id="" value="{{item.officeId}}"> {{item.officeName}}</option>
+                                        </select>
+
+                                        <div class="row" style="padding-top: 10px">
+                                            <div class="col-lg-4">
+                                                <label class="labelForm"><b>Year</b></label>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label class="labelForm"><b>Semester</b></label>
+                                            </div>
+                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <select class="form-control textSize" id="selectedYear" ng-model="selectedYr" onchange="" style="width: 100%">
+                                                        <option value="2020">2020</option>
+                                                        <option value="2021">2021</option>
+                                                        <option value="2022">2022</option>
+                                                        <option value="2023">2023</option>
+                                                        <option value="2024">2024</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <select class="form-control textSize" id="selectedSemester" ng-model="selectedSem" onchange="" style="width: 100%">
+                                                        <option value="1">First Semester</option>
+                                                        <option value="2">Second Semester</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @*<label class="labelForm" style="margin-top: 10px"><b>General Funds / Programs</b></label>
+        <select class="form-control" id="selectedProgram" onchange="getSelectedProgram()" style="width: 100%" ng-model="listOfPrograms" required>
+            <option></option>
+            <option ng-repeat="progs in programs" value="{{progs.programId}}">{{progs.programName}}</option>
+        </select>
+
+        <label class="labelForm" style="margin-top: 10px"><b>Projects</b></label>
+        <select class="form-control" id="selectedProject" style="width: 100%" ng-model="listOfProjects.appropProjectId1" onchange="" required>
+            <option></option>
+            <option ng-repeat="projs in projects" value="{{projs.appropProjectId1}}"> {{projs.projectName}}</option>
+        </select>*@
+                                            @*<input type="text" ng-model="AssignedAppropProjID.appropProjectId" id="lbl_appropriateID" class="hidden">*@
+
+                                            <br />
+                                            <input type="hidden" value="0" id="idnum">
+                                            <label class="labelForm"><b>MFO Description</b></label>
+                                            <input type="text" ng-model="newMFO.MFO" class="form-control" name="addMFO" required /><br />
+                                            <div class="row labelForm">
+                                                <div class="col-lg-1">
+                                                    <label class="labelForm"><b>Category:</b></label>
+                                                </div>
+
+
+                                                <div class="col-lg-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" ng-model="catMFO.categoryId" type="radio" name="category" id="category1" value="1">
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Core Function
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" ng-model="catMFO.categoryId" type="radio" name="category" id="category2" value="2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Strategic Function
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" ng-model="catMFO.categoryId" type="radio" name="category" id="category3" value="3">
+                                                        <label class="form-check-label" for="flexRadioDefault3">
+                                                            Support Function
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-lg-9 labelForm">
+                                                    <label style="margin-top:10px;"><b>Success Indicator/s</b></label>
+                                                    <button ng-click="addIndicatorField()" class="btn btn-link"><i class="icon icon-add"></i></button>
+                                                </div>
+
+                                            </div>
+                                            <div class="row labelForm">
+                                                <div class="col-lg-2">
+                                                    <label> Target Count </label>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label> Description </label>
+                                                </div>
+
+
+                                            </div>
+                                            <div ng-repeat="newInd in newIndicator" class="labelForm">
+
+                                                <div class="card" style="margin-bottom: 10px">
+                                                    <div class="card-header" id="headingOne">
+                                                        <div>
+                                                            <div class='row'>
+                                                                <div class='col-lg-2'>
+                                                                    <input type="text" ng-model="newInd.target" class="form-control" id="addIndicator2" placeholder="Target" ng-change="{{autoComputeStandard(newInd.target, newInd[$index].indicatorId)}}" style="text-align: center" />
+                                                                </div>
+                                                                <div class='col-lg-9'>
+                                                                    <input type="text" ng-model="newInd[0].indicator" class="form-control" id="addIndicator" placeholder="Description">
+                                                                </div>
+                                                                <div class='col-lg-1'>
+                                                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#c{{newIndicator.length - $index}}" aria-expanded="false" aria-controls="collapseExample">
+                                                                        <i class="icon-arrow-down12"></i>
+                                                                    </button>
+                                                                </div>
+                                                                @*<input  type="text" class="" id="" ng-model="newInd.indicatorId" >*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="c{{newIndicator.length - $index}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+
+                                                    <div class="card" style="border-bottom: 1px solid ; margin-top: 10px; margin-bottom: 10px ">
+                                                        <div class="card-body">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td>
+                                                                            Rating
+                                                                        </td>
+                                                                        <td>
+                                                                            Quantity
+                                                                        </td>
+                                                                        <td>
+                                                                            Quality
+                                                                        </td>
+                                                                        <td>
+                                                                            Timeliness
+                                                                        </td>
+                                                                    </tr>
+
+                                                                </thead>
+
+                                                                <tbody>
+                                                                    <tr ng-repeat="performance in newInd">
+
+                                                                        <td>
+                                                                            <input type="text" ng-model="performance.rating" name="rate" class="no-border" readonly="readonly" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input ng-model="performance.quantity" class="form-control no-border" name="quantity" type="text" readonly="readonly" id="{{performance.indicatorId}}quantity{{5 - $index}}" placeholder="" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input ng-model="performance.quality" class="form-control" name="quality" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input ng-model="performance.timeliness" class="form-control" name="timeliness" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary" ng-click="insertMFO(newMFO,catMFO)">SAVE</button>
+
+                                                @*<button type="submit" class="btn btn-primary" ng-click="trySave(newIndicator)">SAVE</button>*@
+                                            </div>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+
+    function delIndicatorField() {
+        var counter = $('#idnum').val();
+        for (; counter > 1; counter--) {
+            $('#addtarget' + counter).remove();
+            $('#addIndicator' + counter).remove();
+            $('#idnum').val(counter - 1);
+        }
+    }
+    function setIDVal(txtID) {
+        alert(txtID);
+        document.getElementById('textID').value = txtID;
+    }
+
+    function getSelectedOffice() {
+        var officeID = document.getElementById('selectedOffice').value;
+        angular.element(document.getElementById('selectedOffice')).scope().getPrograms(officeID);
+    }
+
+    function getSelectedProgram() {
+        var programID = document.getElementById('selectedProgram').value;
+        angular.element(document.getElementById('selectedProgram')).scope().getProjects(programID);
+    }
+    function getSelectedProject() {
+        var projectID = document.getElementById('selectedProject').value;
+        angular.element(document.getElementById('selectedProject')).scope().getAppropriateProjID(projectID);
+    }
+
+</script>
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/MFOStandard/Office.js"></script>
+
+
+}

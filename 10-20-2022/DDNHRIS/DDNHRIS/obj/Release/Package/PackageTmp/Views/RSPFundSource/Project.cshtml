@@ -1,0 +1,393 @@
+﻿@{
+    ViewBag.Title = "Project";
+}
+
+
+
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+<div ng-controller="FundProject">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4> <span class="text-semibold">Source of Fund</span> </h4>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#charges" data-toggle="tab"><i class="icon-clipboard3 position-left"></i> Fund Source (2022) </a></li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Go To <span class="visible-xs-inline-block position-right"> Go to</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="modalAddProject()"><a href=""><i class="icon-books"></i>  Add Project </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+    <!-- /page header -->
+
+    <div class="content">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+
+                    <div class="tab-content" >
+                        <!-- CHARGES -->
+                        <div class="tab-pane fade in active" id="charges">
+                            <!-- Task manager table -->
+                            <div class="panel panel-white" ng-show="viewTab == 0">
+                                <div class="panel-heading">
+                                    <input class="form-control" type="text" placeholder="Type to  Search" style="max-width:350px;" ng-model='searchString' />
+                                    @*<div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li class="text-blue-800" ng-click="modalAdd()"> <a href="#"> <i class="icon-plus22"></i> Add Project </a></li>
+                                        </ul>
+                                    </div>*@
+                                </div>
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>PROJECT NAME</th>
+                                            <th class="text-right">AMOUNT</th>
+                                            <th class="text-center text-muted" style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in projects  | filter :searchString">
+                                            <td>{{$index+1}}</td>
+                                            <td>
+                                                <div class="text-semibold text-blue-800 cursor-pointer" ng-click="ViewDetail(item)"><span>{{item.projectName}}</span></div>
+                                            </td>
+                                            <td class="text-right">
+                                                <span> {{item.amount | number:2}}</span>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="editData(item.fundSourceCode)"><a href="#"><i class="icon-database-edit2"></i> Edit Data</a></li>
+                                                            <li ng-click="ViewDetail(item.fundSourceCode)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white" ng-show="viewTab == 1">
+                                <div class="panel-heading">
+                                     
+                                    <h3 class="no-margin text-blue-700">{{projectData.projectName}}</h3>
+
+                                    <input class="form-control" type="text" placeholder="Type name to  search . . ." style="max-width:350px;" ng-model='searchString' />
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">                                            
+                                            <li class="text-blue-800" ng-click="backToList()"> <a href="#"> <i class="icon-arrow-left52"></i> Back to list</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NAME OF APPOINTEE </th>
+                                            <th>POSITION TITLE</th>
+                                            <th>STATUS</th>
+                                            <th>RATE</th>
+                                            <th class="text-right">AMOUNT</th>
+                                            <th>REMARKS</th>
+                                            <th class="text-center text-muted" style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in appointee  | filter :searchString">
+                                            <td>{{$index+1}}</td>
+                                            @*<td>
+                                                <div class="text-semibold text-blue-800 cursor-pointer" ng-click="ViewDetail(item)"><span>{{item.projectName}}</span></div>
+                                            </td>
+                                            <td class="text-right">
+                                                <span> {{item.amount | number:2}}</span>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="editData(item.fundSourceCode)"><a href="#"><i class="icon-database-edit2"></i> Edit Data</a></li>
+                                                            <li ng-click="ViewDetail(item.fundSourceCode)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>*@
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+
+
+                        </div>
+
+                    </div>
+
+
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Primary modal -->
+    <div id="modalAddProject" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> SOURCE OF FUNDS</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Program</label>
+
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="projData.programCode" style="width:100%; "
+                                        ng-options="c.programCode as c.programName for c in programs" value="{{c.programCode}}"
+                                        id="proj">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Project</label>
+                                <textarea class="form-control" rows="3" ng-model="data.projectName"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Amount</label>
+                                <input type="number" class="form-control text-semibold" ng-model="data.amount">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Year</label>
+                                <select class="form-control select2 select-Custom" ng-model="data.CY" style="width:100%; "
+                                        ng-options="c.value as c.text for c in yearList" value="{{c.Value}}"
+                                        id="year"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode == false" ng-disabled="bDisable" ng-click="SubmitFundSource(data)">Submit Fund Source</button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode == true" ng-disabled="bDisable" ng-click="SubmitAddtnlFund(fundDetail)">Update Fund Source</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Primary modal -->
+    <div id="modalProjectUpdate" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-database-edit2"></i> SOURCE OF FUNDS</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Program</label>
+
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="projData.programCode" style="width:100%; "
+                                        ng-options="c.programCode as c.programName for c in programs" value="{{c.programCode}}"
+                                        id="proj">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Project</label>
+                                <textarea class="form-control text-semibold" rows="3" ng-model="projData.projectName"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Amount</label>
+                                <label class="form-control text-bold">
+                                    {{projData.amount | number:2}}
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Year</label>
+                                <input type="number" class="form-control text-bold" ng-disabled="true" ng-model="projData.CY">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode == false" ng-disabled="bDisable" ng-click="SubmitFundSource(data)">Submit Fund Source</button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode == true" ng-disabled="bDisable" ng-click="SubmitUpdate(projData)">Update Fund Source</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Primary modal -->
+    <div id="modalAddProgram" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> SOURCE OF FUNDS</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Office</label>
+
+                                <select class="form-control select2 select-Custom" ng-model="data.departmentCode" style="width:100%; "
+                                        ng-options="c.departmentCode as c.shortDepartmentName for c in deptList" value="{{c.departmentCode}}"
+                                        id="department">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Name of Program</label>
+                                <input class="form-control" ng-model="data.programName" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="SubmitProgram(data)">Submit Program </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+</div>
+<!-- /main content -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Scripts/AngularJS/RSPFundSource/Project.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+
+    <script>
+        $("#proj").select2({
+            placeholder: '-- Select Fund Source --',
+            allowClear: true
+        });
+        $("#year").select2({
+            placeholder: '-- Select  --',
+            allowClear: true
+        });
+        $("#yearUpdate").select2({
+            placeholder: '-- Select  --',
+            allowClear: true
+        });
+
+        $("#department").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+        $('textarea').keypress(function (event) {
+
+            if (event.keyCode == 13) {
+                event.preventDefault();
+            }
+        });
+
+    </script>
+}
+
+
+
+
+
+
+
+

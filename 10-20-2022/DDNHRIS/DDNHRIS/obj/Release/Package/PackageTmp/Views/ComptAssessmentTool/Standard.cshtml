@@ -1,0 +1,1948 @@
+﻿@{
+    ViewBag.Title = "Standard";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 3px 20px;
+        line-height: 1.2;
+        vertical-align: top;
+    }
+    
+    .raw-msg {
+        padding: 80px 0;
+    }
+
+        .raw-msg i {
+            font-size: 5rem;
+        }
+
+    .raw-msg p {
+            font-size: 3rem;
+    }
+
+    .slimScrollDiv {
+        overflow: unset !important;
+    }
+
+    .user-block .username, .user-block .description, .user-block .comment {
+        display: block;
+        margin-left: 5px;
+    }
+
+    .box .nav-stacked > li:last-child {
+        border-bottom: 1px solid #f4f4f4;
+        margin: 0;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .nav-stacked > li {
+        cursor: pointer;
+    }
+
+
+    .nav-tabs.nav-tabs-bottom > li.active > a:after {
+        /*background-color: #f06292;*/
+        background-color: #2196f3;
+    }
+
+    .checker input[type=checkbox], .choice input[type=radio] {
+        border: none;
+        background: 0 0;
+        display: -moz-inline-box;
+        display: inline-block;
+        margin: 0;
+        vertical-align: top;
+        cursor: pointer;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        z-index: 2;
+        opacity: 0;
+    }
+
+    .checkbox-inline, .radio-inline {
+        position: relative;
+        padding-left: 28px;
+    }
+
+    .checkbox-inline, .radio-inline {
+        position: relative;
+        display: inline-block;
+        padding-left: 20px;
+        margin-bottom: 0;
+        vertical-align: middle;
+        font-weight: 400;
+        cursor: pointer;
+    }
+</style>
+
+
+
+<div ng-controller="ComptAssmntTool">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">COMPETENCY ASSESSMENT TOOL</span>  </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+
+                    <li class="active"><a href="#standard" data-toggle="tab"><i class="icon-podium position-left"></i>Competency Standard</a></li>
+                    <li class=""><a href="#comptTool" data-toggle="tab" ng-click="loadCompetencyByGroup(1)"><i class="icon-pencil-ruler position-left"></i>Competency Tool</a></li>
+                    <li class=""><a href="#departmentPosition" ng-click="viewPlantillaPosition()" data-toggle="tab"><i class="icon-align-center-horizontal position-left"></i> Position Mapping</a></li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+
+                                <li>
+                                    <a href="#" ng-click="modalSelectDepartment()" data-toggle="tab"><i class="icon-align-center-horizontal position-left"></i> Select Department</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- COMPETENCY STANDARD -->
+                        <div class="tab-pane fade in active" id="standard">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <span class="text-blue-800">{{departmentData.shortDepartmentName}}</span>  PROFICIENCY STANDARD
+                                    </h5>
+
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="row animated fadeInDown">
+                                        <div class="col-md-4">
+
+                                            <div class="box box-primary" style="">
+                                                <div class="box-header with-border">
+                                                    <label style="font-size:13px;" class="box-title"><b>POSITION LISTS</b></label>
+                                                </div>
+                                                <div class="mailbox-controls">
+                                                    <div class="input-group">
+                                                        <input ng-model="query" type="text" class="form-control" placeholder="Search Positions">
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body no-padding" style="height: 450px; overflow: scroll">
+                                                    <section id="list-limiter">
+                                                        <ul class="nav nav-pills nav-stacked">
+                                                            <li ng-repeat="item in comptPositionList | filter:query"
+                                                                ng-click="loadComptPositionStandard(item);"
+                                                                ng-class="{'active': item.comptPositionCode == comptPositionCode}" style="padding:0px;">
+                                                                <a style="margin:0px; padding:6px;">
+                                                                    <div class=" user-block" style="width:100%;">
+
+                                                                        <label style="font-size:11px; padding:0px; margin:0px; font-weight:normal;">{{$index+1}}. {{item.comptPositionTitle.toUpperCase()}} <span ng-if="item.subPositionTitle.length >0" class="text-muted">({{item.comptPositionTitleSub}})</span></label>
+
+                                                                        <div class="pull-right">
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-8">
+
+                                            <div class="panel panel-flat">
+
+
+                                                <div class="panel-body">
+
+                                                    <div style="width:100%;">
+                                                        <label class="label label-primary" ng-if="positionData.comptPositionTitle.length > 0" style="font-size:1.2em;">
+                                                            {{positionData.comptPositionTitle.toUpperCase()}}
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="tabbable">
+
+                                                        <div class="text-center animated fadeInUp block-message col-md-12" ng-hide="positionData.comptPositionTitle.length" ng-cloak>
+                                                            <h4 class="text-blue">
+                                                                <i class="icon-info3"></i>
+                                                                No Position Selected!
+                                                            </h4>
+                                                        </div>
+
+                                                        <ul ng-if="positionData.comptPositionTitle.length" class="nav nav-tabs nav-tabs-bottom" style="font-weight:bold;   ">
+
+                                                            <li ng-click="changeTab(1)" ng-class="{'active':  tabNo == 1 }"><a href="#bottom-tab1" data-toggle="tab">&nbsp; CORE &nbsp; </a></li>
+                                                            <li ng-click="changeTab(2)" ng-class="{'active':  tabNo == 2 }"><a href="#bottom-tab2" ng-if="myLeadTag" data-toggle="tab">LEADERSHIP</a></li>
+                                                            <li ng-click="changeTab(3)" ng-class="{'active':  tabNo == 3 }"><a href="#bottom-tab3" ng-if="myTechTag" data-toggle="tab">TECHNICAL</a></li>
+
+                                                            <li class="pull-right" ng-if="positionData.comptPositionTitle.length > 0">
+
+                                                                <a href="#" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                                                                    <span class="pull-right  text-blue-600 text-bold text-size-mini " style="cursor:pointer; text-transform:uppercase; padding-top:5px;">
+                                                                        <i class="icon icon-gear"></i> Option
+                                                                    </span>
+                                                                </a>
+                                                                <ul class="dropdown-menu" style="font-size:.95em; font-weight:bold">
+                                                                    <li><a href="#" style="padding:3px 10px;"> <span class="icon icon-check text-info"></span> Core</a></li>
+                                                                    <li>
+                                                                        <a href="#" style="padding:3px 10px;" ng-click="openModalLeadership()">
+                                                                            <span ng-if="myLeadTag == true" class="icon icon-check text-info"></span>
+                                                                            <span ng-if="myLeadTag == false" class="icon icon-check text-muted"></span>
+                                                                            Leadership
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" style="padding:3px 10px;  " ng-click="openTechComptList()">
+                                                                            <span ng-if="myTechTag == true" class="icon icon-check text-info"></span>
+                                                                            <span ng-if="myTechTag == false" class="icon icon-check text-muted"></span>
+                                                                            Select Technical
+                                                                        </a>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </li>
+
+                                                        </ul>
+                                                        @*Tab #1 CORE*@
+                                                        <div class="tab-content" ng-if="positionData.comptPositionTitle.length > 0">
+                                                            <div class="tab-pane active" ng-if="tabNo == 1">
+                                                                <section class="invoice" id="title-limiterC">
+
+                                                                    <table class="table table-striped">
+                                                                        <thead style="">
+                                                                            <tr>
+                                                                                <td>Competencies</td>
+                                                                                <td style="width:200px!important;">Standard</td>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody style="margin-top:2%;">
+                                                                            <tr ng-repeat="c in coreTitle">
+                                                                                <td>{{$index+1}}. {{c.comptName}}</td>
+                                                                                <td>
+                                                                                    <select id="" class="form-control readonly"
+                                                                                            ng-model="standardID[c.comptCode]"
+                                                                                            ng-change="competencyStandard(standardID[c.comptCode],c.comptCode);"
+                                                                                            ng-options="x.value as x.standardName for x in standards" style="width:100%;" @*disabled="disabled"*@></select>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </section><br />
+                                                                <small style="margin-left:3%;"><code>Note: Select From Dropdown to Set Standard</code></small>
+
+                                                            </div>
+                                                            @*Tab #2 Leadership*@
+                                                            <div ng-if="tabNo == 2">
+                                                                <section class="invoice" id="title-limiterL">
+
+                                                                    <table class="table table-striped">
+                                                                        <thead style="">
+
+                                                                            <tr>
+                                                                                <td>Competencies</td>
+                                                                                <td style="width:200px!important;">Standard</td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody style="margin-top:2%;">
+                                                                            <tr ng-repeat="c in leadTitle">
+                                                                                <td>{{$index+1}}. {{c.comptName}}</td>
+                                                                                <td style="">
+                                                                                    <select class="form-control "
+                                                                                            ng-model="standardID[c.comptCode]"
+                                                                                            ng-change="competencyStandard(standardID[c.comptCode],c.comptCode);"
+                                                                                            ng-options="x.value as x.standardName for x in standards" style="width:100%; " @*disabled="disabled"*@></select>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </section><br />
+                                                                <small style="margin-left:3%;"><code>Note: Select From Dropdown to Set Standard</code></small>
+                                                            </div>
+                                                            @*Tab #3 Technical*@
+                                                            <div ng-if="tabNo == 3">
+
+                                                                <section class="invoice" id="title-limiterC">
+
+                                                                    <table class="table table-striped">
+                                                                        <thead style="">
+
+                                                                            <tr>
+                                                                                <td>Competencies</td>
+                                                                                <td style="width:200px!important;">Standard</td>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody style="margin-top:2%;">
+                                                                            <tr ng-repeat="c in techTitle">
+                                                                                <td>{{$index+1}}. {{c.comptName}} </td>
+                                                                                <td>
+                                                                                    <select id="" class="form-control"
+                                                                                            ng-model="standardID[c.comptCode]"
+                                                                                            ng-change="competencyStandard(standardID[c.comptCode],c.comptCode);"
+                                                                                            ng-options="x.value as x.standardName for x in standards" style="width:100%;"></select>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+
+                                                                </section><br />
+
+                                                                <small style="margin-left:3%;"><code>Note: Select From Dropdown to Set Standard</code></small>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- COMPETENCY TOOL -->
+                        <div class="tab-pane fade in" id="comptTool">
+                            <!-- Profile info -->
+
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <span class="text-blue-800">{{departmentData.shortDepartmentName}} </span>  COMPETENCY TOOL 
+                                    </h5>
+
+                                </div>
+
+
+
+                                <div class="panel-body" ng-cloak style="min-height:450px;">
+
+                                    <div class="row ">
+
+                                        <div class="col-md-3">
+                                            <div class="box box-primary" style="">
+                                                <div class="box-header with-border" style="border-bottom: 1px solid #367fa9;">
+                                                    <label style="font-size:13px;  cursor:pointer;" class="box-title"><b>LIST OF <span class="text-blue-600" ng-click="selectToolGroup()">{{toolGroup}}</span> COMPETENCIES</b> </label> &nbsp;
+                                                    <span class="icon-stack-plus text-blue-600 cursor-pointer" data-toggle="tooltip" title="Add Competency" ng-click="addCompetency()"></span>
+                                                </div>
+
+                                                <!-- /.box-header -->
+                                                <div class="box-body no-padding">
+                                                    <div id="list-limiter">
+                                                        <ul class="nav nav-pills nav-stacked">
+                                                            <li ng-repeat="of in comptList | orderBy: 'orderNo'"
+                                                                ng-click="loadIndicators(of)"
+                                                                ng-class="{'active': of.comptCode == comptCode}">
+                                                                <a>
+                                                                    <div class="user-block">
+                                                                        <span class="username">
+                                                                            <span class="" style="font-size:.95em; font-weight:500">
+                                                                                {{$index+1}}. {{of.comptName.toUpperCase()}}
+                                                                            </span>
+                                                                        </span>
+
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-9 ">
+
+                                            <h5 style="margin-top:3%;" ng-if="comptList.length <= 0" class="text-center text-muted text-blue animated fadeInDown">
+                                                <i class="fa fa-info-circle"></i>
+                                                No Data to Show.<br /><br /> Please Click the above button <label style="color:#367fa9;">ADD COMPETENCY</label> to Add.
+                                            </h5>
+
+
+                                            <h5 style="margin-top:3%;" ng-if="comptList.length >= 1 && competency == 0" class="text-center text-muted text-blue animated fadeInDown">
+                                                <i class="fa fa-info-circle"></i>
+                                                No selected competency<br />
+                                            </h5>
+
+                                            <div class="box box-solid animated fadeInDown" ng-if="comptList.length >= 1 && competency.comptName.length > 0" ng-cloak>
+                                                <div class="box-header with-border" ng-hide="edit" style="background-image:linear-gradient(to right,#a0c7ef,#fafbff);border-radius: 1px 1px; padding:5px">
+
+                                                    <table style="width:100%;">
+                                                        <tr>
+                                                            <td style="width:90%">
+                                                                <label class="box-title" style="padding-bottom:0px; margin-bottom:0px;">
+                                                                    <span>
+                                                                        <b style="text-decoration:underline;color: #134f7b;">{{competency.comptName.toUpperCase()}}</b> <i class="icon-pen text-blue-800" style="font-size:16px; cursor:pointer" data-toggle="tooltip" title="Click to edit competency" ng-click="editCompetency(competency.comptCode)"></i>
+                                                                    </span>
+                                                                </label>
+                                                                <p style="padding:0px; margin:0px;">
+                                                                    <span style="font-size:13px;color: #314e5d;">
+                                                                        {{competency.comptDesc}}
+                                                                    </span>
+                                                                </p>
+
+                                                            </td>
+                                                            <td style="text-align:center; width:10%;">
+                                                                <i class="icon-stack-plus text-blue-800" style="font-size:16px; cursor:pointer" data-toggle="tooltip" title="Click to add main indicator" ng-if="comptTool == '3' " ng-click="addBehaviorMain(competency.comptCode)"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+
+
+                                                <div class="box-body" ng-if="comptTool == '3'">
+                                                    <div class="box-group" id="accordion" ng-repeat="i in KBIList">
+                                                        <div class="panel box box-primary">
+                                                            <div class="box-header with-border">
+
+                                                                <table style="width:100%; padding:5px;">
+                                                                    <tr>
+                                                                        <td style="padding:10px 0px;">
+                                                                            <a data-toggle="collapse" style="font-size:15px;  " data-parent="#accordion" href="#{{}}">
+                                                                                &nbsp;  {{i.orderNo}}. {{i.KBI | uppercase}} &nbsp;
+                                                                                <i class="icon-pen text-blue-800" style="font-size:14px;" data-toggle="tooltip" title="Click to edit main indicator" ng-click="editIndicatorMain(i.KBICode)"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td style="width:10%; text-align:center;">
+                                                                            <i class="icon-stack-plus text-blue-800" style="font-size:14px; cursor:pointer" data-toggle="tooltip" title="Click to add indicator" ng-click="addIndicator(i.KBICode)"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+
+                                                            </div>
+                                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                                <div class="box-body" style="padding:5px;">
+                                                                    <table class="table table-hover" ng-hide="e2Sub">
+                                                                        <tbody ng-repeat="sub in i.list">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    {{i.orderNo}}.{{sub.orderNo}}. {{sub.KBI}}
+                                                                                    <i class="icon-pen text-blue-800" style="font-size:10px; cursor:pointer" data-toggle="tooltip" title="Click to edit indicator" ng-click="editIndicator(sub.KBICode)"></i>
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="box box-solid" ng-if="comptTool == '1' || comptTool == '2'">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th ng-if="comptTool == '2'"><b>Level</b></th>
+                                                                <th><b>Basic</b></th>
+                                                                <th><b>Intermediate</b></th>
+                                                                <th><b>Advanced</b></th>
+                                                                <th><b>Superior</b></th>
+                                                                <th colspan="2" class="text-center"><button class="btn btn-info btn-xs" ng-click="addKBIProg(competency.comptCode)"><i class="fa fa-plus-circle"></i> Add   </button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="i in KBIProg">
+                                                                <td style="font-size:13px;" ng-if="comptTool == '2'">{{i.comptLevel}}</td>
+                                                                <td style="font-size:13px;">{{i.basic}}</td>
+                                                                <td style="font-size:13px;">{{i.intermediate}}</td>
+                                                                <td style="font-size:13px;">{{i.advance}}</td>
+                                                                <td style="font-size:13px;">{{i.superior}}</td>
+
+                                                                <td class="text-center" style="width:90px!important">
+                                                                    <i class="icon-pen2 text-blue-800" style="font-size:14px; cursor:pointer " ng-click="editKBIProg(i.KBICode)" data-toggle="tooltip" title="Click to Edit"></i>
+                                                                </td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- PLANTILLA POSITION MAPPING-->
+                        <div class="tab-pane fade in" id="departmentPosition">
+
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <span class="text-blue-800">{{departmentData.shortDepartmentName}} </span>  DEPARTMENT POSITION
+                                    </h5>
+
+                                </div>
+                                <div class="panel-body">
+
+                                    <h4 class="page-title text-danger text-bold" ng-show="isLoading == true">
+                                        Wait, loading data...
+                                    </h4>
+
+
+                                    <table class="table table-borderless table-responsive">
+                                        <tr ng-repeat="item in plantilla" class="no-margin">
+                                            <td class="no-padding">
+                                                <label class="text-bold page-title no-margin-top no-margin-bottom" style="margin-top:0px!important"> {{item.structureName}}</label>
+                                                <table class="table table-striped table-responsive">
+
+                                                    <tr ng-repeat="itm in item.positionList">
+
+                                                        <td>
+                                                            <span class="label label-danger" ng-show="itm.isFunded == false">{{itm.itemNo}}</span>
+                                                            <span ng-show="itm.isFunded == true">{{itm.itemNo}}</span>
+                                                            -
+                                                            <span class="text-muted text-semibold" ng-show="itm.isFunded == false">{{itm.positionTitle}}</span>
+                                                            <span ng-show="itm.isFunded == true">{{itm.positionTitle}}</span>
+
+                                                            <span class="text-muted" ng-show="itm.isFunded == false">({{itm.salaryGrade}}/1)</span>
+                                                            <span class="text-muted" ng-show="itm.isFunded == true">({{itm.salaryGrade}}/{{itm.step}})</span>
+
+                                                        </td>
+
+                                                        <td style="width:40%!important;">
+
+                                                            <span class="label label-danger cursor-pointer" ng-show="itm.plantillaNo == 0" ng-click="openModalSelectCompetency(itm)"> NO COMPETENCY GROUP </span>
+                                                            <span class="label label-primary bg-blue-700 cursor-pointer" ng-show="itm.plantillaNo == 1"> {{itm.fullNameLast}} </span>
+                                                            <span class="pull-right text-danger-700 cursor-pointer" ng-show="itm.plantillaNo == 1" ng-disabled="bDisable" ng-click="removeComptMapping(itm)"> <i class="icon-database-remove"></i> </span>
+
+                                                        </td>
+
+                                                        <td class="text-center" style="width:10px!important;">
+                                                            <ul class="icons-list">
+                                                                <li class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-down12"></i></a>
+                                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                                        <li><a href="#" ng-click="PrintPreview(item.appointmentCode)"><i class="icon-user-check"></i>View Profile</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- Modal APPOINTMENT CREATE-->
+    <div class="modal fade" id="modalAppointment" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard3"></i>  <span class="text-bold text-blue-700"> {{appointmentData.fullName}}  </span> </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom">Appointee Name (Title)  </label>
+                                <input id="text" ng-readonly="true" type="text" ng-model="appointmentData.fullNameTitle" class="form-control text-semibold" placeholder="(DR. JUAN P. DELA CRUZ JR.)">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom"> Name Prefix <span class="text-danger">*</span></label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="appointmentData.namePrefix" class="form-control text-semibold" placeholder="MS./MR./DR./ATTY.">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom"> Name Suffix</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="appointmentData.nameSuffix" class="form-control text-semibold" placeholder="CPA/MBA/MPA/PhD">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <label class="text-muted no-margin-bottom">Item No</label>
+                                <input type="text" ng-readonly="true" ng-model="appointmentData.itemNo" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom"> Position Title</label>
+                                <input type="text" ng-readonly="true" ng-model="appointmentData.positionTitle" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="text-muted no-margin-bottom">Salary Grade </label>
+                                <input type="text" ng-readonly="true" ng-model="appointmentData.salaryGrade" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="text-muted no-margin-bottom">Step <span class="text-danger">*</span></label>
+
+                                <select id="step" class="form-control select-Custom text-semibold" ng-disabled="isReadOnly" ng-model="appointmentData.step" style="width:100%;"
+                                        ng-options="c.code as c.name for c in stepList" value="{{c.code}}"></select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom">Employment Status <span class="text-danger">*</span></label>
+                                <select class="form-control select-Custom text-semibold" ng-model="appointmentData.employmentStatusCode" style="width:100%;"
+                                        ng-options="c.employmentStatusCode as c.employmentStatus for c in employmentStatus" value="{{c.employmentStatusCode}}">
+                                    <option value="" disabled="disabled" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom">Nature o Apointment <span class="text-danger">*</span></label>
+                                <select id="appNature" class="form-control select-Custom text-semibold" ng-model="appointmentData.appNatureCode" style="width:100%;"
+                                        ng-options="c.appNatureCode as c.appNatureName for c in appNatureList" value="{{c.appNatureCode}}">
+                                    <option value="" disabled="disabled" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom">Eligibility Code <span class="text-danger">*</span></label>
+                                <select id="eligibility" class="form-control select-Custom text-semibold" ng-model="appointmentData.eligibilityCode" style="width:100%;"
+                                        ng-options="c.eligibilityCode as c.eligibilityName for c in eligList" value="{{c.eligeligibilityCodeList}}">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom">CSC Posted Date</label>
+                                <input id="text" ng-readonly="true" type="text" ng-model="(formatDate(appointmentData.CSCPostedDate))" class="form-control text-semibold">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom"> CSC Closing Date</label>
+                                <input type="text" ng-readonly="true" ng-model="(formatDate(appointmentData.CSCClosingDate))" class="form-control text-semibold">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom"> P.S.B. Date  </label>
+                                <input type="text" ng-readonly="true" ng-model="(formatDate(appointmentData.PSBDate))" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="text-muted no-margin-bottom">Page #</label>
+                                <input type="text" ng-readonly="true" ng-model=" appointmentData.pageNo" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <label class="text-muted no-margin-bottom"> Office Assignment <span class="text-danger">*</span></label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="appointmentData.officeAssignment" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Vice Of</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="appointmentData.viceOf" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom"> Vice Of Reason</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="appointmentData.viceStatus" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="submitAppointment(appointmentData)">Save Appointment</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal APPOINTMENT POSTING-->
+    <div class="modal fade" id="modalAppointmentPosting" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">
+                        Appointment Posting
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="text-muted no-margin-bottom">Item No</label>
+                                <input type="text" ng-readonly="true" ng-model="appointmentData.itemNo" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-7">
+                                <label class="text-muted no-margin-bottom"> Name Prefix <span class="text-danger">*</span></label>
+                                <input type="text" ng-readonly="true" ng-model="appointmentData.positionTitle" class="form-control text-semibold" placeholder="MS./MR./DR./ATTY.">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="text-muted no-margin-bottom"> SG/Step <span class="text-danger">*</span></label>
+                                <label class="form-control text-semibold" ng-readonly="true">
+                                    {{appointmentData.salaryGrade}}/{{appointmentData.step}}
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <label class="text-muted no-margin-bottom">Appointee Name <span class="text-danger">*</span> </label>
+                                <input id="text" ng-readonly="true" type="text" ng-model="appointmentData.fullNameTitle" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Assumption Date <span class="text-danger">*</span> </label>
+                                <input class="form-control required text-semibold" type="date" ng-model="appointmentData.effectivityDate" name="date">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="postingAppointment()">Post Appointment</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal APPOINTMENT EDIT -->
+    <div class="modal fade" id="modalApptFormEdit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- Toolbar -->
+                    <div class="navbar navbar-default navbar-component navbar-xs">
+                        <ul class="nav navbar-nav visible-xs-block">
+                            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                        </ul>
+                        <div class="navbar-collapse collapse" id="navbar-filter">
+
+                            <ul class="nav navbar-nav  text-bold">
+                                <li class="active"><a href="#appData" data-toggle="tab"><i class="icon-file-text2 position-left"></i> Appointment Data</a></li>
+                                <li><a href="#appPDF" data-toggle="tab"><i class="icon-file-text2 position-left"></i> Other Forms Data </a></li>
+
+                            </ul>
+
+                            <div class="navbar-right">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-printer2 position-left"></i>
+                                            Report
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li ng-click="printApptReport('APPT', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> Appointment</a></li>
+                                            <li ng-click="printApptReport('PDF', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> PDF</a></li>
+                                            <li ng-click="printApptReport('PDFBACK', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> PDF Back</a></li>
+                                            <li ng-click="printHRISReport('LIMITATION', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> CSC Limitation</a></li>
+                                            <li ng-click="printHRISReport('ASSUMPTION', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> Assumption</a></li>
+                                            <li ng-click="printHRISReport('OATH', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> Oath of Office</a></li>
+                                            <li ng-click="printHRISReport('FUNDS', item.appointmentCode)"> <a href="#"><i class="icon-file-text2"></i> Funds Availability</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /toolbar -->
+
+                    <div class="tabbable">
+                        <div class="tab-content">
+
+                            <!-- APPOINTMENT -->
+                            <div class="tab-pane fade in active" id="appData">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class="panel-title text-blue-800 text-bold"> APPOINTMENT DATA</h5>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Appointee Title Name <span class="text-danger">*</span></label>
+                                            <input id="text" ng-readonly="true" type="text" ng-model="formApp.fullName" class="form-control text-semibold" placeholder="(DR. JUAN P. DELA CRUZ JR.)">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom"> Name Prefix <span class="text-danger">*</span></label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formApp.namePrefix" class="form-control text-semibold" placeholder="MS./MR./DR./ATTY.">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom"> Name Suffix</label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formApp.nameSuffix" class="form-control text-semibold" placeholder="CPA/MBA/MPA/PhD">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">Item No</label>
+                                            <input type="text" ng-readonly="true" ng-model="formApp.itemNo" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom"> Position Title</label>
+                                            <input type="text" ng-readonly="true" ng-model="formApp.positionTitle" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label class="text-muted no-margin-bottom">Salary Grade</label>
+                                            <input type="text" ng-readonly="true" ng-model="formApp.salaryGrade" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            <label class="text-muted no-margin-bottom">Step <span class="text-danger">*</span></label>
+                                            <select id="step" class="form-control select-Custom text-semibold" ng-disabled="isReadOnly" ng-model="formApp.step" style="width:100%;"
+                                                    ng-options="c.code as c.name for c in stepList" value="{{c.code}}">
+                                                <option value="" selected="">-- Select --</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">Nature o Apointment <span class="text-danger">*</span></label>
+                                            <select class="form-control select-Custom text-semibold" ng-model="formApp.appNatureCode" ng-disabled="isReadOnly" style="width:100%;"
+                                                    ng-options="c.appNatureCode as c.appNatureName for c in appNatureList" value="{{c.appNatureCode}}">
+                                                <option value="" selected="">-- Select --</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">Employment Status <span class="text-danger">*</span></label>
+                                            <select class="form-control select-Custom text-semibold" ng-model="formApp.employmentStatusCode" ng-disabled="isReadOnly" style="width:100%;"
+                                                    ng-options="c.employmentStatusCode as c.employmentStatus for c in employmentStatus" value="{{c.employmentStatusCode}}">
+                                                <option value="" selected="">-- Select --</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Eligibility Code <span class="text-danger">*</span></label>
+                                            <select id="eligibility" class="form-control select-Custom text-semibold" ng-model="formApp.eligibilityCode" ng-disabled="isReadOnly" style="width:100%;"
+                                                    ng-options="c.eligibilityCode as c.eligibilityName for c in eligList" value="{{c.eligeligibilityCodeList}}">
+                                                <option value="" selected="">-- Select --</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">CSC Posted Date</label>
+                                            <input id="text" ng-readonly="true" type="text" ng-model="(formatDate(formApp.CSCPostedDate))" class="form-control text-semibold">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom"> CSC Closing Date</label>
+                                            <input type="text" ng-readonly="true" ng-model="(formatDate(formApp.CSCClosingDate))" class="form-control text-semibold">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom"> P.S.B. Date</label>
+                                            <input type="text" ng-readonly="true" ng-model="(formatDate(formApp.PSBDate))" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label class="text-muted no-margin-bottom">Page #</label>
+                                            <input type="text" ng-readonly="true" ng-model=" formApp.pageNo" class="form-control text-semibold">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-5">
+                                            <label class="text-muted no-margin-bottom"> Office Assignment <span class="text-danger">*</span></label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formApp.officeAssignment" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="text-muted no-margin-bottom">Vice Of</label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formApp.viceOf" class="form-control text-semibold">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom"> Vice Of Reason</label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formApp.viceStatus" class="form-control text-semibold">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Machine, Equipment, Tools Used In Performance of Work</label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.machineToolsUsed" class="form-control text-semibold">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom"> Work Station / Place of Work <span class="text-danger">*</span></label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.workStation" class="form-control text-semibold">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Name of Department Head <span class="text-danger">*</span></label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.departmentHead" class="form-control text-semibold">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- PDF -->
+                            <div class="tab-pane fade" id="appPDF">
+                                <!-- Position Description Form -->
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">Present Approp Act</label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.presentAppAct" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">Previous Approp Act</label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formData.previousAppAct" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="text-muted no-margin-bottom">Other Compensation</label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formData.otherCompensation" class="form-control text-semibold">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Position Title of Immediate Supervisor <span class="text-danger">*</span></label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.positionSupervisorImm" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Position Title of Next Higher Supervisor <span class="text-danger">*</span></label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formData.positionSupervisorNxt" class="form-control text-semibold">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Directly Supervised Positions</label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.positionSupervise" class="form-control text-semibold">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Directly Supervised Item No</label>
+                                            <input type="text" ng-readonly="isReadOnly" ng-model="formData.positionSuperviseItemNo" class="form-control text-semibold">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12 ">
+                                            <h5 class="no-margin-bottom text-bold"> Contacts / Clients / Stakeholders</h5>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <table class="table table-borderless table-striped tbl-sm">
+                                                <thead class="bg-blue-700">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="text-white text-bold">INTERNAL</span>
+                                                        </td>
+                                                        <td class="text-center">(None)</td>
+                                                        <td class="text-center">Occasional</td>
+                                                        <td class="text-center">Frequent</td>
+
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td>
+                                                        Executive/ Managerial
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoManagerial" value="0" ng-checked="formData.CCSMangerial == 0" ng-model="formData.CCSMangerial" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center text-size-large">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoManagerial" value="1" ng-checked="formData.CCSMangerial == 1" ng-model="formData.CCSMangerial" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoManagerial" value="2" ng-checked="formData.CCSMangerial == 2" ng-model="formData.CCSMangerial" />
+                                                        </label>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Supervisors
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoSupervisory" value="0" ng-checked="formData.CCSSupervisors == 0" ng-model="formData.CCSSupervisors" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoSupervisory" value="1" ng-checked="formData.CCSSupervisors == 1" ng-model="formData.CCSSupervisors" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoSupervisory" value="2" ng-checked="formData.CCSSupervisors == 2" ng-model="formData.CCSSupervisors" />
+                                                        </label>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Non-supervisors
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoNonSupervisory" value="0" ng-checked="formData.CCSNonSupervisors == 0" ng-model="formData.CCSNonSupervisors" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoNonSupervisory" value="1" ng-checked="formData.CCSNonSupervisors == 1" ng-model="formData.CCSNonSupervisors" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoNonSupervisory" value="2" ng-checked="formData.CCSNonSupervisors == 2" ng-model="formData.CCSNonSupervisors" />
+                                                        </label>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Staff
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoStaff" value="0" ng-checked="formData.CCSSTaff == 0" ng-model="formData.CCSSTaff" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoStaff" value="1" ng-checked="formData.CCSSTaff == 1" ng-model="formData.CCSSTaff" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoStaff" value="2" ng-checked="formData.CCSSTaff == 2" ng-model="formData.CCSSTaff" />
+                                                        </label>
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <table class="table table-borderless table-striped tbl-sm">
+                                                <thead class="bg-blue-700">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="text-white text-bold">EXTERNAL</span>
+                                                        </td>
+                                                        <td class="text-center">(None)</td>
+                                                        <td class="text-center">Occasional</td>
+                                                        <td class="text-center">Frequent</td>
+
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td>
+                                                        General Public
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoGenPublic" value="0" ng-checked="formData.CCSGenPublic == 0" ng-model="formData.CCSGenPublic" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoGenPublic" value="1" ng-checked="formData.CCSGenPublic == 1" ng-model="formData.CCSGenPublic" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label>
+                                                            &nbsp; <input type="radio" name="rdoGenPublic" value="2" ng-checked="formData.CCSGenPublic == 2" ng-model="formData.CCSGenPublic" />
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Other Agencies
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="rdoOtherAgency" value="0" ng-checked="formData.CCSOtherAgencies == 0" ng-model="formData.CCSOtherAgencies" />
+                                                        </label>
+
+                                                    </td>
+                                                    <td class="text-center ">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="rdoOtherAgency" value="1" ng-checked="formData.CCSOtherAgencies == 1" ng-model="formData.CCSOtherAgencies" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="rdoOtherAgency" value="2" ng-checked="formData.CCSOtherAgencies == 2" ng-model="formData.CCSOtherAgencies" />
+                                                        </label>
+
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" style="padding-top:10px;">
+                                                        Other Specify
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <input type="text" ng-model="formData.CCSOthers" ng-readonly="isReadOnly" class="form-control" />
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td colspan="4" class="text-blue-800 text-semibold">
+                                                        Working Condition
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        Office Work
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="workConOffice" value="0" ng-checked="formData.workConOffice == 0" ng-model="formData.workConOffice" />
+                                                        </label>
+
+                                                    </td>
+                                                    <td class="text-center ">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="workConOffice" value="1" ng-checked="formData.workConOffice == 1" ng-model="formData.workConOffice" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="workConOffice" value="2" ng-checked="formData.workConOffice == 2" ng-model="formData.workConOffice" />
+                                                        </label>
+
+                                                    </td>
+
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td>
+                                                        Field Work
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="workConField" value="0" ng-checked="formData.workConField == 0" ng-model="formData.workConField" />
+                                                        </label>
+
+                                                    </td>
+                                                    <td class="text-center ">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="workConField" value="1" ng-checked="formData.workConField == 1" ng-model="formData.workConField" />
+                                                        </label>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="text-size-large">
+                                                            &nbsp; <input type="radio" name="workConField" value="2" ng-checked="formData.workConField == 2" ng-model="formData.workConField" />
+                                                        </label>
+
+                                                    </td>
+
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">Brief Description of the General Function of Unit or Section</label>
+                                            <input id="text" ng-readonly="isReadOnly" type="text" ng-model="formData.descriptUnitSec" class="form-control text-semibold">
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary " ng-show="isReadOnly == true" ng-disabled="bDisable" ng-click="editAppointment()">&nbsp; Edit &nbsp;</button>
+                    <button type="button" class="btn btn-secondary" ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-show="isReadOnly == false" ng-disabled="bDisable" ng-click="updateAppData(formApp,formData)">&nbsp; Update &nbsp;</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- COMPETENCY POSITION GROUP -->
+    <div id="modalComptPositionGroup" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-blue-800">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <small class="modal-title">Competency Position Group</small>
+                    <p style="padding:0PX; margin:0PX;">
+                        <small>{{plantillaData.positionTitle}}</small>
+                    </p>
+                </div>
+
+                <div class="modal-body" style="min-height: 350px;">
+                    <div class="form-group">
+                        <div class="row" ng-if="comtPosGroupTag == 1">
+
+                            <div class="col-sm-12">
+
+                                <p>
+                                    <input ng-model="search.comptPositionTitle" class="form-control" placeholder="Search Group Name . . ." />
+                                </p>
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:60px!important;">#</th>
+                                            <th>COMPETENCY POSITION GROUP</th>
+
+                                            <th style="width:70px;"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in comptPositionList | filter: search">
+
+                                            <td style="text-align:center;">
+                                                {{$index+1}}
+                                            </td>
+                                            <td>
+                                                <span class="text-blue-700 text-semibold cursor-pointer">
+                                                    {{item.comptPositionTitle}} <span class="text-muted">({{item.salaryGrade}})</span>
+                                                </span>
+                                            </td>
+
+                                            <td class="text-center">
+
+                                                <button class="btn btn-primary btn-xs bg-blue-800" ng-disabled="bDisable" ng-click="mapComptPosition(item)">
+                                                    <i class=" icon-touch"></i> SELECT
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" ng-if="comtPosGroupTag == 2">
+                            <div class="col-sm-12">
+
+                                <dl>
+                                    <dt>
+                                        <label>Competency Position Name</label>
+                                    </dt>
+                                    <dd>
+                                        <input class="form-control" ng-model="comptData.comptPositionTitle" />
+                                    </dd>
+
+                                    <dt>
+                                        Salary Grade
+                                    </dt>
+                                    <dd>
+                                        <input type="number" class="form-control" ng-model="comptData.salaryGrade" readonly min="1" max="32" style="min-width:200px;" />
+                                    </dd>
+
+                                    <dt>
+                                        &nbsp;
+                                    </dt>
+
+                                    <dd>
+                                        <button type="button" class="btn btn-primary bg-blue-800 " ng-click="saveComptPositionGroup(comptData)">Save Competency Group</button>
+                                        @*<button type="button" class="btn btn-info " ng-click="UpdateComptPositionGroup(xxx)">Update Group Name</button>*@
+                                    </dd>
+
+                                </dl>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    @*<span class="pull-right"> <small class="text-blue-800 cursor-pointer"> <i class="icon-plus3"></i>Create Competency Position</small></span>*@
+
+                    <button class="btn btn-link pull-left" ng-if="comtPosGroupTag == 1" ng-click="showComptForm()">
+                        <i class="icon-plus3"></i> Create Competency Position
+                    </button>
+
+                    <button class="btn btn-link pull-left" ng-if="comtPosGroupTag == 2" ng-click="backToComptList()">
+                        <i class="icon-arrow-left16"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SELECT DEPARTMENT -->
+    <div id="modalDepartment" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-blue-800">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Select Department</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select class="form-control select2 select-Custom text-semibold" ng-model="departmentData.departmentCode" style="width:100%;"
+                                ng-options="item.departmentCode as item.shortDepartmentName for item in departmentList" value="{{item.departmentCode}}"
+                                id="department">
+                            <option value="" selected="">-- Select --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary bg-blue-700" ng-disabled="bDisable" ng-click="selectedDepartment()">
+                        <i class="icon-check2"></i> Select Department
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /vertical form modal -->
+
+    </div>
+
+
+    <!-- Modal  Leadership-->
+    <div class="modal fade" id="modalAddLeadership" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group pt-15">
+                                <label class="label label-primary" style="font-size:1.1em; "> {{positionData.comptPositionTitle.toUpperCase()}}  </label>
+
+                                <h5 ng-if="myLeadTag == false"> <span class="icon-plus2"></span> Add <strong class="text-info">LEADERSHIP</strong> competency now?</h5>
+                                <h5 ng-if="myLeadTag == true"> <span class="icon-database-remove text-danger"></span> Remove <strong class="text-info">LEADERSHIP</strong> competency now?</h5>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button ng-if="myLeadTag == true" ng-disabled="bDisable" type="button" class="btn btn-danger btn-sm" ng-click="RemoveLeadershipCompt()">Remove Leadership</button>
+                    <button ng-if="myLeadTag == false" ng-disabled="bDisable" type="button" class="btn btn-primary btn-xs" ng-click="AddLeadershipCompt()">Yes, continue</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal Selected -->
+    <div class="modal fade" id="modalGroupSelect" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="border-bottom:1px solid #ededed;">
+                    <h4 class="form-section " style="margin-top:0px; padding-top:0px; font-size:14px; "><i class="icon-clipboard4 "></i>  <span class="text-blue-600">Competency Group</span>  </h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <select name="select" class="form-control" style="" ng-model="toolGroup">
+                            <option value="CORE">CORE</option>
+                            <option value="LEAD">LEADERSHIP</option>
+                            <option value="TECH">TECHNICAL  </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control">
+                            {{departmentData.shortDepartmentName}}
+                        </label>
+                        @*<select class="form-control select2 select-Custom text-semibold" ng-model="departmentCode" ng-disabled="true" style="width:100%;"
+                                ng-options="c.departmentCode as c.shortDepartmentName for c in departmentList" value="{{c.departmentCode}}"
+                                id="department">
+                            <option value="" selected="">-- Select --</option>
+                        </select>*@
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" ng-click="setToolGroup(toolGroup)">Select Group</button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal Add Competency -->
+    <div class="modal fade" id="modalCompetencyAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="border-bottom:1px solid #ededed;">
+                    <h4 class="form-section" style="margin-top:0px; padding-top:0px; "><i class="icon-list2"></i> {{modalTitle}} </h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="projectinput6" class="text-muted">Competency</label>
+                                <input class="form-control" placeholder="Competency" ng-model="data.comptName" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="projectinput6" class="text-muted">Description</label>
+                                <textarea rows="4" cols="4" class="form-control" placeholder="Competency Description" ng-model="data.comptDesc"> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="projectinput6" class="text-muted">Tool Type</label>
+                                <select name="select" class="form-control text-blue-600" style="color:#1e88e5;" ng-model="data.comptTool">
+                                    <option value="" selected="selected" disabled="disabled">(Select Competency Tool)</option>
+                                    <option value="1">Progressive</option>
+                                    @*<option value="2">Non-Progressive</option>*@
+                                    <option value="3">Listed</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <div class="pull-left" ng-hide="showOnSave">
+                        <label style="padding-top:5px;">
+                            <input id="checkFollower" type="checkbox" ng-model="checked" class="styled" aria-label="CheckBox"> &nbsp;
+                        </label>
+                        <button type="button" class="btn btn-default btn-xs   text-danger " ng-disabled="!checked" ng-click="deleteCompetency(competency.comptCode)" data-dismiss="modal">
+                            <span class="icon-trash"></span> Delete
+                        </button>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="showOnSave" ng-click="saveCompetency(data)">Save Competency</button>
+                    <button type="button" class="btn btn-primary" ng-show="showOnUpdate" ng-click="updateCompetency(data)">Update Changes</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal Progressive -->
+    <div class="modal fade" id="modalProgAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="border-bottom:1px solid #ededed;">
+                    <h4 class="form-section" style="margin-top:0px; padding-top:0px; "><i class="icon-clipboard4"></i> {{modalTitle}} <span class="text-blue-700"> {{competency.comptName}} </span></h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12" ng-if="comptTool == '2'">
+                            <div class="form-group" style="display:block;">
+                                <label for="projectinput6" class="text-muted">Level</label>
+                                <textarea rows="2" cols="2" class="form-control" placeholder="Level" ng-model="PKBI.comptLevel"> </textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group" style="display:block;">
+                                <label for="projectinput6" class="text-muted">Basic</label>
+                                <textarea rows="2" cols="2" class="form-control" placeholder="Basic" ng-model="PKBI.basic"> </textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group" style="display:block;">
+                                <label for="projectinput6" class="text-muted">Intermediate</label>
+                                <textarea rows="2" cols="2" class="form-control" placeholder="Intermediate" ng-model="PKBI.intermediate"> </textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group" style="display:block;">
+                                <label for="projectinput6" class="text-muted">Advance</label>
+                                <textarea rows="2" cols="2" class="form-control" placeholder="Advance" ng-model="PKBI.advance"> </textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group" style="display:block;">
+                                <label for="projectinput6" class="text-muted">Superion</label>
+                                <textarea rows="2" cols="2" class="form-control" placeholder="Superior" ng-model="PKBI.superior"> </textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                    <div class="pull-left" ng-hide="showOnSave">
+                        <label style="padding-top:5px;">
+                            <input id="checkFollower" type="checkbox" ng-model="checked" class="styled" aria-label="CheckBox"> &nbsp;
+                        </label>
+                        <button type="button" class="btn btn-default btn-xs   text-danger " ng-disabled="!checked" ng-click="deletePKBI(PKBI.KBICode)" data-dismiss="modal">
+                            <span class="icon-trash"></span> Delete
+                        </button>
+                    </div>
+
+
+
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" ng-show="showOnSave" ng-click="savePKBI(PKBI)">Save Indicator</button>
+                    <button type="button" class="btn btn-info " ng-show="showOnUpdate" ng-click="updatePKBI(PKBI)">Update Changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Key Behavior -->
+    <div class="modal fade" id="modalKBIAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="border-bottom:1px solid #ededed;">
+                    <h4 class="form-section" style="margin-top:0px; padding-top:0px; "><i class="icon-clipboard4"></i> {{modalTitle}} </h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group" style="display:block;">
+                                <label for="projectinput6" class="text-muted">Main Indicator</label>
+
+                                <p class=" text-bold text-blue-800" style="border: 1px solid #e5e5e5; padding:6px;">
+                                    {{MKData.KBI | uppercase}}
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="projectinput6" class="text-muted">Behavioral Indicator</label>
+                                <textarea rows="4" cols="4" class="form-control" placeholder="Add behavioral indicator" ng-model="KData.KBI"> </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <div class="pull-left" ng-hide="showOnSave">
+                        <label style="padding-top:5px;">
+                            <input id="checkFollower" type="checkbox" ng-model="checked" class="styled" aria-label="CheckBox"> &nbsp;
+                        </label>
+                        <button type="button" class="btn btn-default btn-xs   text-danger " ng-disabled="!checked" ng-click="deleteIndicator(KData.KBICode)" data-dismiss="modal">
+                            <span class="icon-trash"></span> Delete
+                        </button>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" ng-show="showOnSave" ng-click="saveIndicator(KData)">Save Behavioral Indicator</button>
+                    <button type="button" class="btn btn-info " ng-show="showOnUpdate" ng-click="updateIndicator(KData)">Update Changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Main Behavior -->
+    <div class="modal fade" id="modalKBIMainAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="border-bottom:1px solid #ededed;">
+                    <h4 class="form-section" style="margin-top:0px; padding-top:0px; "><i class="icon-clipboard4"></i> {{modalTitle}} </h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="projectinput6" class="text-muted">Competency</label>
+                                <label class="form-control text-bold text-blue-800">
+                                    {{MKData.comptName | uppercase}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="projectinput6" class="text-muted">Main Behavioral Indicator</label>
+                                <textarea rows="4" cols="4" class="form-control" placeholder="Add main behavioral indicator" ng-model="MKData.KBI"> </textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <div class="pull-left" ng-hide="showOnSave">
+                        <label style="padding-top:5px;">
+                            <input id="checkFollower" type="checkbox" ng-model="checked" class="styled" aria-label="CheckBox"> &nbsp;
+                        </label>
+                        <button type="button" class="btn btn-default btn-xs   text-danger " ng-disabled="!checked" ng-click="deleteMainIndicator(MKData.KBICode)" data-dismiss="modal">
+                            <span class="icon-trash"></span> Delete
+                        </button>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" ng-show="showOnSave" ng-click="saveMainIndicator(MKData)">Save Main Indicator</button>
+                    <button type="button" class="btn btn-info " ng-show="showOnUpdate" ng-click="updateMainIndicator(MKData)">Update Changes</button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Technical Competency List -->
+    <div class="modal fade" id="modalTechComptList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="panel-title text-bold text-muted" style="padding:0px; margin:0px;">TECHNICAL COMPETENCY</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- Scrollable table  <div class="tabbable"> -->
+                    <div class="panel panel-flat" style="min-height:300px!important;">
+                        <div class="panel-heading" style="padding:10px;">
+                            <input ng-model="search.comptName" class="form-control" placeholder="Search..." />
+                        </div>
+
+                        <ul class="nav nav-tabs nav-tabs-bottom" style="font-weight:bold;   ">
+                            <li class="active"><a href="#techTab1" data-toggle="tab"> Office </a></li>
+                            <li><a href="#techTab2" data-toggle="tab"> Common </a></li>
+                        </ul>
+
+                        <div class="tabbable table-responsive pre-scrollable">
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="techTab1">
+
+                                    <table class="table">
+                                        <tr ng-repeat="item in techOffice | filter:search.comptName">
+                                            <td style="padding:10px 15px 0px 10px;">
+                                                <label class="text-blue-600 text-size-large text-bold" style="padding:0px; margin:0px;"> {{$index+1}}.{{item.comptName.toUpperCase()}}</label>
+                                                <p class="text-size-mini text-muted"> {{item.comptDesc}}  </p>
+                                            </td>
+                                            <td style="padding:0px;">
+                                                <button ng-if="item.tag == 0" ng-disabled="bDisable" class="btn btn-default btn-sm text-blue-600 text-bold" style="font-size:.87em;" ng-click="addTechCompetency(item.comptCode)">
+                                                    <i class="icon-plus22 text-size-mini"></i>
+                                                </button>
+                                                <button ng-if="item.tag >= 1" disabled class="btn btn-default btn-sm text-info text-bold text-size-small" style="font-size:.87em;">
+                                                    <i class="icon-check text-size-mini"></i>
+                                                </button>
+                                                @*<button ng-if="item.tag >= 1" ng-disabled="bDisable"  class="btn btn-default btn-sm text-danger-600 text-bold text-size-small" style="font-size:.87em;" ng-click="Delete(item.comptCode)">
+                                                        <i class="icon-trash-alt text-size-mini"></i>
+                                                    </button>*@
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="tab-pane" id="techTab2">
+                                    <table class="table">
+                                        <tr ng-repeat="item in techCommon | filter:search.comptName">
+                                            <td style="padding:10px 15px 0px 10px;">
+                                                <label class="text-blue-600 text-size-large text-bold" style="padding:0px; margin:0px;"> {{$index+1}}.{{item.comptName.toUpperCase()}}</label>
+                                                <p class="text-size-mini text-muted"> {{item.comptDesc}}  </p>
+                                            </td>
+                                            <td style="padding:0px;">
+                                                <button ng-if="item.tag == 0" ng-disabled="bDisable" class="btn btn-default btn-sm text-blue-600 text-bold" style="font-size:.87em;" ng-click="addTechCompetency(item.comptCode)">
+                                                    <i class="icon-plus22 text-size-mini"></i>
+                                                </button>
+                                                <button ng-if="item.tag >= 1" disabled class="btn btn-default btn-sm text-info text-bold text-size-small" style="font-size:.87em;">
+                                                    <i class="icon-check text-size-mini"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /scrollable table -->
+                    <div style="text-align:right;">
+                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/inputmask/jquery.inputmask.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/ComptAssmntTool/ComptAssmntTool.js"></script>
+
+    <script>
+
+        $("#department").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+
+    </script>
+}

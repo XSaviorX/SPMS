@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "Schedule";
+}
+
+<link href="~/Content/assets/plugins/ispinia/fullcalendar/iCheck.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/ispinia/fullcalendar/fullcalendar.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/ispinia/fullcalendar/fullcalendar.print.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/ispinia/fullcalendar/animate.css" rel="stylesheet" />
+
+
+
+<!-- Content area -->
+<div class="content">
+    <!-- Event colors -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">Event colors</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <p class="content-group">FullCalendar allows you to change the color of all events on the calendar using the <code>eventColor</code> option. Also you can change text, border and background colors for events in a specific Event Source with <code>event source</code> options (backgroundColor, color, textColor and borderColor) and for individual events with <code>color</code> option, which sets an event's background and border color. Example below demonstrates event colors based on a day of the week.</p>
+            <div class="fullcalendar-event-colors"></div>
+        </div>
+    </div>
+    <!-- /event colors -->
+    <!-- Background events -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">Background events</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <p class="content-group">Events that appear as background highlights can be achieved by setting an Event Object's <code>rendering</code> property to <code>background</code>. Background events that are <span class="text-semibold">timed</span> will only be rendered on the time slots in agenda view. Background events that are <span class="text-semibold">all-day</span> will only be rendered in month view or the all-day slots of agenda view. Also the spans of time <span class="text-semibold">not</span> occupied by an event can be colored by setting the <code>rendering</code> property to <code>inverse-background</code>.</p>
+            <div class="fullcalendar-background-colors"></div>
+        </div>
+    </div>
+    <!-- /background events -->
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+    </div>
+    <!-- /footer -->
+</div>
+<!-- /content area -->
+
+
+
+@section JavaScript{
+<script src="~/Content/assets/plugins/ispinia/fullcalendar/bootstrap.min.js"></script>
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/jquery-2.1.1.js"></script>
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/jquery-ui-1.10.4.min.js"></script>
+
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/moment.min.js"></script>
+
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/inspinia.js"></script>
+
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/jquery-ui.custom.min.js"></script>
+
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/icheck.min.js"></script>
+
+    <script src="~/Content/assets/plugins/ispinia/fullcalendar/fullcalendar.min.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+
+
+            $('#external-events div.external-event').each(function () {
+
+                // store data so the calendar knows to render an event upon drop
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true // maintain when user navigates (see docs on the renderEvent method)
+                });
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 1111999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+
+
+            });
+
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: true,
+                droppable: true, // this allows things to be dropped onto the calendar
+                drop: function () {
+                    // is the "remove after drop" checkbox checked?
+
+                    if ($('#drop-remove').is(':checked')) {
+                        // if so, remove the element from the "Draggable Events" list
+                        $(this).remove();
+                    }
+                },
+                events: [
+                    {
+                        title: 'All Day Event',
+                        start: new Date(y, m, 1)
+                    },
+                    {
+                        title: 'Long Event',
+                        start: new Date(y, m, d - 4),
+                        end: new Date(y, m, d - 2)
+                    },
+                    {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: new Date(y, m, d - 3, 16, 0),
+                        allDay: false
+                    },
+                    {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: new Date(y, m, d + 4, 16, 0),
+                        allDay: false
+                    },
+                    {
+                        title: 'Meeting',
+                        start: new Date(y, m, d, 10, 30),
+                        allDay: false
+                    },
+                    {
+                        title: 'Lunch',
+                        start: new Date(y, m, d, 12, 0),
+                        end: new Date(y, m, d, 14, 0),
+                        allDay: false
+                    },
+                    {
+                        title: 'Birthday Party',
+                        start: new Date(y, m, d + 1, 19, 0),
+                        end: new Date(y, m, d + 1, 22, 30),
+                        allDay: false
+                    },
+                    {
+                        title: 'Click for Google',
+                        start: new Date(y, m, 28),
+                        end: new Date(y, m, 29),
+                        url: 'http://google.com/'
+                    }
+                ]
+            });
+
+
+        });
+
+    </script>
+}
+
+
+
+
+
+
+
+

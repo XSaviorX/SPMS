@@ -1,0 +1,1058 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tAppropriationProj">
+    <Key>
+      <PropertyRef Name="appropProjectId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="budgetYear" Type="Int32" />
+    <Property Name="projectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AIPCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fundSourceId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFO">
+    <Key>
+      <PropertyRef Name="MFOId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tAppropriationProjMFOInd">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="targetTypeId" Type="Int32" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tMFO_perDivision">
+    <Key>
+      <PropertyRef Name="recNo_" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DivisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tOffice">
+    <Key>
+      <PropertyRef Name="officeId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="officeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="officeType" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="sortNo" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tOfficeDivision">
+    <Key>
+      <PropertyRef Name="divisionId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="divisionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tProgram">
+    <Key>
+      <PropertyRef Name="programId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="programId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="aipCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="programName" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="functionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fundSourceId" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="programTypeId" Type="Int32" />
+    <Property Name="programIdLF" Type="Int32" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tProject">
+    <Key>
+      <PropertyRef Name="projectId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="projectIdLF" Type="Int32" />
+    <Property Name="aipReferenceCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="projectName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="programId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="functionId" Type="Int32" />
+    <Property Name="fundSourceId" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tSPMS_CheckListMFO">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_Classification">
+    <Key>
+      <PropertyRef Name="recNo_" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="classification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tSPMS_CommonMFO">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_DPCR">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="canUpdate" Type="Int32" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="targetIdparent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_IPCR">
+    <Key>
+      <PropertyRef Name="recNo_" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="r_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_target" Type="Int32" />
+    <Property Name="i_actQuantity" Type="Int32" />
+    <Property Name="i_actQuality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_actTimeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_Rquantity" Type="Double" />
+    <Property Name="i_Rquality" Type="Double" />
+    <Property Name="i_Rtimeliness" Type="Double" />
+    <Property Name="i_category" Type="Int32" />
+    <Property Name="targetIdparent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_Raverage" Type="Double" />
+  </EntityType>
+  <EntityType Name="tSPMS_IPCR_MPOR">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="month" Type="Int32" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="qtyWk1" Type="Int32" />
+    <Property Name="qtyWk2" Type="Int32" />
+    <Property Name="qtyWk3" Type="Int32" />
+    <Property Name="qtyWk4" Type="Int32" />
+    <Property Name="qtyTotal" Type="Int32" />
+    <Property Name="qlyWk1" Type="Int32" />
+    <Property Name="qlyWk2" Type="Int32" />
+    <Property Name="qlyWk3" Type="Int32" />
+    <Property Name="qlyWk4" Type="Int32" />
+    <Property Name="qlyTotal" Type="Int32" />
+    <Property Name="qlyAve" Type="Double" />
+    <Property Name="timeWk1" Type="Int32" />
+    <Property Name="timeWk2" Type="Int32" />
+    <Property Name="timeWk3" Type="Int32" />
+    <Property Name="timeWk4" Type="Int32" />
+    <Property Name="timeTotal" Type="Int32" />
+    <Property Name="timeAve" Type="Double" />
+  </EntityType>
+  <EntityType Name="tSPMS_IPCR_SMPOR">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="smporId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="qty_mFirst" Type="Double" />
+    <Property Name="qty_mSecond" Type="Double" />
+    <Property Name="qty_mThird" Type="Double" />
+    <Property Name="qty_mFourth" Type="Double" />
+    <Property Name="qty_mFifth" Type="Double" />
+    <Property Name="qty_mSixth" Type="Double" />
+    <Property Name="qty_total" Type="Double" />
+    <Property Name="qty_rating" Type="Double" />
+    <Property Name="qly_mFirst" Type="Double" />
+    <Property Name="qly_mSecond" Type="Double" />
+    <Property Name="qly_mThird" Type="Double" />
+    <Property Name="qly_mFourth" Type="Double" />
+    <Property Name="qly_mFifth" Type="Double" />
+    <Property Name="qly_mSixth" Type="Double" />
+    <Property Name="qly_total" Type="Double" />
+    <Property Name="qly_rating" Type="Double" />
+    <Property Name="time_mFirst" Type="Double" />
+    <Property Name="time_mSecond" Type="Double" />
+    <Property Name="time_mThird" Type="Double" />
+    <Property Name="time_mFourth" Type="Double" />
+    <Property Name="time_mFifth" Type="Double" />
+    <Property Name="time_mSixth" Type="Double" />
+    <Property Name="time_total" Type="Double" />
+    <Property Name="time_rating" Type="Double" />
+  </EntityType>
+  <EntityType Name="tSPMS_IPCRRequest">
+    <Key>
+      <PropertyRef Name="r_ipcrId" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="r_EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="r_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="r_year" Type="Int32" />
+    <Property Name="r_semester" Type="Int32" />
+    <Property Name="r_Status" Type="Int32" />
+    <Property Name="r_remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_MFOCategory">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_MFOCategoryDesc">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryId" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_MFOStandard">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_OfficeRole">
+    <Key>
+      <PropertyRef Name="officeRoleId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_OPCR">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="opcrID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="r_qty" Type="Double" />
+    <Property Name="r_qly" Type="Double" />
+    <Property Name="r_time" Type="Double" />
+    <Property Name="isActive" Type="Int32" />
+    <Property Name="isLocked" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tSPMS_OTS">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ipcrID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="output" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="r_quantity" Type="Int32" />
+    <Property Name="r_quality" Type="Int32" />
+    <Property Name="r_timeliness" Type="Int32" />
+    <Property Name="dateCreated" Type="DateTime" Precision="3" />
+    <Property Name="approvedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="day" Type="Int32" />
+    <Property Name="month" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tSPMS_RequestChange">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reqId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="rating" Type="Int32" />
+    <Property Name="quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="timeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="o_target" Type="Int32" />
+    <Property Name="o_mfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="o_indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="o_quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_timeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_semester" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_classification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_TargetCountSI">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetTypeId" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="t_quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="t_timeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isShared" Type="Int32" />
+    <Property Name="isOPCR" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tSPMS_EmployeeRole">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_Employees">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tSPMS_Roles">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="R_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="loadDataView">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="rOpcrStandard">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_CheckListMFO">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CLId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_CMFO">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="indicatorId" />
+      <PropertyRef Name="MFOId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TargetOffcId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="catTargetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_CommonMFO">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="catTargetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="TargetOffcId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetTypeId" Type="Int32" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_DisplayOPCR">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="programTypeId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vSPMS_DPCR">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TargetOffcId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="canUpdate" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetIdparent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_EmployeeAccountRoles">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="R_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_Employees">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="officeName" />
+      <PropertyRef Name="officeNameShort" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_IPCR_Request">
+    <Key>
+      <PropertyRef Name="recNo_" />
+      <PropertyRef Name="r_ipcrId" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" />
+    <Property Name="r_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="r_Status" Type="Int32" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="r_year" Type="Int32" />
+    <Property Name="r_semester" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vSPMS_IPCR_SMPOR">
+    <Key>
+      <PropertyRef Name="recNo_" />
+      <PropertyRef Name="r_ipcrId" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" />
+    <Property Name="i_EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="i_target" Type="Int32" />
+    <Property Name="i_indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_category" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="smporId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="qty_mFirst" Type="Double" />
+    <Property Name="qty_mSecond" Type="Double" />
+    <Property Name="qty_mThird" Type="Double" />
+    <Property Name="qty_mFourth" Type="Double" />
+    <Property Name="qty_mFifth" Type="Double" />
+    <Property Name="qty_mSixth" Type="Double" />
+    <Property Name="qty_total" Type="Double" />
+    <Property Name="qty_rating" Type="Double" />
+    <Property Name="qly_mFirst" Type="Double" />
+    <Property Name="qly_mSecond" Type="Double" />
+    <Property Name="qly_mThird" Type="Double" />
+    <Property Name="qly_mFourth" Type="Double" />
+    <Property Name="qly_mFifth" Type="Double" />
+    <Property Name="qly_mSixth" Type="Double" />
+    <Property Name="qly_total" Type="Double" />
+    <Property Name="qly_rating" Type="Double" />
+    <Property Name="time_mFirst" Type="Double" />
+    <Property Name="time_mSecond" Type="Double" />
+    <Property Name="time_mThird" Type="Double" />
+    <Property Name="time_mFourth" Type="Double" />
+    <Property Name="time_mFifth" Type="Double" />
+    <Property Name="time_mSixth" Type="Double" />
+    <Property Name="time_total" Type="Double" />
+    <Property Name="time_rating" Type="Double" />
+    <Property Name="r_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="r_year" Type="Int32" />
+    <Property Name="r_semester" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vSPMS_IPCRwCat">
+    <Key>
+      <PropertyRef Name="recNo_" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" />
+    <Property Name="r_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="i_target" Type="Int32" />
+    <Property Name="CLId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CL_MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="i_actQuantity" Type="Int32" />
+    <Property Name="Expr1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_category" Type="Int32" />
+    <Property Name="targetIdparent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="r_Status" Type="Int32" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="i_Rquantity" Type="Double" />
+    <Property Name="i_Rquality" Type="Double" />
+    <Property Name="i_Rtimeliness" Type="Double" />
+    <Property Name="i_Raverage" Type="Double" />
+    <Property Name="r_year" Type="Int32" />
+    <Property Name="r_semester" Type="Int32" />
+    <Property Name="r_remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="r_EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_actQuality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_actTimeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_MFO_ALL">
+    <Key>
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TargetOffcId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="classification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isShared" Type="Int32" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tgt_divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isOPCR" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="catTargetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_MFOwCat">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="isShared" Type="Int32" />
+    <Property Name="isOPCR" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Expr1" Type="Int32" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_MPOR">
+    <Key>
+      <PropertyRef Name="recNo_" />
+    </Key>
+    <Property Name="recNo_" Type="Int32" Nullable="false" />
+    <Property Name="i_EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="i_target" Type="Int32" />
+    <Property Name="i_indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_category" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="recNo" Type="Int32" />
+    <Property Name="ipcrId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="month" Type="Int32" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="qtyWk1" Type="Int32" />
+    <Property Name="qtyWk2" Type="Int32" />
+    <Property Name="qtyWk3" Type="Int32" />
+    <Property Name="qtyWk4" Type="Int32" />
+    <Property Name="qtyTotal" Type="Int32" />
+    <Property Name="qlyWk1" Type="Int32" />
+    <Property Name="qlyWk2" Type="Int32" />
+    <Property Name="qlyWk3" Type="Int32" />
+    <Property Name="qlyWk4" Type="Int32" />
+    <Property Name="qlyTotal" Type="Int32" />
+    <Property Name="qlyAve" Type="Double" />
+    <Property Name="timeWk1" Type="Int32" />
+    <Property Name="timeWk2" Type="Int32" />
+    <Property Name="timeWk3" Type="Int32" />
+    <Property Name="timeWk4" Type="Int32" />
+    <Property Name="timeTotal" Type="Int32" />
+    <Property Name="timeAve" Type="Double" />
+    <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="officeRoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_nMFO_ALL">
+    <Key>
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TargetOffcId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="classification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isShared" Type="Int32" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tgt_divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isOPCR" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_nOPCR">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="officeId" />
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="opcrID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="r_qty" Type="Double" />
+    <Property Name="r_qly" Type="Double" />
+    <Property Name="r_time" Type="Double" />
+  </EntityType>
+  <EntityType Name="vSPMS_OPCR">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="MFOId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="tRemaining" Type="Int32" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="TargetOffcId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="divisionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_OPCRTable">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="programId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="programTypeId" Type="Int32" />
+    <Property Name="projectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+    <Property Name="officeName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_prtOPCR">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="programId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="programTypeId" Type="Int32" />
+    <Property Name="projectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="appropProjectId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vSPMS_RequestTable">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reqId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="req_Rating" Type="Int32" />
+    <Property Name="req_quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="req_timeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="req_MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="req_indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="req_categoryId" Type="Int32" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_target" Type="Int32" />
+    <Property Name="o_mfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="o_indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="o_quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_timeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_semester" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="o_classification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="classification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="o_class" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="officeNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="latest_target" Type="Int32" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_rOPCRStandard">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="MFOId" />
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="MFOId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicatorId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="isShared" Type="Int32" />
+    <Property Name="targetUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSPMS_showOTS">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFOId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="indicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="isCMFO" Type="Int32" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="semester" Type="Int32" />
+    <Property Name="classificationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="Int32" />
+    <Property Name="indicatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="r_quantity" Type="Int32" />
+    <Property Name="r_quality" Type="Int32" />
+    <Property Name="r_timeliness" Type="Int32" />
+    <Property Name="dateCreated" Type="DateTime" Precision="3" />
+    <Property Name="approvedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="targetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_actQuantity" Type="Int32" />
+    <Property Name="i_actQuality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="i_actTimeliness" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="day" Type="Int32" />
+    <Property Name="month" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="SPMSDBEntities7" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tAppropriationProjs" EntityType="Self.tAppropriationProj" />
+    <EntitySet Name="tAppropriationProjMFOes" EntityType="Self.tAppropriationProjMFO" />
+    <EntitySet Name="tAppropriationProjMFOInds" EntityType="Self.tAppropriationProjMFOInd" />
+    <EntitySet Name="tMFO_perDivision" EntityType="Self.tMFO_perDivision" />
+    <EntitySet Name="tOffices" EntityType="Self.tOffice" />
+    <EntitySet Name="tOfficeDivisions" EntityType="Self.tOfficeDivision" />
+    <EntitySet Name="tPrograms" EntityType="Self.tProgram" />
+    <EntitySet Name="tProjects" EntityType="Self.tProject" />
+    <EntitySet Name="tSPMS_CheckListMFO" EntityType="Self.tSPMS_CheckListMFO" />
+    <EntitySet Name="tSPMS_Classification" EntityType="Self.tSPMS_Classification" />
+    <EntitySet Name="tSPMS_CommonMFO" EntityType="Self.tSPMS_CommonMFO" />
+    <EntitySet Name="tSPMS_DPCR" EntityType="Self.tSPMS_DPCR" />
+    <EntitySet Name="tSPMS_IPCR" EntityType="Self.tSPMS_IPCR" />
+    <EntitySet Name="tSPMS_IPCR_MPOR" EntityType="Self.tSPMS_IPCR_MPOR" />
+    <EntitySet Name="tSPMS_IPCR_SMPOR" EntityType="Self.tSPMS_IPCR_SMPOR" />
+    <EntitySet Name="tSPMS_IPCRRequest" EntityType="Self.tSPMS_IPCRRequest" />
+    <EntitySet Name="tSPMS_MFOCategory" EntityType="Self.tSPMS_MFOCategory" />
+    <EntitySet Name="tSPMS_MFOCategoryDesc" EntityType="Self.tSPMS_MFOCategoryDesc" />
+    <EntitySet Name="tSPMS_MFOStandard" EntityType="Self.tSPMS_MFOStandard" />
+    <EntitySet Name="tSPMS_OfficeRole" EntityType="Self.tSPMS_OfficeRole" />
+    <EntitySet Name="tSPMS_OPCR" EntityType="Self.tSPMS_OPCR" />
+    <EntitySet Name="tSPMS_OTS" EntityType="Self.tSPMS_OTS" />
+    <EntitySet Name="tSPMS_RequestChange" EntityType="Self.tSPMS_RequestChange" />
+    <EntitySet Name="tSPMS_TargetCountSI" EntityType="Self.tSPMS_TargetCountSI" />
+    <EntitySet Name="tSPMS_EmployeeRole" EntityType="Self.tSPMS_EmployeeRole" />
+    <EntitySet Name="tSPMS_Employees" EntityType="Self.tSPMS_Employees" />
+    <EntitySet Name="tSPMS_Roles" EntityType="Self.tSPMS_Roles" />
+    <EntitySet Name="loadDataViews" EntityType="Self.loadDataView" />
+    <EntitySet Name="rOpcrStandards" EntityType="Self.rOpcrStandard" />
+    <EntitySet Name="vSPMS_CheckListMFO" EntityType="Self.vSPMS_CheckListMFO" />
+    <EntitySet Name="vSPMS_CMFO" EntityType="Self.vSPMS_CMFO" />
+    <EntitySet Name="vSPMS_CommonMFO" EntityType="Self.vSPMS_CommonMFO" />
+    <EntitySet Name="vSPMS_DisplayOPCR" EntityType="Self.vSPMS_DisplayOPCR" />
+    <EntitySet Name="vSPMS_DPCR" EntityType="Self.vSPMS_DPCR" />
+    <EntitySet Name="vSPMS_EmployeeAccountRoles" EntityType="Self.vSPMS_EmployeeAccountRoles" />
+    <EntitySet Name="vSPMS_Employees" EntityType="Self.vSPMS_Employees" />
+    <EntitySet Name="vSPMS_IPCR_Request" EntityType="Self.vSPMS_IPCR_Request" />
+    <EntitySet Name="vSPMS_IPCR_SMPOR" EntityType="Self.vSPMS_IPCR_SMPOR" />
+    <EntitySet Name="vSPMS_IPCRwCat" EntityType="Self.vSPMS_IPCRwCat" />
+    <EntitySet Name="vSPMS_MFO_ALL" EntityType="Self.vSPMS_MFO_ALL" />
+    <EntitySet Name="vSPMS_MFOwCat" EntityType="Self.vSPMS_MFOwCat" />
+    <EntitySet Name="vSPMS_MPOR" EntityType="Self.vSPMS_MPOR" />
+    <EntitySet Name="vSPMS_nMFO_ALL" EntityType="Self.vSPMS_nMFO_ALL" />
+    <EntitySet Name="vSPMS_nOPCR" EntityType="Self.vSPMS_nOPCR" />
+    <EntitySet Name="vSPMS_OPCR" EntityType="Self.vSPMS_OPCR" />
+    <EntitySet Name="vSPMS_OPCRTable" EntityType="Self.vSPMS_OPCRTable" />
+    <EntitySet Name="vSPMS_prtOPCR" EntityType="Self.vSPMS_prtOPCR" />
+    <EntitySet Name="vSPMS_RequestTable" EntityType="Self.vSPMS_RequestTable" />
+    <EntitySet Name="vSPMS_rOPCRStandard" EntityType="Self.vSPMS_rOPCRStandard" />
+    <EntitySet Name="vSPMS_showOTS" EntityType="Self.vSPMS_showOTS" />
+  </EntityContainer>
+</Schema>

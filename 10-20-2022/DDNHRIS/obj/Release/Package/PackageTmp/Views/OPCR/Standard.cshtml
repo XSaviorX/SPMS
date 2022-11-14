@@ -1,0 +1,367 @@
+
+@{
+    ViewBag.Title = "index";
+}
+<style type="text/css">
+    .my-custom-scrollbar {
+        position: relative;
+        height: 72vh;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+
+    .lbl_opcrTableH {
+        text-align: center;
+    }
+
+    .searchBar {
+        width: 50%;
+    }
+
+    .performanceTD {
+        height: 45px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    select {
+        /* for Firefox */
+        padding-left: 5px;
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+        /* For IE10 */
+        select::-ms-expand {
+            display: none;
+        }
+</style>
+
+<div ng-controller="OPCR" style="margin: 5px;">
+
+
+    <!-- Tabs navs -->
+    <!-- Tabs content -->
+    <div style="padding: 5px;">
+        <button ng-click="print()" class="btn btn-primary"><i class="bi bi-printer"> Print</i></button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignMFO" style="float: right; margin-right: 30px;">
+            <i class="bi bi-arrow-left-right"> ASSIGN MFO </i>
+        </button>
+    </div>
+
+    <div style="background-color:white; padding: 10px;">
+        <center>
+            <div id="heading">
+                <h5><b>{{officeName.officeName}}</b></h5>
+                <h6>PERFORMANCE STANDARD</h6>
+                @*<h6>APPOINTMENT AND PERSONNEL RECORDS DIVISION</h6>*@
+            </div>
+        </center>
+
+
+        <div class="box" style="border: solid; border-color: #EEEEEE; height: 36px; width: 232px; padding-left: 1px; margin-bottom: 10px; border-radius: 5px; ">
+            <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; "></i>
+            <select ng-model="categoryopcr" style="width: 150px; height: 30px; border:none">
+                <option value=""> Filter by Category </option>
+                <option value="1">Strategic Function</option>
+                <option value="2">Core Function</option>
+                <option value="3">Support Function</option>
+            </select>
+            <i class="bi bi-chevron-double-down"></i>
+            <span ng-click="dropdownClr()"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; "></i></span>
+        </div>
+
+
+        <div class="table-responsive" style="display: block; overflow-y: hidden; ">
+            <div class="my-custom-scrollbar">
+                <table class="table table-bordered" style="">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="lbl_opcrTableH">
+                                MFO
+                            </th>
+                            <th rowspan="2" class="lbl_opcrTableH">
+                                SUCCESS INDICATORS
+                            </th>
+                            @* <th rowspan="2" class="lbl_opcrTableH">
+                                     ACTIONS (MFO/S.I.)
+                                </th>*@
+                            <th colspan="4" class="lbl_opcrTableH">
+                                PERFORMANCE
+                            </th>
+                            <th rowspan="2" class="lbl_opcrTableH" style="max-width: 100px; width: 100px">
+                                ACTION
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="lbl_opcrTableH">Rating</th>
+                            <th class="lbl_opcrTableH">Quantity</th>
+                            <th class="lbl_opcrTableH" style="width:250px">Quality</th>
+                            <th class="lbl_opcrTableH" style="width:200px">Timeliness</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="opcr in StandardPrOffc | unique: 'MFOId' | filter: {categoryId: categoryopcr} | groupBy:'categoryId'">
+                        <tr ng-show="opcr.categoryId_CHANGED">
+                            <td>
+                                {{opcr.description}} Function
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="{{rowCount(opcr.MFOId,opcr)}}"><strong>{{opcr.MFO}}</strong></td>
+                        </tr>
+
+                        <tr ng-repeat="ind in StandardPrOffc | filter: {MFOId: opcr.MFOId} ">
+                            <td>{{ind.target}} {{ind.indicator}}</td>
+                            <td class="">
+                                <table class="table table-columned" style="background-color:inherit">
+                                    <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {targetId: ind.targetId}">
+                                        <tr class="performanceTD">
+                                            <td><center>{{pdata.rating}}</center></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table table-columned" style="background-color:inherit">
+                                    <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {targetId: ind.targetId}">
+                                        <tr class="performanceTD">
+                                            <td><center>{{pdata.quantity}}</center></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table table-columned" style="background-color:inherit">
+                                    <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {targetId: ind.targetId}">
+                                        <tr class="performanceTD">
+                                            <td><center>{{pdata.quality}}</center></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table table-borderless" style="background-color:inherit">
+                                    <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {targetId: ind.targetId}">
+                                        <tr class="performanceTD">
+                                            <td class="no-border"><center>{{pdata.timeliness}}</center></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <button class="btn btn-link">
+                                    @*  <i class="bi bi-pencil-square" style="color:dodgerblue;" ng-click="getMfoIndIdToModal(ind)" data-toggle="modal" data-target="#addPerformance"></i>*@
+                                    <h4><i class="bi bi-trash3 btn-rounded" style="background-color: #fcf2f2; color: red; font-size: 20px; padding: 10px; " ng-click="removedInd(ind)"></i></h4>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- MODAL SECTION -->
+        <!-------------------------------------------------------------------->
+        <!--Modal for editting MFO and one SI-->
+        <div class="modal fade" id="editMFOSIForm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTitle">MFO and SI UPDATE FORM</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <br />
+                            <input type="hidden" value="0" id="idnum">
+                            <label><b>MFO Description</b></label>
+                            <input type="text" ng-model="updateMFOSI.MFO" class="form-control" name="editMFO" />
+                            <label><b>Target</b></label>
+                            <input type="text" ng-model="updateMFOSI.target" class="form-control" name="editTarget" />
+                            <label><b>SI Description</b></label>
+                            <textarea rows="4" ng-model="updateMFOSI.indicator" class="form-control" name="editSI"></textarea>
+                            @*<input type="text" ng-model="updateMFOSI.indicator" class="form-control" name="editSI" />*@
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">CLOSE</button>
+                                <button type="button" class="btn btn-primary" ng-click="updateMFO_SIbyID(updateMFOSI)">UPDATE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-------------------------------------------------------------------->
+        <div class="modal fade" id="assignMFO" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTitle">ASSIGN MFO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <br />
+                            <div class="table-responsive" style="display: block; overflow-x: hidden; height:40%;">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="bi bi-search" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                                        <input type="text" ng-model="search['MFO']" placeholder="Search MFO . . ." class="form-control" style="padding-left:30px" />
+                                        <span ng-click="searchClrModal()"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-control">
+                                            <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
+                                            <select ng-model="category" style="position: absolute; left: 40px; top: 1px; height: 34px; border: none; width:82%" class="form-control">
+                                                <option value=""> Filter by Category </option>
+                                                <option value="1">Strategic Function</option>
+                                                <option value="2">Core Function</option>
+                                                <option value="3">Support Function</option>
+                                            </select>
+                                            <i class="bi bi-chevron-double-down" style=" padding: 6px; position: absolute; right: 45px; top: 2px"></i>
+                                            <span ng-click="dropdownClrModal()"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="my-custom-scrollbar">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    CATEGORY
+                                                </td>
+                                                <td>
+                                                    MFO
+                                                </td>
+                                                <td>
+                                                    SUCCESS INDICATORS
+                                                </td>
+                                                <td>
+                                                    ACTION
+                                                </td>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody ng-repeat="assignMFO in assignStandard  | filter: search | filter: {categoryId: category} | unique: 'MFOId'">
+                                            <tr>
+                                                <td rowspan="{{rowCount(assignMFO.MFOId,assignMFO)}}"><i>{{assignMFO.description}}</i></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="{{rowCount(assignMFO.MFOId,assignMFO)}}"><b>{{assignMFO.MFO}}</b></td>
+                                            </tr>
+                                            <tr ng-if="ind.target != null" ng-repeat="ind in assignStandard |  filter: {MFOId: assignMFO.MFOId} | unique: 'indicatorId' ">
+                                                <td><b><i>{{ind.target}}</i></b>  {{ind.indicator}} </td>
+
+                                                <td>
+
+                                                    <button ng-if="ind.status == 'true'" class="btn btn-warning" ng-click="newUnassign(ind); ind.status = 'false'"><i class="bi bi-trash3"></i> REMOVE</button>
+                                                    <button ng-if="ind.status == 'false'" class="btn btn-primary" ng-click=" newAssign(ind) ; ind.status = 'true'"><i class="bi bi-plus-lg"></i> ADD</button>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+
+
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                                <hr />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!----------------------------------------------------------->
+        <!--Modal Add Performance-->
+        <div class="modal fade" id="addPerformance" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">PERFORMANCE</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Rating
+                                    </td>
+                                    <td>
+                                        Quantity
+                                    </td>
+                                    <td>
+                                        Quality
+                                    </td>
+                                    <td>
+                                        Timeliness
+                                    </td>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="performance in addPerformance">
+                                    <td>
+                                        <input ng-model="performance.MFOId = (getMfoIndID.MFOId)" type="hidden" value="{{getMfoIndID.MFOId}}" />
+                                        <input ng-model="performance.indicatorId = (getMfoIndID.indicatorId)" type="hidden" value="{{getMfoIndID.indicatorId}}" />
+
+
+                                        <input ng-init="performance.rating = (addPerformance.length - $index)" type="text" name="rate" ng-value="{{addPerformance.length - $index}}" class="no-border" readonly="readonly" />
+                                    </td>
+
+                                    <td>
+                                        <input ng-model="performance.quantity" class="form-control no-border" name="quantity" type="text" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input ng-model="performance.quality" class="form-control" name="quality" />
+                                    </td>
+                                    <td>
+                                        <input ng-model="performance.timeliness" class="form-control" name="timeliness" />
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button ng-click="add_Performance()" type="button" class="btn btn-primary">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---------------------------------------------------------->
+        <!--END OF MODAL SECTION-->
+    </div>
+</div>
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/OPCR/Standard.js"></script>
+
+
+}
+

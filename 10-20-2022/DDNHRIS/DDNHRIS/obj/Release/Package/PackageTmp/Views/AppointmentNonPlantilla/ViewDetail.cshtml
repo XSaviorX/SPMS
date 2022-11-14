@@ -1,0 +1,1124 @@
+﻿@{
+    ViewBag.Title = "ViewData";
+}
+
+
+<style>
+    .page-title {
+        padding: 32px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 2px 20px;
+        padding-top: 12PX;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+</style>
+
+<link href="~/Content/Limitless2/css/icomoon_styles.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+
+
+<div style="width:100%!important;" ng-controller="AppointmentViewData">
+    <!-- Main content -->
+
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4> <a href="~/AppointmentNonPlantilla/List"><i class="icon-arrow-left52 position-left"></i></a> <span class="text-semibold">APPOINTMENT DETAILS</span> </h4>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#appointmentData" data-toggle="tab"><i class="icon-stack-text position-left"></i> Appointment Data</a></li>
+                    <li><a href="#appointmentForm" data-toggle="tab"><i class="icon-file-text2 position-left"></i> Appointment Forms</a></li>
+                    <li><a href="#appointmentPS" ng-click="viewApptPS()" data-toggle="tab"><i class="icon-statistics position-left"></i> Personnel Services</a></li>
+                    <li ng-if="apptData.employmentStatusCode == '05'"><a href="#cscrai" ng-click="viewRAI()" data-toggle="tab"><i class="icon-file-plus position-left"></i> CSC RAI</a></li>
+                </ul>
+                @*<div class="navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#"><i class="icon-clippy"></i> Go to List</a></li>
+                                    <li><a href="#"><i class="icon-search4"></i> Find</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>*@
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+
+
+    <!-- Content area -->
+    <div class="content">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+
+                    <div class="tab-content">
+
+                        <!-- APPOINTMENT -->
+                        <div class="tab-pane fade in active" id="appointmentData">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold text-blue-800">
+                                        {{apptData.appointmentName}} <span class="label label-primary">{{apptData.employmentStatus}}</span>
+                                        <br />
+                                        <span class="text-muted text-size-small">
+                                            {{apptData.projectName}}
+                                        </span>
+                                    </h5>
+                                </div>
+
+                                <table class="table table-bordered table-striped tbl-sm">
+
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:70px;">#</th>
+                                            <th class="text-center">NAME OF APPOINTEE</th>
+                                            <th class="text-center">POSITION TITLE</th>
+                                            <th class="text-center">SALARY GRADE</th>
+                                            <th class="text-center">SALARY/RATE</th>
+                                            <th class="text-center" style="width:90px;">
+                                                <i class="icon-plus3 text-blue-700" ng-if="apptData.tag == 0" ng-click="selectAppointee()" style="cursor:pointer;"></i>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in appointeeList">
+                                            <td class="text-center">{{$index + 1}}</td>
+                                            <td>
+                                                <span class="text-primary-800 text-bold">{{item.fullNameLast}}</span>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="text-semibold">{{item.positionTitle}}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-show="item.salaryGrade > 0">SG {{item.salaryGrade}}/1</span>
+                                                <span ng-show="item.salaryGrade == 0">N/A</span>
+                                            </td>
+                                            <td class="text-right">{{item.salary | number:2}}/{{item.salaryType}}</td>
+
+
+                                            <td class="text-center">
+                                                <button ng-if="apptData.tag == 0" class="btn btn-link text-danger-800 no-margin-top no-padding-top" ng-click="deleteAppointee(item)">
+                                                    <i class="icon-trash-alt"></i>
+                                                </button>
+
+                                                <button ng-show="apptData.tag == 2" ng-if="item.postNo == 0 || item.postNo ==  null" class="btn btn-xs btn-primary" ng-click="modalPosting(item)">
+                                                    Post
+                                                </button>
+
+                                                <button ng-show="apptData.tag == 2" ng-if="item.postNo > 0" class="btn btn-sm btn-default" ng-disabled="true">
+                                                    <i class="icon-check text-blue-800 text-bold"></i>
+                                                </button>
+
+                                            </td>
+
+
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FORMS -->
+                        <div class="tab-pane fade" id="appointmentForm">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold text-blue-800">
+                                        {{apptData.appointmentName}} <span class="label label-primary">{{apptData.employmentStatus}}</span>
+                                        <br />
+                                        <span class="text-muted text-size-small">
+                                            {{apptData.projectName}}
+                                        </span>
+                                    </h5>
+                                </div>
+                                <table class="table table-bordered  table-striped tbl-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:70px;">#</th>
+                                            <th>NAME OF APPOINTEE</th>
+                                            <th>
+                                                <span class="text-blue-800" ng-click="printAppointment()" style="cursor:pointer;"> <i class="icon-file-text2"></i> &nbsp; Appointment</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in appointeeList">
+                                            <td class="text-center">
+                                                {{$index + 1}}
+                                            </td>
+                                            <td>
+                                                <span class="text-semibold">{{item.fullNameLast}}</span>
+                                            </td>
+                                            <td class="text-left">
+                                                <ul class="list-inline no-margin" style="padding-bottom:5px;">
+                                                    <li><a href="#" ng-click="modalApptForm(item, 'ASSUMPTION')"><i class="icon-file-text2 position-left"></i> Assumption to Duty &nbsp;</a></li>
+                                                    <li><a href="#" ng-click="modalApptForm(item, 'OATH')"><i class="icon-file-text2 position-left"></i> Oath of Office &nbsp;</a></li>
+                                                    @*<li><a href="#" ng-click="modalApptForm(item, 'PDF')"><i class="icon-file-text2 position-left"></i> PDF (Front)</a></li>
+                                                        <li><a href="#" ng-click="modalApptForm(item, 'PDF')"><i class="icon-file-text2 position-left"></i> PDF (Back)</a></li>*@
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <!-- PS -->
+                        <div class="tab-pane fade" id="appointmentPS">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat table-responsive " style="font-size:.95em!important;">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-bold text-blue-800">
+                                        {{apptData.appointmentName}} <span class="label label-primary">{{apptData.employmentStatus}}</span>
+                                        <br />
+                                        <span class="text-muted text-size-small">
+                                            {{apptData.projectName}}
+                                        </span>
+                                    </h5>
+                                </div>
+
+                                <table class="table table-striped  table-striped table-sm">
+                                    <tbody>
+                                        <tr ng-repeat="item in psList">
+                                            <td colspan="16" class="no-padding">
+                                                <table style="width:100%; " class="table table-bordered no-margin ">
+
+                                                    <thead class="text-bold" ng-show="$index == 0">
+                                                        <tr class="text-semibold text-center">
+                                                            <td>Rate</td>
+                                                            <td>Annual</td>
+                                                            <td>PERA</td>
+                                                            <td>LEAVE</td>
+                                                            <td>Hazard</td>
+                                                            <td>Subs.</td>
+                                                            <td>Laun.</td>
+                                                            <td>M-Year</td>
+                                                            <td>E-Year</td>
+                                                            <td>C-Gift</td>
+                                                            <td>GSIS</td>
+                                                            <td>ECC</td>
+                                                            <td>HDMF</td>
+                                                            <td>PHIC</td>
+                                                            <td>C.A.</td>
+                                                            <td>TOTAL</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tr>
+                                                        <td colspan="16" class="no-margin" style="padding:7px 10px;">
+                                                            <span class="text-semibold" style="width:100%;"> {{$index+1}}.) <span class="text-blue-800">{{item.fullNameLast}}</span>/ {{item.positionTitle}}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="text-right">
+                                                        <td style="width:120px;">{{item.salary | number: 2}}/{{item.salaryType}}</td>
+                                                        <td style="width:120px;">{{item.annualRate | number: 2}}</td>
+                                                        <td style="width:100px;">{{item.PERA | number: 2}}</td>
+                                                        <td style="width:100px;">{{item.leaveEarned | number: 2}}</td>
+                                                        <td style="width:100px;">{{item.hazardPay | number: 2}}</td>
+                                                        <td style="width:90px;">{{item.subsistence | number: 2}}</td>
+                                                        <td style="width:80px;">{{item.laundry | number: 2}}</td>
+                                                        <td style="width:120px;">{{item.midYearBonus | number: 2}}</td>
+                                                        <td style="width:120px;">{{item.yearEndBonus | number: 2}}</td>
+                                                        <td style="width:90px;">{{item.cashGift | number: 2}}</td>
+                                                        <td style="width:100px;">{{item.lifeRetmnt | number: 2}}</td>
+                                                        <td style="width:80px;">{{item.ECC | number: 2}}</td>
+                                                        <td style="width:80px;">{{item.hdmf | number: 2}}</td>
+                                                        <td style="width:100px;">{{item.phic | number: 2}}</td>
+                                                        <td style="width:90px;">{{item.clothing | number: 2}}</td>
+                                                        <td class="text-semibold">{{item.total | number: 2}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- rai -->
+                        <div class="tab-pane fade" id="cscrai">
+
+                            <div class="panel panel-flat table-responsive " style="font-size:.95em!important;">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title   text-blue-800">
+                                        <span class="text-bold">REPORT ON APPOINTMENT ISSUED (RAI) </span>
+                                        <br />
+                                        <span class="text-grey-600 text-semibold"> {{apptData.appointmentName}} <span class="label label-primary"> {{apptData.employmentStatus}}</span> </span>
+                                        <br />
+                                        <span class="text-muted text-size-small text-semibold">
+                                            {{apptData.projectName}}
+                                        </span>
+                                    </h5>
+                                </div>
+
+
+                                <div class="panel-body ">
+
+                                    <div class="row" ng-if="postingTag >= 1">
+
+                                        <div class="col-lg-3">
+                                            <!-- User details -->
+                                            <div class="content-group">
+
+                                                <div class="panel  no-border-radius-top">
+                                                    <!-- Navigation -->
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title text-size-large  text-bold text-blue-800 cursor-pointer" ng-click="printRAIReportAll()"><i class="icon-printer2"></i> &nbsp; RAI Report </h6>
+                                                        <div class="heading-elements">
+                                                            @*<a href="#" class="heading-text text-size-mini"><i class="icon-printer"></i> </a>*@
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="list-group no-border no-padding-top text-blue-800" ng-repeat="item in raiList">
+                                                        <a href="#" ng-click="printRAIReport(item)" class="list-group-item text-blue-800"><i class="icon-printer2"></i> {{item.RAIName}} </a>
+                                                    </div>
+                                                    <!-- /navigation -->
+                                                </div>
+                                            </div>
+
+                                            <!-- /traffic sources -->
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-primary no-border" ng-if="postingTag == 0">
+
+                                        @*<div class="form-group">
+                                                <label>Appointment Issued Date <span class="text-danger">*</span></label>
+                                                <input type="date" class="form-control text-semibold"   ng-model="data.govtIDIssued">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Assumption Date <span class="text-danger">*</span></label>
+                                                <input type="date" class="form-control text-semibold" ng-model="data.govtIDIssued">
+                                            </div>*@
+
+
+
+                                        <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="generateRAI()">
+                                            <i class="icon-stack-plus"></i> Generate Report
+                                        </button>
+                                        <span class="text-semibold"> &nbsp; Click button to generate Report on Appointment Issued (RAI)</span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal Select Appointee -->
+    <div class="modal fade" id="openModalSelectEmp" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-user-check"></i> Add Employee</h6>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Appointee <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.EIC" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in empList" value="{{c.EIC}}"
+                                        id="employee">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Position <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.positionCode" style="width:100%;"
+                                        ng-options="c.positionCode as c.positionTitle for c in positionList" value="{{c.positionCode}}"
+                                        id="position">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" ng-show="selectTag == 1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Sub-Position  </label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.subPositionCode" style="width:100%;"
+                                        ng-options="c.subPositionCode as c.subPositionTitle for c in subPositionList" value="{{c.subPositionCode}}"
+                                        id="subPosition">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>Place of Assignment <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="empData.warmBodyGroupCode" style="width:100%;"
+                                        ng-options="c.warmBodyGroupCode as c.warmBodyGroupName for c in warmBodyList" value="{{c.warmBodyGroupCode}}"
+                                        id="warmBody">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Hazard<span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="empData.hazardCode" style="width:100%;"
+                                        ng-options="c.hazardCode as c.hazardName for c in hazardList" value="{{c.hazardCode}}"
+                                        id="hazard"></select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary pull-left text-blue-800 " ng-disabled="bDisable" ng-click="refreshDataList()"><i class="icon-database-refresh"></i></button>
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="addAppointee(empData)"> <i class="icon-check2"></i> Add to List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Select Appointee -->
+    @*<div class="modal fade" id="openModalApptPS" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-full" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard4"></i> PS</h5>
+                    </div>
+                    <div class="modal-body" style="padding-top:5px;">
+
+                        <div class="row table-responsive">
+
+                            <div class="col-md-12" style="font-size:.9em;">
+
+                                <table class="table table-striped">
+                                    <thead class="text-bold">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Rate</td>
+                                            <td>Annual</td>
+                                            <td>PERA</td>
+                                            <td>LEAVE</td>
+                                            <td>Hazard</td>
+                                            <td>Subs.</td>
+                                            <td>Laun.</td>
+                                            <td>Mid-Year</td>
+                                            <td>Year-End</td>
+                                            <td>C-Gift</td>
+                                            <td>GSIS</td>
+                                            <td>ECC</td>
+                                            <td>PHIC</td>
+                                            <td>C.A.</td>
+                                            <td>TOTAL P.S.</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in psList">
+
+                                            <td>{{$index+1}}.) {{item.fullNameLast}}</td>
+                                            <td>{{item.monthlyRate | number: 2}}</td>
+                                            <td>{{item.annualRate | number: 2}}</td>
+                                            <td>{{item.PERA | number: 2}}</td>
+                                            <td>{{item.leaveEarned | number: 2}}</td>
+                                            <td>{{item.hazardPay | number: 2}}</td>
+                                            <td>{{item.subsistence | number: 2}}</td>
+                                            <td>{{item.laundry | number: 2}}</td>
+                                            <td>{{item.midYearBonus | number: 2}}</td>
+                                            <td>{{item.yearEndBonus | number: 2}}</td>
+                                            <td>{{item.cashGift | number: 2}}</td>
+                                            <td>{{item.lifeRetmnt | number: 2}}</td>
+                                            <td>{{item.ECC | number: 2}}</td>
+                                            <td>{{item.phic | number: 2}}</td>
+                                            <td>{{item.clothing | number: 2}}</td>
+                                            <td>{{item.total | number: 2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <!--
+
+     <!-- /PRINT FORM MODAL -->
+    <!-- /OATH -->
+    <div id="modalFormDataOath" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-user-check"></i> &nbsp; {{formData.fullNameFirst}} <small class="text-white">({{formData.positionTitle}})</small></h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Complete Present Address <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.completeAddress">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <label class="no-margin-bottom">Govt. Issued ID <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDName">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Govt. ID Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDNo">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Date Issued <span class="text-danger">*</span> </label>
+                                <input type="date" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDIssued">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printApptForms(oathData,'OATH')"><i class="icon-printer2"></i> Oath of Office</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == false" ng-click="updateOathData(oathData)">&nbsp; Update &nbsp;</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /OATH -->
+    @*<div id="modalFormDataOath" class="modal fade" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title"> <i class="icon-user-check"></i> &nbsp; {{formData.fullNameFirst}} <small class="text-white">({{formData.positionTitle}})</small></h6>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="no-margin-bottom">Complete Present Address <span class="text-danger">*</span>  </label>
+                                    <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.completeAddress">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-5">
+                                    <label class="no-margin-bottom">Govt. Issued ID <span class="text-danger">*</span>  </label>
+                                    <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDName">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="no-margin-bottom">Govt. ID Number <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDNo">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="no-margin-bottom">Date Issued <span class="text-danger">*</span> </label>
+                                    <input type="date" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="oathData.govtIDIssued">
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printApptForms(oathData,'OATH')"><i class="icon-printer2"></i> Oath of Duty</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                        <button type="button" class="btn btn-primary" ng-show="isReadOnly == false" ng-click="updateOathData(oathData)">&nbsp; Update &nbsp;</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+    <!-- /ASSUMPTION -->
+    <div id="modalFormDataAssumption" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-user-check"></i> &nbsp; {{formData.fullNameFirst}} <small class="text-white">({{formData.positionTitle}})</small></h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Assumption Date   </label>
+                                <input type="date" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="assumptData.assumptionDate">
+                            </div>
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Name of Appointee <span class="text-danger ">*</span>  <span class="text-italic text-muted">(Title Name)</span> </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="true" ng-model="assumptData.fullNameTitle">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Name Prefix <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-change="changePreSuffix()" ng-readonly="isReadOnly" ng-model="assumptData.namePrefix">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Name Suffix</label>
+                                <input type="text" class="form-control text-semibold" ng-change="changePreSuffix()" ng-readonly="isReadOnly" ng-model="assumptData.nameSuffix">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">P.G. Department Head <span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold" ng-readonly="isReadOnly" ng-model="assumptData.PGHeadName">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">P.G. Dept. Head Position<span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold " ng-readonly="isReadOnly" ng-model="assumptData.PGHeadPosition">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="no-margin-bottom">Office Assignment<span class="text-danger">*</span>  </label>
+                                <input type="text" class="form-control text-semibold " ng-readonly="isReadOnly" ng-model="assumptData.officeAssignment">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printApptForms(assumptData,'ASSUMPTION')"><i class="icon-printer2"></i> Assumption</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                    <button type="button" class="btn btn-primary" ng-show="isReadOnly == false" ng-click="updateAssumptionData(assumptData)">&nbsp; Update &nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Position Description Form (PDF) -->
+    <div id="modalFormDataPDF" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-user-check"></i> &nbsp; {{formData.fullNameFirst}} <small class="text-white">({{formData.positionTitle}})</small></h6>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Present Approp Act</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.presentAppropAct" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Previous Approp Act</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.previousAppropAct" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Other Compensation</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.otherCompensation" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Position Title of Immediate Supervisor <span class="text-danger">*</span></label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.positionSupervisor" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Position Title of Next Higher Supervisor <span class="text-danger">*</span></label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.positionSupervisorNext" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Directly Supervised Positions</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.supervisedPositions" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Directly Supervised Item No</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="pdfData.supervisedItemNo" class="form-control text-semibold">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Machine, Equipment, Tools Used</label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.machineToolsUsed" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+
+                            <div class="col-md-12 ">
+                                <h6 class="no-margin-bottom text-bold"> Contacts / Clients / Stakeholders</h6>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <table class="table table-borderless tbl-sm">
+                                    <thead class="bg-blue-700">
+                                        <tr>
+                                            <td style="width:50%!important;">
+                                                <span class="text-white text-bold">INTERNAL</span>
+                                            </td>
+                                            <td class="text-center">Occasional</td>
+                                            <td class="text-center">Frequent</td>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Executive/ Managerial
+                                        </td>
+                                        <td class="text-center text-size-large">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoManagerial" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFManagerial == 0" ng-model="pdfData.PDFManagerial" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoManagerial" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFManagerial == 1" ng-model="pdfData.PDFManagerial" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Supervisors
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoSupervisory" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFSupervisor == 0" ng-model="pdfData.PDFSupervisor" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoSupervisory" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFSupervisor == 1" ng-model="pdfData.PDFSupervisor" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Non-supervisors
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoNonSupervisory" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFNonSupervisor == 0" ng-model="pdfData.PDFNonSupervisor" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoNonSupervisory" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFNonSupervisor == 1" ng-model="pdfData.PDFNonSupervisor" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Staff
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoStaff" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFStaff == 0" ng-model="pdfData.PDFStaff" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoStaff" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFStaff == 1" ng-model="pdfData.PDFStaff" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <table class="table table-borderless tbl-sm">
+                                    <thead class="bg-blue-700">
+                                        <tr>
+                                            <td style="width:50%;">
+                                                <span class="text-white text-bold">EXTERNAL</span>
+                                            </td>
+                                            <td class="text-center">Occasional</td>
+                                            <td class="text-center">Frequent</td>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            General Public
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoGenPublic" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFGenPublic == 0" ng-model="pdfData.PDFGenPublic" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoGenPublic" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFGenPublic == 1" ng-model="pdfData.PDFGenPublic" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Other Agencies
+                                        </td>
+                                        <td class="text-center ">
+                                            <label class="text-size-large">
+                                                &nbsp; <input type="radio" name="PDFOtherAgency" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFOtherAgency == 0" ng-model="pdfData.PDFOtherAgency" />
+                                            </label>
+
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="text-size-large">
+                                                &nbsp; <input type="radio" name="PDFOtherAgency" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFOtherAgency == 1" ng-model="pdfData.PDFOtherAgency" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            Other Specify
+                                            <input type="text" ng-model="pdfData.PDFOthers" ng-readonly="isReadOnly" class="form-control" />
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <h6 class="no-margin-bottom text-bold no-margin-top"> Working Condition</h6>
+                            </div>
+
+                            <div class="col-md-6">
+                                <table class="table table-borderless tbl-sm">
+
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Office Work
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConOffice" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConOffice == 0" ng-model="pdfData.PDFWorkConOffice" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConOffice" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConOffice == 1" ng-model="pdfData.PDFWorkConOffice" />
+                                            </label>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                <table class="table table-borderless tbl-sm">
+
+                                    <tr>
+                                        <td style="width:50%!important;">
+                                            Field Work
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConField" value="0" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConField == 0" ng-model="pdfData.PDFWorkConField" />
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label>
+                                                &nbsp; <input type="radio" name="rdoWorkConField" value="1" ng-disabled="isReadOnly" ng-checked="pdfData.PDFWorkConField == 1" ng-model="pdfData.PDFWorkConField" />
+                                            </label>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <label class="no-margin-bottom">GENERAL FUNCTION OF THE UNIT OR SECTION <span class="text-danger">*</span></label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.PDFGenFunc" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-bottom">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <label class="no-margin-bottom">GENERAL FUNCTION OF THE POSITION (Job Summary) <span class="text-danger">*</span></label>
+                                <input id="text" ng-readonly="isReadOnly" type="text" ng-model="pdfData.PDFGenFuncPosition" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printPDF('FRONT')"> <i class="icon-printer2"></i> PDF (Front)</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="printPDF('BACK')"> <i class="icon-printer2"></i> PDF (Back)</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-show="isReadOnly == false" ng-click="updatePDFData(pdfData)"><i class="icon-check"></i>  Update &nbsp;</button>
+                    <button type="button" class="btn btn-default" ng-show="isReadOnly == true" ng-click="editFormData()">Edit Data</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Primary modal -->
+    <div id="modalPosting" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-stamp"></i> &nbsp; {{postData.fullNameFirst}} <br /> <small class="text-white"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{postData.positionTitle}}</small></h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Assumption Date <span class="text-danger">*</span>  </label>
+                                <input type="date" class="form-control text-semibold" ng-model="postData.periodFrom">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label class="no-margin-bottom">Work Group <span class="text-danger">*</span></label>
+                            <select class="form-control select2 select-Custom" ng-model="workGroupCode" style="width:100%;"
+                                    ng-options="c.workGroupCode as c.workGroupName for c in workGroupList" value="{{c.workGroupCode}}"
+                                    id="workGroup">
+                                <option value="" selected="">-- Select --</option>
+                            </select>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="postAppointmentItem(postData)">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- /main content -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/swal/sweetalert.min.js"></script>
+    <script src="~/Scripts/AngularJS/AppointmentNonPlantilla/ViewDetail.js"></script>
+
+    <script>
+        $("#fundSource").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#employee").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#position").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#subPosition").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#warmBody").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#workGroup").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

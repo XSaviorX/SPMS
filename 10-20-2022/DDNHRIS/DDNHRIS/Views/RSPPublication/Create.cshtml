@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+<!-- Vertical form options -->
+<div class="row" ng-controller="PublicationCreate">
+
+    <div class="content">
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+
+                <!-- Page header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <div class="page-title">
+                            <h4><a href="~/RSPPublication/Publication" class="icon-arrow-left52 position-left"></a> <span class="text-semibold">NEW PUBLICATION</span> </h4>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /page header -->
+
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group text-semibold">
+                                <label class="no-margin-bottom"> Publication Date </label>
+                                <input type="date" class="form-control" ng-model="data.publicationDate">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">CSC Posted </label>
+                                <input type="date" class="form-control" ng-model="data.CSCPostedDate">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="no-margin-bottom">CSC Closing </label>
+                                <input class="form-control required" type="date" ng-model="data.CSCClosingDate" name="date">
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="input-group text-semibold" style="width:100%">
+                                    <select class="form-control select2 select-Custom text-semibold" ng-model="data.plantillaCode" style="width:100%;"
+                                            ng-options="c.plantillaCode as c.positionTitle   for c in vacantList" value="{{c.plantillaCode}}"
+                                            id="position">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button class="btn btn-default text-blue-800" ng-disabled="bDisable" ng-click="addToList(data.plantillaCode)">
+                                    <i class="icon-plus2"></i> Add Position
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+                    <p style="font-size:.3em;">&nbsp;</p>
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <!-- Scrollable table -->
+                            <div class="panel panel-flat">
+                                @*<div class="panel-heading">
+                                        <h5 class="panel-title text-blue-800 text-semibold">LIST OF APPOINTEE</h5>
+                                        <div class="heading-elements">
+                                            <button class="btn btn-sm btn-default text-blue-800 text-semibold" ng-click="openModalSelectEmp()">
+                                                <span class=" icon-user-plus "></span> &nbsp; Add Appointee
+                                            </button>
+                                        </div>
+                                    </div>*@
+
+                                <div class="table-responsive pre-scrollable">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>POSITION TITLE</th>                                              
+                                               
+                                                <th>EDUCATION</th>
+                                                <th>EXPERIENCE</th>
+                                                <th>TRAINING</th>
+                                                <th>ELIGIBILITY</th>
+                                                @*<th>COMPETENCY</th>*@
+                                                <th>PLACE OF ASSIGNMENT</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in pubItemList">
+                                               
+                                                <td style="vertical-align:top; width:10px;">
+                                                    {{$index+1}}                                                  
+                                                </td>
+                                                
+                                                <td style="vertical-align:top; width:25%;">
+                                                    <span class="text-blue-800 text-semibold">{{item.positionTitle}}</span>
+                                                    <br />
+                                                    <span class="text-semibold">P{{item.rateMonth | number:2}}</span>
+                                                    <span class="label label-primary">SG  {{item.salaryGrade}}/1</span>
+                                                 
+                                                </td>
+                                                 
+                                                <td style="vertical-align:top">
+                                                    {{item.QSEducation}}
+                                                </td>
+                                                <td style="vertical-align:top">
+                                                    {{item.QSExperience}}
+                                                </td>
+                                                <td style="vertical-align:top">
+                                                    {{item.QSTraining}}
+                                                </td>
+                                                <td style="vertical-align:top">
+                                                    {{item.QSEligibility}}
+                                                </td>
+                                                <td style="vertical-align:top">
+                                                    {{item.placeOfAssignment}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button class="btn btn-primary" ng-click="submitPublication(data)">
+                                <span class="icon-check"></span> Submit Publication
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Select Appointee -->
+    <div class="modal fade" id="openModalSelectEmp" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard4"></i> Employement Period </h4>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Appointee <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.EIC" style="width:100%;"
+                                        ng-options="c.EIC as c.fullNameLast for c in empList" value="{{c.EIC}}"
+                                        id="employee">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Position <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom" ng-model="empData.positionCode" style="width:100%;"
+                                        ng-options="c.positionCode as c.positionTitle for c in positionList" value="{{c.positionCode}}"
+                                        id="position">
+                                    <option value="" selected="">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Place of Assignment <span class="text-danger">*</span></label>
+                                <select class="form-control select2 select-Custom text-semibold" ng-model="empData.warmBodyGroupCode" style="width:100%;"
+                                        ng-options="c.plantillaCode as c.positionTitle for c in vacantList" value="{{c.plantillaCode}}"
+                                        id="warmBody">
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info " ng-click="AddAppointee(empData)">Add to List</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+     
+
+</div>
+<!-- /vertical form options -->
+@section JavaScript{
+
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/swal/sweetalert.min.js"></script>
+    <script src="~/Scripts/AngularJS/RSPPublication/Create.js"></script>
+
+    <script>
+
+        $("#position").select2({
+            placeholder: '-- Select Position --',
+            allowClear: true
+        });
+
+    </script>
+}
+
+
+
+
+

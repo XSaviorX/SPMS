@@ -1,0 +1,514 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .my-custom-scrollbar {
+        position: relative;
+        height: 80vh;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+
+    .lbl_opcrTableH {
+        text-align: center;
+    }
+
+    sticky {
+        position: sticky;
+        top: 0;
+    }
+</style>
+<div ng-controller="CMFO">
+    <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active"
+               data-toggle="tab"
+               href="#finalcmfo"
+               role="tab"
+               aria-selected="true">OFFICE COMMON MFO</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link"
+               data-toggle="tab"
+               href="#cmfo"
+               role="tab"
+               aria-selected="false"
+               ng-click="getCMFO()">LIST OF ALL COMMON MFO</a>
+        </li>
+    </ul>
+    <!-- Tabs content -->
+    <div class="tab-content clearfix" id="SPMS-content">
+        <div class="tab-pane active" id="finalcmfo">
+
+            <div class="table-responsive" style="display:block;">
+                <div class="my-custom-scrollbar">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="lbl_opcrTableH">
+                                    COMMON MFO
+                                </th>
+                                <th rowspan="2" class="lbl_opcrTableH">
+                                    SUCCESS INDICATORS
+                                </th>
+                             
+                                <th colspan="4" class="lbl_opcrTableH">
+                                    PERFORMANCE
+                                </th>
+                                <th rowspan="2" class="lbl_opcrTableH">
+                                    ACTIONS
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="lbl_opcrTableH">Rating</th>
+                                <th class="lbl_opcrTableH">Quantity</th>
+                                <th class="lbl_opcrTableH" style="width:250px">Quality</th>
+                                <th class="lbl_opcrTableH" style="width:200px">Timeliness</th>
+                            </tr>
+                        </thead>
+
+                        <tbody ng-repeat="opcr in cmfoesPerOffice | filter: {isActive: 1} | unique: 'CMFOId'">
+                            <tr>
+                                <td rowspan="{{rowCount(opcr.CMFOId,opcr)}}">
+                                    <strong>{{opcr.CMFO}}</strong>  <button class="btn btn-link">
+                                        <i class="bi bi-pencil-square" style="color:dodgerblue;" ng-click="editCmfoIndIdToModal(opcr.CMFOId)" data-toggle="modal" data-target="#editCMFOForm"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="ind in cmfoesPerOffice | filter: {CMFOId: opcr.CMFOId} | filter: {isActive: 1} ">
+                                <td>{{ind.target}} {{ind.indicator}}</td>                              
+                                <td>
+                                    <table class="table table-columned" style="background-color:inherit">
+                                        <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {performanceId: ind.performanceId}">
+                                            <tr style="height:50px">
+                                                <td><center>{{pdata.rating}}</center></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="table table-columned" style="background-color:inherit">
+                                        <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {performanceId: ind.performanceId}">
+                                            <tr style="height:50px">
+                                                <td><center>{{pdata.quantity}}</center></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="table table-columned" style="background-color:inherit">
+                                        <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {performanceId: ind.performanceId}">
+                                            <tr style="height:50px">
+                                                <td><center>{{pdata.quality}}</center></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="table table-borderless" style="background-color:inherit">
+                                        <tbody class="no-border" ng-repeat="pdata in performanceData | filter: {performanceId: ind.performanceId}">
+                                            <tr style="height:50px;">
+                                                <td class="no-border"><center>{{pdata.timeliness}}</center></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <button class="btn btn-link">   
+                                        <i class="bi bi-pencil-square" style="color:dodgerblue;" ng-click="getCmfoIndIdToModal(ind.performanceId, ind.officeId)" data-toggle="modal" data-target="#addPerformance"></i>
+                                        <i class="bi bi-trash3" style="color:red;" ng-click="removedInd(ind.indicatorId)"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCMFOForm">
+                <i class="bi bi-plus-lg"> ADD COMMON MFO </i>
+            </button>
+            <button ng-click="getCMFO()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignMFO">
+                <i class="bi bi-arrow-left-right"> ASSIGN COMMON MFO </i>
+            </button>
+        </div>
+
+
+        @*LIST OF ALL COMMON MFO TAB*@
+        <div class="tab-pane fade" id="cmfo">
+            <div class="card" style="width: 95%; margin-left: 20px">
+                <div class="table-responsive" style="display:block;">
+                    <div class="my-custom-scrollbar">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        COMMON MFO
+                                    </th>
+                                    <th>
+                                        SUCCESS INDICATOR
+                                    </th>
+                                    <th>
+                                        OFFICE
+                                    </th>
+                                    <th class="hidden">
+                                        ACTIONS
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in cmfoes | unique: 'CMFOId'">
+                                    <td>{{item.CMFO}}</td>
+                                    <td>
+                                        <table>
+                                            <tbody ng-repeat="ind in cmfoes | filter:{CMFOId: item.CMFOId}">
+                                                <tr>
+                                                    <td>- {{ind.target}} {{ind.indicator}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tbody ng-repeat="ind in cmfoes | filter:{CMFOId: item.CMFOId}">
+                                                <tr>
+                                                    <td>{{ind.officeNameShort}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="hidden">
+                                        <button class="btn btn-link">
+                                            <i class="icon icon-pen2" ng-click="updateEmployee(item)"></i>
+                                        </button>
+
+                                        <button class="btn btn-link" ng-click="deleteData(item.recNo)">
+                                            <i class="icon icon-bin"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCMFOForm">
+                <i class="icon icon-plus3"> ADD COMMON MFO </i>
+            </button>
+        </div>
+
+    </div>
+
+    @*MODAL SECTION*@
+    @*ASSIGN CMFO MODAL*@
+    <div class="modal fade" id="assignMFO" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">ASSIGN COMMON MFO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Search Common MFO</label> <br />
+                            <input type="text" class="form-control" ng-model="search" placeholder="Search here . . ." />
+
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Select Office:</label> <br />
+                            <select ng-model="office" class="form-control">
+                                <option value="">ALL</option>
+                                <option ng-repeat="office in cmfoes | unique: 'officeId' " value="{{office.officeNameShort}}">{{office.officeNameShort}} ({{office.officeName}})</option>
+                            </select>
+
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+
+                        <div class="table-responsive" style="display:block;">
+
+
+                            <div class="my-custom-scrollbar">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <strong>COMMON MFO</strong>
+                                            </td>
+                                            <td>
+                                                <strong>SUCCESS INDICATOR</strong>
+                                            </td>
+                                            <td>
+                                                <strong> OFFICE</strong>
+                                            </td>
+                                            <td><strong>STANDARD</strong></td>
+
+                                            <td>
+                                                <strong>ACTION</strong>
+                                            </td>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody ng-repeat="assignMFO in cmfoes | filter:{CMFO: search} | filter:{officeNameShort:office} | unique: 'CMFOId'">
+                                        <tr>
+                                            <td rowspan="{{rowCount(assignMFO.CMFOId,assignMFO)}}">{{assignMFO.CMFO}}</td>
+                                        </tr>
+                                        <tr ng-repeat="ind in cmfoes | filter: {CMFOId: assignMFO.CMFOId} ">
+                                            <td>{{ind.target}} {{ind.indicator}} </td>
+                                            <td>{{ind.officeNameShort}} </td>
+                                            <td>
+                                                <i class="bi bi-eye" ng-click="getCmfoIndIdToModal(ind.performanceId, ind.officeId)" data-toggle="modal" data-target="#addPerformance"></i>
+                                            </td>
+
+                                            <td>
+                                                <label>
+                                                    <input type="hidden" class="" value="{{ind.isActive}}" id="i{{ind.indicatorId}}{{ind.officeId}}" />
+
+                                                    <button type="button" class="{{buttonColr(ind.isActive)}}" ng-click="returnSliderStatuss(ind)" id="{{ind.officeId}}{{ind.indicatorId}}">{{isactiveStatus(ind)}}</button>
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                            <hr />
+                            <button type="button" class="btn" data-dismiss="modal" onclick="">CANCEL</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*MODAL FOR COMMON MFO*@
+    <div class="modal fade" id="addCMFOForm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="delIndicatorField()">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">COMMON MFO ADDING FORM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="delIndicatorField()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+
+                        <br />
+                        <input type="hidden" value="0" id="idnum">
+                        <label><b>Common MFO Description</b></label>
+                        <input type="text" ng-model="newCMFO.CMFO" class="form-control" name="addMFO" />
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label style="margin-top:10px;"><b>Success Indicator/s</b></label>
+                                <button ng-click="addIndicatorField()" class="btn btn-link"><i class="icon icon-add"></i></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <label> Target Count </label>
+                            </div>
+                            <div class="col-lg-1">
+                                <label> Description </label>
+                            </div>
+                        </div>
+                        <div id="indicators" ng-repeat="newInd in newIndicator">
+
+                            <div class='row'>
+                                <div class='col-lg-1'>
+                                    <input style="margin-top:20px;" type="text" ng-model="newInd.target" class="form-control" id="addIndicator2" placeholder="#{{$index + 1}}" />
+
+                                </div><div class='col-lg-11'>
+                                    <input style="margin-top:20px;" type="text" ng-model="newInd.indicator" class="form-control" id="addIndicator" placeholder="#{{$index + 1}}">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="delIndicatorField()">CLOSE</button>
+                            <button type="button" class="btn btn-primary" ng-click="insertCMFO(newCMFO)">SAVE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    @*EDIT CMFO AND SUCCESS INDICATOR*@
+    <div class="modal fade" id="editCMFOForm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" onclose="delIndicatorField()">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">COMMON MFO UPDATE FORM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="delIndicatorField()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group" ng-repeat="items in cmfoestoModal | unique: CMFOId">
+
+
+                        <br />
+                        <input type="hidden" value="0" id="idnum">
+                        <label><b>Common MFO Description</b></label>
+                        <input type="text" ng-model="items.CMFO" class="form-control" id="updateAll_MFODesc"/>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label style="margin-top:10px;"><b>Success Indicator/s</b></label>
+                                <button ng-click="addIndicatorField()" class="btn btn-link"><i class="icon icon-add"></i></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <label> Target Count </label>
+                            </div>
+                            <div class="col-lg-1">
+                                <label> Description </label>
+                            </div>
+                        </div>
+                        <div id="indicators" ng-repeat="newInd in cmfoestoModal">
+
+                            <div class='row'>
+                                <div class='col-lg-1'>
+                                    <input style="margin-top:20px;" type="text" ng-model="newInd.target" class="form-control" id="addIndicator2" placeholder="#{{$index + 1}}" />
+
+                                </div><div class='col-lg-11'>
+                                    <input style="margin-top:20px;" type="text" ng-model="newInd.indicator" class="form-control" id="addIndicator" placeholder="#{{$index + 1}}">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="delIndicatorField()">CLOSE</button>
+                            <button type="button" class="btn btn-primary" ng-click="updateMFO_allSIbyID(cmfoestoModal)">SAVE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!--Modal Add Performance-->
+    <div class="modal fade" id="addPerformance" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">PERFORMANCE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>
+                                    Rating
+                                </td>
+                                <td>
+                                    Quantity
+                                </td>
+                                <td>
+                                    Quality
+                                </td>
+                                <td>
+                                    Timeliness
+                                </td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="performance in addPerformance">
+                                <td>
+                                    <input ng-model="performance.performanceId = (getPfmcID)" type="hidden" value="{{getPfmcID}}" />
+
+
+                                    <input ng-init="performance.rating = (addPerformance.length - $index)" type="text" name="rate" ng-value="{{addPerformance.length - $index}}" class="no-border" readonly="readonly" />
+                                </td>
+
+                                <td>
+                                    <input ng-model="performance.quantity" name="quantity" class="no-border" readonly="readonly" />
+                                </td>
+                                <td>
+                                    <input ng-model="performance.quality" class="form-control" name="quality" />
+                                </td>
+                                <td>
+                                    <input ng-model="performance.timeliness" class="form-control" name="timeliness" />
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        @*{{addPerformance}}*@
+                    </table>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button ng-click="add_Performance()" id="addPrfmc" type="button" class="btn btn-primary">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------------->
+
+</div>
+<script>
+
+    function delIndicatorField() {
+        var counter = $('#idnum').val();
+        for (; counter > 1; counter--) {
+            $('#addtarget' + counter).remove();
+            $('#addIndicator' + counter).remove();
+            $('#idnum').val(counter - 1);
+        }
+    }
+
+    function getSelectedOffice() {
+        var officeID = document.getElementById('selectedOffice').value;
+        angular.element(document.getElementById('selectedOffice')).scope().getPrograms(officeID);
+    }
+
+    function getSelectedProgram() {
+        var programID = document.getElementById('selectedProgram').value;
+        angular.element(document.getElementById('selectedProgram')).scope().getProjects(programID);
+    }
+    function getSelectedProject() {
+        var projectID = document.getElementById('selectedProject').value;
+        angular.element(document.getElementById('selectedProject')).scope().getAppropriateProjID(projectID);
+    }
+
+</script>
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/CMFO/CMFO.js"></script>
+
+
+}
+

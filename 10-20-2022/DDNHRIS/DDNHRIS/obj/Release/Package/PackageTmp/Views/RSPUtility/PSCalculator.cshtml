@@ -1,0 +1,466 @@
+﻿@{
+    ViewBag.Title = "Work Group";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 7px 20px;
+        line-height: 1.2;
+        vertical-align: top;
+    }
+</style>
+
+<div ng-controller="PSCalculator">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">P.S. CALULATOR</span></h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#pending" data-toggle="tab"><i class="icon-stack-text position-left"></i> P.S. Computation Plan </a></li>
+                    @*<li><a href="#posted" data-toggle="tab"><i class="icon-calendar52 position-left"></i> Attendance Schedule</a></li>*@
+
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                @*<li><a href="#"><i class="icon-user-check"></i> Add Appointee</a></li>*@
+                                <li ng-click="openModalPSPlan()"><a href="#"><i class="icon-calculator"></i> NEW PS PLAN</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+
+
+
+    <!-- Content area -->
+    <div class="content" style="width:100%!important;">
+
+        <!-- Basic table -->
+
+        <div class="panel panel-flat" ng-show="tabId == 0">
+            <div class="panel-heading">
+                <h5 class="panel-title no-margin-top no-margin-bottom  text-blue-800 text-semibold">
+                    P.S. PLAN COMPUTATION
+                </h5>
+
+                <div class="heading-elements">
+                    <input class="form-control" type="text" placeholder="Type to Search" style="max-width:550px;" ng-model='searchString' />
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>PLAN NAME</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in psPlanList | filter :searchString">
+                            <td style="width:100PX!important;">
+                                {{$index+1}}
+                            </td>
+                            <td class="cursor-pointer" ng-click="viewPSPlanList(item)">
+                                <span class="text-blue-800 text-bold">{{item.planName}}</span>
+                            </td>
+
+                            <td class="text-center" style="min-width:90px!important;">
+                                <button class="btn btn-sm btn-rounded btn-primary" ng-click="selectGroupMate(item)">
+                                    <i class="icon-printer2"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="panel panel-flat" ng-show="tabId == 1">
+            <div class="panel-heading">
+                <h5 class="panel-title no-margin-top no-margin-bottom text-semibold">
+                    <i class="icon-arrow-left52 cursor-pointer" ng-click="backToList()"></i> <span class="text-blue-800 text-bold">{{psPlanData.planName}}</span>
+                </h5>
+
+                <div class="heading-elements">
+
+                    <button class="btn btn-link text-blue-800 text-bold" ng-click="printPSPlan(psPlanData)">
+                        <i class="icon-printer"></i> Print
+                    </button>
+
+                    <button class="btn btn-link text-blue-800 text-bold" ng-click="openModalAddName()">
+                        <i class="icon-user-plus"></i> Name
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered tbl-sm">
+
+                    <thead>
+                        <tr>
+                            <th style="width:50px!important"></th>
+                            <th>NAME</th>
+                            <th>DAILY</th>
+                            <th>MONTHLY</th>
+                            <th>ANNUAL</th>
+                            <th>PERA</th>
+                            <th>LEAVE</th>
+                            <th>HAZARD</th>
+                            <th>LAUNDRY</th>
+                            <th>SUBS.</th>
+                            <th>MID-YR</th>
+                            <th>YR-END</th>
+                            <th>C-GIFT</th>
+                            <th>GSIS</th>
+                            <th>ECC</th>
+                            <th>HDMF</th>
+                            <th>PHIC</th>
+                            <th>C.A.</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="item in psPlanItemList">
+                            <td class="text-blue-800">
+                                {{$index+1}}
+                            </td>
+                            <td class="text-blue-800 text-semibold cursor-pointer">
+                                <span ng-show="item.EIC == null" ng-click="editItemData(item)">
+                                    {{item.appointeeName}}
+                                </span>
+                                <span ng-show="item.EIC != null" ng-click="editItemData(item)">
+                                    {{item.fullNameLast}}
+                                </span>
+                            </td>
+
+                            <td class="text-right">{{item.dailyRate| number:2}}</td>
+                            <td class="text-right">{{item.monthlyRate| number:2}}</td>
+                            <td class="text-right">{{item.annualRate| number:2}}</td>
+                            <td class="text-right">{{item.PERA| number:2}}</td>
+                            <td class="text-right">{{item.leaveEarned| number:2}}</td>
+                            <td class="text-right">{{item.hazardPay| number:2}}</td>
+                            <td class="text-right">{{item.laundry| number:2}}</td>
+                            <td class="text-right">{{item.subsistence| number:2}}</td>
+                            <td class="text-right">{{item.midYear| number:2}}</td>
+                            <td class="text-right">{{item.yearEnd| number:2}}</td>
+                            <td class="text-right">{{item.cashGift| number:2}}</td>
+                            <td class="text-right">{{item.lifeRetiremnt| number:2}}</td>
+                            <td class="text-right">{{item.ECC | number:2}}</td>
+                            <td class="text-right">{{item.HDMF | number:2}}</td>
+                            <td class="text-right">{{item.PHIC | number:2}}</td>
+                            <td class="text-right">{{item.clothing | number:2}}</td>
+                            <td class="text-right">{{item.totalPS | number:2}}</td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- /basic table -->
+    </div>
+    <!-- /main content -->
+    <!-- Modal APPOINTMENT POSTING-->
+    <div class="modal fade" id="modalPSPlan" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">
+                        NEW P.S. PLAN
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">P.S. Plan <span class="text-danger">*</span></label>
+                                            <input class="form-control" ng-model="data.planName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">Source of Fund <span class="text-danger">*</span></label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large text-grey-800" ng-model="data.fundSourceCode" style="width:100%;" ng-disabled="loadingState"
+                                                    ng-options="c.fundSourceCode as c.projectName for c in fundSourceList" value="{{c.fundSourceCode}}"
+                                                    id="project">
+                                                <option value="" selected="" disabled="disabled">-- Select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-7">
+                                            <label class="text-muted no-margin-bottom">Employement Status <span class="text-danger">*</span></label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large text-grey-800" ng-model="data.employmentStatusCode" style="width:100%;" ng-disabled="loadingState"
+                                                    ng-options="c.val as c.text for c in empStatusList" value="{{c.val}}"
+                                                    id="scheme">
+                                                <option value="" selected="" disabled="disabled">-- Select --</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <label class="text-muted no-margin-bottom"> Initial Data</label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large text-grey-800" ng-model="data.stat" style="width:100%;" ng-disabled="loadingState"
+                                                    ng-options="c.val as c.text for c in initStatData" value="{{c.val}}"
+                                                    id="initData">
+                                                @*<option value="" selected="" disabled="disabled">-- Select --</option>*@
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary bg-blue-800 " ng-disabled="bDisable" ng-click="submitPlan(data)">Create P.S. Plan</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal APPOINTMENT POSTING-->
+    <div class="modal fade" id="modalAddName" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">
+                        Add Name
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">Name of Appointee <span class="text-danger">*</span></label>
+                                            <input class="form-control" ng-model="dataItem.appointeeName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">Position <span class="text-danger">*</span></label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large text-grey-800" ng-model="dataItem.positionCode" style="width:100%;" ng-disabled="loadingState"
+                                                    ng-options="c.positionCode as c.positionTitle for c in position" value="{{c.positionCode}}"
+                                                    id="hazard">
+                                                <option value="" selected="" disabled="disabled">-- Select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="text-muted no-margin-bottom">Period From <span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" ng-model="dataItem.periodFrom" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="text-muted no-margin-bottom">Period To <span class="text-danger">*</span></label>
+                                            <label class="form-control">12/31/2021</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="text-muted no-margin-bottom">Hazard Pay <span class="text-danger">*</span></label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large text-grey-800" ng-model="dataItem.hazardCode" style="width:100%;" ng-disabled="loadingState"
+                                                    ng-options="c.value as c.text for c in tempHazard" value="{{c.value}}"
+                                                    id="hazard">
+                                                <option value="" selected="" disabled="disabled">-- Select --</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom"> Employment Status  </label>
+                                            <label class="form-control">{{stat}}</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary bg-blue-800 " ng-disabled="bDisable" ng-click="submitTempName(dataItem)">Add to List</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal APPOINTMENT POSTING-->
+    <div class="modal fade" id="modalEdit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">
+                        Edit Data
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">Name of Appointee <span class="text-danger">*</span></label>
+                                            <label class="form-control text-blue-800 text-semibold">
+                                                {{psPlanItem.fullNameLast}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Period From <span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" ng-model="dataItem.periodFrom" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="text-muted no-margin-bottom">Period To <span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" ng-model="dataItem.periodTo" />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted no-margin-bottom">Hazard Pay <span class="text-danger">*</span></label>
+                                            <select class="form-control select2 select-Custom text-semibold text-size-large text-grey-800" ng-model="dataItem.hazardCode" style="width:100%;" ng-disabled="loadingState"
+                                                    ng-options="c.value as c.text for c in tempHazard" value="{{c.value}}"
+                                                    id="hazard">
+                                                <option value="" selected="" disabled="disabled">-- Select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary bg-blue-800 " ng-disabled="bDisable" ng-click="updateItemData(dataItem)">Update Data</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/inputmask/jquery.inputmask.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPUtility/PSCalculator.js"></script>
+
+    <script>
+        $("#project").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+        $("#initData").select2({           
+            allowClear: true
+        }); 
+    </script>
+
+}

@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HRISDBModelStoreContainer" CdmEntityContainer="HRISDBEntities">
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="HRISDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="HRISDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="HRISDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="HRISDBModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HRISDBModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="HRISDBModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HRISDBModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="HRISDBModel.Store.sp_renamediagram" />
+    <EntitySetMapping Name="tApplicants">
+      <EntityTypeMapping TypeName="HRISDBModel.tApplicant">
+        <MappingFragment StoreEntitySet="tApplicant">
+          <ScalarProperty Name="userEIC" ColumnName="userEIC" />
+          <ScalarProperty Name="isVerified" ColumnName="isVerified" />
+          <ScalarProperty Name="verificationCode" ColumnName="verificationCode" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="mobileNo" ColumnName="mobileNo" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="birthPlace" ColumnName="birthPlace" />
+          <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+          <ScalarProperty Name="fullNameFirst" ColumnName="fullNameFirst" />
+          <ScalarProperty Name="fullNameLast" ColumnName="fullNameLast" />
+          <ScalarProperty Name="extName" ColumnName="extName" />
+          <ScalarProperty Name="middleName" ColumnName="middleName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tApplicantEducations">
+      <EntityTypeMapping TypeName="HRISDBModel.tApplicantEducation">
+        <MappingFragment StoreEntitySet="tApplicantEducation">
+          <ScalarProperty Name="educationNo" ColumnName="educationNo" />
+          <ScalarProperty Name="transDT" ColumnName="transDT" />
+          <ScalarProperty Name="academicHonor" ColumnName="academicHonor" />
+          <ScalarProperty Name="yearTo" ColumnName="yearTo" />
+          <ScalarProperty Name="yearFrom" ColumnName="yearFrom" />
+          <ScalarProperty Name="highestLevel" ColumnName="highestLevel" />
+          <ScalarProperty Name="yearGraduated" ColumnName="yearGraduated" />
+          <ScalarProperty Name="degree" ColumnName="degree" />
+          <ScalarProperty Name="schoolName" ColumnName="schoolName" />
+          <ScalarProperty Name="schoolLevelCode" ColumnName="schoolLevelCode" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tApplicantFiles">
+      <EntityTypeMapping TypeName="HRISDBModel.tApplicantFile">
+        <MappingFragment StoreEntitySet="tApplicantFile">
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="uploadDT" ColumnName="uploadDT" />
+          <ScalarProperty Name="fileCode" ColumnName="fileCode" />
+          <ScalarProperty Name="fileName" ColumnName="fileName" />
+          <ScalarProperty Name="fileTypeCode" ColumnName="fileTypeCode" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tApplicantProfiles">
+      <EntityTypeMapping TypeName="HRISDBModel.tApplicantProfile">
+        <MappingFragment StoreEntitySet="tApplicantProfile">
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="performanceRating" ColumnName="performanceRating" />
+          <ScalarProperty Name="eligibility" ColumnName="eligibility" />
+          <ScalarProperty Name="training" ColumnName="training" />
+          <ScalarProperty Name="experience" ColumnName="experience" />
+          <ScalarProperty Name="education" ColumnName="education" />
+          <ScalarProperty Name="itemLevel" ColumnName="itemLevel" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tApplicantTrainings">
+      <EntityTypeMapping TypeName="HRISDBModel.tApplicantTraining">
+        <MappingFragment StoreEntitySet="tApplicantTraining">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="transDT" ColumnName="transDT" />
+          <ScalarProperty Name="venue" ColumnName="venue" />
+          <ScalarProperty Name="conductedBy" ColumnName="conductedBy" />
+          <ScalarProperty Name="hours" ColumnName="hours" />
+          <ScalarProperty Name="toDate" ColumnName="toDate" />
+          <ScalarProperty Name="fromDate" ColumnName="fromDate" />
+          <ScalarProperty Name="trainingTitle" ColumnName="trainingTitle" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="trainingCode" ColumnName="trainingCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tOrgDepartments">
+      <EntityTypeMapping TypeName="HRISDBModel.tOrgDepartment">
+        <MappingFragment StoreEntitySet="tOrgDepartment">
+          <ScalarProperty Name="branch" ColumnName="branch" />
+          <ScalarProperty Name="programActivity" ColumnName="programActivity" />
+          <ScalarProperty Name="functionName" ColumnName="functionName" />
+          <ScalarProperty Name="functionCode" ColumnName="functionCode" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="shortDepartmentName" ColumnName="shortDepartmentName" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+          <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPApplications">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPApplication">
+        <MappingFragment StoreEntitySet="tRSPApplication">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="isComplete" ColumnName="isComplete" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="appTypeCode" ColumnName="appTypeCode" />
+          <ScalarProperty Name="transDT" ColumnName="transDT" />
+          <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPPositions">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPPosition">
+        <MappingFragment StoreEntitySet="tRSPPosition">
+          <ScalarProperty Name="keyCSCLevel" ColumnName="keyCSCLevel" />
+          <ScalarProperty Name="keyPositionTag" ColumnName="keyPositionTag" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="positionCategory" ColumnName="positionCategory" />
+          <ScalarProperty Name="positionLevel" ColumnName="positionLevel" />
+          <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+          <ScalarProperty Name="acronym" ColumnName="acronym" />
+          <ScalarProperty Name="shortPositionTitle" ColumnName="shortPositionTitle" />
+          <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+          <ScalarProperty Name="positionCode" ColumnName="positionCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPPositionJobDescs">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPPositionJobDesc">
+        <MappingFragment StoreEntitySet="tRSPPositionJobDesc">
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+          <ScalarProperty Name="jobDesc" ColumnName="jobDesc" />
+          <ScalarProperty Name="jobSeqNo" ColumnName="jobSeqNo" />
+          <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPPublicationItems">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPPublicationItem">
+        <MappingFragment StoreEntitySet="tRSPPublicationItem">
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="pageNoPub" ColumnName="pageNoPub" />
+          <ScalarProperty Name="itemNoPub" ColumnName="itemNoPub" />
+          <ScalarProperty Name="PSBDate" ColumnName="PSBDate" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="publicationCode" ColumnName="publicationCode" />
+          <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPEmployees">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPEmployee">
+        <MappingFragment StoreEntitySet="vRSPEmployee">
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="workGroupDesc" ColumnName="workGroupDesc" />
+          <ScalarProperty Name="workGroupName" ColumnName="workGroupName" />
+          <ScalarProperty Name="workGroupCode" ColumnName="workGroupCode" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+          <ScalarProperty Name="shortDepartmentName" ColumnName="shortDepartmentName" />
+          <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+          <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+          <ScalarProperty Name="employmentStatusCode" ColumnName="employmentStatusCode" />
+          <ScalarProperty Name="step" ColumnName="step" />
+          <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+          <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+          <ScalarProperty Name="subPositionCode" ColumnName="subPositionCode" />
+          <ScalarProperty Name="positionCode" ColumnName="positionCode" />
+          <ScalarProperty Name="dateLastPromoted" ColumnName="dateLastPromoted" />
+          <ScalarProperty Name="dateOrigAppointment" ColumnName="dateOrigAppointment" />
+          <ScalarProperty Name="birthPlace" ColumnName="birthPlace" />
+          <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="namePrefix" ColumnName="namePrefix" />
+          <ScalarProperty Name="fullNameTitle" ColumnName="fullNameTitle" />
+          <ScalarProperty Name="fullNameFirst" ColumnName="fullNameFirst" />
+          <ScalarProperty Name="fullNameLast" ColumnName="fullNameLast" />
+          <ScalarProperty Name="extName" ColumnName="extName" />
+          <ScalarProperty Name="middleName" ColumnName="middleName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="idNo" ColumnName="idNo" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPEmployeeLists">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPEmployeeList">
+        <MappingFragment StoreEntitySet="vRSPEmployeeList">
+          <ScalarProperty Name="appointmentItemCode" ColumnName="appointmentItemCode" />
+          <ScalarProperty Name="effectiveDate" ColumnName="effectiveDate" />
+          <ScalarProperty Name="periodTo" ColumnName="periodTo" />
+          <ScalarProperty Name="isActivePosition" ColumnName="isActivePosition" />
+          <ScalarProperty Name="transCode" ColumnName="transCode" />
+          <ScalarProperty Name="projectName" ColumnName="projectName" />
+          <ScalarProperty Name="fundSourceCode" ColumnName="fundSourceCode" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="workGroupName" ColumnName="workGroupName" />
+          <ScalarProperty Name="workGroupCode" ColumnName="workGroupCode" />
+          <ScalarProperty Name="dateLastPromoted" ColumnName="dateLastPromoted" />
+          <ScalarProperty Name="dateOrigAppointment" ColumnName="dateOrigAppointment" />
+          <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+          <ScalarProperty Name="idDDNIssuedDate" ColumnName="idDDNIssuedDate" />
+          <ScalarProperty Name="isMobileVerified" ColumnName="isMobileVerified" />
+          <ScalarProperty Name="mobileNo" ColumnName="mobileNo" />
+          <ScalarProperty Name="telephoneNo" ColumnName="telephoneNo" />
+          <ScalarProperty Name="completeAddress" ColumnName="completeAddress" />
+          <ScalarProperty Name="ZIPPermAddress" ColumnName="ZIPPermAddress" />
+          <ScalarProperty Name="provincePermAddress" ColumnName="provincePermAddress" />
+          <ScalarProperty Name="cityMunPermAddress" ColumnName="cityMunPermAddress" />
+          <ScalarProperty Name="brgyPermAddress" ColumnName="brgyPermAddress" />
+          <ScalarProperty Name="subdivisionPermAddress" ColumnName="subdivisionPermAddress" />
+          <ScalarProperty Name="streetPermAddress" ColumnName="streetPermAddress" />
+          <ScalarProperty Name="houseBlockNoPermAddress" ColumnName="houseBlockNoPermAddress" />
+          <ScalarProperty Name="ZIPResAddress" ColumnName="ZIPResAddress" />
+          <ScalarProperty Name="provinceResAddress" ColumnName="provinceResAddress" />
+          <ScalarProperty Name="cityMunResAddress" ColumnName="cityMunResAddress" />
+          <ScalarProperty Name="brgyResAddress" ColumnName="brgyResAddress" />
+          <ScalarProperty Name="subdivisionResAddress" ColumnName="subdivisionResAddress" />
+          <ScalarProperty Name="streetResAddress" ColumnName="streetResAddress" />
+          <ScalarProperty Name="houseBlockNoResAddress" ColumnName="houseBlockNoResAddress" />
+          <ScalarProperty Name="citizenship" ColumnName="citizenship" />
+          <ScalarProperty Name="TINNo" ColumnName="TINNo" />
+          <ScalarProperty Name="SSSNo" ColumnName="SSSNo" />
+          <ScalarProperty Name="PHICNo" ColumnName="PHICNo" />
+          <ScalarProperty Name="HDMFMID" ColumnName="HDMFMID" />
+          <ScalarProperty Name="HDMFNo" ColumnName="HDMFNo" />
+          <ScalarProperty Name="BPNo" ColumnName="BPNo" />
+          <ScalarProperty Name="GSISIDNo" ColumnName="GSISIDNo" />
+          <ScalarProperty Name="bloodType" ColumnName="bloodType" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="height" ColumnName="height" />
+          <ScalarProperty Name="isGovService" ColumnName="isGovService" />
+          <ScalarProperty Name="isPlantilla" ColumnName="isPlantilla" />
+          <ScalarProperty Name="employmentStatusTag" ColumnName="employmentStatusTag" />
+          <ScalarProperty Name="employmentStatusNameShort" ColumnName="employmentStatusNameShort" />
+          <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+          <ScalarProperty Name="employmentStatusCode" ColumnName="employmentStatusCode" />
+          <ScalarProperty Name="salaryDetailCode" ColumnName="salaryDetailCode" />
+          <ScalarProperty Name="salaryType" ColumnName="salaryType" />
+          <ScalarProperty Name="salaryRate" ColumnName="salaryRate" />
+          <ScalarProperty Name="step" ColumnName="step" />
+          <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+          <ScalarProperty Name="subPositionTitle" ColumnName="subPositionTitle" />
+          <ScalarProperty Name="subPositionCode" ColumnName="subPositionCode" />
+          <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+          <ScalarProperty Name="positionCode" ColumnName="positionCode" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="civilStatCode" ColumnName="civilStatCode" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="birthPlace" ColumnName="birthPlace" />
+          <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+          <ScalarProperty Name="nameSuffix" ColumnName="nameSuffix" />
+          <ScalarProperty Name="namePrefix" ColumnName="namePrefix" />
+          <ScalarProperty Name="fullNameTitle" ColumnName="fullNameTitle" />
+          <ScalarProperty Name="fullNameFirst" ColumnName="fullNameFirst" />
+          <ScalarProperty Name="fullNameLast" ColumnName="fullNameLast" />
+          <ScalarProperty Name="extName" ColumnName="extName" />
+          <ScalarProperty Name="middleName" ColumnName="middleName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="idNo" ColumnName="idNo" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPPositionJobDescs">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPPositionJobDesc">
+        <MappingFragment StoreEntitySet="vRSPPositionJobDesc">
+          <ScalarProperty Name="jobDesc" ColumnName="jobDesc" />
+          <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPPositionJobDescSubs">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPPositionJobDescSub">
+        <MappingFragment StoreEntitySet="vRSPPositionJobDescSub">
+          <ScalarProperty Name="subPercentage" ColumnName="subPercentage" />
+          <ScalarProperty Name="subDesc" ColumnName="subDesc" />
+          <ScalarProperty Name="subJDNo" ColumnName="subJDNo" />
+          <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPPositionQS">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPPositionQ">
+        <MappingFragment StoreEntitySet="vRSPPositionQS">
+          <ScalarProperty Name="placeOfAssignment" ColumnName="placeOfAssignment" />
+          <ScalarProperty Name="QSNotation" ColumnName="QSNotation" />
+          <ScalarProperty Name="QSEligibilityPub" ColumnName="QSEligibilityPub" />
+          <ScalarProperty Name="QSEligibility" ColumnName="QSEligibility" />
+          <ScalarProperty Name="QSTraining" ColumnName="QSTraining" />
+          <ScalarProperty Name="QSExperience" ColumnName="QSExperience" />
+          <ScalarProperty Name="QSEducation" ColumnName="QSEducation" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPPublicationItems">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPPublicationItem">
+        <MappingFragment StoreEntitySet="vRSPPublicationItem">
+          <ScalarProperty Name="branch" ColumnName="branch" />
+          <ScalarProperty Name="jobDesc" ColumnName="jobDesc" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="placeOfAssignment" ColumnName="placeOfAssignment" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+          <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+          <ScalarProperty Name="QSNotation" ColumnName="QSNotation" />
+          <ScalarProperty Name="QSEligibilityPub" ColumnName="QSEligibilityPub" />
+          <ScalarProperty Name="QSEligibility" ColumnName="QSEligibility" />
+          <ScalarProperty Name="QSTraining" ColumnName="QSTraining" />
+          <ScalarProperty Name="QSExperience" ColumnName="QSExperience" />
+          <ScalarProperty Name="QSEducation" ColumnName="QSEducation" />
+          <ScalarProperty Name="rateMonth" ColumnName="rateMonth" />
+          <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+          <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+          <ScalarProperty Name="itemNo" ColumnName="itemNo" />
+          <ScalarProperty Name="publicationCode" ColumnName="publicationCode" />
+          <ScalarProperty Name="PSBDate" ColumnName="PSBDate" />
+          <ScalarProperty Name="CSCClosingDate" ColumnName="CSCClosingDate" />
+          <ScalarProperty Name="CSCPostedDate" ColumnName="CSCPostedDate" />
+          <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vSysMenus">
+      <EntityTypeMapping TypeName="HRISDBModel.vSysMenu">
+        <MappingFragment StoreEntitySet="vSysMenu">
+          <ScalarProperty Name="linkIcon" ColumnName="linkIcon" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="subGroupTag" ColumnName="subGroupTag" />
+          <ScalarProperty Name="subOrderNo" ColumnName="subOrderNo" />
+          <ScalarProperty Name="subFontIcon" ColumnName="subFontIcon" />
+          <ScalarProperty Name="subGroupName" ColumnName="subGroupName" />
+          <ScalarProperty Name="menuSubGroupCode" ColumnName="menuSubGroupCode" />
+          <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+          <ScalarProperty Name="groupOrderNo" ColumnName="groupOrderNo" />
+          <ScalarProperty Name="fontIcon" ColumnName="fontIcon" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="menuGroupCode" ColumnName="menuGroupCode" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="menuTypeNo" ColumnName="menuTypeNo" />
+          <ScalarProperty Name="methodName" ColumnName="methodName" />
+          <ScalarProperty Name="controllerName" ColumnName="controllerName" />
+          <ScalarProperty Name="menuName" ColumnName="menuName" />
+          <ScalarProperty Name="menuCode" ColumnName="menuCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vSysMenuUsers">
+      <EntityTypeMapping TypeName="HRISDBModel.vSysMenuUser">
+        <MappingFragment StoreEntitySet="vSysMenuUser">
+          <ScalarProperty Name="subGroupTag" ColumnName="subGroupTag" />
+          <ScalarProperty Name="subOrderNo" ColumnName="subOrderNo" />
+          <ScalarProperty Name="subFontIcon" ColumnName="subFontIcon" />
+          <ScalarProperty Name="subGroupName" ColumnName="subGroupName" />
+          <ScalarProperty Name="menuSubGroupCode" ColumnName="menuSubGroupCode" />
+          <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+          <ScalarProperty Name="groupOrderNo" ColumnName="groupOrderNo" />
+          <ScalarProperty Name="linkIcon" ColumnName="linkIcon" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="fontIcon" ColumnName="fontIcon" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="menuGroupCode" ColumnName="menuGroupCode" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="menuTypeNo" ColumnName="menuTypeNo" />
+          <ScalarProperty Name="methodName" ColumnName="methodName" />
+          <ScalarProperty Name="controllerName" ColumnName="controllerName" />
+          <ScalarProperty Name="menuName" ColumnName="menuName" />
+          <ScalarProperty Name="menuCode" ColumnName="menuCode" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vSysRoleMenus">
+      <EntityTypeMapping TypeName="HRISDBModel.vSysRoleMenu">
+        <MappingFragment StoreEntitySet="vSysRoleMenu">
+          <ScalarProperty Name="roleDesc" ColumnName="roleDesc" />
+          <ScalarProperty Name="roleName" ColumnName="roleName" />
+          <ScalarProperty Name="roleID" ColumnName="roleID" />
+          <ScalarProperty Name="linkIcon" ColumnName="linkIcon" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="subGroupTag" ColumnName="subGroupTag" />
+          <ScalarProperty Name="subOrderNo" ColumnName="subOrderNo" />
+          <ScalarProperty Name="subFontIcon" ColumnName="subFontIcon" />
+          <ScalarProperty Name="subGroupName" ColumnName="subGroupName" />
+          <ScalarProperty Name="menuSubGroupCode" ColumnName="menuSubGroupCode" />
+          <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+          <ScalarProperty Name="groupOrderNo" ColumnName="groupOrderNo" />
+          <ScalarProperty Name="fontIcon" ColumnName="fontIcon" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="menuGroupCode" ColumnName="menuGroupCode" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="menuTypeNo" ColumnName="menuTypeNo" />
+          <ScalarProperty Name="methodName" ColumnName="methodName" />
+          <ScalarProperty Name="controllerName" ColumnName="controllerName" />
+          <ScalarProperty Name="menuName" ColumnName="menuName" />
+          <ScalarProperty Name="menuCode" ColumnName="menuCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vSysUserRoles">
+      <EntityTypeMapping TypeName="HRISDBModel.vSysUserRole">
+        <MappingFragment StoreEntitySet="vSysUserRole">
+          <ScalarProperty Name="roleDesc" ColumnName="roleDesc" />
+          <ScalarProperty Name="roleName" ColumnName="roleName" />
+          <ScalarProperty Name="roleID" ColumnName="roleID" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPApplicationAssessments">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPApplicationAssessment">
+        <MappingFragment StoreEntitySet="tRSPApplicationAssessment">
+          <ScalarProperty Name="performanceRemarks" ColumnName="performanceRemarks" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="totalScore" ColumnName="totalScore" />
+          <ScalarProperty Name="awardScore" ColumnName="awardScore" />
+          <ScalarProperty Name="eligibilityScore" ColumnName="eligibilityScore" />
+          <ScalarProperty Name="trainingScore" ColumnName="trainingScore" />
+          <ScalarProperty Name="experienceScore" ColumnName="experienceScore" />
+          <ScalarProperty Name="educationScore" ColumnName="educationScore" />
+          <ScalarProperty Name="psychoScore" ColumnName="psychoScore" />
+          <ScalarProperty Name="psychoRating" ColumnName="psychoRating" />
+          <ScalarProperty Name="beiScore" ColumnName="beiScore" />
+          <ScalarProperty Name="beiRating" ColumnName="beiRating" />
+          <ScalarProperty Name="comptAssmentScore" ColumnName="comptAssmentScore" />
+          <ScalarProperty Name="comptAssmentRating" ColumnName="comptAssmentRating" />
+          <ScalarProperty Name="performanceScore" ColumnName="performanceScore" />
+          <ScalarProperty Name="performanceRating" ColumnName="performanceRating" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPPSBRatings">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPPSBRating">
+        <MappingFragment StoreEntitySet="tRSPPSBRating">
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="panelEIC" ColumnName="panelEIC" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vRSPApplications">
+      <EntityTypeMapping TypeName="HRISDBModel.vRSPApplication">
+        <MappingFragment StoreEntitySet="vRSPApplication">
+          <ScalarProperty Name="employmentStatusTag" ColumnName="employmentStatusTag" />
+          <ScalarProperty Name="employmentStatusNameShort" ColumnName="employmentStatusNameShort" />
+          <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+          <ScalarProperty Name="publicationItemTag" ColumnName="publicationItemTag" />
+          <ScalarProperty Name="PSBDate" ColumnName="PSBDate" />
+          <ScalarProperty Name="CSCClosingDate" ColumnName="CSCClosingDate" />
+          <ScalarProperty Name="CSCPostedDate" ColumnName="CSCPostedDate" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="appTypeCode" ColumnName="appTypeCode" />
+          <ScalarProperty Name="placeOfAssignment" ColumnName="placeOfAssignment" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+          <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+          <ScalarProperty Name="QSNotation" ColumnName="QSNotation" />
+          <ScalarProperty Name="QSEligibility" ColumnName="QSEligibility" />
+          <ScalarProperty Name="QSTraining" ColumnName="QSTraining" />
+          <ScalarProperty Name="QSExperience" ColumnName="QSExperience" />
+          <ScalarProperty Name="QSEducation" ColumnName="QSEducation" />
+          <ScalarProperty Name="rateMonth" ColumnName="rateMonth" />
+          <ScalarProperty Name="salaryGrade" ColumnName="salaryGrade" />
+          <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+          <ScalarProperty Name="itemNo" ColumnName="itemNo" />
+          <ScalarProperty Name="plantillaCode" ColumnName="plantillaCode" />
+          <ScalarProperty Name="publicationItemCode" ColumnName="publicationItemCode" />
+          <ScalarProperty Name="publicationCode" ColumnName="publicationCode" />
+          <ScalarProperty Name="applicantStep" ColumnName="applicantStep" />
+          <ScalarProperty Name="applicantSalaryGrade" ColumnName="applicantSalaryGrade" />
+          <ScalarProperty Name="applicantSubPositionTitle" ColumnName="applicantSubPositionTitle" />
+          <ScalarProperty Name="applicantPositionTitle" ColumnName="applicantPositionTitle" />
+          <ScalarProperty Name="applicantNameLast" ColumnName="applicantNameLast" />
+          <ScalarProperty Name="applicantName" ColumnName="applicantName" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPApplicationProfileExprs">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPApplicationProfileExpr">
+        <MappingFragment StoreEntitySet="tRSPApplicationProfileExpr">
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="employmentStatus" ColumnName="employmentStatus" />
+          <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+          <ScalarProperty Name="periodText" ColumnName="periodText" />
+          <ScalarProperty Name="periodTo" ColumnName="periodTo" />
+          <ScalarProperty Name="periodFrom" ColumnName="periodFrom" />
+          <ScalarProperty Name="applicationCode" ColumnName="applicationCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPPositionJobDescSubs">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPPositionJobDescSub">
+        <MappingFragment StoreEntitySet="tRSPPositionJobDescSub">
+          <ScalarProperty Name="subPercentage" ColumnName="subPercentage" />
+          <ScalarProperty Name="subDesc" ColumnName="subDesc" />
+          <ScalarProperty Name="subJDNo" ColumnName="subJDNo" />
+          <ScalarProperty Name="jobDescCode" ColumnName="jobDescCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPPSBPanels">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPPSBPanel">
+        <MappingFragment StoreEntitySet="tRSPPSBPanel">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="namePrefix" ColumnName="namePrefix" />
+          <ScalarProperty Name="EIC" ColumnName="EIC" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tApplicantEligibilities">
+      <EntityTypeMapping TypeName="HRISDBModel.tApplicantEligibility">
+        <MappingFragment StoreEntitySet="tApplicantEligibility">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="eligibilityNo" ColumnName="eligibilityNo" />
+          <ScalarProperty Name="transDT" ColumnName="transDT" />
+          <ScalarProperty Name="validityDate" ColumnName="validityDate" />
+          <ScalarProperty Name="licenseNo" ColumnName="licenseNo" />
+          <ScalarProperty Name="examPlace" ColumnName="examPlace" />
+          <ScalarProperty Name="examDate" ColumnName="examDate" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="eligibilityName" ColumnName="eligibilityName" />
+          <ScalarProperty Name="eligibilityCode" ColumnName="eligibilityCode" />
+          <ScalarProperty Name="applicantCode" ColumnName="applicantCode" />
+          <ScalarProperty Name="eligibilityId" ColumnName="eligibilityId" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tRSPEligibilities">
+      <EntityTypeMapping TypeName="HRISDBModel.tRSPEligibility">
+        <MappingFragment StoreEntitySet="tRSPEligibility">
+          <ScalarProperty Name="groupTag" ColumnName="groupTag" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="eligibilityName" ColumnName="eligibilityName" />
+          <ScalarProperty Name="eligibilityNameShort" ColumnName="eligibilityNameShort" />
+          <ScalarProperty Name="eligibilityCode" ColumnName="eligibilityCode" />
+          <ScalarProperty Name="recNo" ColumnName="recNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

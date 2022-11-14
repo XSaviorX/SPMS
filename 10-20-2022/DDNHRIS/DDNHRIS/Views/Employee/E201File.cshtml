@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "201-File";
+}
+
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+</style>
+
+
+<!-- Page header -->
+<div class="page-header">
+    <!-- Header content -->
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">201-FILE</span>  <span class="text-blue-800">DONNIE M. SAM</span></h4>      
+        </div>       
+    </div>
+   
+</div>
+<!-- /page header -->
+<!-- Content area -->
+<div class="content" ng-controller="FILE201">
+    <!-- User profile -->
+    <div class="row">
+        <div class="col-lg-3">
+
+            <!-- Navigation -->
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-blue-800">Folders</h6>
+                    <div class="heading-elements">
+                        <a href="#" class="heading-text">See all &rarr;</a>
+                    </div>
+                </div>
+                <div class="list-group no-border no-padding-top">
+                    <a href="#" class="list-group-item" ng-click="showFiles('APPT')"><i class="icon-folder4"></i> Appointment</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('PDS')"><i class="icon-folder4"></i> P.D.S.</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('PDF')"><i class="icon-folder4"></i> P.D.F.</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('NOSA')"><i class="icon-folder4"></i> NOSA/NOSI</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('IPCR')"><i class="icon-folder4"></i> IPCR</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('SR')"><i class="icon-folder4"></i> Service Record</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('TRAIN')"><i class="icon-folder4"></i> Trainings</a>
+                    <a href="#" class="list-group-item" ng-click="showFiles('TOR')"><i class="icon-folder4"></i> Transcript</a>
+                    <div class="list-group-divider"></div>
+                    <a href="#" class="list-group-item"><i class="icon-cog3"></i> Others</a>
+                </div>
+            </div>
+            <!-- /navigation --> 
+        </div>
+        <div class="col-lg-9">
+            <div class="tabbable">
+                <div class="tab-content">
+
+                    <div>
+                        <!-- Available hours -->
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">{{folderName}}</h6>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">                                      
+                                        <li><a href="#" class="text-blue-800" ng-click="modalAddFile()"> <i class="icon-plus2"></i> Add File </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                
+                                <div class="text-warning" ng-show="loading == true">
+                                    Wait...
+                                </div>
+
+                                <div class="text-warning" ng-show="loading == false &&  eFileList.length == 0">
+                                    -- No File --
+                                </div>
+
+                                <table class="table table-striped" ng-show="loading == false">
+                                    <tr ng-repeat="item in eFileList">
+
+                                        <td>
+                                            <span class="text-blue-800" style="cursor:pointer;"> <i class="icon-file-pdf"></i> &nbsp; {{item.docName}} </span>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /available hours -->
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /user profile -->
+   
+
+    <!-- Primary modal -->
+    <div id="modalAddFile" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-file-pdf"></i> New File</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Date/Effectivity</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="data.lastName" class="form-control text-semibold">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Document Type</label>
+                                <input ng-readonly="isReadOnly" type="text" ng-model="data.folder" class="form-control text-semibold">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="text-muted no-margin-bottom">File Name</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="data.lastName" class="form-control text-semibold">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="text-muted no-margin-bottom">Folder</label>
+                                <input  ng-readonly="isReadOnly" type="text" ng-model="data.folder" class="form-control text-semibold">
+                            </div>
+                         
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+
+</div>
+<!-- /content area -->
+ 
+@section JavaScript{
+<script src="~/Content/assets/js/pages/user_profile_tabbed.js"></script>
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/Employee/File201.js"></script>
+
+}
+

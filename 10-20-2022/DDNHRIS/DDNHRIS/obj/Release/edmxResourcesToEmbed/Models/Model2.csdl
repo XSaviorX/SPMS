@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tAttShiftingEmpScheme">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="controlNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="entryDate" Type="DateTime" Precision="0" />
+    <Property Name="In1" Type="DateTime" Precision="3" />
+    <Property Name="Out1" Type="DateTime" Precision="3" />
+    <Property Name="In2" Type="DateTime" Precision="3" />
+    <Property Name="Out2" Type="DateTime" Precision="3" />
+    <Property Name="isApproved" Type="Int32" />
+    <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="encoderEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="isNoBreak" Type="Int32" />
+    <Property Name="returnTag" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="HRISEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tAttShiftingEmpSchemes" EntityType="Self.tAttShiftingEmpScheme" />
+    <EntitySet Name="tapp212FamilyBackground" EntityType="HRISModel.tapp212FamilyBackground" />
+    <EntitySet Name="tapp212EducLevel" EntityType="HRISModel.tapp212EducLevel" />
+    <EntitySet Name="tapp212EducBackground" EntityType="HRISModel.tapp212EducBackground" />
+    <EntitySet Name="tapp212Trainings" EntityType="HRISModel.tapp212Trainings" />
+    <EntitySet Name="tappEmployees" EntityType="HRISModel.tappEmployee" />
+    <EntitySet Name="tAttDailyLogs" EntityType="HRISModel.tAttDailyLog" />
+  </EntityContainer>
+  <EntityType Name="tapp212FamilyBackground">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="fPaSName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fPaFName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fPaMidName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fPaExtn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fMaMaiden" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fMaSname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fMaFName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fMaMidName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="isApproved" Type="Int32" />
+    <Property Name="dateApproved" Type="DateTime" Precision="0" />
+    <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="fUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tapp212EducLevel">
+    <Key>
+      <PropertyRef Name="fLevel" />
+    </Key>
+    <Property Name="fLevel" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tapp212EducBackground">
+    <Key>
+      <PropertyRef Name="fRecNo" />
+    </Key>
+    <Property Name="fRecNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fContrlNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fLevelTag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fSchoolName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fDegree" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fCorsCateg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fYearGrad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fHighLevel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fFromDT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fToDT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fHonors" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fRemarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="fHighestEduc" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="fCAV" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="fUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fIncludeTag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="isApproved" Type="Int32" />
+    <Property Name="dateApproved" Type="DateTime" Precision="0" />
+    <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tapp212Trainings">
+    <Key>
+      <PropertyRef Name="fRecNo" />
+    </Key>
+    <Property Name="fRecNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_no" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="fFromDT" Type="DateTime" Precision="0" />
+    <Property Name="ftoDT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fHoursNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fConducted" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="fVenue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fTrainClas" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fTrainType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fGroupTag" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fDateEncod" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="isApproved" Type="Int32" />
+    <Property Name="dateApproved" Type="DateTime" Precision="0" />
+    <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tappEmployee">
+    <Key>
+      <PropertyRef Name="EIC" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="idNo" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="EIC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="middleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="extName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="birthdate" Type="DateTime" Precision="0" />
+    <Property Name="birthplace" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fullnameFirst" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="fullnameLast" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="gender" Type="Int32" />
+    <Property Name="prefixTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sufixTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sex" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="contactNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+    <Property Name="birthDate1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="birthPlace1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tAttDailyLog">
+    <Key>
+      <PropertyRef Name="RecNo" />
+    </Key>
+    <Property Name="RecNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LogDate" Type="DateTime" Precision="0" />
+    <Property Name="In1" Type="DateTime" Precision="3" />
+    <Property Name="Out1" Type="DateTime" Precision="3" />
+    <Property Name="In2" Type="DateTime" Precision="3" />
+    <Property Name="Out2" Type="DateTime" Precision="3" />
+    <Property Name="LastLog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OverRide1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OverRide2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SchemeCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="nonRegDay" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+</Schema>

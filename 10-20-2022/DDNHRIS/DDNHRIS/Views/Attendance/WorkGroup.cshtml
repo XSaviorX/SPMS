@@ -1,0 +1,435 @@
+﻿@{
+    ViewBag.Title = "Work Group";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 7px 20px;
+        line-height: 1.2;
+        vertical-align: top;
+    }
+</style>
+
+<div ng-controller="WorkGroup">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">WORK GROUP</span></h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        @*<div class="navbar navbar-default navbar-component navbar-xs">
+                <ul class="nav navbar-nav visible-xs-block">
+                    <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                </ul>
+                <div class="navbar-collapse collapse" id="navbar-filter">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#pending" data-toggle="tab"><i class="icon-stack-text position-left"></i> Work Group</a></li>
+                        <li><a href="#posted" data-toggle="tab"><i class="icon-calendar52 position-left"></i> Attendance Schedule</a></li>
+                        <li><a href="#incoming" data-toggle="tab"><i class="icon-folder-upload3 position-left"></i> Incoming Appointment<span ng-show="incomingCount >= 1" class="badge badge-danger badge-inline position-right">{{incomingCount}}</span></a></li>
+                        <li ng-click="AppointeePostingTab()"><a href="#posting" data-toggle="tab"><i class="icon-user-check position-left"></i> Appointee Posting</a></li>
+
+                    </ul>
+                    <div class="navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="~/Appointment/AppointeePosting"><i class="icon-user-check"></i> Appointee Selection</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+        <!-- /toolbar -->
+
+    </div>
+
+
+
+    <!-- Content area -->
+    <div class="content" style="width:100%!important;">
+
+        <!-- Basic table -->
+
+        <div class="panel panel-flat" ng-show="tabId == 0">
+            <div class="panel-heading">
+                <h5 class="panel-title no-margin-top no-margin-bottom  text-blue-800 text-semibold">
+                    MY WORK GROUP LIST
+                </h5>
+
+                <div class="heading-elements">
+                    <input class="form-control" type="text" placeholder="Type to Search" style="max-width:550px;" ng-model='searchString' />
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID #</th>
+                            <th>NAME</th>
+                            <th>POSITION TITLE</th>
+                            <th></th>
+                            <th class="text-center"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in workGroupList | filter :searchString">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td class="cursor-pointer" ng-click="viewApptDetails(item)">
+                                <span class="text-blue-800 text-bold">{{item.idNo}}</span>
+                            </td>
+                            <td>
+                                <small class="display-block text-semibold">{{item.fullNameLast}}</small>
+                            </td>
+                            <td>
+                                <small class="display-block text-semibold">{{item.positionTitle}} <span class="text-muted">({{item.salaryGrade}}/{{item.step}})</span> </small>
+                            </td>
+                            <td></td>
+                            <td class="text-center" style="min-width:90px!important;">
+                                <button class="btn btn-sm btn-rounded btn-primary" ng-click="selectGroupMate(item)">
+                                    View Scheme <i class="icon-arrow-right13"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--REGULAR SCHEDULE-->
+        <div class="panel panel-flat" ng-show="tabId == 1">
+            <div class="panel-heading">
+                <h5 class="panel-title no-margin-top no-margin-bottom text-semibold">
+                    <i class="icon-arrow-left52 cursor-pointer" ng-click="backToWorkGroupList()"></i> <span class="text-blue-800 text-bold">{{empData.fullNameLast}}</span>
+                </h5>
+
+                <div class="heading-elements">
+                    <select class="form-control select2 select-Custom" ng-model="monthCode" style="width:100%;" ng-disabled="loadingState"
+                            ng-options="c.Text as c.Text for c in monthList" value="{{c.value}}"
+                            ng-change="viewAttendanceScheme()"
+                            id="SelectMonth">
+                        <option value="" selected="" disabled="disabled">-- Select Month --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered tbl-sm">
+
+
+                    <thead>
+                        <tr>
+                            <th colspan="2"></th>
+
+                            <th class="text-center">IN 1</th>
+                            <th class="text-center">OUT 1</th>
+                            <th class="text-center">IN 2</th>
+                            <th class="text-center">OUT 2</th>
+                            <th>Attendance Scheme</th>
+                            <th class="text-center" style="width:150px;">
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="item in monthSched">
+                            <td style="width:30PX;">
+                                <span class="text-blue-800 text-semibold" ng-if="item.logDay == 'Sat'">{{item.logDay}}</span>
+                                <span class="text-danger-800 text-semibold" ng-if="item.logDay == 'Sun'">{{item.logDay}}</span>
+                                <span ng-if="item.logDay != 'Sat' &&  item.logDay !='Sun' ">{{item.logDay}}</span>
+                            </td>
+                            <td style="width:30PX;">
+                                {{$index+1}}
+                            </td>
+
+                            <td>{{item.login1}}</td>
+                            <td>{{item.logout1}}</td>
+                            <td>{{item.login2}}</td>
+                            <td>{{item.logout2}}</td>
+                            <td>
+                                <span ng-if="item.schemeCode != ''">
+                                    <button class="btn  btn-xs btn-default text-blue-800 text-size-mini text-bold" style="padding:1px 7px; margin:0px;" ng-click="modalViewMyLogs(formatDate(item.logDate))">
+                                        <i class="icon-watch"></i> LOGS
+                                    </button>
+                                    {{item.schemeName}}
+                                </span>
+                            </td>
+
+                            <td class="text-center" style="min-width:90px!important; padding-top:5px; padding-bottom:2px;">
+                                <button class="btn btn-rounded btn-xs btn-primary text-size-mini" style="padding:1px 7px; margin:0px;" ng-disabled="bDisable" ng-if="item.updateTag == 1" ng-click="generateLog(formatDate(item.logDate))">
+                                    Refresh <i class="icon-reset"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!--SHIFTING SCHEDULE-->
+        <div class="panel panel-flat" ng-show="tabId == 2">
+            <div class="panel-heading">
+                <h5 class="panel-title no-margin-top no-margin-bottom text-semibold">
+                    <i class="icon-arrow-left52 cursor-pointer" ng-click="backToWorkGroupList()"></i> <span class="text-blue-800 text-bold">{{empData.fullNameLast}}</span>
+                </h5>
+
+                <div class="heading-elements">
+                    <select class="form-control select2 select-Custom" ng-model="monthCode" style="width:100%;" ng-disabled="loadingState"
+                            ng-options="c.Text as c.Text for c in monthList" value="{{c.value}}"
+                            ng-change="viewAttendanceScheme()"
+                            id="SelectMonth">
+                        <option value="" selected="" disabled="disabled">-- Select Month --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered tbl-sm">
+
+
+                    <thead>
+                        <tr>
+                            <th colspan="2"></th>
+
+                            <th class="text-center">LOGIN</th>
+                            <th class="text-center">LOGOUT</th>
+                            <th class="text-center">REMARKS</th>
+                            <th>Attendance Scheme</th>
+                            <th class="text-center" style="width:150px;"></th>
+                            <th class="text-center" style="width:50px;"></th>
+                            <th class="text-center" style="width:50px;"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="item in monthSched">
+                            <td style="width:30PX;">
+                                <span class="text-blue-800 text-semibold" ng-if="item.logDay == 'Sat'">{{item.logDay}}</span>
+                                <span class="text-danger-800 text-semibold" ng-if="item.logDay == 'Sun'">{{item.logDay}}</span>
+                                <span ng-if="item.logDay != 'Sat' &&  item.logDay !='Sun' ">{{item.logDay}}</span>
+                            </td>
+                            <td style="width:30PX;">
+                                {{$index+1}}
+                            </td>
+
+                            <td>{{item.login1}}</td>
+                            <td>{{item.logout1}}</td>
+                            <td></td>
+                            <td>
+                                
+                                <span ng-if="item.schemeCode != ''">
+                                    {{item.schemeName}}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                            
+                                <button class="btn  btn-xs btn-default text-blue-800 text-size-mini text-bold" style="padding:1px 7px; margin:0px;" ng-click="modalViewMyScheme(formatDate(item.logDate))">
+                                    <i class="icon-address-book2"></i>
+                                </button>
+
+                                <button class="btn  btn-xs btn-default text-blue-800 text-size-mini text-bold" style="padding:1px 7px; margin:0px;" ng-click="modalViewMyLogs(formatDate(item.logDate))">
+                                    <i class="icon-watch"></i>
+                                </button>
+
+                            </td>
+
+                            <td class="text-center" style="min-width:90px!important; padding-top:5px; padding-bottom:2px;">
+                            
+
+                            </td>
+                            <td class="text-center" style="min-width:90px!important; padding-top:5px; padding-bottom:2px;">
+                                
+                                <span class="label label-danger cursor-pointer">
+                                    <b>J</b>
+                                </span>
+ 
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+        <!-- /basic table -->
+    </div>
+    <!-- /main content -->
+
+    <!-- Modal  LOGS-->
+    <div class="modal fade" id="modalDailyLogs" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">
+                        {{empData.fullNameLast}}
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <label class="text-muted no-margin-bottom">Log Date  </label>
+                                            <label class="form-control text-grey-800 text-semibold text-size-large">
+                                                {{logDayFull}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            <div class="col-md-5">
+
+                                <table class="table table-bordered tbl-sm text-size-mini">
+                                    <thead>
+                                        <tr class="bg-blue-600">
+                                            <th style="padding:7px!important;">
+                                                FACE TIME ATTENDANCE LOG
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="item in logList">
+                                        <td>
+                                            <i class=" icon-alarm text-blue-800 text-bold"></i>  {{formatDateFull(item.logDT)}}
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal  LOGS-->
+    <div class="modal fade" id="modalSelectScheme" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;">
+                        Select Scheme
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-muted no-margin-bottom"> Name  </label>
+                                <label class="form-control   text-semibold text-size-large">
+                                    {{empData.fullNameLast}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+               
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom"> Scheme  </label>
+                                <label class="form-control   text-semibold   text-size-large">
+                                    {{logDayFull}}
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted no-margin-bottom"> Scheme  </label>
+                                <select class="form-control select2 select-Custom text-semibold text-size-large text-blue-800" ng-model="shiftTemplateId" style="width:100%;" ng-disabled="loadingState"
+                                        ng-options="c.shiftTemplateId as c.shiftName for c in schemes" value="{{c.shiftTemplateId}}"
+                                        id="scheme">
+                                    <option value="" selected="" disabled="disabled">-- Select --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                  
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary " ng-click="updateDailyScheme()">
+                        Update Scheme
+                    </button>
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/inputmask/jquery.inputmask.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/Attendance/WorkGroup.js"></script>
+
+    <script>
+        $("[data-mask]").inputmask();
+        $("#position").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+        $("#employee").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+
+        $("#eligibility").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+    </script>
+
+}

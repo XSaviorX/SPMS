@@ -1,0 +1,727 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="fnGetStepIncInYear_Result">
+    <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="itemNo" Type="Int32" />
+    <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="step" Type="Int32" />
+    <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="dateLastPromoted" Type="DateTime" />
+    <Property Name="effectiveDate" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+    <Property Name="iYear" Type="Int32" />
+    <Property Name="noOfYrs" Type="Int32" />
+  </ComplexType>
+  <ComplexType Name="fnStepNextYear_Result">
+    <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="itemNo" Type="Int32" />
+    <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="step" Type="Int32" />
+    <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="effectiveDate" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+    <Property Name="iYear" Type="Int32" />
+    <Property Name="noOfYrs" Type="Int32" />
+  </ComplexType>
+  <EntityContainer Name="HRISDBEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="fnGetStepIncInYear" IsComposable="true" ReturnType="Collection(HRISDBModel.fnGetStepIncInYear_Result)">
+      <Parameter Name="stepDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="fnStepNextYear" IsComposable="true" ReturnType="Collection(HRISDBModel.fnStepNextYear_Result)">
+      <Parameter Name="stepDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_MigrateBPNo" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(HRISDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(HRISDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="spAppointmentDeleteNP">
+      <Parameter Name="appointmentCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spAppointmentPosting">
+      <Parameter Name="transCode" Mode="In" Type="String" />
+      <Parameter Name="appointmentCode" Mode="In" Type="String" />
+      <Parameter Name="effectiveDate" Mode="In" Type="DateTime" />
+      <Parameter Name="tag" Mode="In" Type="Int32" />
+      <Parameter Name="userEIC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spAppointmentPostingCasual">
+      <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+      <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="userEIC" Mode="In" Type="String" />
+      <Parameter Name="annual" Mode="In" Type="Decimal" />
+      <Parameter Name="totalPS" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="spAppointmentPostingNP">
+      <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+      <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="workCode" Mode="In" Type="String" />
+      <Parameter Name="userEIC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spApptPostingNONPlantilla">
+      <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+      <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="userEIC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spLNDRespRatingCalQ">
+      <Parameter Name="respondentCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spLNDRespRatingCalQRemarks" />
+    <FunctionImport Name="spNOSA">
+      <Parameter Name="NOSACode" Mode="In" Type="String" />
+      <Parameter Name="userEIC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spNOSAPosting">
+      <Parameter Name="NOSACode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spNOSI" />
+    <FunctionImport Name="spNOSIPosting" />
+    <FunctionImport Name="spPSBApplicantProfile" ReturnType="Collection(HRISDBModel.spPSBApplicantProfile_Result)">
+      <Parameter Name="applicationCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spReGenItemNo">
+      <Parameter Name="functionCode" Mode="In" Type="String" />
+      <Parameter Name="startItemNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spRePostPlantillaPosition" />
+    <FunctionImport Name="spUpdateQS2" />
+    <FunctionImport Name="spAppointmentPostingNonPlan">
+      <Parameter Name="appointmentItemCode" Mode="In" Type="String" />
+      <Parameter Name="assumptionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="workCode" Mode="In" Type="String" />
+      <Parameter Name="userEIC" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="tApplicants" EntityType="HRISDBModel.tApplicant" />
+    <EntitySet Name="tApplicantEducations" EntityType="HRISDBModel.tApplicantEducation" />
+    <EntitySet Name="tApplicantFiles" EntityType="HRISDBModel.tApplicantFile" />
+    <EntitySet Name="tApplicantProfiles" EntityType="HRISDBModel.tApplicantProfile" />
+    <EntitySet Name="tApplicantTrainings" EntityType="HRISDBModel.tApplicantTraining" />
+    <EntitySet Name="tOrgDepartments" EntityType="HRISDBModel.tOrgDepartment" />
+    <EntitySet Name="tRSPApplications" EntityType="HRISDBModel.tRSPApplication" />
+    <EntitySet Name="tRSPPositions" EntityType="HRISDBModel.tRSPPosition" />
+    <EntitySet Name="tRSPPositionJobDescs" EntityType="HRISDBModel.tRSPPositionJobDesc" />
+    <EntitySet Name="tRSPPublicationItems" EntityType="HRISDBModel.tRSPPublicationItem" />
+    <EntitySet Name="vRSPEmployees" EntityType="HRISDBModel.vRSPEmployee" />
+    <EntitySet Name="vRSPEmployeeLists" EntityType="HRISDBModel.vRSPEmployeeList" />
+    <EntitySet Name="vRSPPositionJobDescs" EntityType="HRISDBModel.vRSPPositionJobDesc" />
+    <EntitySet Name="vRSPPositionJobDescSubs" EntityType="HRISDBModel.vRSPPositionJobDescSub" />
+    <EntitySet Name="vRSPPositionQS" EntityType="HRISDBModel.vRSPPositionQ" />
+    <EntitySet Name="vRSPPublicationItems" EntityType="HRISDBModel.vRSPPublicationItem" />
+    <EntitySet Name="vSysMenus" EntityType="HRISDBModel.vSysMenu" />
+    <EntitySet Name="vSysMenuUsers" EntityType="HRISDBModel.vSysMenuUser" />
+    <EntitySet Name="vSysRoleMenus" EntityType="HRISDBModel.vSysRoleMenu" />
+    <EntitySet Name="vSysUserRoles" EntityType="HRISDBModel.vSysUserRole" />
+    <EntitySet Name="tRSPApplicationAssessments" EntityType="HRISDBModel.tRSPApplicationAssessment" />
+    <EntitySet Name="tRSPPSBRatings" EntityType="HRISDBModel.tRSPPSBRating" />
+    <EntitySet Name="vRSPApplications" EntityType="HRISDBModel.vRSPApplication" />
+    <EntitySet Name="tRSPApplicationProfileExprs" EntityType="HRISDBModel.tRSPApplicationProfileExpr" />
+    <EntitySet Name="tRSPPositionJobDescSubs" EntityType="HRISDBModel.tRSPPositionJobDescSub" />
+    <EntitySet Name="tRSPPSBPanels" EntityType="HRISDBModel.tRSPPSBPanel" />
+    <EntitySet Name="tApplicantEligibilities" EntityType="HRISDBModel.tApplicantEligibility" />
+    <EntitySet Name="tRSPEligibilities" EntityType="HRISDBModel.tRSPEligibility" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="spPSBApplicantProfile_Result">
+    <Property Type="String" Name="ID" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="counter" Nullable="true" />
+    <Property Type="Int32" Name="accCounter" Nullable="true" />
+    <Property Type="String" Name="fullNameLast" Nullable="true" MaxLength="150" />
+    <Property Type="Int32" Name="appTypeCode" Nullable="true" />
+    <Property Type="String" Name="education" Nullable="true" />
+    <Property Type="String" Name="experience" Nullable="true" />
+    <Property Type="String" Name="training" Nullable="true" />
+    <Property Type="String" Name="eligibility" Nullable="true" />
+    <Property Type="String" Name="ipcr" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="tApplicant">
+    <Key>
+      <PropertyRef Name="applicantCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicantCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="middleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="extName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="birthDate" Type="DateTime" Precision="0" />
+    <Property Name="birthPlace" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="mobileNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="verificationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="isVerified" Type="Boolean" />
+    <Property Name="userEIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tApplicantEducation">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="schoolLevelCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="schoolName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="degree" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="yearGraduated" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="highestLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="yearFrom" Type="Int32" />
+    <Property Name="yearTo" Type="Int32" />
+    <Property Name="academicHonor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="transDT" Type="DateTime" Precision="3" />
+    <Property Name="educationNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tApplicantFile">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fileTypeCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fileName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="fileCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="uploadDT" Type="DateTime" Precision="3" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tApplicantProfile">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="itemLevel" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="education" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="experience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="training" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="eligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="performanceRating" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tApplicantTraining">
+    <Key>
+      <PropertyRef Name="trainingCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="trainingCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="trainingTitle" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="fromDate" Type="DateTime" Precision="0" />
+    <Property Name="toDate" Type="DateTime" Precision="0" />
+    <Property Name="hours" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="conductedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="venue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="transDT" Type="DateTime" Precision="3" />
+    <Property Name="isActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tOrgDepartment">
+    <Key>
+      <PropertyRef Name="departmentCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="departmentCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="shortDepartmentName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="functionCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="functionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="programActivity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="branch" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tRSPApplication">
+    <Key>
+      <PropertyRef Name="applicationCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicationCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="publicationItemCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="transDT" Type="DateTime" Precision="3" />
+    <Property Name="appTypeCode" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="isComplete" Type="Int32" />
+    <Property Name="isActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tRSPPosition">
+    <Key>
+      <PropertyRef Name="positionCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="positionCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="shortPositionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="acronym" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="positionLevel" Type="Int32" />
+    <Property Name="positionCategory" Type="Int32" />
+    <Property Name="isActive" Type="Int32" />
+    <Property Name="keyPositionTag" Type="Int32" />
+    <Property Name="keyCSCLevel" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tRSPPositionJobDesc">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="jobSeqNo" Type="Int32" />
+    <Property Name="jobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="percentage" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tRSPPublicationItem">
+    <Key>
+      <PropertyRef Name="publicationItemCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="publicationItemCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="publicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="PSBDate" Type="DateTime" Precision="0" />
+    <Property Name="itemNoPub" Type="Int32" />
+    <Property Name="pageNoPub" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vRSPEmployee">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="EIC" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="idNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="middleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="extName" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="namePrefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="birthDate" Type="DateTime" Precision="0" />
+    <Property Name="birthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateOrigAppointment" Type="DateTime" Precision="0" />
+    <Property Name="dateLastPromoted" Type="DateTime" Precision="0" />
+    <Property Name="positionCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="subPositionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="step" Type="Int32" />
+    <Property Name="employmentStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="departmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="shortDepartmentName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="workGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="workGroupName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="workGroupDesc" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="tag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vRSPEmployeeList">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="EIC" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="idNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="middleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="extName" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameFirst" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="fullNameTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="namePrefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nameSuffix" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="birthDate" Type="DateTime" Precision="0" />
+    <Property Name="birthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="civilStatCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="positionCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="subPositionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="subPositionTitle" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="step" Type="Int32" />
+    <Property Name="salaryRate" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="salaryType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="salaryDetailCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatusNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatusTag" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="isPlantilla" Type="Int32" />
+    <Property Name="isGovService" Type="Int32" />
+    <Property Name="height" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="bloodType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="GSISIDNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="BPNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="HDMFNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="HDMFMID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="PHICNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SSSNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="TINNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="citizenship" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="houseBlockNoResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="streetResAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="subdivisionResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="brgyResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cityMunResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="provinceResAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZIPResAddress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="houseBlockNoPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="streetPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subdivisionPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="brgyPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cityMunPermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="provincePermAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZIPPermAddress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="completeAddress" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="telephoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="mobileNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="isMobileVerified" Type="Int32" />
+    <Property Name="idDDNIssuedDate" Type="DateTime" Precision="0" />
+    <Property Name="emailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateOrigAppointment" Type="DateTime" Precision="0" />
+    <Property Name="dateLastPromoted" Type="DateTime" Precision="0" />
+    <Property Name="workGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="workGroupName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="fundSourceCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="projectName" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="transCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="isActivePosition" Type="Int32" />
+    <Property Name="periodTo" Type="DateTime" Precision="0" />
+    <Property Name="effectiveDate" Type="DateTime" Precision="0" />
+    <Property Name="appointmentItemCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vRSPPositionJobDesc">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="jobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vRSPPositionJobDescSub">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="subJDNo" Type="Int32" />
+    <Property Name="subDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="subPercentage" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vRSPPositionQ">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="plantillaCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="plantillaCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="QSEducation" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSTraining" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSEligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSEligibilityPub" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSNotation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="placeOfAssignment" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vRSPPublicationItem">
+    <Key>
+      <PropertyRef Name="publicationItemCode" />
+    </Key>
+    <Property Name="publicationItemCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="publicationDate" Type="DateTime" Precision="0" />
+    <Property Name="CSCPostedDate" Type="DateTime" Precision="0" />
+    <Property Name="CSCClosingDate" Type="DateTime" Precision="0" />
+    <Property Name="PSBDate" Type="DateTime" Precision="0" />
+    <Property Name="publicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="itemNo" Type="Int32" />
+    <Property Name="positionTitle" Type="String" MaxLength="1653" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="QSEducation" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSTraining" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSEligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSEligibilityPub" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSNotation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="departmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="placeOfAssignment" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="jobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="branch" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSysMenu">
+    <Key>
+      <PropertyRef Name="menuCode" />
+    </Key>
+    <Property Name="menuCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="controllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="methodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="menuTypeNo" Type="Int32" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="menuGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="groupOrderNo" Type="Int32" />
+    <Property Name="groupTag" Type="Int32" />
+    <Property Name="menuSubGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="subGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subFontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subOrderNo" Type="Int32" />
+    <Property Name="subGroupTag" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="linkIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSysMenuUser">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="menuCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="controllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="methodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="menuTypeNo" Type="Int32" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="menuGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="linkIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="groupOrderNo" Type="Int32" />
+    <Property Name="groupTag" Type="Int32" />
+    <Property Name="menuSubGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="subGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subFontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subOrderNo" Type="Int32" />
+    <Property Name="subGroupTag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vSysRoleMenu">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="menuCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="controllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="methodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="menuTypeNo" Type="Int32" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="menuGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="groupOrderNo" Type="Int32" />
+    <Property Name="groupTag" Type="Int32" />
+    <Property Name="menuSubGroupCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="subGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subFontIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subOrderNo" Type="Int32" />
+    <Property Name="subGroupTag" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="linkIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="roleID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="roleDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vSysUserRole">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="roleID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="roleDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tRSPApplicationAssessment">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="performanceRating" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="performanceScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="comptAssmentRating" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="comptAssmentScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="beiRating" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="beiScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="psychoRating" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="psychoScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="educationScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="experienceScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="trainingScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="eligibilityScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="awardScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="totalScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="performanceRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tRSPPSBRating">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="panelEIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="score" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="vRSPApplication">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="applicationCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" />
+    <Property Name="applicationCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="applicantName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="applicantNameLast" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="applicantPositionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="applicantSubPositionTitle" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="applicantSalaryGrade" Type="Int32" />
+    <Property Name="applicantStep" Type="Int32" />
+    <Property Name="publicationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="publicationItemCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="plantillaCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="itemNo" Type="Int32" />
+    <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="salaryGrade" Type="Int32" />
+    <Property Name="rateMonth" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="QSEducation" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSTraining" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSEligibility" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="QSNotation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="departmentCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="departmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="placeOfAssignment" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+    <Property Name="appTypeCode" Type="Int32" />
+    <Property Name="tag" Type="Int32" />
+    <Property Name="CSCPostedDate" Type="DateTime" Precision="0" />
+    <Property Name="CSCClosingDate" Type="DateTime" Precision="0" />
+    <Property Name="PSBDate" Type="DateTime" Precision="0" />
+    <Property Name="publicationItemTag" Type="Int32" />
+    <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatusNameShort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatusTag" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tRSPApplicationProfileExpr">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="applicationCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="periodFrom" Type="DateTime" Precision="0" />
+    <Property Name="periodTo" Type="DateTime" Precision="0" />
+    <Property Name="periodText" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="positionTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="employmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="department" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tRSPPositionJobDescSub">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="jobDescCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="subJDNo" Type="Int32" />
+    <Property Name="subDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="subPercentage" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tRSPPSBPanel">
+    <Key>
+      <PropertyRef Name="EIC" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EIC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="namePrefix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tApplicantEligibility">
+    <Key>
+      <PropertyRef Name="eligibilityId" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="eligibilityId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="applicantCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="eligibilityCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="eligibilityName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="rating" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="examDate" Type="DateTime" Precision="0" />
+    <Property Name="examPlace" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="licenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="validityDate" Type="DateTime" Precision="0" />
+    <Property Name="transDT" Type="DateTime" Precision="3" />
+    <Property Name="eligibilityNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tRSPEligibility">
+    <Key>
+      <PropertyRef Name="eligibilityCode" />
+    </Key>
+    <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="eligibilityCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="eligibilityNameShort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="eligibilityName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="orderNo" Type="Int32" />
+    <Property Name="isActive" Type="Int32" />
+    <Property Name="groupTag" Type="Int32" />
+  </EntityType>
+</Schema>

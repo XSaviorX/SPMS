@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "Applicant";
+}
+
+@{
+    ViewBag.Title = "Job Application";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+    }
+</style>
+<link href="~/Content/assets/css/comptasstmntUI.css" rel="stylesheet" />
+<div ng-controller="Applicant">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">APPLICANT</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li @*ng-click="changeTab(0)"*@><a href=""><i class="icon-clipboard3 position-left"></i> Applicant List</a></li>
+                    @*<li ng-click="changeTab(1)"><a href=""><i class="icon-clipboard2 position-left"></i> Job Search</a></li>*@
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-file-plus position-left"></i>
+                                Create
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-file-text2"></i> New Applicant</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-clippy"></i> Go to List</a></li>
+                                <li><a href="#"><i class="icon-search4"></i> Find</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- MY APPLICATION -->
+                        <div class="tab-pane fade in active"  >
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white"  >
+                                @*<div class="panel-heading">
+                                        <h3 class="no-margin text-semibold">Applicant List</h3>
+                                    </div>*@
+                                <table class="table tasks-list table-bordered table-striped table-hover ">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px!important;">#</th>
+                                            <th> APPLICANT NAME </th>
+                                            <th> BIRTH DATE</th>
+                                            <th class="text-center">CONTACT #</th>
+                                            <th class="text-center">EMAIL ADDRESS</th>
+                                            <th class="text-center" style="width:35%;">REMARKS</th>
+                                            <th class="text-center text-muted" style="width: 70px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in applicant  | filter :searchString">
+                                            <td>{{$index+1}}</td>
+
+                                            <td class="text-left">
+                                                <span class="text-semibold text-blue-800 cursor-pointer" ng-click="viewApplicantData(item)">{{item.fullNameLast}}</span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="viewRespondent(item)"><a href="#"><i class="icon-file-text2"></i> View </a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Modal APPLICANT EDIT-->
+        <div class="modal fade" id="modalApplicantData" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-user-check text-muted"></i>  <span class="text-bold text-blue-700"> {{applicantData.fullNameLast}}  </span> </h5>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <label class="text-muted no-margin-bottom">Last Name <span class="text-danger">*</span> </label>
+                                    <input id="text" ng-readonly="true" type="text" ng-model="data.lastName" class="form-control text-semibold" >
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="text-muted no-margin-bottom"> First Name <span class="text-danger">*</span></label>
+                                    <input type="text" ng-readonly="true" ng-model="data.firstName" class="form-control text-semibold">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="text-muted no-margin-bottom"> Middle Name</label>
+                                    <input type="text" ng-readonly="true" ng-model="data.middleName" class="form-control text-semibold">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="text-muted no-margin-bottom"> Name Extn.</label>
+                                    <input type="text" ng-readonly="isReadOnly" ng-model="data.extName" class="form-control text-semibold" placeholder="Jr / Sr">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <label class="text-muted no-margin-bottom">Date of Birth <span class="text-danger">*</span></label>
+                                    <input type="text" ng-readonly="true" ng-model="(formatDate(data.birthDate))" class="form-control text-semibold">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="text-muted no-margin-bottom"> Sex <span class="text-danger">*</span></label>
+                                    <input type="text" ng-readonly="true" ng-model="data.sex" class="form-control text-semibold">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="text-muted no-margin-bottom">Mobile # </label>
+                                    <input type="text" ng-readonly="isReadOnly" ng-model="data.mobileNo" class="form-control text-semibold">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="text-muted no-margin-bottom">E-Mail </label>
+                                    <input type="text" ng-readonly="isReadOnly" ng-model="data.email" class="form-control text-semibold">
+                                </div>
+                                 
+                            </div>
+                        </div>
+ 
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-5">
+                                    <label class="text-muted no-margin-bottom">User name <span class="text-danger">*</span></label>
+                                    <input id="text" ng-readonly="isReadOnly" type="text" ng-model="data.username" class="form-control text-semibold" autocomplete="off">
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="text-muted no-margin-bottom">Password <span class="text-danger">*</span></label>
+                                    <input type="text" ng-readonly="isReadOnly" ng-model="data.password" class="form-control text-semibold">
+                                </div>
+                                
+                            </div>
+                        </div>
+ 
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="updateApplicantData(data)"> <i class="icon-database-upload"></i> Update Data</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPUtility/Applicant.js"></script>
+    @*<script src="~/Scripts/AngularJS/Application/JobApp.js"></script>*@
+    <script>
+
+        $("#eligibility").select2({
+            placeholder: '-- Select --',
+            allowClear: true
+        });
+    </script>
+
+}
+
+
+
+

@@ -1,0 +1,589 @@
+﻿@{
+    ViewBag.Title = "Publication";
+}
+
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+ 
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: middle;
+    }
+
+    .divScroll {
+        height: 350px;
+        overflow-y: scroll;
+    }
+</style>
+
+<div ng-controller="Publication">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">PUBLICATION</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#pending" data-toggle="tab"><i class="icon-clipboard3 position-left"></i> Active Publication</a></li>
+                    <li><a href="#posted" data-toggle="tab"><i class="icon-clipboard2 position-left"></i> Expired Publication</a></li>
+
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-file-plus position-left"></i>
+                                Create
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="modalCreatePublication()"><a href="#"><i class="icon-file-text2"></i> New Publication</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-clippy"></i> Go to List</a></li>
+                                <li><a href="#"><i class="icon-search4"></i> Find</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- PUBLICATION -->
+                        <div class="tab-pane fade in active" id="pending">
+                            <!-- LIST -->
+                            <div class="panel panel-flat" ng-show="tab == 1">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title"> Active Publication</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Publication Date</th>
+                                                <th class="text-center">Items</th>
+                                                <th>CSC Posted Date</th>
+                                                <th>CSC Closing Date</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in pubList">
+                                            <td>
+                                                {{$index+1}}
+                                            </td>
+                                            <td>
+                                                <span class="text-blue-800 text-bold" style="cursor:pointer" ng-click="showPublicationData(item)">{{formatDate(item.publicationDate)}}</span>
+                                            </td>
+                                            <td class="text-center"> <span class="label label-primary">{{item.Posnum}}</span> </td>
+
+                                            <td>
+                                                {{formatDate(item.CSCPostedDate)}}
+                                            </td>
+                                            <td>
+                                                {{formatDate(item.CSCClosingDate)}}
+                                            </td>
+                                            <td class="text-center text-blue-800 text-bold">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-down12"></i> </a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="viewAppointmentData(item)"><a href="#"><i class="icon-file-check"></i> Edit </a></li>
+                                                            <li ng-click="viewAppointmentData(item)"><a href="#"><i class="icon-printer2"></i> Publication</a></li>
+                                                            <li ng-click="viewAppointmentData(item)"><a href="#"><i class="icon-printer2"></i> Standard</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#"><i class="icon-cross2 text-danger"></i> Delete </a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- PUBLICATION DATA -->
+                            <div class="panel panel-flat" ng-show="tab == 2" style="min-height:300px;">
+                                <div class="panel-heading">
+
+                                    <h5 class="panel-title text-blue-800 text-bold"> PUBLICATION DATA <span class="text-blue-800 text-bold"></span></h5>
+
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li class="text-blue-800 cursor-pointer" ng-click="setTab(1)"> <span> <i class="icon-arrow-left52"></i> BACK</span> &nbsp; &nbsp; </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle text-blue-800" data-toggle="dropdown">
+                                                    <i class="icon-printer2 position-left"></i>
+                                                    Report
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li ng-click="printPublication()"> <a href="#"><i class="icon-file-text2"></i> Publication</a></li>
+                                                    <li ng-click="printPublicationJD()"> <a href="#"><i class="icon-file-text2"></i> Job Description</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <label class="text-muted no-margin-bottom">Publication Date   </label>
+                                                <label class="form-control text-bold">
+                                                    {{pubDateText}}
+                                                </label>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="text-muted no-margin-bottom">CSC Posted Date<span class="text-danger"> *</span> </label>
+                                                <input class="form-control text-bold required" type="date" ng-model="data.CSCPostedDate" ng-change="changeChecker()" name="date">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="text-muted no-margin-bottom">CSC Closing Date<span class="text-danger"> *</span> </label>
+                                                <input class="form-control text-bold required" type="date" ng-model="data.CSCClosingDate" ng-change="changeChecker()" name="date">
+
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <label class="text-muted no-margin-bottom text-white" style="width:100%;"> Update </label>
+                                                <button class="btn btn-link btn-sm text-size-mini text-blue-800" ng-click="saveDataChanges()" ng-show="checkChanges == true">
+                                                    <i class="icon-floppy-disk"></i> Update
+                                                </button>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <label class="text-muted no-margin-bottom text-white" style="width:100%;"> Update </label>
+                                                <button class="btn btn-primary pull-right btn-sm text-size-mini btn-rounded " ng-click="modalVacant()">
+                                                    <i class=" icon-search4"></i> Select
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>POSITION TITLE</th>
+                                                <th class="text-center">ITEM NO</th>
+                                                <th class="text-center">SG</th>
+                                                <th class="text-center">MONTHLY SALARY</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in pubItemList | filter:searchString">
+                                            <td class="text-center">
+                                                {{$index+1}}
+                                            </td>
+                                            <td> <span class="text-blue-800 text-semibold cursor-pointer" ng-click="openPositionQS(item)">{{item.positionTitle}}</span>  </td>
+                                            <td class="text-center">
+                                                {{('00000' + item.itemNo).slice(-4)}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{item.salaryGrade}}
+                                            </td>
+                                            <td class="text-right">
+                                                {{item.rateMonth | number:2}}
+                                            </td>
+                                            <td>{{item.shortDepartmentName}}</td>
+                                            <td class="text-center text-blue-800 text-bold">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-down12"></i> </a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="openPositionQS(item)"><a href="#"><i class="icon-file-eye"></i> Standard (QS) </a></li>
+                                                            <li ng-click="openModalJobDesc(item)"><a href="#"><i class="icon-file-eye"></i> Job Description </a></li>
+                                                            <li class="divider"></li>
+                                                            <li ng-click="deletePositionItem(item)"><a href="#"><i class="icon-cross2 text-danger"></i> Delete </a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- POSTED -->
+                        <div class="tab-pane fade" id="posted">
+                            <!-- Profile info -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title"> Expired Publication</h5>
+
+                                </div>
+                                <div class="panel-body">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- Modal PUBLICATION CREATE-->
+    <div class="modal fade" id="modalPubCreate" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard3"></i>  <span class="text-bold text-blue-700"> New Publication </span> </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <label class="text-muted no-margin-bottom">Publication Date <span class="text-danger">*</span> </label>
+                                <input class="form-control text-bold required" type="date" ng-model="data.publicationDate" name="date">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label class="text-muted no-margin-bottom">Branch <span class="text-danger">*</span> </label>
+                                <select name="cars" id="cars" class="form-control"  ng-model="data.branch">
+                                    <option value="EXE" selected="selected" >EXECUTIVE</option>
+                                    <option value="LEG">LEGISLATIVE</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="createPublication(data)"> &nbsp; Create &nbsp; </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal VACANT POSITIONS -->
+    <div class="modal fade" id="modalVacantPosition" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+
+
+                    <div class="tab-pane fade in active">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 class="panel-title text-blue-800 text-bold no-margin-bottom"> VACANT POSITION</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-link pull-right text-grey-300 btn-xs" ng-disabled="bDisable" data-dismiss="modal"> <i class="icon-cross"></i>  </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-top  ">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <input id="text" type="text" ng-model="searchText" class="form-control text-semibold" autocomplete="off" placeholder="Search">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="divScroll">
+                            <table class="table  table-striped tbl-sm">
+
+                                <tr ng-repeat="item in positionVacant | filter : searchText">
+                                    <td style="width:20px!important;">{{$index+1}}</td>
+                                    <td>  <span class="text-bold text-blue-800">{{item.itemNo}}</span> - {{item.positionTitle}}<span class="text-grey-600"> ({{item.salaryGrade}})</span></td>                                  
+                                    <td>{{item.shortDepartmentName}}</td>
+                                    <td>
+                                        <span class="text-danger-700" ng-show="item.hasExpired != 0"> <i class="icon-exclamation"></i> {{item.remarks}}</span>
+                                        <span class="text-primary-700" ng-show="item.hasExpired == 0"> <i class="icon-check"></i> {{item.remarks}}</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary no-margin text-size-mini" style="padding:3px 5px;" ng-click="addToPublication(item)" ng-show="item.hasExpired != 0">
+                                            Select
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" ng-disabled="bDisable" ng-show="expiredCount >= 1" ng-click="addExpiredToList()"><i class="icon-drag-right"></i> Add all <span class="text-danger-700 text-bold"> ({{expiredCount}}) EXPIRED</span> positions<i class="icon-arrow-right22"></i></button>
+                    <button type="button" class="btn btn-secondary" ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal QUALIFICATION STANDARD -->
+    <div class="modal fade" id="modalPositionQS" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-blue-800">
+                    <h5 class="form-section" style="margin-top:0px; margin-bottom:0px; padding-top:0px;"><i class="icon-clipboard3"></i> <span class="text-bold">  {{('00000'+ positionData.itemNo).slice(-4)}} - {{positionData.positionTitle}} </span> (QS) </h5>
+                </div>
+                <div class="modal-body" style="padding-top:7px;">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Education</label>
+                                <textarea id="education" name="w3review" class="form-control text-semibold" rows="4" cols="50" ng-readonly="isReadOnly" ng-model="positionQS.QSEducation"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Experience</label>
+                                <textarea id="experience" name="w3review" class="form-control text-semibold" rows="4" cols="50" ng-readonly="isReadOnly" ng-model="positionQS.QSExperience"></textarea>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Training </label>
+                                <textarea id="training" name="w3review" class="form-control text-semibold" rows="4" cols="50" ng-readonly="isReadOnly" ng-model="positionQS.QSTraining"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Eligibility</label>
+                                <textarea id="elig" name="w3review" class="form-control text-semibold" rows="3" cols="50" ng-readonly="isReadOnly" ng-model="positionQS.QSEligibility"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="no-margin-bottom">Eligibility <span class="text-danger"> (for CSC Publication) </span></label>
+                                <textarea id="eligPub" name="w3review" class="form-control text-semibold" rows="3" cols="50" ng-readonly="isReadOnly" ng-model="positionQS.QSEligibilityPub"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Notation</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="positionQS.QSNotation" class="form-control text-semibold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Place of Assignment</label>
+                                <input type="text" ng-readonly="isReadOnly" ng-model="positionQS.placeOfAssignment" class="form-control text-semibold">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" ng-disabled="bDisable" ng-show="isReadOnly == false" ng-click="setEditMode(0)">Cancel</button>
+                    <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="setEditMode(1)" ng-show="isReadOnly == true">Edit Standard</button>
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" ng-show="isReadOnly == true" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-left bg-blue-800" ng-disabled="bDisable" ng-show="isReadOnly == false" ng-click="updateQStandard(positionQS)">Update Standard</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal JOB DESCRIPTION -->
+    <div class="modal fade" id="modalJobDescription" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-blue-800">
+                    <h5 class="form-section" style="margin-top:0px; margin-bottom:0px; padding-top:0px;"><i class="icon-clipboard3"></i> <span class="text-bold">  {{('00000'+ positionData.itemNo).slice(-4)}} - {{positionData.positionTitle}} </span> (JD) </h5>
+                </div>
+
+                <div class="modal-body" ng-show="jdTab == 0">
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px!important;">NO</th>
+                                            <th>DESCRIPTION</th>
+                                            <th class="text-center" style="width:70px!important;">%</th>
+                                            <th class="text-center" style="width:70px!important;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in positionJD">
+                                            <td class="text-center">{{$index+1}}</td>
+                                            <td>{{item.jobDesc}}</td>
+                                            <td class="text-right">{{item.percentage}}%</td>
+                                            
+                                            <td class="text-center text-blue-800 text-bold">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-down12"></i> </a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="deleteJobDesc(item)"><a href="#"><i class="icon-cross text-danger"></i> Delete </a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-body" ng-show="jdTab == 1">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="no-margin-bottom">Sequence #</label>
+                                <input type="number" ng-model="job.jobSeqNo" class="form-control text-semibold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="no-margin-bottom">Job Description</label>
+
+                                <textarea   name="w3review" class="form-control text-semibold" rows="3" cols="50"  ng-model="job.jobDesc"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="no-margin-bottom">Percentage</label>
+                                <input type="number" ng-model="job.percentage" class="form-control text-semibold"> 
+                            </div>
+                        </div>
+                    </div>
+ 
+ 
+                </div>
+
+                <div class="modal-footer" ng-show="jdTab == 0">
+                    <button type="button" class="btn btn-secondary pull-left" ng-disabled="bDisable" ng-show="isReadOnly == true" ng-click="AddJobDesc()"> <i class="icon icon-plus3"></i> Add Job Desc</button>
+                    <button type="button" class="btn btn-secondary" ng-disabled="bDisable" ng-show="isReadOnly == false" ng-click="setEditMode(0)">Cancel</button>
+                    @*<button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="setEditMode(1)" ng-show="isReadOnly == true">Edit Standard</button>*@
+                    <button type="button" class="btn btn-secondary " ng-disabled="bDisable" ng-show="isReadOnly == true" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-left bg-blue-800" ng-disabled="bDisable" ng-show="isReadOnly == false" ng-click="updateQStandard(positionQS)">Update Standard</button>
+                </div>
+
+
+                <div class="modal-footer" ng-show="jdTab == 1">
+               
+                    <button type="button" class="btn btn-primary pull-left bg-blue-800" ng-disabled="bDisable" ng-click="saveJobDescription(job)">Save Job Description</button>
+                    <button type="button" class="btn btn-secondary" ng-disabled="bDisable"   ng-click="cancelJobDescAdding(0)">Cancel</button>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPPublication/Publication.js"></script>
+
+   
+
+}

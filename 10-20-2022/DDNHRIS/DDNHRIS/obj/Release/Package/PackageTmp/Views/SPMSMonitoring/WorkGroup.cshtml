@@ -1,0 +1,294 @@
+﻿@{
+    ViewBag.Title = "Publication";
+}
+
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .tbl-sm > tbody > tr > td, .tbl-sm > tbody > tr > th, .tbl-sm > thead > tr > td {
+        padding: 5px 20px;
+        line-height: 1.5384616;
+        vertical-align: middle;
+    }
+
+    .divScroll {
+        height: 400px;
+        overflow-y: scroll;
+    }
+</style>
+
+<div ng-controller="SPMSMonitoring">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">PERFORMANCE MONITORING</span> </h4>
+            </div>
+            <div class="heading-elements">
+
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#pending" data-toggle="tab"><i class="icon-clipboard3 position-left"></i> Work Group</a></li>
+                    <li><a href="#posted" data-toggle="tab"><i class="icon-clipboard2 position-left"></i> Unassign Emloyee</a></li>
+
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-file-plus position-left"></i>
+                                Add New
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="modalPerformanceRating()"><a href="#"><i class="icon-file-text2"></i> Rating</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="modalSelectDepartment()"><a href="#"><i class="icon-clippy"></i> Select Department</a></li>
+                                <li><a href="#"><i class="icon-search4"></i> Find</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+
+
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- PUBLICATION -->
+                        <div class="tab-pane fade in active" id="pending">
+                            <!-- LIST -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title"> PERFORMANCE RATING <span class="text-blue-800">{{workGroupData.workGroupName}}</span> </h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Employee Name</th>
+                                                <th>POSITION TITLE</th>
+                                                <th>STATUS</th>
+                                                <th class="text-center">RATING</th>                                             
+                                                <th>Remarks</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in ratingList">
+                                            <td>
+                                                {{$index+1}}
+                                            </td>
+                                            <td>
+                                                <span class="text-blue-800 text-bold" style="cursor:pointer">{{item.fullNameLast}}</span>
+                                            </td>
+                                            <td>
+                                                 {{item.positionTitle}} 
+                                            </td>
+                                            <td>{{item.statusName}}</td>
+
+                                            <td class="text-center">
+                                                <span ng-show="item.ratingNum > 0">{{item.ratingNum | number:2}}/{{item.ratingAdj}}</span>
+                                            </td>
+                                          
+                                            <td>
+                                                <span ng-show="item.ratingNum > 0"> 2nd semester of 2020</span>
+                                                <span ng-show="item.ratingNum == 0"> <label class="label label-danger">NONE</label> </span>
+                                            </td>
+                                            <td></td>
+                                            @*<td class="text-center text-blue-800 text-bold">
+                                                    <ul class="icons-list">
+
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-down12"></i> </a>
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                <li ng-click="viewAppointmentData(item)"><a href="#"><i class="icon-file-check"></i> Edit </a></li>
+                                                                <li ng-click="viewAppointmentData(item)"><a href="#"><i class="icon-printer2"></i> Publication</a></li>
+                                                                <li ng-click="viewAppointmentData(item)"><a href="#"><i class="icon-printer2"></i> Standard</a></li>
+
+                                                                <li class="divider"></li>
+                                                                <li><a href="#"><i class="icon-cross2 text-danger"></i> Delete </a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </td>*@
+
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- SELECT DEPARTMENT -->
+    <div id="modalDepartment" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-blue-800">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Select Department</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select class="form-control select2 select-Custom text-semibold" ng-model="workGroupData.workGroupCode" style="width:100%;"
+                                ng-options="item.workGroupCode as item.workGroupName for item in groupList" value="{{item.workGroupCode}}"
+                                id="workGroup">
+                            <option value="" selected="">-- Select --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary bg-blue-700" ng-disabled="bDisable" ng-click="selectGroup()">
+                        <i class="icon-check2"></i> Select Department
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /vertical form modal -->
+
+    </div>
+
+
+    @*Modal APPOINTMENT CREATE
+        <div class="modal fade" id="ModalPRating" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="form-section" style="margin-top:0px; padding-top:0px;"><i class="icon-clipboard3"></i>  <span class="text-bold text-blue-700"> New Publication </span> </h5>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label class="text-muted no-margin-bottom">Employee Name <span class="text-danger">*</span> </label>
+                                    <select class="form-control select2 select-Custom" ng-model="data.EIC" style="width:100%;"
+                                            ng-options="c.EIC as c.fullNameLast for c in employeeList" value="{{c.EIC}}"
+                                            id="employee">
+                                        <option value="" selected="">-- Select --</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label class="text-muted no-margin-bottom">Numerical Rating <span class="text-danger">*</span> </label>
+                                    <input class="form-control text-bold required" type="number" ng-model="data.ratingNum">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted no-margin-bottom">Adjectival Rating <span class="text-danger">*</span> </label>
+
+                                    <select name="cars" class="form-control" id="cars" ng-model="data.ratingAdj">
+                                        <option value="O">O</option>
+                                        <option value="VS">VS</option>
+                                        <option value="S">S</option>
+                                        <option value="US">US</option>
+                                        <option value="P">P</option>
+                                    </select>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label class="text-muted no-margin-bottom">Remarks <span class="text-danger">*</span> </label>
+                                    <input class="form-control text-bold required" type="text" ng-model="data.remarks" name="text" autocomplete="off">
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " ng-disabled="bDisable" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary " ng-disabled="bDisable" ng-click="saveRating(data)"> &nbsp; Submit Rating &nbsp; </button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+</div>
+
+
+
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/SPMSMonitoring/Monitoring.js"></script>
+
+<script>
+
+    $("#workGroup").select2({
+        placeholder: '-- Select --',
+        allowClear: true
+    });
+
+</script>
+
+
+
+}

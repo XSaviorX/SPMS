@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @*<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <title>HRIS | Login</title>*@
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HRIS | Login</title>
+    
+    <link href="~/Content/assetsSignIn/style.css" rel="stylesheet" />
+    <link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />      
+    <script src="~/Content/assets/js/core/libraries/jquery.min.js"></script>
+    <script src="~/Content/assets/js/core/libraries/bootstrap.min.js"></script>   
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    
+</head>
+<body data-ng-app="myApp">
+    <div class="container">
+        <div class="forms-container" ng-controller="LoginApp">
+            <div class="signin-signup">
+                <form action="#" class="sign-in-form">
+                    <img src="~/Content/assets/images/logo_icon_light.png" />
+                    <h2 class="title">
+                        Account Login
+                    </h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Username" ng-model="data.username" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" ng-model="data.password" ng-keypress="getkeys($event)" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" ng-disabled="bDisable" ng-click="LogMeIn(data)" class="btn btn-primary btn-block">{{msg}} <i class="icon-circle-right2 position-right"></i></button>
+                    </div>
+                                        
+                    <div class="social-media">
+                       
+                    </div>
+
+                </form>
+               
+            </div>
+        </div>
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>DAVNOR HRIS</h3>
+                    <p>
+                        The Human Resource Information System of Davao del Norte.
+                    </p>
+                </div>
+                <img src="~/Content/assetsSignIn/img/log.svg" class="image" alt="" />
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/AngularJS/angular1.8.0.min.js"></script>
+    <script src="~/Scripts/AngularJS/myApp.js"></script>
+    <script src="~/Scripts/AngularJS/Account/Login.js"></script>
+    <script src="~/Content/assetsSignIn/app.js"></script>
+
+</body>
+</html>

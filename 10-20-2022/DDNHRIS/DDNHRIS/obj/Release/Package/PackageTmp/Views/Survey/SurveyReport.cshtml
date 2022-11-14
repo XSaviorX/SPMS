@@ -1,0 +1,224 @@
+﻿@{
+    ViewBag.Title = "SurveyReport";
+}
+
+
+<link href="~/Content/Limitless2/css/icomoon_styles.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .table2 > tbody > tr > td, .table2 > tbody > tr > th, .table2 > tfoot > tr > td, .table2 > tfoot > tr > th, .table2 > thead > tr > td, .table2 > thead > tr > th {
+        padding: 3px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        width: 100%;
+    }
+</style>
+
+<div ng-controller="SurveyReport">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">LEARNING AND DEVELOPMENT INTERVENTION (LDI)</span> </h4>
+            </div>
+            <div class="heading-elements">
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        @*<div class="navbar navbar-default navbar-component navbar-xs">
+                <ul class="nav navbar-nav visible-xs-block">
+                    <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                </ul>
+                <div class="navbar-collapse collapse" id="navbar-filter">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#pending" data-toggle="tab"><i class="icon-stack-text position-left"></i> Survey Result</a></li>
+                        <li><a href="#done" data-toggle="tab"><i class="icon-folder-upload3 position-left"></i> Submitted Survey</a></li>
+                    </ul>
+
+                </div>
+            </div>*@
+        <!-- /toolbar -->
+
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- SURVEY QUESTION -->
+                        <div class="tab-pane fade in active" id="pending">
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white" ng-show="displayTag == 0">
+                                <div class="panel-heading">
+                                    <h3 class="no-margin text-semibold">Survey Report</h3>
+
+                                </div>
+
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>SURVEY NAME</th>
+                                            <th>DESCRIPTION</th>
+
+                                            <th class="text-center text-muted" style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in survey">
+                                            <td>{{$index+1}}</td>
+                                            <td>
+                                                <div class="text-bold text-primary-800" ng-click="viewRespondent(item)"><a href="#">{{item.particulars}}</a></div>
+                                            </td>
+                                            <td>
+                                                {{item.detail}}
+                                            </td>
+
+                                            <td>
+                                                <button class="btn btn-xs btn-info bg-blue-600" ng-disabled="bDisable" ng-click="viewResult(item)">
+                                                    View Result <i class="icon-arrow-right22"></i>
+                                                </button>
+                                            </td>
+
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+                            <!-- SUMMARY -->
+                            <div class="row" ng-show="displayTag == 1">
+
+                                <div class="col-sm-6 col-md-12">
+                                    <!-- Basic table -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title no-margin-top no-margin-bottom text-blue-800 text-bold">
+                                                <span>{{surveyData.particulars}}</span>
+                                                <br />
+                                                <select class="form-control select2 select-Custom " ng-model="departmentCode" style="width:300px; font-weight:bold;"
+                                                        ng-options="c.departmentCode as c.shortDepartmentName for c in department" value="{{c.departmentCode}}"
+                                                        ng-change="onChangeDept()"
+                                                        id="dept">
+                                                    <option value="" selected="">-- Select --</option>
+                                                </select>
+                                            </h5>
+                                            <div class="heading-elements">
+
+                                                <button class="btn btn-link text-blue-800" ng-show="departmentCode != null" ng-click="printReport()">
+                                                    <i class="icon-printer2"></i> Print Report
+                                                </button>
+
+                                                <button class="btn btn-link text-blue-800" ng-click="backToList()">
+                                                    <i class="icon-arrow-left52"></i> Back to List
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+
+                                            <h2 class="text-blue-700" style="padding-left:15px;">
+                                                {{surveyData.surveyIntro}}
+                                            </h2>
+
+                                            <table class="table">
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>EMPLOYEE NAME</th>
+                                                        <th>BSDC</th>
+                                                        <th>SDC Track 1</th>
+                                                        <th>SDC Track 2</th>
+                                                        <th>REMARKS</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr ng-repeat="item in result">
+                                                        <td style="width:30px!important">{{$index+1}}.)</td>
+                                                        <td>
+                                                            {{item.fullNameLast}} <br /> <small class="text-muted">{{item.positionTitle}}</small>
+                                                        </td>
+                                                        <td class="text-center">{{item.trainingA}}</td>
+                                                        <td class="text-center">{{item.trainingB}}</td>
+                                                        <td class="text-center">{{item.trainingC}}</td>
+                                                        <td class="text-center">{{item.remarks}}</td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                               
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /basic table -->
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+ 
+
+</div>
+
+
+
+@section JavaScript{
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/swal/sweetalert.min.js"></script>
+    <script src="~/Scripts/AngularJS/Survey/surveyReport.js"></script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

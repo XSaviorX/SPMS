@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HRISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tapp212EducBackground">
+          <Key>
+            <PropertyRef Name="fRecNo" />
+          </Key>
+          <Property Name="fRecNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fContrlNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="fLevelTag" Type="nvarchar" MaxLength="50" />
+          <Property Name="fSchoolName" Type="nvarchar" MaxLength="255" />
+          <Property Name="fDegree" Type="nvarchar" MaxLength="255" />
+          <Property Name="fCorsCateg" Type="nvarchar" MaxLength="50" />
+          <Property Name="fYearGrad" Type="nvarchar" MaxLength="50" />
+          <Property Name="fHighLevel" Type="nvarchar" MaxLength="255" />
+          <Property Name="fFromDT" Type="nvarchar" MaxLength="255" />
+          <Property Name="fToDT" Type="nvarchar" MaxLength="255" />
+          <Property Name="fHonors" Type="nvarchar" MaxLength="255" />
+          <Property Name="fRemarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="fHighestEduc" Type="nvarchar" MaxLength="5" />
+          <Property Name="fCAV" Type="nvarchar" MaxLength="15" />
+          <Property Name="fUser" Type="nvarchar" MaxLength="255" />
+          <Property Name="fIncludeTag" Type="nvarchar" MaxLength="5" />
+          <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="isApproved" Type="int" />
+          <Property Name="dateApproved" Type="date" />
+          <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRIS.dbo.tapp212EducLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tapp212EducLevel">
+          <Key>
+            <PropertyRef Name="fLevel" />
+          </Key>
+          <Property Name="fLevel" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fDesc" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tapp212FamilyBackground">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="fPaSName" Type="nvarchar" MaxLength="255" />
+          <Property Name="fPaFName" Type="nvarchar" MaxLength="255" />
+          <Property Name="fPaMidName" Type="nvarchar" MaxLength="255" />
+          <Property Name="fPaExtn" Type="nvarchar" MaxLength="255" />
+          <Property Name="fMaMaiden" Type="nvarchar" MaxLength="255" />
+          <Property Name="fMaSname" Type="nvarchar" MaxLength="255" />
+          <Property Name="fMaFName" Type="nvarchar" MaxLength="255" />
+          <Property Name="fMaMidName" Type="nvarchar" MaxLength="255" />
+          <Property Name="isApproved" Type="int" />
+          <Property Name="dateApproved" Type="date" />
+          <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="fUser" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tapp212Trainings">
+          <Key>
+            <PropertyRef Name="fRecNo" />
+          </Key>
+          <Property Name="fRecNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_no" Type="nvarchar" MaxLength="255" />
+          <Property Name="fTitle" Type="nvarchar(max)" />
+          <Property Name="fFromDT" Type="date" />
+          <Property Name="ftoDT" Type="nvarchar" MaxLength="255" />
+          <Property Name="fHoursNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="fConducted" Type="nvarchar(max)" />
+          <Property Name="fVenue" Type="nvarchar" MaxLength="255" />
+          <Property Name="fTrainClas" Type="nvarchar" MaxLength="255" />
+          <Property Name="fTrainType" Type="nvarchar" MaxLength="255" />
+          <Property Name="fGroupTag" Type="nvarchar" MaxLength="255" />
+          <Property Name="fDateEncod" Type="nvarchar" MaxLength="255" />
+          <Property Name="fUser" Type="nvarchar" MaxLength="255" />
+          <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="isApproved" Type="int" />
+          <Property Name="dateApproved" Type="date" />
+          <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tappEmployee">
+          <Key>
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="int" Nullable="false" />
+          <Property Name="idNo" Type="nvarchar" MaxLength="8" />
+          <Property Name="EIC" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="middleName" Type="nvarchar" MaxLength="20" />
+          <Property Name="extName" Type="nvarchar" MaxLength="10" />
+          <Property Name="birthdate" Type="date" />
+          <Property Name="birthplace" Type="nvarchar" MaxLength="255" />
+          <Property Name="fullnameFirst" Type="nvarchar" MaxLength="60" />
+          <Property Name="fullnameLast" Type="nvarchar" MaxLength="60" />
+          <Property Name="gender" Type="int" />
+          <Property Name="prefixTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="sufixTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="sex" Type="varchar" MaxLength="7" />
+          <Property Name="contactNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="160" />
+          <Property Name="birthDate1" Type="nvarchar" MaxLength="50" />
+          <Property Name="birthPlace1" Type="nvarchar" MaxLength="50" />
+          <Property Name="isActive" Type="int" />
+        </EntityType>
+        <EntityType Name="tAttDailyLog">
+          <Key>
+            <PropertyRef Name="RecNo" />
+          </Key>
+          <Property Name="RecNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="LogDate" Type="date" />
+          <Property Name="In1" Type="datetime" />
+          <Property Name="Out1" Type="datetime" />
+          <Property Name="In2" Type="datetime" />
+          <Property Name="Out2" Type="datetime" />
+          <Property Name="LastLog" Type="nvarchar" MaxLength="50" />
+          <Property Name="OverRide1" Type="nvarchar" MaxLength="50" />
+          <Property Name="OverRide2" Type="nvarchar" MaxLength="50" />
+          <Property Name="SchemeCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="nonRegDay" Type="int" />
+          <Property Name="tag" Type="int" />
+        </EntityType>
+        <EntityType Name="tAttShiftingEmpScheme">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="controlNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="entryDate" Type="date" />
+          <Property Name="In1" Type="datetime" />
+          <Property Name="Out1" Type="datetime" />
+          <Property Name="In2" Type="datetime" />
+          <Property Name="Out2" Type="datetime" />
+          <Property Name="isApproved" Type="int" />
+          <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="encoderEIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="50" />
+          <Property Name="isNoBreak" Type="int" />
+          <Property Name="returnTag" Type="int" />
+        </EntityType>
+        <EntityContainer Name="HRISModelStoreContainer">
+          <EntitySet Name="tapp212EducBackground" EntityType="Self.tapp212EducBackground" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tapp212FamilyBackground" EntityType="Self.tapp212FamilyBackground" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tapp212Trainings" EntityType="Self.tapp212Trainings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tappEmployee" EntityType="Self.tappEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tAttDailyLog" EntityType="Self.tAttDailyLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tAttShiftingEmpScheme" EntityType="Self.tAttShiftingEmpScheme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tapp212EducLevel" EntityType="Self.tapp212EducLevel" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tapp212EducLevel].[fLevel] AS [fLevel], 
+    [tapp212EducLevel].[fDesc] AS [fDesc]
+    FROM [dbo].[tapp212EducLevel] AS [tapp212EducLevel]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HRISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tAttShiftingEmpScheme">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="controlNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="entryDate" Type="DateTime" Precision="0" />
+          <Property Name="In1" Type="DateTime" Precision="3" />
+          <Property Name="Out1" Type="DateTime" Precision="3" />
+          <Property Name="In2" Type="DateTime" Precision="3" />
+          <Property Name="Out2" Type="DateTime" Precision="3" />
+          <Property Name="isApproved" Type="Int32" />
+          <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="encoderEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isNoBreak" Type="Int32" />
+          <Property Name="returnTag" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="HRISEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tAttShiftingEmpSchemes" EntityType="Self.tAttShiftingEmpScheme" />
+          <EntitySet Name="tapp212FamilyBackground" EntityType="HRISModel.tapp212FamilyBackground" />
+          <EntitySet Name="tapp212EducLevel" EntityType="HRISModel.tapp212EducLevel" />
+          <EntitySet Name="tapp212EducBackground" EntityType="HRISModel.tapp212EducBackground" />
+          <EntitySet Name="tapp212Trainings" EntityType="HRISModel.tapp212Trainings" />
+          <EntitySet Name="tappEmployees" EntityType="HRISModel.tappEmployee" />
+          <EntitySet Name="tAttDailyLogs" EntityType="HRISModel.tAttDailyLog" />
+        </EntityContainer>
+        <EntityType Name="tapp212FamilyBackground">
+          <Key>
+            <PropertyRef Name="recNo" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fPaSName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fPaFName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fPaMidName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fPaExtn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fMaMaiden" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fMaSname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fMaFName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fMaMidName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="isApproved" Type="Int32" />
+          <Property Name="dateApproved" Type="DateTime" Precision="0" />
+          <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tapp212EducLevel">
+          <Key>
+            <PropertyRef Name="fLevel" />
+          </Key>
+          <Property Name="fLevel" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tapp212EducBackground">
+          <Key>
+            <PropertyRef Name="fRecNo" />
+          </Key>
+          <Property Name="fRecNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fContrlNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fLevelTag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fSchoolName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fDegree" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fCorsCateg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fYearGrad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fHighLevel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fFromDT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fToDT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fHonors" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fRemarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fHighestEduc" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="fCAV" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="fUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fIncludeTag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="isApproved" Type="Int32" />
+          <Property Name="dateApproved" Type="DateTime" Precision="0" />
+          <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tapp212Trainings">
+          <Key>
+            <PropertyRef Name="fRecNo" />
+          </Key>
+          <Property Name="fRecNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_no" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fFromDT" Type="DateTime" Precision="0" />
+          <Property Name="ftoDT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fHoursNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fConducted" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fVenue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fTrainClas" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fTrainType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fGroupTag" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fDateEncod" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="isApproved" Type="Int32" />
+          <Property Name="dateApproved" Type="DateTime" Precision="0" />
+          <Property Name="approvedEIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tappEmployee">
+          <Key>
+            <PropertyRef Name="EIC" />
+          </Key>
+          <Property Name="recNo" Type="Int32" Nullable="false" />
+          <Property Name="idNo" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="EIC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="middleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="extName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="birthdate" Type="DateTime" Precision="0" />
+          <Property Name="birthplace" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fullnameFirst" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fullnameLast" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="Int32" />
+          <Property Name="prefixTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sufixTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sex" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="contactNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="birthDate1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="birthPlace1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tAttDailyLog">
+          <Key>
+            <PropertyRef Name="RecNo" />
+          </Key>
+          <Property Name="RecNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LogDate" Type="DateTime" Precision="0" />
+          <Property Name="In1" Type="DateTime" Precision="3" />
+          <Property Name="Out1" Type="DateTime" Precision="3" />
+          <Property Name="In2" Type="DateTime" Precision="3" />
+          <Property Name="Out2" Type="DateTime" Precision="3" />
+          <Property Name="LastLog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OverRide1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OverRide2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SchemeCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="nonRegDay" Type="Int32" />
+          <Property Name="tag" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HRISModelStoreContainer" CdmEntityContainer="HRISEntities">
+          <EntitySetMapping Name="tAttShiftingEmpSchemes">
+            <EntityTypeMapping TypeName="HRISModel.tAttShiftingEmpScheme">
+              <MappingFragment StoreEntitySet="tAttShiftingEmpScheme">
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+                <ScalarProperty Name="controlNo" ColumnName="controlNo" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="entryDate" ColumnName="entryDate" />
+                <ScalarProperty Name="In1" ColumnName="In1" />
+                <ScalarProperty Name="Out1" ColumnName="Out1" />
+                <ScalarProperty Name="In2" ColumnName="In2" />
+                <ScalarProperty Name="Out2" ColumnName="Out2" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+                <ScalarProperty Name="encoderEIC" ColumnName="encoderEIC" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="isNoBreak" ColumnName="isNoBreak" />
+                <ScalarProperty Name="returnTag" ColumnName="returnTag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tapp212FamilyBackground">
+            <EntityTypeMapping TypeName="HRISModel.tapp212FamilyBackground">
+              <MappingFragment StoreEntitySet="tapp212FamilyBackground">
+                <ScalarProperty Name="fUser" ColumnName="fUser" />
+                <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="fMaMidName" ColumnName="fMaMidName" />
+                <ScalarProperty Name="fMaFName" ColumnName="fMaFName" />
+                <ScalarProperty Name="fMaSname" ColumnName="fMaSname" />
+                <ScalarProperty Name="fMaMaiden" ColumnName="fMaMaiden" />
+                <ScalarProperty Name="fPaExtn" ColumnName="fPaExtn" />
+                <ScalarProperty Name="fPaMidName" ColumnName="fPaMidName" />
+                <ScalarProperty Name="fPaFName" ColumnName="fPaFName" />
+                <ScalarProperty Name="fPaSName" ColumnName="fPaSName" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tapp212EducLevel">
+            <EntityTypeMapping TypeName="HRISModel.tapp212EducLevel">
+              <MappingFragment StoreEntitySet="tapp212EducLevel">
+                <ScalarProperty Name="fDesc" ColumnName="fDesc" />
+                <ScalarProperty Name="fLevel" ColumnName="fLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tapp212EducBackground">
+            <EntityTypeMapping TypeName="HRISModel.tapp212EducBackground">
+              <MappingFragment StoreEntitySet="tapp212EducBackground">
+                <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="fIncludeTag" ColumnName="fIncludeTag" />
+                <ScalarProperty Name="fUser" ColumnName="fUser" />
+                <ScalarProperty Name="fCAV" ColumnName="fCAV" />
+                <ScalarProperty Name="fHighestEduc" ColumnName="fHighestEduc" />
+                <ScalarProperty Name="fRemarks" ColumnName="fRemarks" />
+                <ScalarProperty Name="fHonors" ColumnName="fHonors" />
+                <ScalarProperty Name="fToDT" ColumnName="fToDT" />
+                <ScalarProperty Name="fFromDT" ColumnName="fFromDT" />
+                <ScalarProperty Name="fHighLevel" ColumnName="fHighLevel" />
+                <ScalarProperty Name="fYearGrad" ColumnName="fYearGrad" />
+                <ScalarProperty Name="fCorsCateg" ColumnName="fCorsCateg" />
+                <ScalarProperty Name="fDegree" ColumnName="fDegree" />
+                <ScalarProperty Name="fSchoolName" ColumnName="fSchoolName" />
+                <ScalarProperty Name="fLevelTag" ColumnName="fLevelTag" />
+                <ScalarProperty Name="fContrlNo" ColumnName="fContrlNo" />
+                <ScalarProperty Name="fRecNo" ColumnName="fRecNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tapp212Trainings">
+            <EntityTypeMapping TypeName="HRISModel.tapp212Trainings">
+              <MappingFragment StoreEntitySet="tapp212Trainings">
+                <ScalarProperty Name="approvedEIC" ColumnName="approvedEIC" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="fUser" ColumnName="fUser" />
+                <ScalarProperty Name="fDateEncod" ColumnName="fDateEncod" />
+                <ScalarProperty Name="fGroupTag" ColumnName="fGroupTag" />
+                <ScalarProperty Name="fTrainType" ColumnName="fTrainType" />
+                <ScalarProperty Name="fTrainClas" ColumnName="fTrainClas" />
+                <ScalarProperty Name="fVenue" ColumnName="fVenue" />
+                <ScalarProperty Name="fConducted" ColumnName="fConducted" />
+                <ScalarProperty Name="fHoursNo" ColumnName="fHoursNo" />
+                <ScalarProperty Name="ftoDT" ColumnName="ftoDT" />
+                <ScalarProperty Name="fFromDT" ColumnName="fFromDT" />
+                <ScalarProperty Name="fTitle" ColumnName="fTitle" />
+                <ScalarProperty Name="ID_no" ColumnName="ID_no" />
+                <ScalarProperty Name="fRecNo" ColumnName="fRecNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tappEmployees">
+            <EntityTypeMapping TypeName="HRISModel.tappEmployee">
+              <MappingFragment StoreEntitySet="tappEmployee">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="birthPlace1" ColumnName="birthPlace1" />
+                <ScalarProperty Name="birthDate1" ColumnName="birthDate1" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contactNo" ColumnName="contactNo" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="sufixTitle" ColumnName="sufixTitle" />
+                <ScalarProperty Name="prefixTitle" ColumnName="prefixTitle" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="fullnameLast" ColumnName="fullnameLast" />
+                <ScalarProperty Name="fullnameFirst" ColumnName="fullnameFirst" />
+                <ScalarProperty Name="birthplace" ColumnName="birthplace" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="extName" ColumnName="extName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="idNo" ColumnName="idNo" />
+                <ScalarProperty Name="recNo" ColumnName="recNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tAttDailyLogs">
+            <EntityTypeMapping TypeName="HRISModel.tAttDailyLog">
+              <MappingFragment StoreEntitySet="tAttDailyLog">
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="nonRegDay" ColumnName="nonRegDay" />
+                <ScalarProperty Name="SchemeCode" ColumnName="SchemeCode" />
+                <ScalarProperty Name="OverRide2" ColumnName="OverRide2" />
+                <ScalarProperty Name="OverRide1" ColumnName="OverRide1" />
+                <ScalarProperty Name="LastLog" ColumnName="LastLog" />
+                <ScalarProperty Name="Out2" ColumnName="Out2" />
+                <ScalarProperty Name="In2" ColumnName="In2" />
+                <ScalarProperty Name="Out1" ColumnName="Out1" />
+                <ScalarProperty Name="In1" ColumnName="In1" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EIC" ColumnName="EIC" />
+                <ScalarProperty Name="RecNo" ColumnName="RecNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

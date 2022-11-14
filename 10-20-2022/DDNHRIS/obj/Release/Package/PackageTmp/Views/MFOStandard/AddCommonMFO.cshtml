@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "AddCommonMFO";
+}
+
+<h2>Add Common MFO</h2>
+<div ng-controller="MFOStandard" style="background-color: white; margin: 25px 50px 75px; padding: 0px 10px 0px ">
+    <div class="form-group">
+
+
+        <br />
+        <input type="hidden" value="0" id="idnum">
+        <label><b>Common MFO Description</b></label>
+        <input type="text" ng-model="newCMFO.CMFO" class="form-control" name="addMFO" /><br />
+        <div class="row">
+            <div class="col-lg-1">
+                <label><b>Category:</b></label>
+            </div>
+
+
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input class="form-check-input" ng-model="catMFO.categoryId" type="radio" name="category" id="category1" value="1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Core Function
+                    </label>
+                </div>
+
+            </div>
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input class="form-check-input" ng-model="catMFO.categoryId" type="radio" name="category" id="category2" value="3">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Support Function
+                    </label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label style="margin-top:10px;"><b>Success Indicator/s</b></label>
+                <button ng-click="addIndicatorField()" class="btn btn-link"><i class="icon icon-add"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1">
+                <label> Target Count </label>
+            </div>
+            <div class="col-lg-1">
+                <label> Description </label>
+            </div>
+        </div>
+        @*                        <div id="indicators" ng-repeat="newInd in newIndicator">
+        *@
+        <div class='row'>
+            <div class='col-lg-1'>
+                <input style="margin-top:20px;" type="text" ng-model="target" ng-change="onChangeTarget()" class="form-control" id="addIndicator2" placeholder="#{{$index + 1}}" />
+
+            </div><div class='col-lg-11'>
+                <input style="margin-top:20px;" type="text" ng-model="indicator" class="form-control" id="addIndicator" placeholder="#{{$index + 1}}">
+
+            </div>
+    
+        </div>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <td>
+                        Rating
+                    </td>
+                    <td>
+                        Quantity
+                    </td>
+                    <td>
+                        Quality
+                    </td>
+                    <td>
+                        Timeliness
+                    </td>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr ng-repeat="performance in addStandard">
+                    <td>
+                        <input ng-model="performance.performanceId = (getPfmcID)" type="hidden" value="{{getPfmcID}}" />
+
+
+                        <input ng-init="performance.rating = (addStandard.length - $index)" type="text" name="rate" ng-value="{{addStandard.length - $index}}" class="no-border" readonly="readonly" />
+                    </td>
+
+                    <td>
+                        <input ng-if="performance.rating  == 4" ng-model="performance.quantity = (r4)" name="quantity" class="no-border" readonly="readonly" value="{{targetnow}}" />
+
+                        <input ng-if="performance.rating  == 3" ng-model="performance.quantity = (target)" name="quantity" class="no-border" readonly="readonly" value="{{targetnow}}" />
+                    </td>
+                    <td>
+                        <input ng-model="performance.quality" class="form-control" name="quality" />
+                    </td>
+                    <td>
+                        <input ng-model="performance.timeliness" class="form-control" name="timeliness" />
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        @*                        </div>
+        *@
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="delIndicatorField()">CLOSE</button>
+            <button type="button" class="btn btn-primary" ng-click="insertCMFO(newCMFO)">SAVE</button>
+        </div>
+    </div>
+
+</div>
+
+        @section JavaScript{
+            <script src="~/Scripts/AngularJS/MFOStandard/CommonMFO.js"></script>
+
+
+        }

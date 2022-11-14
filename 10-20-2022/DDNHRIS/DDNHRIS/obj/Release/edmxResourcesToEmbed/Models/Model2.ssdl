@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tapp212EducBackground">
+    <Key>
+      <PropertyRef Name="fRecNo" />
+    </Key>
+    <Property Name="fRecNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fContrlNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="fLevelTag" Type="nvarchar" MaxLength="50" />
+    <Property Name="fSchoolName" Type="nvarchar" MaxLength="255" />
+    <Property Name="fDegree" Type="nvarchar" MaxLength="255" />
+    <Property Name="fCorsCateg" Type="nvarchar" MaxLength="50" />
+    <Property Name="fYearGrad" Type="nvarchar" MaxLength="50" />
+    <Property Name="fHighLevel" Type="nvarchar" MaxLength="255" />
+    <Property Name="fFromDT" Type="nvarchar" MaxLength="255" />
+    <Property Name="fToDT" Type="nvarchar" MaxLength="255" />
+    <Property Name="fHonors" Type="nvarchar" MaxLength="255" />
+    <Property Name="fRemarks" Type="nvarchar" MaxLength="100" />
+    <Property Name="fHighestEduc" Type="nvarchar" MaxLength="5" />
+    <Property Name="fCAV" Type="nvarchar" MaxLength="15" />
+    <Property Name="fUser" Type="nvarchar" MaxLength="255" />
+    <Property Name="fIncludeTag" Type="nvarchar" MaxLength="5" />
+    <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="isApproved" Type="int" />
+    <Property Name="dateApproved" Type="date" />
+    <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRIS.dbo.tapp212EducLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tapp212EducLevel">
+    <Key>
+      <PropertyRef Name="fLevel" />
+    </Key>
+    <Property Name="fLevel" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="fDesc" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tapp212FamilyBackground">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="fPaSName" Type="nvarchar" MaxLength="255" />
+    <Property Name="fPaFName" Type="nvarchar" MaxLength="255" />
+    <Property Name="fPaMidName" Type="nvarchar" MaxLength="255" />
+    <Property Name="fPaExtn" Type="nvarchar" MaxLength="255" />
+    <Property Name="fMaMaiden" Type="nvarchar" MaxLength="255" />
+    <Property Name="fMaSname" Type="nvarchar" MaxLength="255" />
+    <Property Name="fMaFName" Type="nvarchar" MaxLength="255" />
+    <Property Name="fMaMidName" Type="nvarchar" MaxLength="255" />
+    <Property Name="isApproved" Type="int" />
+    <Property Name="dateApproved" Type="date" />
+    <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="fUser" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tapp212Trainings">
+    <Key>
+      <PropertyRef Name="fRecNo" />
+    </Key>
+    <Property Name="fRecNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_no" Type="nvarchar" MaxLength="255" />
+    <Property Name="fTitle" Type="nvarchar(max)" />
+    <Property Name="fFromDT" Type="date" />
+    <Property Name="ftoDT" Type="nvarchar" MaxLength="255" />
+    <Property Name="fHoursNo" Type="nvarchar" MaxLength="255" />
+    <Property Name="fConducted" Type="nvarchar(max)" />
+    <Property Name="fVenue" Type="nvarchar" MaxLength="255" />
+    <Property Name="fTrainClas" Type="nvarchar" MaxLength="255" />
+    <Property Name="fTrainType" Type="nvarchar" MaxLength="255" />
+    <Property Name="fGroupTag" Type="nvarchar" MaxLength="255" />
+    <Property Name="fDateEncod" Type="nvarchar" MaxLength="255" />
+    <Property Name="fUser" Type="nvarchar" MaxLength="255" />
+    <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="isApproved" Type="int" />
+    <Property Name="dateApproved" Type="date" />
+    <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tappEmployee">
+    <Key>
+      <PropertyRef Name="EIC" />
+    </Key>
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="idNo" Type="nvarchar" MaxLength="8" />
+    <Property Name="EIC" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="20" />
+    <Property Name="middleName" Type="nvarchar" MaxLength="20" />
+    <Property Name="extName" Type="nvarchar" MaxLength="10" />
+    <Property Name="birthdate" Type="date" />
+    <Property Name="birthplace" Type="nvarchar" MaxLength="255" />
+    <Property Name="fullnameFirst" Type="nvarchar" MaxLength="60" />
+    <Property Name="fullnameLast" Type="nvarchar" MaxLength="60" />
+    <Property Name="gender" Type="int" />
+    <Property Name="prefixTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="sufixTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="sex" Type="varchar" MaxLength="7" />
+    <Property Name="contactNo" Type="nvarchar" MaxLength="100" />
+    <Property Name="email" Type="nvarchar" MaxLength="160" />
+    <Property Name="birthDate1" Type="nvarchar" MaxLength="50" />
+    <Property Name="birthPlace1" Type="nvarchar" MaxLength="50" />
+    <Property Name="isActive" Type="int" />
+  </EntityType>
+  <EntityType Name="tAttDailyLog">
+    <Key>
+      <PropertyRef Name="RecNo" />
+    </Key>
+    <Property Name="RecNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EIC" Type="nvarchar" MaxLength="50" />
+    <Property Name="ID" Type="nvarchar" MaxLength="50" />
+    <Property Name="LogDate" Type="date" />
+    <Property Name="In1" Type="datetime" />
+    <Property Name="Out1" Type="datetime" />
+    <Property Name="In2" Type="datetime" />
+    <Property Name="Out2" Type="datetime" />
+    <Property Name="LastLog" Type="nvarchar" MaxLength="50" />
+    <Property Name="OverRide1" Type="nvarchar" MaxLength="50" />
+    <Property Name="OverRide2" Type="nvarchar" MaxLength="50" />
+    <Property Name="SchemeCode" Type="nvarchar" MaxLength="25" />
+    <Property Name="nonRegDay" Type="int" />
+    <Property Name="tag" Type="int" />
+  </EntityType>
+  <EntityType Name="tAttShiftingEmpScheme">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="controlNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="EIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="entryDate" Type="date" />
+    <Property Name="In1" Type="datetime" />
+    <Property Name="Out1" Type="datetime" />
+    <Property Name="In2" Type="datetime" />
+    <Property Name="Out2" Type="datetime" />
+    <Property Name="isApproved" Type="int" />
+    <Property Name="approvedEIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="encoderEIC" Type="nvarchar" MaxLength="20" />
+    <Property Name="remarks" Type="nvarchar" MaxLength="50" />
+    <Property Name="isNoBreak" Type="int" />
+    <Property Name="returnTag" Type="int" />
+  </EntityType>
+  <EntityContainer Name="HRISModelStoreContainer">
+    <EntitySet Name="tapp212EducBackground" EntityType="Self.tapp212EducBackground" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tapp212FamilyBackground" EntityType="Self.tapp212FamilyBackground" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tapp212Trainings" EntityType="Self.tapp212Trainings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tappEmployee" EntityType="Self.tappEmployee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tAttDailyLog" EntityType="Self.tAttDailyLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tAttShiftingEmpScheme" EntityType="Self.tAttShiftingEmpScheme" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tapp212EducLevel" EntityType="Self.tapp212EducLevel" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tapp212EducLevel].[fLevel] AS [fLevel], 
+    [tapp212EducLevel].[fDesc] AS [fDesc]
+    FROM [dbo].[tapp212EducLevel] AS [tapp212EducLevel]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

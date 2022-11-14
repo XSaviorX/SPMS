@@ -1,0 +1,450 @@
+﻿@{
+    ViewBag.Title = "Service Record";
+}
+
+
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+
+<!-- Page header -->
+<div class="page-header">
+
+    <!-- Header content -->
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4> <a href="~/Employee/List"><i class="icon-arrow-left52 position-left"></i></a> <span class="text-semibold">SERVICE RECORD</span> </h4>
+        </div>
+    </div>
+    <!-- /header content -->
+
+</div>
+<!-- /page header -->
+<!-- Content area -->
+<div class="content" ng-controller="ServiceRecord">
+    <!-- User profile -->
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Profile info -->
+            <div class="panel panel-flat">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title cursor-pointer"> <span class="text-blue-700 text-bold" ng-click="findEmployee()">{{name}}</span>  </h4>
+                    <span class="text-bold">{{detail}}</span>
+
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+
+                            <li class="text-blue-800" ng-disabled="bDisable" ng-click="modalSRCreate()">
+                                <a href="#">
+                                    <i class="icon-file-plus"></i> Add Record &nbsp; &nbsp;
+                                </a>
+                            </li>
+
+                            @*<li class="text-blue-800" ng-disabled="bDisable" ng-show="serviceTag == 1" ng-click="printServiceRecord()">
+                                <a href="#">
+                                    <i class="icon-printer2"></i> Preview
+                                </a>
+                            </li>*@
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle text-blue-800 " data-toggle="dropdown"><i class="icon-printer2"></i> Preview <span class="visible-xs-inline-block position-right"> </span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li ng-click="printServiceRecord('D')"><a href="#">  <i class="icon-file-text"></i> Print </a></li>
+                                    <li ng-click="printServiceRecord('SM')"><a href="#"> <i class="icon-file-text"></i> Print  (Small) </a></li>
+                                    <li ng-click="printServiceRecord('LG')"><a href="#"> <i class="icon-file-text"></i>  Print  (Large) </a></li>
+                                    @*<li ng-click="printServiceRecord('XL')"><a href="#"> <i class="icon-file-text"></i> Print  (Extra) </a></li>*@
+                                </ul>
+                            </li>
+
+                            @*
+                                <li class="text-blue-800" ng-disabled="bDisable" ng-show="serviceTag == 0" ng-click="checkMySQLRecord()">
+                                    <a href="#">
+                                        <i class="icon-merge"></i> Check MySQL DB &nbsp;
+                                    </a>
+                                </li>
+                            *@
+
+                            <li class="text-blue-800" ng-show="serviceTag == 2" ng-click="migrateServiceRecord()">
+                                <a href="#">
+                                    <i class="icon-database-check"></i> Start Migration &nbsp; &nbsp;
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body ">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-striped table-bordered text-semibold table-hover">
+                            <thead>
+                                <tr style="background-color:#f3f3f3;" class="text-semibold">
+                                    <th class="text-center" colspan="2">SERVICE (Inclusive Dates)</th>
+                                    <th class="text-center" colspan="3">RECORD OF APPOINTMENT</th>
+                                    <th class="text-center">OFFICE ENTITY</th>
+                                    <th class="text-center" rowspan="2">BRANCH</th>
+                                    <th class="text-center" rowspan="2">LWOP</th>
+                                    <th class="text-center" rowspan="2">SEP. CAUSE</th>
+                                    <th rowspan="2"></th>
+
+                                </tr>
+                                <tr style="background-color:#f3f3f3;" class="text-semibold">
+                                    <th class="text-center">FROM</th>
+                                    <th class="text-center">TO</th>
+                                    <th class="text-center">POSITION TITLE</th>
+                                    <th class="text-center">STATUS</th>
+                                    <th class="text-center">SALARY</th>
+                                    <th class="text-center"> ASSIGNMENT</th>
+
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="item in serviceRecord.serviceData" style="font-size:.95em;">
+                                <td style="text-align:center;">
+                                    {{formatDate(item.dateFrom)}}
+                                </td>
+                                <td class="text-center">{{item.dateToText}}</td>
+                                <td>
+                                    {{item.positionTitle}}
+                                </td>
+                                <td class="text-size-small"> {{item.employmentStatus}}</td>
+                                <td class="text-right">
+                                    {{item.salary | number:2}}/{{item.salaryType}}
+                                </td>
+                                <td>
+                                    <span class="text-size-small" style="font-size:.9em;"> {{item.placeOfAssignment}}</span>
+                                </td>
+                                <td>{{item.branch}}</td>
+                                <td>{{item.LWOP}}</td>
+                                <td><span>{{item.separationCause}}</span> </td>
+                                <td class="text-center">
+                                    <span class="btn btn-link btn-xs text-danger-800 no-margin no-padding" ng-show="serviceTag == 1" ng-click="openModalSRItem(item)">
+                                        <i class="icon-database-edit2"></i>
+                                    </span>
+                                </td>
+                            </tr>
+
+
+                            <tfoot ng-show="serviceTag == 0">
+                                <tr>
+                                    <td colspan="10">
+                                        <h5 class="text-danger-800">
+                                            *** No record found! ***
+                                            <span class="btn btn-xs btn-danger text-semibold pull-right" ng-disabled="bDisable" ng-click="checkMySQLRecord()">
+                                                <i class="icon-database-refresh"></i> Check MySQL DB for migration
+                                            </span>
+
+                                        </h5>
+                                    </td>
+                                </tr>
+                            </tfoot>
+
+
+
+                        </table>
+
+
+                    </div>
+
+                    <hr />
+
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <label>
+                                    Remarks &nbsp; :
+                                </label>
+                            </td>
+                            <td>
+                                {{serviceRecord.lastRemarks}}
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="padding:10px; border: 1px solid #adadad; min-height:80px;">
+                        {{serviceRecord.GAPRemarks}}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Primary modal -->
+    <div id="modalSelectEmployee" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-folder-search"></i> Search</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Select Employee </label>
+                        <select class="form-control select2 select-Custom text-semibold" ng-model="data.EIC" style="width:100%;"
+                                ng-options="c.EIC as c.fullNameLast for c in empList" value="{{c.EIC}}"
+                                id="employee">
+                            <option value="" selected="">-- Select --</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="selectEmployee(data.EIC)">SELECT</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICE RECORD CREATE -->
+    <div id="modalSRCreate" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-file-plus"></i> Add New Record </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Date From <span class="text-danger">*</span></label>
+                                <input class="form-control" type="date" ng-model="record.dateFrom" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Date To <span class="text-danger">*</span> &nbsp; &nbsp; &nbsp;  <span class="text-grey-800 pull-right"><input type="checkbox" ng-model="SRPresentTag" />Present?</span> </label>
+                                <input class="form-control" type="date" ng-model="record.dateTo" ng-show="SRPresentTag == 0" />
+                                <input class="form-control" type="text" ng-readonly="true" value="PRESENT" ng-show="SRPresentTag == 1" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="no-margin-bottom">Designation <span class="text-danger">*</span></label>
+                                <input class="form-control text-semibold" ng-model="record.positionTitle" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Employment Status <span class="text-danger">*</span></label>
+                                <select id="salType" class="form-control select-Custom text-semibold" ng-disabled="isReadOnly" ng-model="record.employmentStatus" style="width:100%;"
+                                        ng-options="c.code as c.text for c in statusTypeList" value="{{c.code}}"></select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Salary <span class="text-danger">*</span></label>
+                                <input class="form-control" type="number" ng-model="record.salary" />
+
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="no-margin-bottom">Salary Type <span class="text-danger">*</span></label>
+                                <select id="salType" class="form-control select-Custom text-semibold" ng-disabled="isReadOnly" ng-model="record.salaryType" style="width:100%;"
+                                        ng-options="c.code as c.text for c in salaryTypeList" value="{{c.code}}"></select>
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Place Of Assignment <span class="text-danger">*</span></label>
+                                <input class="form-control" ng-model="record.placeOfAssignment" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Branch <span class="text-danger">*</span></label>
+                                <select id="salType" class="form-control select-Custom text-semibold" ng-disabled="isReadOnly" ng-model="record.branch" style="width:100%;"
+                                        ng-options="c.code as c.text for c in branchTypeList" value="{{c.code}}"></select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">LWOP <span class="text-danger">*</span> </label>
+                                <input class="form-control" ng-model="record.LWOP" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Separation Cause/Remarks  </label>
+                                <input class="form-control" ng-model="record.separationCause" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <label class="pull-left cursor-pointer text-size-mini">
+                        <input ng-model="closeAfterSave" value="closeAfterSave" type="checkbox" /> Close After Save
+                    </label>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="saveNewRecord(record)">Save New Record</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SERVICE RECORD EDIT -->
+    <div id="modalSRData" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> {{record.positionTitle}}</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Date From </label>
+                                <input class="form-control" readonly="readonly" ng-model="formatDate(record.dateFrom)" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Date To <span class="text-danger">*</span> &nbsp; &nbsp; &nbsp;  <span class="text-grey-800 pull-right"><input type="checkbox" ng-model="SRPresentTag" />Present?</span> </label>
+                                <input class="form-control" type="date" ng-model="record.dateTo" ng-show="SRPresentTag == 0" />
+                                <input class="form-control" type="text" ng-readonly="true" value="PRESENT" ng-show="SRPresentTag == 1" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-10">
+                                <label class="no-margin-bottom">Designation  </label>
+                                <input class="form-control text-semibold" readonly="readonly" ng-model="record.positionTitle" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Employment Status  </label>
+                                <input class="form-control" readonly="readonly" ng-model="record.employmentStatus" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="no-margin-bottom">Salary</label>
+                                <label class="form-control text-right">
+                                    {{record.salary | number:2}}/{{record.salaryType}}
+                                </label>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label class="no-margin-bottom">Place Of Assignment  </label>
+                                <input class="form-control" ng-model="record.placeOfAssignment" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Branch  </label>
+                                <input class="form-control" ng-model="record.branch" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">LWOP  </label>
+                                <input class="form-control" ng-model="record.LWOP" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="no-margin-bottom">Separation Cause/Remarks  </label>
+                                <input class="form-control" ng-model="record.separationCause" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="udateServiceRecod(record)">Update Record</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICE RECORD MIGRATION -->
+    <div id="modalMigrationRecord" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-user-check"></i> {{name}}</h6>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-click="migrateServiceRecord()">Start Migration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /content area -->
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/Employee/ServiceRecord.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+        $("#employee").select2({
+            placeholder: 'Select Employee',
+            allowClear: true
+        });
+    </script>
+
+}
+
+

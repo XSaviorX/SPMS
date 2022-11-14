@@ -1,0 +1,1794 @@
+﻿@{
+    ViewBag.Title = "FundSourceMonitoring";
+}
+
+<link href="~/Content/assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/select2/select2.min.css" rel="stylesheet" />
+<link href="~/Content/assets/plugins/swal/sweetalert.css" rel="stylesheet" />
+
+<style>
+    .page-title {
+        padding: 20px 36px 10px 0;
+        display: block;
+        position: relative;
+    }
+
+    .table2 > tbody > tr > td, .table2 > tbody > tr > th, .table2 > tfoot > tr > td, .table2 > tfoot > tr > th, .table2 > thead > tr > td, .table2 > thead > tr > th {
+        padding: 3px 20px;
+        line-height: 1.5384616;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        width: 100%;
+    }
+</style>
+
+<div ng-controller="PACCOMonitoring">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-books"></i> <span class="text-semibold">FUND SOURCE MONITORING</span> </h4>
+            </div>
+            <div class="heading-elements">
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li ng-click="showTab(0)" class="active"><a href="#" data-toggle="tab"><i class="icon-stack-text position-left"></i> Source of Funds</a></li>
+                    <li ng-click="showTab(1)"><a href="#" data-toggle="tab"><i class="icon-folder-upload3 position-left"></i> Incoming Appointment<span ng-show="appCount >= 1" class="badge badge-danger badge-inline position-right">{{appCount}}</span></a></li>
+                    <li ng-click="showTab(2)"><a href="#" data-toggle="tab"><i class="icon-folder-search position-left"></i> Search </a></li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li ng-click="showTab(3)"><a href="#" data-toggle="tab"><span ng-show="notifyCount >= 1" class="badge badge-danger badge-inline position-right">{{notifyCount}}</span>&nbsp; <i class=" icon-mailbox position-left"></i> HR Notification</a></li>
+                        <li ng-click="showTab(4)"><a href="#" data-toggle="tab"> <i class="icon-stack-cancel position-left"></i> Excluded</a></li>
+                        @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-clippy"></i> Go to List</a></li>
+                                <li><a href="#"><i class="icon-search4"></i> Find</a></li>
+                            </ul>
+                        </li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /toolbar -->
+
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- User profile -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <div class="tab-content">
+
+                        <!-- APPOINTMENT -->
+                        <div class="tab-pane fade in active" id="pending" ng-show="tabId == 0">
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white" ng-show="detailTag == 0">
+                                <div class="panel-heading">
+                                    <h3 class="no-margin text-semibold">SOURCE OF FUND</h3>
+                                    <div class="heading-elements">
+                                        <input class="form-control" type="text" placeholder="Type to Search" style="max-width:550px;" ng-model='searchString' />
+                                    </div>
+                                </div>
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>PROJECT NAME</th>
+                                            <th class="text-right">BALANCE &nbsp; </th>
+                                            <th class="text-center">%</th>
+                                            <th class="text-center text-muted" style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in projList  | filter :searchString">
+                                            <td>{{$index+1}}</td>
+                                            <td>
+                                                <div class="text-bold text-blue-800 cursor-pointer" ng-click="viewDetail(item.fundSourceCode)"><span >{{item.projectName}}</span></div>
+                                                <div class="text-muted">{{item.departmentName}}</div>
+                                            </td>
+                                            <td class="text-right text-semibold">
+                                                <span class="text-bold  text-size-large">{{item.branch}}</span>
+                                                <br />
+                                                <small class="text-muted"> {{item.amount | number:2}} </small>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="label label-primary text-size-large" style="font-size:1.0em!important;">{{item.programCode}}%</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            @*<li ng-click="editData(item.fundSourceCode)"><a href="#"><i class="icon-database-edit2"></i> Edit Data</a></li>*@
+                                                            <li ng-click="viewDetail(item.fundSourceCode)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+                            <!-- SUMMARY -->
+                            <div class="row" ng-show="detailTag == 1">
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="panel panel-body bg-blue-800 has-bg-image">
+                                        <div class="media no-margin-top content-group">
+                                            <div class="media-body">
+                                                <h6 class="no-margin text-semibold">{{fundSourceData.amountBalance | number:2}}</h6>
+                                                <span class="text-muted">Remaining Balance</span>
+                                            </div>
+                                            <div class="media-right media-middle">
+                                                <i class="icon-pulse2 icon-2x"></i>
+                                            </div>
+                                        </div>
+                                        <div class="progress progress-micro bg-blue mb-10">
+                                            <div class="progress-bar bg-white" style="width:50%">
+                                                <span class="sr-only">{{fundSourceData.rate}}% remaining</span>
+                                            </div>
+                                        </div>
+                                        <span class="pull-right">{{fundSourceData.rate}}%</span>
+                                        <span class="text-bold">{{fundSourceData.amountAlloc | number:2}}</span>
+                                    </div>
+
+                                    <!-- Task details -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading no-margin-top no-margin-bottom ">
+                                            <h6 class="panel-title no-margin-top no-margin-bottom no-padding-bottom text-semibold"><i class="icon-files-empty position-left"></i> Fund Details</h6>
+                                        </div>
+                                        <table class="table table-borderless table-xs content-group-sm">
+                                            <tbody>
+                                                <tr ng-repeat="item in approList">
+                                                    <td class="text-blue-800 cursor-pointer text-semibold" ng-click="viewFundItem(item)"> {{item.particulars}}</td>
+                                                    <td class="text-right"><span class="text-semibold pull-right">{{item.amount | number:2}}</span></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="panel-footer panel-footer-condensed">
+                                            <div class="heading-elements">
+
+                                                <ul class="list-inline list-inline-condensed heading-text pull-left">
+                                                    <li ng-click="modalAddFundItem()"><a href="#" class="text-default"><i class="icon-plus2 text-blue-700"></i></a></li>
+                                                </ul>
+
+                                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                                    <li class="text-bold"><a href="#" class="text-default">{{fsData.amount | number:2}}</a></li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /task details -->
+
+                                </div>
+                                <div class="col-sm-6 col-md-9">
+                                    <!-- Basic table -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title no-margin-top no-margin-bottom text-blue-800 text-bold"> <i class="icon-arrow-left52 cursor-pointer" ng-click="backToList()"></i> <span>{{fundSourceData.fundSourceName}}</span> <br /> <span class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp; {{fundSourceData.departmentName}}</span>  <span class="text-blue-800 cursor-pointer pull-right" ng-click="printByFundSource(fundSourceData)"><i class="icon-printer2"></i></span> </h5>
+                                            
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>EMPLOYEE NAME</th>
+                                                        <th>POSITION TITLE</th>                                                        
+                                                        <th>PERIOD</th>
+                                                        @*<th class="text-right">RATE &nbsp;&nbsp;</th>*@
+                                                        <th class="text-right">TOTAL P.S.&nbsp;&nbsp; </th>
+                                                        <th>REMARKS</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr ng-repeat="item in fundSourceData.empList">
+
+                                                        <td>
+                                                            <span class="text-grey-700">{{$index+1}}.) </span> <span class="text-blue-800 text-bold cursor-pointer" ng-click="showEmployeePS(item)">{{item.fullNameLast}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>  {{item.positionTitle}} <sup class="text-bold   text-blue-800 ">({{item.employmentStatusTag}})</sup> </span>
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="text-uppercase label label-danger" ng-if="item.empTag == -1"> {{item.period}}</span>
+                                                            <small class="text-uppercase " ng-if="item.empTag !== -1"> {{item.period}}</small>
+                                                            
+
+                                                        </td>
+                                                        @*<td class="text-right">
+                                                            {{item.salary | number:2}}/{{item.salaryType}}
+                                                            </td>*@
+                                                        <td class="text-right">
+                                                            {{item.totalPS | number:2}}
+                                                        </td>
+
+                                                        <td>
+                                                            <div ng-if="item.empTag == -1">
+                                                                @*<span class="text-danger-800 text-semibold text-uppercase"><i class="icon-cross3"></i>   </span>*@
+                                                            </div>
+                                                            <div ng-if="item.notifyTag == 1">
+                                                                <span class="label label-danger"> <i class="icon-bubble9 "></i> &nbsp;  {{item.termCode}}  </span>
+                                                            </div>
+                                                            <div class="text-left" ng-if="item.notifyTag != 1 && item.empTag != -1">
+
+                                                                <span class="text-blue-800 text-semibold"><i class="icon-check"></i>   </span>
+                                                                                                                             
+                                                            </div>
+
+                                                        </td>
+
+                                                        @*<td>
+                                                            <i class="icon-checkmark3 text-blue-800"></i>
+
+                                                            <
+
+                                                        </td>*@
+
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /basic table -->
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- INCOMING   -->
+                        <div class="tab-pane fade in active" id="incoming" ng-show="tabId == 1">
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white" ng-show="viewTag == 0;">
+                                <div class="panel-heading">
+                                    <h3 class="no-margin text-semibold">INCOMING APPOINTMENT</h3>
+                                    <div class="heading-elements">
+                                        <input class="form-control" type="text" placeholder="Type to Search" style="max-width:550px;" ng-model='searchString' />
+                                    </div>
+                                </div>
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30px!important;">#</th>
+                                            <th>Appointment Name</th>
+                                            <th class="text-left">Fund Source</th>
+                                            <th class="text-center text-muted" style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in appointmentList | filter :searchString">
+                                            <td>{{$index+1}}</td>
+                                            <td class="text-bold text-blue-800 cursor-pointer" ng-click="viewApptDetail(item)">
+                                                {{item.appointmentName}}
+                                                <br />
+                                                <small class="text-semibold text-capitalize"> {{item.period}} </small>      <span class="label label-primary">{{item.employmentStatus}} ({{item.itemCount}})</span>
+                                            </td>
+
+                                            <td>
+                                                <div class="text-bold" ng-click="ViewDetail(item.fundSourceCode)">{{item.projectName}}</div>
+                                                <div class="text-muted">{{item.departmentName}}</div>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="ViewDetail(item.appointmentCode)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Task manager table -->
+                            <!-- LIST VIEW -->
+                            <!-- SUMMARY -->
+                            <div class="row " ng-show="viewTag == 1">
+
+                                <div class="col-sm-6 col-md-12">
+                                    <div class="panel panel-body bg-blue-800 has-bg-image">
+                                        <div class="media no-margin content-group">
+                                            <div class="media-body">
+                                                <h6 class="no-margin text-bold">{{fundData.balance | number:2}}</h6>
+                                                <small class="text-semibold text-muted ">Total : {{fundData.amount | number:2}}</small>
+                                            </div>
+                                            <div class="media-right media-middle">
+                                                <span class="pull-left text-bold">{{fundData.percentage | number:2}}% </span>
+                                            </div>
+                                        </div>
+                                        <div class="progress progress-micro bg-blue mb-10">
+                                            <div class="progress-bar bg-white" ng-style="width:{{fundData.percentage}}">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                        <span class="text-bold">{{fundData.projectName}}</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-12">
+                                    <!-- Basic table -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title no-margin-top no-margin-bottom  text-bold">
+                                                <i class="icon-arrow-left52 cursor-pointer text-blue-800" ng-click="backToAppList()"></i>
+                                                <span class="text-blue-800">  {{apptData.appointmentName}}</span> <span class="label label-primary">{{apptData.employmentStatus}}</span>
+                                            </h5>
+                                            <p class="text-bold text-muted"> &nbsp;&nbsp;&nbsp;&nbsp; {{apptData.period}}</p>
+                                            <div class="heading-elements">
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>EMPLOYEE</th>
+                                                        <th>POSITION TITLE</th>
+                                                        <th>PERIOD</th>
+                                                        <th class="text-right">Rate &nbsp;&nbsp;</th>
+                                                      
+                                                        <th class="text-center">
+                                                            <span class="label label-danger" ng-show="unPosted >= 1">{{unPosted}}</span>
+                                                            <span class="text-blue-800" ng-show="unPosted == 0"><i class="icon-check"></i></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr ng-repeat="item in appnteeList">
+                                                        <td>
+                                                            <span class="text-muted text-size-small">{{$index+1}}.) </span> <span class="text-blue-800 text-bold">{{item.fullNameLast}}</span>
+                                                        </td>
+                                                        <td>
+                                                            {{item.positionTitle}}
+                                                        </td>
+                                                        <td>
+                                                            {{formatDate(item.periodFrom)}} -  {{formatDate(item.periodTo)}}
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{item.salary | number:2}}/{{item.salaryType}}
+                                                        </td>
+
+                                                        <td class="text-center">                                                        
+                                                            <span class="icon-database-edit2 text-danger-700 cursor-pointer" ng-if="item.PSTag == null || item.PSTag == 0" ng-click="viewAppointmentItemData(item)"></span>
+                                                            <span class="label label-primary " ng-if="item.PSTag == 1"> <i class="icon-check2"></i> POSTED</span>
+                                                        </td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /basic table -->
+                                </div>
+                            </div>
+                            <!-- Task manager table -->
+
+                        </div>
+
+                        <!-- INCOMING SEARCH -->
+                        <div class="tab-pane fade in active" ng-show="tabId == 2">
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white">
+                                <div class="panel-heading">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <input class="form-control" type="text" placeholder="Type to Search" style="width:100%!important;" ng-model="data.searchAppointee" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button class="btn btn-default" ng-click="searchAppointee(data.searchAppointee)">
+                                                <i class="icon-search4"></i> Search
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="heading-elements">
+                                        <h3 class="no-margin text-semibold">SEARCH</h3>
+
+                                    </div>
+                                </div>
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30px!important;">#</th>
+                                            <th>Name OF APPOINTEE</th>
+                                            <th class="text-left">FUND SOURCE</th>
+                                            <th class="text-center text-muted" style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in searchList">
+                                            <td>{{$index+1}}</td>
+                                            <td class="text-bold text-blue-800 cursor-pointer" ng-click="viewApptFromSearch(item.appointmentCode)">
+                                                {{item.fullNameLast}}
+                                                <br />
+                                                <small class="text-semibold text-capitalize"> {{item.positionTitle}} </small>  <span class="label label-primary">{{item.employmentStatus}}</span>
+                                            </td>
+
+                                            <td>
+                                                <div class="text-bold" ng-click="ViewDetail(item.fundSourceCode)">{{item.projectName}}</div>
+                                                <div class="text-muted">{{item.departmentName}}</div>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="icon-alarm-cancel text-danger-700 cursor-pointer" ng-if="item.PSTag == null || item.PSTag == 0 || item.PSTag == 1" ng-click="viewApptFromSearch(item.appointmentCode)"></span>
+                                                <span class="label label-primary" ng-show="item.PSTag == 2"> <i class="icon-check2"></i> POSTED</span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+
+                        </div>
+
+
+                        <!-- NOTIFICATION -->
+                        <div class="tab-pane fade in active" ng-show="tabId == 3">
+
+                            <!-- Task manager table -->
+                            <div class="panel panel-white">
+                                <div class="panel-heading">
+                                    <h3 class="no-margin text-semibold">NOTIFICATION</h3>
+                                    <div class="heading-elements">
+                                        <input class="form-control" type="text" placeholder="Type to Search" style="max-width:550px;" ng-model='searchString' />
+                                    </div>
+                                </div>
+                                <table class="table tasks-list ">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:30px!important;">#</th>
+                                                <th>NAME OF APPOINTEE</th>
+                                                <th>POSITION TITLE</th>                                                
+                                                <th>TERM. CAUSE</th>
+                                                <th>REMARKS</th>
+                                                <th class="text-center text-muted" style="width: 50px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr ng-repeat="item in notification">
+                                                <td>{{$index+1}}</td>
+                                                <td class="text-bold text-blue-800 cursor-pointer" ng-click="viewApptFromSearch(item.appointmentCode)">
+                                                    {{item.fullNameLast}}                                                   
+                                                </td>
+                                                <td>
+                                                    {{item.positionTitle}} <span class="text-grey-400 text-semibold" ng-if="item.salaryGrade >= 1">({{item.salaryGrade}}/1)</span>
+                                                </td>
+                                              
+                                                <td>
+                                                    <label class="label label-primary">{{item.termCode}}</label>
+                                                </td>
+
+                                                <td>
+                                                    {{item.notifyRemarks}}
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <ul class="icons-list">
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-right">                                                               
+                                                                <li ng-click="notificationDetails(item)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <!-- /task manager table -->
+
+                        </div>
+
+
+                        <!-- NOTIFICATION -->
+                        <div class="tab-pane fade in active" ng-show="tabId == 4">
+                            <!-- Task manager table -->
+                            <div class="panel panel-white">
+                                <div class="panel-heading">
+                                    <h3 class="no-margin text-semibold">EXCLUDED</h3>
+                                    <div class="heading-elements">
+                                        <input class="form-control" type="text" placeholder="Type to Search" style="max-width:550px;"  />
+                                    </div>
+                                </div>
+                                <table class="table tasks-list ">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30px!important;">#</th>
+                                            <th>NAME OF APPOINTEE</th>                                            
+                                            
+                                            <th>SOURCE OF FUND</th>
+                                            <th>DATE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in excludedList">
+                                            <td>{{$index+1}}</td>
+                                            <td>
+                                                <span class="text-bold text-blue-800 cursor-pointer" ng-click="viewApptFromSearch(item.appointmentCode)">{{item.fullNameLast}}</span>  
+                                                <br />
+                                              <small>  {{item.positionTitle}} <span class="text-grey-400 text-semibold" ng-if="item.salaryGrade >= 1">({{item.salaryGrade}}/1)</span></small>
+                                            </td>
+                                          
+                                           
+
+                                            <td>
+                                                <small class="text-blue-800">   {{item.projectName}}  </small>
+                                                <br />
+                                                <small class="text-grey-600 text-semibold">
+                                                  {{item.remarks}}
+                                                </small>
+                                            </td>
+                                            <td>
+                                                {{formatDate(item.postedDT)}}
+                                            </td>
+                                            @*<td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li ng-click="notificationDetails(item)"><a href="#"><i class="icon-file-text2"></i> View Details</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>*@
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /task manager table -->
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- POSTING -->
+    <div id="modalAppointmentPosting" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> Appointment </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class=" col-md-6">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Name</label>
+                                        <label class="form-control text-bold text-blue-800">{{empData.fullNameLast}}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Position</label>
+                                        <label class="form-control text-bold text-blue-800">
+                                            {{empData.positionTitle}}
+                                            <span class="label label-primary">{{apptData.employmentStatus}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom text-muted">Rate/Salary</label>
+                                        <label class="form-control text-bold text-blue-800">
+                                            {{empData.salary | number:2}}/{{empData.salaryType}}
+                                        </label>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom text-muted">Period Covered</label>
+                                        <label class="form-control text-bold text-blue-800 text-capitalize"> {{apptData.period}}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom text-muted">Period From</label>
+                                        <input class="form-control required" type="date" ng-model="data.periodFrom" name="date"  >
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom text-muted">Period To</label>
+                                        <input class="form-control required" type="date" ng-model="data.periodTo" name="date" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row" ng-if="hazardTag == 1">
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom">Hazard <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control  text-semibold" ng-model="data.hazardCode">
+                                            <option value="">--Select--</option>
+                                            <option value="0">(NONE)</option>
+                                            <option value="1">Health Personnel</option>
+                                            <option value="2">Social Worker</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                           
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom">Clothing <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control text-semibold" ng-model="data.hasClothing">
+                                            <option value="">--Select--</option>
+                                            <option value="0">Not Qualified</option>
+                                            <option value="1">Qualified</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom">Mid Year Bonus <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control text-semibold" ng-model="data.hasMidYear">
+                                            <option value="">--Select--</option>
+                                            <option value="0">Not Qualified</option>
+                                            <option value="1">Qualified</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom">Year End Bonus <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control text-semibold" ng-model="data.hasYearEnd">
+                                            <option value="">--Select--</option>
+                                            <option value="0">Not Qualified</option>
+                                            <option value="1">Qualified</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <button class="btn btn-default btn-xs btn-rounded" ng-disabled="bDisable" ng-click="recalculatePS(data)">
+                                            <i class="icon-calculator"></i> Calculate P.S.
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class=" col-md-6">
+                            <table class="table2 table-bordered table-striped text-size-small">
+                                <tr>
+                                    <td>
+                                        ANNUAL SALARY
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.annualRate | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PERA
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.PERA | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        EARNED LEAVE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.leaveEarned | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HAZARD
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hazardPay | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        SUBSISTENCE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.subsistence | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        LAUNDRY
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.laundry | number:2}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        GSIS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.lifeRetmnt | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ECC
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.ECC | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HDMF
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hdmf | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PHILHEALTH
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.phic | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CLOTHING
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.clothing | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        MID-YEAR BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.midYearBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        YEAR-END BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.yearEndBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CASH GIFT
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.cashGift | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">
+                                        TOTAL PS
+                                    </td>
+                                    <td class="text-right text-bold">
+                                        {{empPS.total | number:2}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="saveDisable" ng-click="confirmAppoinmentItem(data)">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+    <!-- UPDATING -->
+    <div id="modalAppointmentEdit" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-plus2"></i> Updating </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class=" col-md-6">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Name</label>
+                                        <label class="form-control text-bold text-blue-800">{{empData.fullNameLast}}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Position</label>
+                                        <label class="form-control text-bold text-blue-800">
+                                            {{empData.positionTitle}}
+                                            <span class="label label-primary">{{apptData.employmentStatus}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom text-muted">Rate/Salary</label>
+                                        <label class="form-control text-bold text-blue-800">
+                                            {{empData.salary | number:2}}/{{empData.salaryType}}
+                                        </label>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="no-margin-bottom text-muted">Period Covered</label>
+                                        <label class="form-control text-bold text-blue-800 text-capitalize"> {{apptData.period}}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row">
+
+                                    <div class="col-md-6" ng-if="hazardTag == 1">
+                                        <label class="no-margin-bottom">Hazard <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control  text-semibold" ng-model="postData.hazardCode">
+                                            <option value="">--Select--</option>
+                                            <option value="0">(NONE)</option>
+                                            <option value="1">Health Personnel</option>
+                                            <option value="2">Social Worker</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom">Clothing <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control text-semibold" ng-model="postData.hasClothing">
+                                            <option value="">--Select--</option>
+                                            <option value="0">Not Qualified</option>
+                                            <option value="1">Qualified</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom">Mid Year Bonus <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control text-semibold" ng-model="postData.hasMidYear">
+                                            <option value="">--Select--</option>
+                                            <option value="0">Not Qualified</option>
+                                            <option value="1">Qualified</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom">Year End Bonus <span class="text-danger">*</span></label>
+                                        <select name="select" class="form-control text-semibold" ng-model="postData.hasYearEnd">
+                                            <option value="">--Select--</option>
+                                            <option value="0">Not Qualified</option>
+                                            <option value="1">Qualified</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <button class="btn btn-default btn-xs btn-rounded" ng-disabled="bDisable" ng-click="recalculatePS(postData)">
+                                            <i class="icon-calculator"></i> Calculate P.S.
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class=" col-md-6">
+                            <table class="table2 table-bordered table-striped text-size-small">
+                                <tr>
+                                    <td>
+                                        ANNUAL SALARY
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.annualRate | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PERA
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.PERA | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        EARNED LEAVE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.leaveEarned | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HAZARD
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hazardPay | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        SUBSISTENCE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.subsistence | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        LAUNDRY
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.laundry | number:2}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        GSIS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.lifeRetmnt | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ECC
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.ECC | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HDMF
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hdmf | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PHILHEALTH
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.phic | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CLOTHING
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.clothing | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        MID-YEAR BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.midYearBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        YEAR-END BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.yearEndBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CASH GIFT
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.cashGift | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">
+                                        TOTAL PS
+                                    </td>
+                                    <td class="text-right text-bold">
+                                        {{empPS.total | number:2}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="saveDisable" ng-click="confirmAppoinmentItem(postData)">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+
+    <!-- FUND ITEM DETAIL modal -->
+    <div id="modalFundItemDetail" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-files-empty2"></i> {{fundItemLabel}} </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class=" col-md-12">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Fund Item Name</label>
+                                        <input class="form-control text-semibold" ng-readonly="fundItemReadOnly" type="text" ng-model="fundItemData.particulars" placeholder="e.g. (S.B. #1)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Amount</label>
+                                        <input class="form-control text-semibold" ng-readonly="fundItemReadOnly" type="number" ng-model="fundItemData.amount" placeholder="0.00" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="fundItemReadOnly == false" ng-click="updateFundItem(fundItemData)">Update</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-show="fundItemReadOnly == true" ng-click="editFundItem()"> &nbsp; Edit &nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+
+
+    <!-- FUND ITEM DETAIL modal -->
+    <div id="modalAddFunds" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-files-empty2"></i> {{fundItemLabel}} </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class=" col-md-12">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Fund Item Name</label>
+                                        <input class="form-control text-semibold" ng-readonly="fundItemReadOnly" type="text" ng-model="fundAdd.particulars" placeholder="e.g. (S.B. #1)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Amount</label>
+                                        <input class="form-control text-semibold" ng-readonly="fundItemReadOnly" type="number" ng-model="fundAdd.amount" placeholder="0.00" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-disabled="bDisable" ng-show="fundItemReadOnly == false" ng-click="saveAdditionalFund(fundAdd)">Save Additional Funds</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    @*<button type="button" class="btn btn-primary" ng-disabled="bDisable" ng-show="fundItemReadOnly == true" ng-click="editFundItem()"> &nbsp; Edit &nbsp;</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /primary modal -->
+   
+    <!-- EMPLOYEE PS -->
+    <div id="modalEmployeePS" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-sort-time-desc"></i> EMPLOYEE P.S. </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class=" col-md-6">
+
+                            <div class="form-group no-margin-bottom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom ">Name</label>
+                                        <label class="form-control text-bold text-blue-800">{{notifyItemData.fullNameLast}}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group no-margin-bottom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom ">Position </label>
+                                        <label class="form-control text-bold text-blue-800">
+                                            {{notifyItemData.positionTitle}}  <span class="label label-primary">{{notifyItemData.employmentStatus}}</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group ">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom ">Salary </label>
+                                        <label class="form-control text-bold text-center text-blue-800">
+                                            <span>{{notifyItemData.salary | number:2}}/{{notifyItemData.salaryType}}</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom  no-margin-top ">Period From</label>
+                                        <label class="form-control text-bold text-center text-blue-800">
+                                            {{formatDate(notifyItemData.periodFrom)}}
+                                        </label>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom no-margin-top ">Period To <span class="text-danger-700">*</span></label>
+                                        <label class="form-control text-bold text-blue-800 text-center text-capitalize">   {{formatDate(notifyItemData.periodTo)}}</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                          
+
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row">
+
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom">Mid Year Bonus <span class="text-danger">*</span></label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hasMidYear" style="width:100%;"
+                                                ng-options="c.val as c.text for c in tempClothing" value="{{c.val}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom">Year End Bonus <span class="text-danger">*</span></label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hasYearEnd" style="width:100%;"
+                                                ng-options="c.val as c.text for c in tempClothing" value="{{c.val}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row">
+
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom">Clothing <span class="text-danger">*</span></label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hasClothing" style="width:100%;"
+                                                ng-options="c.val as c.text for c in tempClothing" value="{{c.val}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-md-7">
+                                        <label class="no-margin-bottom">Hazard Pay</label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hazardCode" style="width:100%;"
+                                                ng-options="c.value as c.text for c in tempHazard" value="{{c.value}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <button class="btn btn-default btn-xs btn-rounded" ng-disabled="bDisable" ng-click="recalculatePSAdjmnt(postData)">
+                                            <i class="icon-calculator"></i> Calculate P.S.
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div class=" col-md-6  text-semibold">
+                            <table class="table2 table-bordered table-striped text-size-small">
+                                <tr>
+                                    <td>
+                                        ANNUAL SALARY <span class="label label-primary pull-right " ng-if="empPS.recNo > 0"> {{empPS.recNo}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.annualRate | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PERA
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.PERA | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        EARNED LEAVE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.leaveEarned | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HAZARD
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hazardPay | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        SUBSISTENCE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.subsistence | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        LAUNDRY
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.laundry | number:2}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        GSIS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.lifeRetmnt | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ECC
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.ECC | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HDMF
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hdmf | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PHILHEALTH
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.phic | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CLOTHING
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.clothing | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        MID-YEAR BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.midYearBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        YEAR-END BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.yearEndBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CASH GIFT
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.cashGift | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">
+                                        TOTAL PS
+                                    </td>
+                                    <td class="text-right text-bold">
+                                        {{empPS.total | number:2}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div id="modalNotification" class="modal fade" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"> <i class="icon-sort-time-desc"></i> ADJUSTMENT </h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class=" col-md-6">
+
+                            <div class="form-group no-margin-bottom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom ">Name</label>
+                                        <label class="form-control text-bold text-blue-800">{{notifyItemData.fullNameLast}}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group no-margin-bottom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom ">Position </label>
+                                        <label class="form-control text-bold text-blue-800">
+                                            {{notifyItemData.positionTitle}}  <span class="label label-primary">{{notifyItemData.employmentStatus}}</span>
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+ 
+
+                            <div class="form-group ">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom ">Salary </label>
+                                        <label class="form-control text-bold text-center text-blue-800">
+                                            <span>{{notifyItemData.salary | number:2}}/{{notifyItemData.salaryType}}</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom  no-margin-top ">Period From</label>
+                                        <label class="form-control text-bold text-center text-blue-800">
+                                            {{formatDate(notifyItemData.periodFrom)}}
+                                        </label>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="no-margin-bottom no-margin-top ">Period To <span class="text-danger-700">*</span></label>
+                                        <label class="form-control text-bold text-blue-800 text-center text-capitalize">   {{formatDate(notifyItemData.periodTo)}}</label>
+                                    </div>
+                                                                     
+                                </div>
+                            </div>
+                             
+                           
+
+                            <hr />
+
+                            <div class="form-group no-margin-bottom">
+                                <div class="row">
+
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom ">ADJUSTMENT </label>
+                                        <label class="form-control text-bold text-danger-800 text-capitalize text-center"> {{notifyItemData.termCode}}</label>
+                                    </div>
+
+                                    <div class="col-md-7">
+                                        <label class="no-margin-bottom no-margin-top">Period (Adjustment)<span class="text-danger-700">*</span></label>
+                                        <label class="form-control text-bold text-danger-800 text-center text-size-large text-capitalize">   {{formatDate(notifyItemData.adjstmntFrom)}} - {{formatDate(notifyItemData.adjstmntTo)}}</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom text-muted">Remarks</label>
+                                        <label class="form-control text-bold text-blue-800 text-capitalize">{{notifyItemData.notifyRemarks}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        
+ 
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row">
+
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom">Mid Year Bonus <span class="text-danger">*</span></label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hasMidYear" style="width:100%;"
+                                                ng-options="c.val as c.text for c in tempClothing" value="{{c.val}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>                                        
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom">Year End Bonus <span class="text-danger">*</span></label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hasYearEnd" style="width:100%;"
+                                                ng-options="c.val as c.text for c in tempClothing" value="{{c.val}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>                                      
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="casualTag == 1">
+                                <div class="row">
+
+                                    <div class="col-md-5">
+                                        <label class="no-margin-bottom">Clothing <span class="text-danger">*</span></label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hasClothing" style="width:100%;"
+                                                ng-options="c.val as c.text for c in tempClothing" value="{{c.val}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-md-7">
+                                        <label class="no-margin-bottom">Hazard Pay</label>
+                                        <select class="form-control select2 select-Custom text-semibold " ng-model="postData.hazardCode" style="width:100%;"
+                                                ng-options="c.value as c.text for c in tempHazard" value="{{c.value}}">
+                                            <option value="" selected="">-- Select --</option>
+                                        </select>                                      
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <button class="btn btn-default btn-xs btn-rounded" ng-disabled="bDisable" ng-click="recalculatePSAdjmnt(postData)">
+                                            <i class="icon-calculator"></i> Calculate P.S.
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+
+
+                        </div>
+
+                        <div class=" col-md-6  text-semibold">
+
+                            <div class="form-group no-margin-bottom no-padding-bottom ">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <label class="no-margin-bottom " style="width:100%;"> Source of Fund: &nbsp; <span class="label label-primary text-size-large ">20,000.00</span> </label>
+                                        <label class=""><span class="text-size-mini text-semibold text-blue-800">{{notifyItemData.projectName}}</span></label>
+                                        @*<textarea class="form-control text-semibold text-" rows="2" ng-model="" readonly="readonly"></textarea>*@
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            
+
+                            <table class="table2 table-bordered table-striped text-size-small">
+                                <tr>
+                                    <td>
+                                        ANNUAL SALARY <span class="label label-primary pull-right " ng-if="empPS.recNo > 0"> {{empPS.recNo}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.annualRate | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PERA
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.PERA | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        EARNED LEAVE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.leaveEarned | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HAZARD
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hazardPay | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        SUBSISTENCE
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.subsistence | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        LAUNDRY
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.laundry | number:2}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        GSIS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.lifeRetmnt | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ECC
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.ECC | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HDMF
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.hdmf | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        PHILHEALTH
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.phic | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CLOTHING
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.clothing | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        MID-YEAR BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.midYearBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        YEAR-END BONUS
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.yearEndBonus | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CASH GIFT
+                                    </td>
+                                    <td class="text-right">
+                                        {{empPS.cashGift | number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">
+                                        TOTAL PS
+                                    </td>
+                                    <td class="text-right text-bold">
+                                        {{empPS.total | number:2}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="saveDisable" ng-click="saveAdjustment(postData)">Save Adjustment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section JavaScript{
+    <script src="~/Content/assets/plugins/select2/select2.min.js"></script>
+    <script src="~/Content/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/moments/moment.js"></script>
+    <script src="~/Scripts/AngularJS/RSPFundSource/PACCOMonitoring.js"></script>
+
+    <script>
+        //$(".select2").select2({
+        //    placeholder: '-- Select --',
+        //    allowClear: true
+        //});
+
+    </script>
+
+
+}
+
+
+
+
