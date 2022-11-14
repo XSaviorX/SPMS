@@ -245,7 +245,11 @@
                                 </tbody>
                             </table>
 
-                            <div class="modal-footer">
+                            <div class="modal-footer" style="margin-top:15px">
+                                <div style="position:absolute; left: 20px">
+                                    <input type="checkbox" ng-model="isCheck" style="height:25px;width:30px;" />
+                                    <span style="position:absolute; width:100px; top:7px"><b>TARGET SET ONLY BY HR</b></span>
+                                </div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="delIndicatorField()">CLOSE</button>
                                 <button id="addCMFO" type="submit" class="btn btn-primary" ng-click="addCMFO(newCMFO)">SAVE</button>
                             </div>
