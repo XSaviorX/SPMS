@@ -748,6 +748,7 @@ namespace DDNHRIS.Controllers
         }
 
 
+
         //============================ COMMON MFO =======================================
         [HttpPost]
         public ActionResult CMFO_get(String _OfficeID)
@@ -765,7 +766,7 @@ namespace DDNHRIS.Controllers
             return Json(new { data = 1, objCMFO }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult CMFO_add(vSPMS_CommonMFO newCMFO, List<tSPMS_MFOStandard> newStandard, String _OfficeID)
+        public ActionResult CMFO_add(vSPMS_CommonMFO newCMFO, List<tSPMS_MFOStandard> newStandard, String _OfficeID, bool isCheck)
         {
             string randomLetters = new string(Enumerable.Repeat(chars, 6)
              .Select(s => s[random.Next(s.Length)]).ToArray());
@@ -796,15 +797,55 @@ namespace DDNHRIS.Controllers
                 };
                 _db.tAppropriationProjMFOes.Add(newMFOData);
 
-                var addCMFO = new tSPMS_CommonMFO()
+                if (isCheck)
                 {
-                    MFOId = MFO_id,
-                    indicatorId = indicator_id,
-                    targetId = target_id,
+                    var addCMFO = new tSPMS_CommonMFO()
+                    {
+                        MFOId = MFO_id,
+                        indicatorId = indicator_id,
+                        targetId = target_id,
+                        officeId = _OfficeID,
+                        isHrtgt = 1
 
-                };
+                    };
 
-                _db.tSPMS_CommonMFO.Add(addCMFO);
+                    _db.tSPMS_CommonMFO.Add(addCMFO);
+
+                    var addtoTarget_t = new tSPMS_TargetCountSI()
+                    {
+                        targetId = target_id,
+                        officeId = _OfficeID,
+                        indicatorId = indicator_id,
+                        t_quality = _t_quality,
+                        t_timeliness = _t_timeliness
+                    };
+
+                    _db.tSPMS_TargetCountSI.Add(addtoTarget_t);
+                }
+                else
+                {
+                    var addCMFO = new tSPMS_CommonMFO()
+                    {
+                        MFOId = MFO_id,
+                        indicatorId = indicator_id,
+                        targetId = target_id,
+
+                    };
+
+                    _db.tSPMS_CommonMFO.Add(addCMFO);
+
+                    var addtoTarget_t = new tSPMS_TargetCountSI()
+                    {
+                        targetId = target_id,
+                        indicatorId = indicator_id,
+                        t_quality = _t_quality,
+                        t_timeliness = _t_timeliness
+                    };
+
+                    _db.tSPMS_TargetCountSI.Add(addtoTarget_t);
+                }
+
+
 
                 if (newStandard[2].quality != null && newStandard[2].timeliness != null)
                 {
@@ -817,15 +858,7 @@ namespace DDNHRIS.Controllers
                     _t_timeliness = newStandard[4].timeliness;
                 }
 
-                var addtoTarget_t = new tSPMS_TargetCountSI()
-                {
-                    targetId = target_id,
-                    indicatorId = indicator_id,
-                    t_quality = _t_quality,
-                    t_timeliness = _t_timeliness
-                };
 
-                _db.tSPMS_TargetCountSI.Add(addtoTarget_t);
 
                 var addSIData = new tAppropriationProjMFOInd()
                 {

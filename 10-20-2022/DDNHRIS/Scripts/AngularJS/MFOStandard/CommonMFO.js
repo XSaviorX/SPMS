@@ -28,6 +28,8 @@ app.controller("MFOStandard", function ($scope, $http, filterFilter) {
     s.TempCmfo = {};
     s.targetCreated = {};
     s.isHR;
+    s.isCheck = false;
+
 
     function loadData() {
         $http.post('../MFOStandard/CMFO_get', { _OfficeID: s.HRAccnt }).then(function (response) {
@@ -75,8 +77,9 @@ app.controller("MFOStandard", function ($scope, $http, filterFilter) {
 
     s.addCMFO = function (_newCMFO) {
         document.getElementById("addCMFO").disabled = true;
+        alert(s.isCheck);
         if (_newCMFO.MFO != null) {
-            $http.post('../MFOStandard/CMFO_add', { newCMFO: _newCMFO, newStandard: s.addStandard, _OfficeID: s.HRAccnt }).then(function (response) {
+            $http.post('../MFOStandard/CMFO_add', { newCMFO: _newCMFO, newStandard: s.addStandard, _OfficeID: s.HRAccnt, isCheck: s.isCheck }).then(function (response) {
                 console.log("objCMFO", response.data.objCMFO);
                 if (response.data.data == 1) {
                     s.newCMFO = {}; s.catCMFO = {}; s.newSI = {}; s.r5 = null; s.r4 = null; s.r3 = null; s.r2 = null; s.r1 = null; s.addStandard = [{}, {}, {}, {}, {}];
