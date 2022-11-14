@@ -164,7 +164,6 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
                     var keepGoing2 = true;
                     if (s.StandardPrOffc.length == 0) {
                         status = false;
-                        console.log(keyfirst);
                         s.assignOpcrCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, divisionId: divisionid, indicatorId: mfo.indicatorId, target: mfo.target, tRemaining: mfo.tRemaining, targetId: mfo.targetId, description: mfo.description, categoryId: mfo.categoryId, TargetOffcId: mfo.TargetOffcId, isHrtgt: mfo.isHrtgt });
                     }
                     else {
