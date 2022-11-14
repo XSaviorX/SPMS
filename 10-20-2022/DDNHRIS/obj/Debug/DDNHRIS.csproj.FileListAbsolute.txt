@@ -2704,7 +2704,6 @@ D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\bin\Microsoft.Owin.Security.OA
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\bin\Microsoft.Owin.Security.Google.xml
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.csproj.AssemblyReference.cache
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.Report.AppointmentCasualF_R.resources
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.Report.AppointmentCasual34D_R.resources
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.Report.AppointmentCasual34D.resources

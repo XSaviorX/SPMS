@@ -109,7 +109,7 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
         //PBO = OFFPBOEZ7SC4ZA9
         //COA = OFFCOAYW2FQ3EM1
         //COMELEC = OFFCOMELECXV2XW
-
+        //dsa
         $http.post('../SPMS_DPCR/MFO_getPerOffice', { _OfficeID: s.currentOffice, _DivisionID: s.currentDivision }).then(function (response) {
             console.log("data: ", response.data)
             //s.OPCRTableData = response.data;

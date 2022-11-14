@@ -754,7 +754,7 @@ namespace DDNHRIS.Controllers
         public ActionResult CMFO_get(String _OfficeID)
         {
 
-            var cmfo = _db.vSPMS_CommonMFO.Where(a => a.officeId == null).ToList();
+            var cmfo = _db.vSPMS_CommonMFO.Where(a => a.officeId == null || a.isHrtgt == 1).ToList();
             return Json(new { cmfo }, JsonRequestBehavior.AllowGet);
 
         }
