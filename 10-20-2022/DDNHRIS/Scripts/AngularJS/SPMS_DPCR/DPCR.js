@@ -109,7 +109,7 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
         //PBO = OFFPBOEZ7SC4ZA9
         //COA = OFFCOAYW2FQ3EM1
         //COMELEC = OFFCOMELECXV2XW
-        //dsa
+
         $http.post('../SPMS_DPCR/MFO_getPerOffice', { _OfficeID: s.currentOffice, _DivisionID: s.currentDivision }).then(function (response) {
             console.log("data: ", response.data)
             //s.OPCRTableData = response.data;
@@ -164,7 +164,8 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
                     var keepGoing2 = true;
                     if (s.StandardPrOffc.length == 0) {
                         status = false;
-                        s.assignOpcrCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, divisionId: divisionid, indicatorId: mfo.indicatorId, target: mfo.target, tRemaining: mfo.tRemaining, targetId: mfo.targetId, description: mfo.description, categoryId: mfo.categoryId, TargetOffcId: mfo.TargetOffcId });
+                        console.log(keyfirst);
+                        s.assignOpcrCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, divisionId: divisionid, indicatorId: mfo.indicatorId, target: mfo.target, tRemaining: mfo.tRemaining, targetId: mfo.targetId, description: mfo.description, categoryId: mfo.categoryId, TargetOffcId: mfo.TargetOffcId, isHrtgt: mfo.isHrtgt });
                     }
                     else {
                         angular.forEach(s.StandardPrOffc, function (standard, key) {
@@ -177,15 +178,24 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
                                     keepGoing2 = false;
                                 }
                                 else {
-                                    targetid = mfo.targetId;
-                                    status = false;
-                                    officeid = officeid;
-                                    divisionid = divisionid;
+                                    if (mfo.isHrtgt == 1 & mfo.indicatorId == standard.indicatorId) {
+                                        targetid = standard.targetId;
+                                        status = true;
+                                        officeid = standard.officeId;
+                                        keepGoing2 = false;
+                                    }
+                                    else {
+                                        targetid = mfo.targetId;
+                                        status = false;
+                                        officeid = officeid;
+                                    }
+
                                 }
+
                             }
                         });
                         if (mfo.officeId != null & mfo.divisionId == null | mfo.officeId == null & mfo.divisionId == null) {
-                            s.assignOpcrCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, divisionId: divisionid, indicatorId: mfo.indicatorId, target: mfo.target, tRemaining: mfo.tRemaining, targetId: targetid, description: mfo.description, categoryId: mfo.categoryId, TargetOffcId: mfo.TargetOffcId });
+                            s.assignOpcrCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, divisionId: divisionid, indicatorId: mfo.indicatorId, target: mfo.target, tRemaining: mfo.tRemaining, targetId: targetid, description: mfo.description, categoryId: mfo.categoryId, TargetOffcId: mfo.TargetOffcId, isHrtgt: mfo.isHrtgt });
 
                         }
 
@@ -274,6 +284,12 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
     // --------------- set division ------------
     s.setDivivion = function (data) {
         s.currentDivision = data;
+        s.OPCRTableData = [{}];
+        s.cmfoesdata = {};
+        s.StandardPrOffc = {};
+        s.assignStandard = [];
+        s.assignCmfo = [];
+        s.assignOpcrCmfo = [];
         loadData();
 
 
@@ -392,8 +408,8 @@ app.controller("SPMS_DPCR", function ($scope, $http, filterFilter) {
 
     //=============
     s.newAssign = function (data) {
-        alert(JSON.stringify(data));
-        $http.post('../SPMS_DPCR/NewAssign', { Assign: data, _OfficeID: s.currentOffice, _DivisionID: s.currentDivision }).then(function (response) {
+        console.log(s.currentOffice);
+        $http.post('../SPMS_DPCR/NewAssign', { Assign: data, _OfficeID: s.currentOffice, _DivisionID: s.currentDivision, IsHrtgt: data.isHrtgt }).then(function (response) {
             if (response.data.status == 1) {
 
                 loadData(true);

@@ -9,7 +9,7 @@ namespace DDNHRIS.Controllers
 {
     public class SPMS_DPCRController : Controller
     {
-        SPMSDBEntities7 _db = new SPMSDBEntities7();
+        SPMSDBEntities _db = new SPMSDBEntities();
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string nums = "0123456789";
         Random random = new Random();
@@ -52,12 +52,12 @@ namespace DDNHRIS.Controllers
             return View();
         }
 
-        //public ActionResult MFO_get()
-        //{
-        //    var data = _db.loadDataViews.ToList();
+        public ActionResult MFO_get()
+        {
+            var data = _db.loadDataViews.ToList();
 
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult MFO_getPerOffice(string _OfficeID, string _DivisionID)
@@ -66,7 +66,7 @@ namespace DDNHRIS.Controllers
             var divisionMFO = _db.vSPMS_nMFO_ALL.Where(a => a.divisionId == _DivisionID).ToList(); // List of MFO created by division
                                                                                                    // var mfoData = _db.vNew_tOPCR.Where(a => a.officeId == _OfficeID & a.divisionId == null & a.isCMFO == null | a.TargetOffcId == _OfficeID & a.divisionId == null & a.isCMFO == null | a.divisionId == _DivisionID).ToList(); // List of MFO and SI per Officess
             var mfoData = _db.vSPMS_nMFO_ALL.Where(a => a.officeId == _OfficeID & a.divisionId == null | a.TargetOffcId == _OfficeID & a.divisionId == null | a.divisionId == _DivisionID).ToList(); // List of MFO and SI per Officess
-            var cmfo = _db.vSPMS_CommonMFO.Where(a => a.divisionId == null | a.officeId == _OfficeID).ToList(); // List of cMFO 
+            var cmfo = _db.vSPMS_CommonMFO.Where(a => a.divisionId == null | a.officeId == _OfficeID | a.isHrtgt == 1).ToList(); // List of cMFO 
 
             var standardData = _db.vSPMS_DPCR.Where(a => a.officeId == _OfficeID && a.divisionId == _DivisionID).OrderBy(a => a.description).ToList(); // Assigned SI per Offices and division
             var office = _db.tOffices.Where(a => a.officeId == _OfficeID).FirstOrDefault();
@@ -375,7 +375,7 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult MFO_getOPCRData(string _OfficeID)
         {
-            var data = (from viewOPCR in _db.vSPMS_prtOPCR
+            var data = (from viewOPCR in _db.vprt_OPCR
                         where viewOPCR.officeId == _OfficeID & viewOPCR.programTypeId == 0
                         select viewOPCR).ToList();
 
@@ -402,7 +402,7 @@ namespace DDNHRIS.Controllers
         //==========================
 
         [HttpPost]
-        public ActionResult NewAssign(vSPMS_nMFO_ALL Assign, String _OfficeID, String _DivisionID)
+        public ActionResult NewAssign(vSPMS_nMFO_ALL Assign, String _OfficeID, String _DivisionID, String IsHrtgt)
         {
             var OfficeID = "";
             var canupdate = 0;
@@ -411,14 +411,22 @@ namespace DDNHRIS.Controllers
 
             if (isExist == null)
             {
-                if (Assign.officeId == null)
+                if (IsHrtgt == "1")
                 {
                     OfficeID = _OfficeID;
                 }
                 else
                 {
-                    OfficeID = Assign.officeId;
+                    if (Assign.officeId == null)
+                    {
+                        OfficeID = _OfficeID;
+                    }
+                    else
+                    {
+                        OfficeID = Assign.officeId;
+                    }
                 }
+
                 if (Assign.divisionId == null)
                 {
                     var assignData = new tSPMS_DPCR()
@@ -709,7 +717,7 @@ namespace DDNHRIS.Controllers
                 if (isCheck)
                 {
                     var assign = _db.vSPMS_nMFO_ALL.Where(a => a.MFOId == MFO_id && a.indicatorId == indicator_id).FirstOrDefault();
-                    NewAssign(assign, _OfficeID, _DivisionID);
+                    NewAssign(assign, _OfficeID, _DivisionID, null);
                 }
 
 
@@ -801,7 +809,7 @@ namespace DDNHRIS.Controllers
             if (isCheck)
             {
                 var assign = _db.vSPMS_nMFO_ALL.Where(a => a.MFOId == getMFO.MFOId && a.indicatorId == indicator_id).FirstOrDefault();
-                NewAssign(assign, _OfficeID, assign.divisionId);
+                NewAssign(assign, _OfficeID, assign.divisionId, null);
             }
 
             return Json(new { data = 1, objMFO = getObj }, JsonRequestBehavior.AllowGet);
