@@ -102,7 +102,7 @@ app.controller("OPCR", function ($scope, $http, filterFilter) {
     s.officeNameHeader = "";
     s.assignCmfo = [];
     s.spinnerCheck = 0;
-    s.targetStandard = [{}, {}, {}, {}, {}]
+    s.targetStandard = [{}, {}, {}, {}, {}];
 
     //loadData();
     //loadSession();
@@ -187,7 +187,7 @@ app.controller("OPCR", function ($scope, $http, filterFilter) {
                     var keepGoing2 = true;
                     if (s.StandardPrOffc.length == 0) {
                         status = false;
-                        s.assignCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, indicatorId: mfo.indicatorId, target: mfo.target, targetId: mfo.targetId, description: mfo.description, isCMFO: mfo.isCMFO, categoryId: mfo.categoryId, catTargetId: mfo.catTargetId, TargetOffcId: mfo.TargetOffcId });
+                        s.assignCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, indicatorId: mfo.indicatorId, target: mfo.target, targetId: mfo.targetId, description: mfo.description, isCMFO: mfo.isCMFO, categoryId: mfo.categoryId, catTargetId: mfo.catTargetId, TargetOffcId: mfo.TargetOffcId, isHrtgt: mfo.isHrtgt });
                     }
                     else {
                         angular.forEach(s.StandardPrOffc, function (standard, key) {
@@ -199,13 +199,22 @@ app.controller("OPCR", function ($scope, $http, filterFilter) {
                                     keepGoing2 = false;
                                 }
                                 else {
-                                    targetid = mfo.targetId;
-                                    status = false;
-                                    officeid = officeid;
+                                    if (mfo.isHrtgt == 1 & mfo.indicatorId == standard.indicatorId) {
+                                        targetid = standard.targetId;
+                                        status = true;
+                                        officeid = standard.officeId;
+                                        keepGoing2 = false;
+                                    }
+                                    else {
+                                        targetid = mfo.targetId;
+                                        status = false;
+                                        officeid = officeid;
+                                    }
+
                                 }
                             }
                         });
-                        s.assignCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, indicatorId: mfo.indicatorId, target: mfo.target, targetId: targetid, description: mfo.description, isCMFO: mfo.isCMFO, categoryId: mfo.categoryId, catTargetId: mfo.catTargetId, TargetOffcId: mfo.TargetOffcId });
+                        s.assignCmfo.push({ status: status, MFOId: mfo.MFOId, MFO: mfo.MFO, indicator: mfo.indicator, officeId: officeid, indicatorId: mfo.indicatorId, target: mfo.target, targetId: targetid, description: mfo.description, isCMFO: mfo.isCMFO, categoryId: mfo.categoryId, catTargetId: mfo.catTargetId, TargetOffcId: mfo.TargetOffcId, isHrtgt: mfo.isHrtgt });
 
                     }
                 });
@@ -237,7 +246,7 @@ app.controller("OPCR", function ($scope, $http, filterFilter) {
     s.newAssign = function (data) {
         console.log("s.newAssign", data);
         var opcrId = s.currentUser + "-" + s.checkyear + "-" + s.checksem;
-        $http.post('../OPCR/NewAssign', { Assign: data, _OfficeID: s.currentOffice, _opcrId: opcrId }).then(function (response) {
+        $http.post('../OPCR/NewAssign', { Assign: data, _OfficeID: s.currentOffice, _opcrId: opcrId, IsHrtgt: data.isHrtgt }).then(function (response) {
 
             if (response.data.status = 1) {
                 /*   s.OPCRTableData = [{}];
@@ -815,19 +824,7 @@ app.controller("OPCR", function ($scope, $http, filterFilter) {
         return "";
     }
 
-    s.getAverageRate = function(data) {
 
-        var averageRate = 0;
-
-        var temp = data.r_qty + data.r_qly + data.r_time;
-
-        if (temp > 0) {
-            averageRate = temp / 3;
-            averageRate= averageRate.toFixed(2);
-        }
-
-        return averageRate;
-    }
     // -------- END OF TEST CODE ---------
 
 });

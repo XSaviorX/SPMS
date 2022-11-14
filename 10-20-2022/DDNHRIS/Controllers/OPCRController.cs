@@ -10,18 +10,18 @@ namespace DDNHRIS.Controllers
 {
     public class OPCRController : Controller
     {
-        SPMSDBEntities7 _db = new SPMSDBEntities7();
+        SPMSDBEntities _db = new SPMSDBEntities();
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string nums = "0123456789";
         Random random = new Random();
         int[] quan = new int[5];
 
-        
+
 
 
         //
         // GET: /OPCR/
-        
+
         [HttpPost]
 
         public JsonResult cookies(string officeId)
@@ -34,8 +34,8 @@ namespace DDNHRIS.Controllers
             Response.Cookies.Add(cookiname);
             return Json(new { data = "success" });
 
-        } 
-        
+        }
+
         public ActionResult Standard()
         {
             return View();
@@ -52,28 +52,28 @@ namespace DDNHRIS.Controllers
             return View();
         }
 
-        //public ActionResult MFO_get()
-        //{
-        //    var data = _db.loadDataViews.ToList();
+        public ActionResult MFO_get()
+        {
+            var data = _db.loadDataViews.ToList();
 
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult MFO_getPerOffice(string _OfficeID, String opcrId)
         {
 
             // List of MFO and SI per Officess
-            
-            var cmfo = _db.vSPMS_CommonMFO.Where(a => a.officeId == _OfficeID & a.divisionId == null | a.officeId == null & a.divisionId == null).ToList(); // List of cMFO 
+
+            var cmfo = _db.vSPMS_CommonMFO.Where(a => a.officeId == _OfficeID & a.divisionId == null | a.officeId == null & a.divisionId == null | a.isHrtgt == 1).ToList(); // List of cMFO 
             var mfoData = _db.vSPMS_nMFO_ALL.Where(a => a.officeId == _OfficeID).ToList();
-            var standardData = _db.vSPMS_nOPCR.Where(a => a.officeId == _OfficeID).OrderBy(a=> a.categoryId).ToList(); // Assigned SI per Officess
+            var standardData = _db.vSPMS_nOPCR.Where(a => a.officeId == _OfficeID).OrderBy(a => a.categoryId).ToList(); // Assigned SI per Officess
             var office = _db.tOffices.Where(a => a.officeId == _OfficeID).FirstOrDefault();
 
-            return Json(new {cmfo, standardData, office, mfoData }, JsonRequestBehavior.AllowGet);
+            return Json(new { cmfo, standardData, office, mfoData }, JsonRequestBehavior.AllowGet);
         }
 
-        
+
 
         [HttpPost]
         public ActionResult MFO_getList(string _OfficeID)
@@ -83,7 +83,7 @@ namespace DDNHRIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult MFO_updateMFOSI(vSPMS_OPCRTable _OPCRData)
+        public ActionResult MFO_updateMFOSI(view_OPCRTable _OPCRData)
         {
             var updateMFO = _db.tAppropriationProjMFOes.FirstOrDefault(a => a.appropProjectId == _OPCRData.appropProjectId & a.MFOId == _OPCRData.MFOId);
             updateMFO.MFO = _OPCRData.MFO;
@@ -101,7 +101,7 @@ namespace DDNHRIS.Controllers
             quan[0] = (int)(quan[1] - 1);
 
             var newSI_performance = _db.tSPMS_MFOStandard.FirstOrDefault(a => a.indicatorId == _OPCRData.indicatorId & a.MFOId == _OPCRData.MFOId);
-            
+
             if (newSI_performance == null)
             {
                 for (var num = 5; num >= 1; num--)
@@ -132,9 +132,9 @@ namespace DDNHRIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult MFO_getByID(string _OfficeID,string _MFO_ID,string _SI_ID)
+        public ActionResult MFO_getByID(string _OfficeID, string _MFO_ID, string _SI_ID)
         {
-            var query = from viewOPCR in _db.vSPMS_OPCRTable
+            var query = from viewOPCR in _db.view_OPCRTable
                         where viewOPCR.officeId == _OfficeID & viewOPCR.programTypeId == 0 & viewOPCR.MFOId == _MFO_ID & viewOPCR.indicatorId == _SI_ID
                         select viewOPCR;
             var data = query.ToList();
@@ -156,18 +156,18 @@ namespace DDNHRIS.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //public ActionResult MFO_getProjects(string _ProgramID)
-        //{
-        //    var query = (from MFOProjects in _db.appropprojectids 
-        //                 where MFOProjects.programId == _ProgramID & MFOProjects.budgetYear == 2022 
-        //                 select MFOProjects).ToList();
-        //    //var data = query.ToList();
-        //    return Json(query, JsonRequestBehavior.AllowGet);
-        //}
+        [HttpPost]
+        public ActionResult MFO_getProjects(string _ProgramID)
+        {
+            var query = (from MFOProjects in _db.appropprojectids
+                         where MFOProjects.programId == _ProgramID & MFOProjects.budgetYear == 2022
+                         select MFOProjects).ToList();
+            //var data = query.ToList();
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
-        public ActionResult MFO_insert(tAppropriationProjMFO _MFO, tAppropriationProj _AppropProjID)
+        public ActionResult MFO_insert(tAppropriationProjMFO _MFO, appropprojectid _AppropProjID)
         {
             string randomLetters = new string(Enumerable.Repeat(chars, 6)
         .Select(s => s[random.Next(s.Length)]).ToArray());
@@ -182,13 +182,13 @@ namespace DDNHRIS.Controllers
             {
                 MFOId = MFO_id,
                 MFO = _MFO.MFO,
-                //appropProjectId = _AppropProjID.appropProjectId1,
+                appropProjectId = _AppropProjID.appropProjectId1,
                 isActive = 0
             };
             _db.tAppropriationProjMFOes.Add(newMFOData);
             _db.SaveChanges();
 
-            return Json(new { status = MFO_id}, JsonRequestBehavior.AllowGet);
+            return Json(new { status = MFO_id }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult MFO_SIinsert(List<tAppropriationProjMFOInd> indicators, string MFO_ID)
@@ -218,19 +218,19 @@ namespace DDNHRIS.Controllers
             //return Json(new { status = "MFO ID: " + MFO_ID + "\n" + indicators.ElementAt(0).indicator + "\n" + indicators.ElementAt(0).indicatorId + "\n" + indicators.ElementAt(0).isActive + "\n" + indicators.ElementAt(0).MFOId + "\n" + indicators.ElementAt(0).recNo + "\n" + indicators.ElementAt(0).target + "\n" + indicators.ElementAt(0).targetTypeId + "\n" + indicators.ElementAt(0).targetUnit }, JsonRequestBehavior.AllowGet);
         }
 
-     
+
         [HttpPost]
         public ActionResult GetPerformance()
         {
             var data = _db.tSPMS_MFOStandard.ToList();
-            return Json(  data , JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
         [HttpPost]
         public ActionResult GetPerformancePer(tSPMS_MFOStandard tOpcrPerformance)
         {
             var data = _db.tSPMS_MFOStandard.Where(a => a.MFOId == tOpcrPerformance.MFOId & a.indicatorId == tOpcrPerformance.indicatorId).ToList();
-            return Json(data , JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -239,7 +239,7 @@ namespace DDNHRIS.Controllers
         //{
         //    var isSaved = "";
 
-        
+
         //        foreach (var i in tOpcrPerformance)
         //        {
         //            var ifExist = _db.tSPMS_MFOStandard.Where(a => a.MFOId == i.MFOId & a.indicatorId == i.indicatorId).FirstOrDefault();
@@ -266,16 +266,16 @@ namespace DDNHRIS.Controllers
         //}
 
         [HttpPost]
-        public ActionResult updateAssigned(vSPMS_OPCRTable ndata)
+        public ActionResult updateAssigned(view_OPCRTable ndata)
         {
             var text = "1";
-                var update = _db.tAppropriationProjMFOInds.Where(a => a.MFOId == ndata.MFOId & a.indicatorId == ndata.indicatorId).FirstOrDefault();
-                update.isActive = ndata.isActive;
-            if(ndata.isActive == 0)
+            var update = _db.tAppropriationProjMFOInds.Where(a => a.MFOId == ndata.MFOId & a.indicatorId == ndata.indicatorId).FirstOrDefault();
+            update.isActive = ndata.isActive;
+            if (ndata.isActive == 0)
             {
                 text = "0"; //removed
             }
-           
+
             _db.SaveChanges();
             return Json(new { isSaved = text }, JsonRequestBehavior.AllowGet);
 
@@ -293,7 +293,7 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult MFO_getOPCRData(string _OfficeID)
         {
-            var data = (from viewOPCR in _db.vSPMS_prtOPCR
+            var data = (from viewOPCR in _db.vprt_OPCR
                         where viewOPCR.officeId == _OfficeID & viewOPCR.programTypeId == 0
                         select viewOPCR).ToList();
 
@@ -305,12 +305,12 @@ namespace DDNHRIS.Controllers
 
         public JsonResult cookiestarget(string officeId)
         {
-                HttpCookie cookiname = new HttpCookie("targetCrookie")
-                {
-                    Value = officeId + ","
+            HttpCookie cookiname = new HttpCookie("targetCrookie")
+            {
+                Value = officeId + ","
 
-                };
-                Response.Cookies.Add(cookiname);
+            };
+            Response.Cookies.Add(cookiname);
 
             return Json(new { data = officeId });
         }
@@ -318,17 +318,25 @@ namespace DDNHRIS.Controllers
         //==========================
 
         [HttpPost]
-        public ActionResult NewAssign(vSPMS_nMFO_ALL Assign, String _OfficeID, String _opcrId)
+        public ActionResult NewAssign(vSPMS_nMFO_ALL Assign, String _OfficeID, String _opcrId, String IsHrtgt)
         {
             var OfficeID = "";
-            if (Assign.TargetOffcId == null)
+            if (IsHrtgt == "1")
             {
                 OfficeID = _OfficeID;
             }
             else
             {
-                OfficeID = Assign.TargetOffcId;
+                if (Assign.TargetOffcId == null)
+                {
+                    OfficeID = _OfficeID;
+                }
+                else
+                {
+                    OfficeID = Assign.TargetOffcId;
+                }
             }
+
             var assignData = new tSPMS_OPCR()
             {
                 opcrID = _opcrId,
@@ -371,11 +379,12 @@ namespace DDNHRIS.Controllers
         public ActionResult updateMFO_Division(List<vSPMS_nOPCR> targetTableData)
         {
             var msg = 0;
-            if (targetTableData != null) {
+            if (targetTableData != null)
+            {
                 msg = 1;
                 foreach (var ndata in targetTableData)
                 {
-                    var updateDivision = _db.tMFO_perDivision.Where(a=> a.MFOId == ndata.MFOId).FirstOrDefault();
+                    var updateDivision = _db.tMFO_perDivision.Where(a => a.MFOId == ndata.MFOId).FirstOrDefault();
                     if (updateDivision != null)
                     {
                         //updateDivision.division = ndata.division;
@@ -387,13 +396,13 @@ namespace DDNHRIS.Controllers
                         var insertMFO_Division = new tMFO_perDivision()
                         {
                             MFOId = ndata.MFOId,
-                          //  division = ndata.division
+                            //  division = ndata.division
                         };
                         _db.tMFO_perDivision.Add(insertMFO_Division);
                         _db.SaveChanges();
                     }
                 }
-                
+
             }
             return Json(new { status = msg }, JsonRequestBehavior.AllowGet);
         }
@@ -573,12 +582,12 @@ namespace DDNHRIS.Controllers
         public ActionResult MFO_getYears()
         {
 
-            var years = _db.tSPMS_MFOCategory.Select(a=> a.year).Distinct().ToList();
+            var years = _db.tSPMS_MFOCategory.Select(a => a.year).Distinct().ToList();
 
             return Json(years, JsonRequestBehavior.AllowGet);
         }
 
-      
+
 
         // TEST CODE END =========================
 
