@@ -37,9 +37,9 @@ namespace DDNHRIS.Controllers
 
             foreach (var i in Users)
             {
-                var update = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).FirstOrDefault();
+                var update = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC & a.recNo == i.recNo).FirstOrDefault();
 
-                if(i.officeRoleId == "ORCKHKLG582947") //IS OFFICE HEAD
+                if (i.officeRoleId == "ORCKHKLG582947") //IS OFFICE HEAD
                 {
                     update.officeRoleId = i.officeRoleId;
                     update.division = OfficeId;
@@ -47,10 +47,20 @@ namespace DDNHRIS.Controllers
                 else
                 {
                     update.officeRoleId = i.officeRoleId;
+
                     update.division = i.division;
                 }
 
-               
+                /* var divsions = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).ToList();
+
+                 foreach (var div in divsions)
+                 {
+                     var update
+                     div.division = i.division;
+                 }*/
+
+
+
             }
             _db.SaveChanges();
 
@@ -99,6 +109,42 @@ namespace DDNHRIS.Controllers
                 };
                 _db.tOfficeDivisions.Add(addDiv);
                 data = 1;
+            }
+
+            _db.SaveChanges();
+            return Json(new { status = data }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult removeRole(int RecNo)
+        {
+            var deleteRole = _db.tSPMS_Employees.Where(a => a.recNo == RecNo).FirstOrDefault();
+
+            _db.tSPMS_Employees.Remove(deleteRole);
+
+            _db.SaveChanges();
+            return Json(new { status = 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult saveRole(String OfficeRoleID, vSPMS_Employees User)
+        {
+            var saveRole = _db.vSPMS_Employees.Where(a => a.EIC == User.EIC && a.officeRoleId == OfficeRoleID).FirstOrDefault();
+            var data = 0;
+            if (saveRole == null)
+            {
+                var addRole = new tSPMS_Employees()
+                {
+                    EIC = User.EIC,
+                    F_Name = User.F_Name,
+                    positionTitle = User.positionTitle,
+                    division = User.division,
+                    officeRoleId = OfficeRoleID
+
+                };
+                data = 1;
+                _db.tSPMS_Employees.Add(addRole);
+
             }
 
             _db.SaveChanges();
