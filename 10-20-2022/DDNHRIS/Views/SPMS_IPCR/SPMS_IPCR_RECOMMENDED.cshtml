@@ -355,8 +355,8 @@
 
                                 </thead>
 
-                                <tbody ng-repeat="(keyopcr , item) in ipcr_ListItems  | unique: 'i_MFOId'| groupBy:'categoryId'| orderBy:'categoryId'">
-                                    <tr ng-show="item.categoryId_CHANGED" style="background-color: #fcfcfc;">
+                                <tbody ng-repeat="(keyopcr , item) in ipcr_ListItems  | unique: 'i_MFOId'| groupBy:'i_category'| orderBy:'i_category'">
+                                    <tr ng-show="item.i_category_CHANGED" style="background-color: #fcfcfc;">
                                         <td colspan="8">
                                             <span><i>{{item.description}} Function</i></span>
 

@@ -78,10 +78,10 @@
 
                         <tr ng-repeat="(key , itemList) in list_ipcrwCat| filter:{i_MFOId: item.i_MFOId}">
                             <td>
-                                <button class="no-border" style="background-color:white"><i class="icon icon-eye" style="color: mediumblue" data-toggle="modal" data-target="#showRequestContent" ng-click="getIndicatorDetails(itemList.indicatorId,itemList.targetId)"></i></button>
-                                {{itemList.i_target}} {{itemList.indicator}} {{itemList.i_actQuality}} {{itemList.i_actTimeliness}}
+                                <button class="no-border" style="background-color:white"><i class="icon icon-eye" style="color: mediumblue" data-toggle="modal" data-target="#showRequestContent" ng-click="getIndicatorDetails(itemList.i_indicatorId,itemList.targetId)"></i></button>
+                                {{itemList.i_target}} {{itemList.indicator}} 
                             </td>
-                            <td>{{itemList.i_actQuantity}} {{itemList.indicator}}</td>
+                            <td>{{itemList.i_actQuantity}} {{itemList.indicator}} {{itemList.i_actQuality}} {{itemList.i_actTimeliness}}</td>
                             <td><center>{{itemList.i_Rquantity}}</center></td>
                             <td><center>{{itemList.i_Rquality}}</center></td>
                             <td><center>{{itemList.i_Rtimeliness}}</center></td>
@@ -145,7 +145,7 @@
 
                         <tr ng-repeat="(key , itemList) in list_ipcrwCat| filter:{i_MFOId: item.i_MFOId}">
                             <td>
-                                <button class="no-border" style="background-color:white"><i class="icon icon-eye" style="color: mediumblue" data-toggle="modal" data-target="#showRequestContent" ng-click="getIndicatorDetails(itemList.indicatorId,itemList.targetId)"></i></button>
+                                <button class="no-border" style="background-color:white"><i class="icon icon-eye" style="color: mediumblue" data-toggle="modal" data-target="#showRequestContent" ng-click="getIndicatorDetails(itemList.i_indicatorId,itemList.targetId)"></i></button>
                                 {{itemList.i_target}} {{itemList.indicator}}
                             </td>
                             <td>{{itemList.i_actQuantity}} {{itemList.indicator}} {{itemList.i_actQuality}} {{itemList.i_actTimeliness}}</td>
@@ -212,10 +212,10 @@
 
                         <tr ng-repeat="(key , itemList) in list_ipcrwCat| filter:{i_MFOId: item.i_MFOId}">
                             <td>
-                                <button class="no-border" style="background-color:white"><i class="icon icon-eye" style="color: mediumblue" data-toggle="modal" data-target="#showRequestContent" ng-click="getIndicatorDetails(itemList.indicatorId,itemList.targetId)"></i></button>
-                                {{itemList.i_target}} {{itemList.indicator}} {{itemList.i_actQuality}} {{itemList.i_actTimeliness}}
+                                <button class="no-border" style="background-color:white"><i class="icon icon-eye" style="color: mediumblue" data-toggle="modal" data-target="#showRequestContent" ng-click="getIndicatorDetails(itemList.i_indicatorId,itemList.targetId)"></i></button>
+                                {{itemList.i_target}} {{itemList.indicator}} 
                             </td>
-                            <td>{{itemList.i_actQuantity}} {{itemList.indicator}}</td>
+                            <td>{{itemList.i_actQuantity}} {{itemList.indicator}} {{itemList.i_actQuality}} {{itemList.i_actTimeliness}}</td>
                             <td><center>{{itemList.i_Rquantity}}</center></td>
                             <td><center>{{itemList.i_Rquality}}</center></td>
                             <td><center>{{itemList.i_Rtimeliness}}</center></td>
@@ -248,10 +248,10 @@
             <button @*ng-click="getListAssignMFO(officeName.officeId)"*@ type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignMFO" style="float: right; margin-right: 30px;">
                 <i class="bi bi-arrow-left-right"> SELECT MFO </i>
             </button>
-            <button ng-click="updateTarget(StandardPrOffc)" class="btn btn-primary" style="margin-top: 1vh;margin-bottom: 1vh; margin-left:10px"><i class="icon icon-upload"> </i>  UPDATE</button>
+            @*<button ng-click="updateTarget(StandardPrOffc)" class="btn btn-primary" style="margin-top: 1vh;margin-bottom: 1vh; margin-left:10px"><i class="icon icon-upload"> </i>  UPDATE</button>*@
 
             <div class="btn-group dropup ">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-cog5 position-left"></i> PRINT IPCR <span class="caret"></span></button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width: 180px"><i class="icon-cog5 position-left"></i> PRINT IPCR <span class="caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right bg-slate">
                     <li><a ng-click="prt_actual()"><i class="bi bi-printer"> </i>ACTUAL</a></li>
                     <li><a ng-click="print()"><i class="bi bi-printer"> </i>STANDARD</a></li>

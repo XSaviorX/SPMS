@@ -139,6 +139,7 @@ namespace DDNHRIS.Reports.SPMS
             this.textBox16 = new Telerik.Reporting.TextBox();
             this.pageFooterSection1 = new Telerik.Reporting.PageFooterSection();
             this.textBox82 = new Telerik.Reporting.TextBox();
+            this.barcode1 = new Telerik.Reporting.Barcode();
             this.opcr = new Telerik.Reporting.SqlDataSource();
             this.reportFooterSection1 = new Telerik.Reporting.ReportFooterSection();
             this.table3 = new Telerik.Reporting.Table();
@@ -165,7 +166,6 @@ namespace DDNHRIS.Reports.SPMS
             this.textBox58 = new Telerik.Reporting.TextBox();
             this.table9 = new Telerik.Reporting.Table();
             this.textBox66 = new Telerik.Reporting.TextBox();
-            this.barcode1 = new Telerik.Reporting.Barcode();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox74
@@ -563,17 +563,17 @@ namespace DDNHRIS.Reports.SPMS
             // 
             // table1
             // 
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.3014981746673584D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.7610344886779785D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.4503519535064697D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.3014980554580689D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.76103401184082D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.4503518342971802D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.4682464599609375D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.3649997711181641D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.3649996519088745D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.82832145690918D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(0.85743629932403564D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(0.79385095834732056D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(0.79385089874267578D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(0.8150097131729126D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.0058534145355225D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.74599951505661011D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.74599945545196533D)));
             this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.62441623210906982D)));
             this.table1.Body.SetCellContent(1, 1, this.textBox19);
             this.table1.Body.SetCellContent(1, 3, this.textBox21);
@@ -1178,6 +1178,16 @@ namespace DDNHRIS.Reports.SPMS
             this.textBox82.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox82.Value = "=\"Page \" + PageNumber + \" of \" + PageCount";
             // 
+            // barcode1
+            // 
+            this.barcode1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.82612043619155884D), Telerik.Reporting.Drawing.Unit.Cm(0.18383115530014038D));
+            this.barcode1.Name = "barcode1";
+            this.barcode1.ShowText = false;
+            this.barcode1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(13.174314498901367D), Telerik.Reporting.Drawing.Unit.Cm(0.5000004768371582D));
+            this.barcode1.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
+            this.barcode1.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.barcode1.Value = "= Parameters.officeId.Value + Parameters.officeId.Label";
+            // 
             // opcr
             // 
             this.opcr.ConnectionString = "HRISDB";
@@ -1520,16 +1530,6 @@ namespace DDNHRIS.Reports.SPMS
             this.textBox66.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
             this.textBox66.StyleName = "";
             this.textBox66.Value = "= Fields.positionTitle + \", \" + Fields.officeNameShort";
-            // 
-            // barcode1
-            // 
-            this.barcode1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.82612043619155884D), Telerik.Reporting.Drawing.Unit.Cm(0.18383115530014038D));
-            this.barcode1.Name = "barcode1";
-            this.barcode1.ShowText = false;
-            this.barcode1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(13.174314498901367D), Telerik.Reporting.Drawing.Unit.Cm(0.5000004768371582D));
-            this.barcode1.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
-            this.barcode1.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.barcode1.Value = "= Parameters.officeId.Value + Parameters.officeId.Label";
             // 
             // Target
             // 

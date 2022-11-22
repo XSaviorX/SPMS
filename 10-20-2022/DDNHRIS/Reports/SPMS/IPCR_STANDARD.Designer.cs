@@ -409,8 +409,8 @@ namespace DDNHRIS.Reports.SPMS
             // 
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(3.3338375091552734D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(20.160999298095703D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.66675001382827759D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.72483342885971069D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.66674995422363281D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.72483336925506592D)));
             this.table1.Body.SetCellContent(0, 0, this.textBox3);
             this.table1.Body.SetCellContent(1, 0, this.textBox4);
             this.table1.Body.SetCellContent(1, 1, this.textBox5);
@@ -476,7 +476,7 @@ namespace DDNHRIS.Reports.SPMS
             // 
             // getEmployee
             // 
-            this.getEmployee.ConnectionString = "SPMSDB";
+            this.getEmployee.ConnectionString = "HRISDB";
             this.getEmployee.Name = "getEmployee";
             this.getEmployee.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@EIC", System.Data.DbType.String, "=Parameters.EIC.Value")});

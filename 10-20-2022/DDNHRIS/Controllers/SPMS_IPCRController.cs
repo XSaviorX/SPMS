@@ -21,9 +21,9 @@ namespace DDNHRIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ipcr_getList(string officeId, String UserId)
+        public ActionResult ipcr_getList(string officeId, string UserId, string _divId)
         {
-            var dpcr = _db.vSPMS_DPCR.Where(a => a.officeId == officeId).ToList();
+            var dpcr = _db.vSPMS_DPCR.Where(a => a.officeId == officeId & a.divisionId == _divId).ToList();
             var cldata = _db.vSPMS_CheckListMFO.Where(a => a.officeId == officeId).ToList();
 
             var ipcr = _db.tSPMS_IPCR.Where(a => a.i_EIC == UserId).ToList();
@@ -453,19 +453,19 @@ namespace DDNHRIS.Controllers
                     {
                         foreach (var i in standards)
                         {
-                            if (tempqlyRating >= double.Parse(i.rating))
+                            if (tempqlyRating >= double.Parse(i.rating) & qlyLock == 0)
                             {
                                 //quality string
-                                if ((i.quality != null || i.quality != "") & qlyLock == 0)
+                                if ((i.quality != null & i.quality != "") )
                                 {
                                     qlyString = i.quality;
                                     qlyLock = 1;
                                 }
                             }
                             //timeliness string
-                            if (tempTimeRating >= double.Parse(i.rating))
+                            if (tempTimeRating >= double.Parse(i.rating) & timeLock == 0)
                             {
-                                if ((i.timeliness != null || i.timeliness != "") & timeLock == 0)
+                                if ((i.timeliness != null & i.timeliness != "") )
                                 {
                                     timeString = i.timeliness;
                                     timeLock = 1;
@@ -493,6 +493,9 @@ namespace DDNHRIS.Controllers
                         
 
                     }
+
+
+
                 }
             }
 
@@ -581,6 +584,19 @@ namespace DDNHRIS.Controllers
             HttpCookie cookiname = new HttpCookie("actualCrookie")
             {
                 Value = EIC + "," + officeId + ","
+
+            };
+            Response.Cookies.Add(cookiname);
+
+            return Json(EIC);
+        }
+
+        [HttpPost]
+        public JsonResult mporCookies(string officeId, string EIC, int monthId, string month,int year, int semester)
+        {
+            HttpCookie cookiname = new HttpCookie("mporCrookie")
+            {
+                Value = EIC + "," + officeId + "," + month + "," + monthId + "," + year + "," + semester + "," 
 
             };
             Response.Cookies.Add(cookiname);
@@ -835,6 +851,14 @@ namespace DDNHRIS.Controllers
         {
             var getSMPORData = _db.vSPMS_IPCR_SMPOR.Where(a => a.i_EIC == EIC & a.r_year == _year & a.r_semester == _sem).ToList();
             return Json(getSMPORData, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult MFO_getIndicatorDetails(string indId, string targtId)
+        {
+            var indDetails = _db.vSPMS_IPCRwCat.Where(a => a.i_indicatorId == indId).FirstOrDefault();
+            var standardDatas = _db.tSPMS_MFOStandard.Where(a => a.targetId == targtId).ToList();
+            return Json(new { indDetails, standardDatas, indId }, JsonRequestBehavior.AllowGet);
         }
 
 

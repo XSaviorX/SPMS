@@ -10,7 +10,7 @@ namespace DDNHRIS.Controllers
     public class SPMS_SignatoriesController : Controller
     {
         // GET: SPMS_Signatories
-        SPMSDBEntities _db = new SPMSDBEntities();
+        SPMSDBEntities7 _db = new SPMSDBEntities7();
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string nums = "0123456789";
         Random random = new Random();

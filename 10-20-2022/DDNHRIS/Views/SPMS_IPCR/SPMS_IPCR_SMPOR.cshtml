@@ -475,7 +475,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="smpor in smporData | groupBy:'i_category'">
+                    <tbody ng-repeat="smpor in smporData | groupBy:'i_category' | orderBy:'i_category'">
                         <tr ng-show="smpor.i_category_CHANGED" class="bg-slate">
                             <td class="no-border-right">
                                 {{smpor.description}} Function

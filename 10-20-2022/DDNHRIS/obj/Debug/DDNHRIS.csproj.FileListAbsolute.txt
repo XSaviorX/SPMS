@@ -2792,3 +2792,5 @@ D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.csproj.CoreC
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.csproj.CopyComplete
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.dll
 D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.pdb
+D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.csproj.AssemblyReference.cache
+D:\Dodong\Project\GitBash\SPMS\10-20-2022\DDNHRIS\obj\Debug\DDNHRIS.Reports.SPMS.IPCR_MPOR.resources

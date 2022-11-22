@@ -289,27 +289,28 @@
                 <center><span>Office / Division: </span> <strong> {{mporData[0].officeNameShort}} </strong></center>
             </div>
             <div class="col-lg-4">
-                <center><span>Month: </span> 
-                        <div class="select">
-                            <strong>
-                                <select class="" ng-model="selectedMonth" ng-change="loadDataMPOR(selectedMonth)">
-                                    <option value="1">JANUARY</option>
-                                    <option value="2">FEBRUARY</option>
-                                    <option value="3">MARCH</option>
-                                    <option value="4">APRIL</option>
-                                    <option value="5">MAY</option>
-                                    <option value="6">JUNE</option>
-                                    <option value="7">JULY</option>
-                                    <option value="8">AUGUST</option>
-                                    <option value="9">SEPTEMBER</option>
-                                    <option value="10">OCTOBER</option>
-                                    <option value="11">NOVEMBER</option>
-                                    <option value="12">DECEMBER</option>
-                                </select>
-                            </strong>
-                            <div class="select_arrow">
-                            </div>
+                <center>
+                    <span>Month: </span>
+                    <div class="select">
+                        <strong>
+                            <select class="" ng-model="selectedMonth" ng-change="loadDataMPOR(selectedMonth)">
+                                <option value="1">JANUARY</option>
+                                <option value="2">FEBRUARY</option>
+                                <option value="3">MARCH</option>
+                                <option value="4">APRIL</option>
+                                <option value="5">MAY</option>
+                                <option value="6">JUNE</option>
+                                <option value="7">JULY</option>
+                                <option value="8">AUGUST</option>
+                                <option value="9">SEPTEMBER</option>
+                                <option value="10">OCTOBER</option>
+                                <option value="11">NOVEMBER</option>
+                                <option value="12">DECEMBER</option>
+                            </select>
+                        </strong>
+                        <div class="select_arrow">
                         </div>
+                    </div>
                 </center>
             </div>
         </div>
@@ -395,64 +396,8 @@
                                 AVE.
                             </th>
                         </tr>
-                        <!--<tr>-->
-                            <!-- QTY  -->
-                            <!--<th class="lbl_opcrTableH" style="width: 64px;">
-                                1
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                2
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                3
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                4
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                
-                            </th>-->
-                            <!-- QLY  -->
-                            <!--<th class="lbl_opcrTableH" style="width: 64px;">
-                                1
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                2
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                3
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                4
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                
-                            </th>-->
-                            <!-- TIME  -->
-                            <!--<th class="lbl_opcrTableH" style="width: 64px;">
-                                1
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                2
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                3
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                4
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                
-                            </th>
-                            <th class="lbl_opcrTableH" style="width: 64px;">
-                                
-                            </th>
-                        </tr>-->
                     </thead>
-                    <tbody ng-repeat="mpor in mporData | groupBy:'i_category'">
+                    <tbody ng-repeat="mpor in mporData | groupBy:'i_category' | orderBy:'i_category'">
                         <tr ng-show="mpor.i_category_CHANGED" class="bg-slate">
                             <td class="no-border-right">
                                 {{mpor.description}} Function
@@ -507,11 +452,12 @@
 
             </div>
         </div>
+        <div class="btn-group dropup " ng-show="checkNull(selectedMonth)">
+            <button type="button" class="btn btn-primary" ng-click="prt_mpor(selectedMonth,mporData[0].r_year,mporData[0].r_semester)"><i class="icon-printer position-left"></i> PRINT MPOR ({{getMonthString(selectedMonth)}})</button>
+        </div>
     </div>
 </div>
 
     @section JavaScript{
         <script src="~/Scripts/AngularJS/SPMS_IPCR/SPMS_IPCR.js"></script>
-
-
     }
