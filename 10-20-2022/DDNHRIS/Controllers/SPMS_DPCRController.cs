@@ -9,7 +9,7 @@ namespace DDNHRIS.Controllers
 {
     public class SPMS_DPCRController : Controller
     {
-        SPMSDBEntities _db = new SPMSDBEntities();
+        SPMSDBEntities7 _db = new SPMSDBEntities7();
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string nums = "0123456789";
         Random random = new Random();
@@ -52,12 +52,12 @@ namespace DDNHRIS.Controllers
             return View();
         }
 
-        public ActionResult MFO_get()
-        {
-            var data = _db.loadDataViews.ToList();
+        //public ActionResult MFO_get()
+        //{
+        //    var data = _db.loadDataViews.ToList();
 
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public ActionResult MFO_getPerOffice(string _OfficeID, string _DivisionID)
@@ -368,14 +368,10 @@ namespace DDNHRIS.Controllers
 
         }
 
-
-
-
-
         [HttpPost]
         public ActionResult MFO_getOPCRData(string _OfficeID)
         {
-            var data = (from viewOPCR in _db.vprt_OPCR
+            var data = (from viewOPCR in _db.vSPMS_prtOPCR
                         where viewOPCR.officeId == _OfficeID & viewOPCR.programTypeId == 0
                         select viewOPCR).ToList();
 
