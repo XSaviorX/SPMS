@@ -21,12 +21,13 @@ namespace DDNHRIS.Controllers
             return View();
         }
 
-        [HttpPost]    
+        [HttpPost]
         public ActionResult getUsers(String OfficeId)
         {
 
-            var data = _db.vSPMS_Employees.Where(a => a.officeId == OfficeId).ToList();
-            return Json(data, JsonRequestBehavior.AllowGet);
+            var users = _db.vSPMS_Employees.Where(a => a.officeId == OfficeId).ToList();
+
+            return Json(new { users }, JsonRequestBehavior.AllowGet);
 
         }
         [HttpPost]
@@ -61,11 +62,11 @@ namespace DDNHRIS.Controllers
         public ActionResult addManytoOneSupervisor(List<tSPMS_Employees> Users, String SupervisorId, String OfficeHeadId, String DivisionId)
         {
 
-            foreach(var i in Users)
+            foreach (var i in Users)
             {
                 var isExist = _db.tSPMS_Signatories.Where(a => a.EIC == i.EIC).FirstOrDefault();
 
-                if(isExist == null) // SAVE
+                if (isExist == null) // SAVE
                 {
                     var add = new tSPMS_Signatories()
                     {
@@ -82,10 +83,10 @@ namespace DDNHRIS.Controllers
             }
             _db.SaveChanges();
 
-            return Json(new { status = 1}, JsonRequestBehavior.AllowGet);
+            return Json(new { status = 1 }, JsonRequestBehavior.AllowGet);
 
         }
 
-        
+
     }
 }

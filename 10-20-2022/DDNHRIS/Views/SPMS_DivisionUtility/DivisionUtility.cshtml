@@ -40,42 +40,122 @@
             <table class="table">
                 <thead class="bg-slate-300" style="font-weight: 500 ">
                     <tr>
-                        <td width="50px"></td>
+                        <td></td>
                         <td>EMPLOYEE NAME</td>
-                        <td>OFFICE ROLE</td>
 
-                        <td>DIVISION</td>
+                        <td width="350px">OFFICE ROLE</td>
+                        <td>
+                        </td>
+
+                        <td width="400px">DIVISION</td>
+                        <td>Action</td>
 
                     </tr>
 
                 </thead>
                 <tbody>
-                <tbody ng-repeat="user in users | filter: search | filter: {officeRoleId: roleFilter, division: divisionFilter}">
+                <tbody ng-repeat="user in users| unique: 'EIC' | filter: search | filter: {oldOffcRoleId: roleFilter, oldDivision: divisionFilter}">
+                    <tr ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
+                        <td rowspan="{{rowCount(user.EIC,user)}}">
+                            <div ng-repeat="(chkIndex,chckbox) in users | filter:{'EIC': user.EIC }" ng-if="user.officeRoleId !== 'ORCKHKLG582947' && chkIndex == 0 ">
+
+                                <input ng-if="$last" type="checkbox" style="height:25px; width:30px" ng-model="user.Selected">
+
+                            </div>
+
+                        </td>
+                    </tr>
+
                     <tr ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
 
-                        <td><input ng-if="user.officeRoleId !== 'ORCKHKLG582947'" type="checkbox" style="height:25px; width:30px" ng-model="user.Selected"></td>
-
-                        <td>
-                            {{user.F_Name}}
-                        </td>
-                        <td>
-                            <select ng-model="user.officeRoleId" class="form-control">
-                                <option value="">  </option>
-                                <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
-
-                            </select>
-
-                        </td>
-                        <td>
-                            <select ng-model="user.division" class="form-control">
-                                <option value="">  </option>
-                                <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
-
-                            </select>
-                        </td>
-
+                        <td rowspan="{{rowCount(user.EIC,user)}}">{{$index + 1}}. {{user.F_Name}}</td>
 
                     </tr>
+                    <tr ng-repeat="(key,roles) in users| filter:{EIC: user.EIC} " ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
+                        <td>
+                            <div class="row" ng-if="roles.officeRoleId !== roles.oldOffcRoleId">
+                                <div class="col-lg-6">
+                                    <span style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
+                                        <b>{{roles.R_Description}}</b> to
+                                    </span>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <select ng-model="roles.officeRoleId" class="form-control" ng-style="roles.officeRoleId !== roles.oldOffcRoleId && {'border':'2px solid  #E14D2A', 'color': '#E14D2A'}">
+                                        <option value="">  </option>
+                                        <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-if="roles.officeRoleId == roles.oldOffcRoleId">
+                                <select ng-model="roles.officeRoleId" class="form-control" ng-style="roles.officeRoleId !== roles.oldOffcRoleId && {'border':'2px solid blue'}">
+                                    <option value="">  </option>
+                                    <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+
+                                </select>
+                            </div>
+
+
+                        </td>
+                        <td>
+                            <i ng-if="key >= 1" ng-click="removedRole(roles.recNo)" class="bi bi-trash3 btn btn-rounded btn-remove"></i>
+                        </td>
+                        <td>
+                            <div class="row" ng-if="user.division !== user.oldDivision">
+                                <div class="col-lg-6">
+                                    <span style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
+                                        <b>{{user.divisionName}}</b> to
+                                    </span>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <select ng-model="user.division" class="form-control" ng-style="user.division !== user.oldDivision &&  {'border':'2px solid  #E14D2A', 'color': '#E14D2A'}">
+                                        <option value="">  </option>
+                                        <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div ng-if="user.division == user.oldDivision">
+                                <select ng-model="user.division" class="form-control" ng-style="user.division !== user.oldDivision &&  {'border':'2px solid  #E14D2A', 'color': '#E14D2A'}">
+                                    <option value="">  </option>
+                                    <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
+
+                                </select>
+                            </div>
+
+
+                        </td>
+                        <td>
+                            <button ng-click="showAddRole(user)" class="btn btn-primary" ng-style="key >= 1 && {'display':'none'}" data-toggle="modal" data-target="#addRole">
+                                ADD ROLE
+                            </button>
+                        </td>
+                    </tr>
+
+
+                    @*  <tr>
+
+                            <td>
+                                <select ng-model="user.officeRoleId" class="form-control">
+                                    <option value="">  </option>
+                                    <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+
+                                </select>
+
+                            </td>
+                            <td>
+                                <select ng-model="user.division" class="form-control">
+                                    <option value="">  </option>
+                                    <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
+
+                                </select>
+                            </td>
+
+
+                        </tr>*@
                 </tbody>
 
             </table>
@@ -141,7 +221,7 @@
                                 </td>
 
                                 <td>
-                                    {{user.description}}
+                                    {{user.R_Description}}
                                 </td>
                                 <td colspan="2">{{user.divisionName}}</td>
                             </tr>
@@ -161,8 +241,49 @@
 
         </div>
     </div>
-    <!-------------------------------------------------------------------->
-    @*Modal for Adding DIVSION*@
+    <!-------------------------Modal for Adding Role------------------------------------------->
+
+    <div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-slate-300" style=" padding: 20px">
+                    <h5 class="modal-title" id="ModalTitle" style="color:white"><strong>ADD ROLE</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="" style="margin-top: -10px; color: white">
+                        <i class="icon icon-close2"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <select ng-model="office_RoleID" class="form-control" ng-style="Is_Empty && {'border':'2px solid  #E14D2A'}">
+                                        <option value=""> --Select Role-- </option>
+                                        <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
+
+                                    </select>
+                                    <p ng-show="Is_Empty" style="color:red">Please select a role.</p>
+                                    <br />
+                                    <label class="labelForm"><b>Employee Name</b></label>
+                                    <input ng-model="userRole.F_Name" type="text" class="form-control" readonly="readonly" />
+                                    <label class="labelForm"><b>Role</b></label>
+                                    <div ng-repeat="user in users | filter:{'EIC': userRole.EIC} ">
+                                        <input ng-model="user.R_Description" type="text" class="form-control" readonly="readonly" />
+                                        <div class="p-5"></div>
+
+                                    </div>
+                                    <br />
+
+                                    <button id="btn_save" type="submit" class="btn btn-primary form-control" ng-click="saveRole()">SAVE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------Modal for Adding DIVSION-------------------------------------------->
 
     <div class="modal fade" id="addDivision" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -195,10 +316,10 @@
     </div>
 </div>
 
-    @section JavaScript{
-        <script src="~/Scripts/AngularJS/SPMS_UTILITY/DivisionUtility.js"></script>
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SPMS_UTILITY/DivisionUtility.js"></script>
 
 
-    }
+}
 
 

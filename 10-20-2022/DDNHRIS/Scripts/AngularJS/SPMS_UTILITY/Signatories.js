@@ -2,10 +2,17 @@
     var s = $scope;
 
     s.title = "hellooo";
-    s.users = {};
+    s.users = [];
+    s.signatories = [];
     s.supervisor = '';
     s.currentOffice = 'OFFPHRMONZ3WT7D';
     s.currentDivision = 'DIVPROVIT8ZP';
+
+    // Signatories
+    s._officeHeadId = "ORCKHKLG582947";
+    s._divisionHeadId = "ORHKWPAO195038";
+    s._supervisorId = "ORGKTPDO206931";
+
 
     loadData();
 
@@ -13,10 +20,29 @@
     function loadData() {
         $http.post('../SPMS_Signatories/getUsers', { OfficeId: s.currentOffice }).then(function (response) {
 
-            s.users = response.data;
-            console.log("users: ", s.users);
+            s.listUsers = response.data.users;
+            angular.forEach(s.listUsers, function (user, keyfirst) {
+                s.users.push({
+                    recNo: user.recNo, EIC: user.EIC, F_Name: user.F_Name, R_Description: user.R_Description, division: user.division,
+                    divisionName: user.divisionName, officeId: user.officeId, officeName: user.officeName, officeNameShort: user.officeNameShort,
+                    officeRoleId: user.officeRoleId, officeheadId: user.officeheadId, officeheadName: user.officeheadName, positionTitle: user.positionTitle,
+                    supervisorId: user.supervisorId, supervisorName: user.supervisorName, oldsupervisorId: user.supervisorId
+                });
 
-          
+                if (user.officeRoleId == s._officeHeadId || user.officeRoleId == s._divisionHeadId || user.officeRoleId == s._supervisorId) {
+                    s.signatories.push({
+                        recNo: user.recNo, EIC: user.EIC, F_Name: user.F_Name, R_Description: user.R_Description, division: user.division,
+                        divisionName: user.divisionName, officeId: user.officeId, officeName: user.officeName, officeNameShort: user.officeNameShort,
+                        officeRoleId: user.officeRoleId, officeheadId: user.officeheadId, officeheadName: user.officeheadName, positionTitle: user.positionTitle,
+                        supervisorId: user.supervisorId, supervisorName: user.supervisorName, oldsupervisorId: user.supervisorId
+                    });
+                }
+
+            });
+            console.log("users: ", s.users);
+            console.log("signatories: ", s.signatories);
+
+
         }), function (err) {
             alert(err);
         }
@@ -27,7 +53,7 @@
         s.lengthUsers = 0;
         for (var i = 0; i < s.users.length; i++) {
             if (s.users[i].Selected) {
-             
+
                 s.lengthUsers = s.lengthUsers + 1;
                 s.selectedUsers.push(s.users[i]);
             }
@@ -45,17 +71,18 @@
 
         console.log("selectedUsers", s.selectedUsers);
     }
-   /* s.addSups = [];
-    s.onchangeSup = function(data){
-        s.addSups.push(data);
-        console.log("s.addSups", s.addSups);
-    }*/
+    /* s.addSups = [];
+     s.onchangeSup = function(data){
+         s.addSups.push(data);
+         console.log("s.addSups", s.addSups);
+     }*/
     s.addManytoManySupervisor = function () {
 
         console.log("s.selectedUsers", s.users);
         $http.post('../SPMS_Signatories/addManytoManySupervisor', { Users: s.users, OfficeHeadId: 'OFFICEHEADID123', DivisionId: s.currentDivision }).then(function (response) {
             if (response.data.status == 1) {
-                s.users = {};
+                s.users = [];
+                // s.signatories = []
                 loadData();
                 const Toast = Swal.mixin({
                     toast: true,
@@ -85,11 +112,12 @@
     s.addManytoOneSupervisor = function () {
         console.log("s.supervisor", s.supervisor);
 
-        $http.post('../SPMS_Signatories/addManytoOneSupervisor', {Users: s.selectedUsers, SupervisorId: s.supervisor , OfficeHeadId: 'OFFICEHEADID123', DivisionId: s.currentDivision }).then(function (response) {
+        $http.post('../SPMS_Signatories/addManytoOneSupervisor', { Users: s.selectedUsers, SupervisorId: s.supervisor, OfficeHeadId: 'OFFICEHEADID123', DivisionId: s.currentDivision }).then(function (response) {
             if (response.data.status == 1) {
                 $('#addMultiSup').modal('hide');
 
-                s.users = {};
+                s.users = [];
+                s.signatories = []
                 loadData();
                 const Toast = Swal.mixin({
                     toast: true,
@@ -116,4 +144,31 @@
         }
     }
 
+    s.rowCount = function (_EIC, data) {
+        s.counts = 0;
+        for (var user = 0; user < data.length; user++) {
+            if (_EIC == data[user].EIC) {
+                s.counts++;
+            }
+        }
+        //s.counts = s.counts + (s.counts * 5);
+        return s.counts;
+    }
+
+});
+
+app.filter("unique", function () {
+    return function (collection, keyname) {
+        var output = [],
+            keys = [];
+
+        angular.forEach(collection, function (item) {
+            var key = item[keyname];
+            if (keys.indexOf(key) === -1) {
+                keys.push(key);
+                output.push(item);
+            }
+        });
+        return output;
+    };
 });

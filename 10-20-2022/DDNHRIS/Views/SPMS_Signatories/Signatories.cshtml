@@ -13,7 +13,7 @@
             </b>
         </h3>
         <div class="row">
-         
+
             <div class="col-lg-3">
                 <i class="bi bi-search" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
                 <input type="text" ng-model="search['F_Name']" placeholder="Search Employee . . ." class="form-control" style="padding-left:30px" />
@@ -24,7 +24,7 @@
                     <i class="bi bi-funnel" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
                     <select ng-model="supervisorFilter" style="position: absolute; left: 40px; top: 1px; height: 34px; border: none; width:80%" class="form-control">
                         <option value=""> Supervisor </option>
-                        <option ng-repeat="supervisor in users" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+                        <option ng-repeat="supervisor in signatories | unique: 'EIC'" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
                     </select>
                     <span ng-click="supervisorFilter = undefined"><i class="bi bi-x" style="background-color: #EEEEEE; padding: 6px; position: absolute; right: 13px; top: 2px"></i></span>
                 </div>
@@ -43,17 +43,38 @@
 
                 </thead>
                 <tbody>
-                <tbody ng-repeat="user in users | filter: search | filter: {supervisorId: supervisorFilter}">
+                <tbody ng-repeat="user in users | unique: 'EIC'  | filter: search | filter: {oldsupervisorId: supervisorFilter}">
                     <tr ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
                         <td><input type="checkbox" style="height:25px; width:30px" ng-model="user.Selected"></td>
                         <td>
                             {{user.F_Name}}
                         </td>
                         <td>
-                            <select ng-model="user.supervisorId" class="form-control">
-                                <option value="">  </option>
-                                <option ng-repeat="supervisor in users" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
-                            </select>
+                            <div class="row" ng-if="user.supervisorId !== user.oldsupervisorId">
+                                <div class="col-lg-6">
+                                    <span style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
+                                        <b>{{user.supervisorName}}</b> to
+                                    </span>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <select ng-model="user.supervisorId" class="form-control" ng-style="user.supervisorId !== user.oldsupervisorId && {'border':'2px solid  #E14D2A', 'color': '#E14D2A'}">
+                                        <option value="">  </option>
+                                        <option ng-repeat="supervisor in signatories | unique: 'EIC'" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div ng-if="user.supervisorId == user.oldsupervisorId">
+                                <select ng-model="user.supervisorId" class="form-control" ng-style="user.supervisorId !== user.oldsupervisorId && {'border':'2px solid blue'}">
+                                    <option value="">  </option>
+                                    <option ng-repeat="supervisor in signatories | unique: 'EIC'" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+
+                                </select>
+                            </div>
+
+
                         </td>
 
 
@@ -87,11 +108,11 @@
                     <div class="row">
                         <select ng-model="supervisor" class="form-control">
                             <option value="">  </option>
-                            <option ng-repeat="supervisor in users" ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
+                            <option ng-repeat="supervisor in signatories | unique: 'EIC' " ng-value="supervisor.EIC">{{supervisor.F_Name}}</option>
 
                         </select>
                     </div>
-                     
+
                     <br />
                     <table class="table table-responsive table-striped">
                         <thead class="bg-slate-300">
@@ -109,7 +130,7 @@
                                 <td colspan="2">
                                     {{user.supervisorName}}
                                 </td>
-                              
+
                             </tr>
                         </tbody>
                     </table><br />
