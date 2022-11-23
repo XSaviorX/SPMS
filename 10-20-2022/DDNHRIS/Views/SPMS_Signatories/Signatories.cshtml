@@ -13,7 +13,7 @@
             </b>
         </h3>
         <div class="row">
-
+         
             <div class="col-lg-3">
                 <i class="bi bi-search" style="background-color: #EEEEEE; padding: 6px; position: absolute; left: 13px; top: 2px"></i>
                 <input type="text" ng-model="search['F_Name']" placeholder="Search Employee . . ." class="form-control" style="padding-left:30px" />
@@ -52,7 +52,7 @@
                         <td>
                             <div class="row" ng-if="user.supervisorId !== user.oldsupervisorId">
                                 <div class="col-lg-6">
-                                    <span style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
+                                    <span ng-if="user.supervisorName !== null && user.supervisorName !== '' " style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
                                         <b>{{user.supervisorName}}</b> to
                                     </span>
 
@@ -74,7 +74,7 @@
                                 </select>
                             </div>
 
-
+                           
                         </td>
 
 
@@ -112,7 +112,7 @@
 
                         </select>
                     </div>
-
+                     
                     <br />
                     <table class="table table-responsive table-striped">
                         <thead class="bg-slate-300">
@@ -130,7 +130,7 @@
                                 <td colspan="2">
                                     {{user.supervisorName}}
                                 </td>
-
+                              
                             </tr>
                         </tbody>
                     </table><br />

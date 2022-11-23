@@ -37,29 +37,45 @@ namespace DDNHRIS.Controllers
 
             foreach (var i in Users)
             {
-                var update = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC & a.recNo == i.recNo).FirstOrDefault();
 
-                if (i.officeRoleId == "ORCKHKLG582947") //IS OFFICE HEAD
+                var updateRole = _db.tSPMS_EmployeeRole.Where(a => a.EIC == i.EIC & a.recNo == i.recNoRole).FirstOrDefault();
+                var updateDivision = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).FirstOrDefault();
+
+                if (updateRole == null) // ADD ROLE
                 {
-                    update.officeRoleId = i.officeRoleId;
-                    update.division = OfficeId;
+                    var addRole = new tSPMS_EmployeeRole()
+                    {
+                        EIC = i.EIC,
+                        RID = i.RID
+
+                    };
+                    _db.tSPMS_EmployeeRole.Add(addRole);
+
+                    if (i.RID == "ORCKHKLG582947") //IS OFFICE HEAD
+                    {
+                        updateDivision.division = OfficeId;
+                    }
+                    else
+                    {
+
+                        updateDivision.division = i.division;
+                    }
+
                 }
-                else
+                else // UPDATE ROLE
                 {
-                    update.officeRoleId = i.officeRoleId;
+                    if (i.RID == "ORCKHKLG582947") //IS OFFICE HEAD
+                    {
+                        updateRole.RID = i.RID;
+                        updateDivision.division = OfficeId;
+                    }
+                    else
+                    {
+                        updateRole.RID = i.RID;
 
-                    update.division = i.division;
+                        updateDivision.division = i.division;
+                    }
                 }
-
-                /* var divsions = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).ToList();
-
-                 foreach (var div in divsions)
-                 {
-                     var update
-                     div.division = i.division;
-                 }*/
-
-
 
             }
             _db.SaveChanges();
@@ -68,15 +84,46 @@ namespace DDNHRIS.Controllers
 
         }
         [HttpPost]
-        public ActionResult addManytoOneDivRole(List<tSPMS_Employees> Users, String OfficeRoleID, String DivisionID)
+        public ActionResult addManytoOneDivRole(List<vSPMS_Employees> Users, String OfficeRoleID, String DivisionID)
         {
 
             foreach (var i in Users)
             {
-                var update = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).FirstOrDefault();
+                var updateDivision = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).FirstOrDefault();
+                var updateRole = _db.tSPMS_EmployeeRole.Where(a => a.EIC == i.EIC & a.recNo == i.recNoRole).FirstOrDefault();
 
-                update.officeRoleId = OfficeRoleID;
-                update.division = DivisionID;
+
+
+                if (updateRole == null) // ADD ROLE
+                {
+                    var addRole = new tSPMS_EmployeeRole()
+                    {
+                        EIC = i.EIC,
+                        RID = OfficeRoleID
+
+                    };
+                    _db.tSPMS_EmployeeRole.Add(addRole);
+
+
+                    updateDivision.division = DivisionID;
+
+                }
+                else // UPDATE ROLE
+                {
+
+                    updateRole.RID = OfficeRoleID;
+                    updateDivision.division = DivisionID;
+                }
+                /* try
+                 {
+                     updateRole.RID = OfficeRoleID;
+                     updateDivision.division = DivisionID;
+                 }
+                 catch (NullReferenceException e)
+                 {
+                     //Code to do something with e
+                 }*/
+
             }
             _db.SaveChanges();
 
@@ -118,9 +165,9 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult removeRole(int RecNo)
         {
-            var deleteRole = _db.tSPMS_Employees.Where(a => a.recNo == RecNo).FirstOrDefault();
+            var deleteRole = _db.tSPMS_EmployeeRole.Where(a => a.recNo == RecNo).FirstOrDefault();
 
-            _db.tSPMS_Employees.Remove(deleteRole);
+            _db.tSPMS_EmployeeRole.Remove(deleteRole);
 
             _db.SaveChanges();
             return Json(new { status = 1 }, JsonRequestBehavior.AllowGet);
@@ -129,21 +176,18 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult saveRole(String OfficeRoleID, vSPMS_Employees User)
         {
-            var saveRole = _db.vSPMS_Employees.Where(a => a.EIC == User.EIC && a.officeRoleId == OfficeRoleID).FirstOrDefault();
+            var saveRole = _db.tSPMS_EmployeeRole.Where(a => a.EIC == User.EIC && a.RID == OfficeRoleID).FirstOrDefault();
             var data = 0;
             if (saveRole == null)
             {
-                var addRole = new tSPMS_Employees()
+                var addRole = new tSPMS_EmployeeRole()
                 {
                     EIC = User.EIC,
-                    F_Name = User.F_Name,
-                    positionTitle = User.positionTitle,
-                    division = User.division,
-                    officeRoleId = OfficeRoleID
+                    RID = OfficeRoleID
 
                 };
                 data = 1;
-                _db.tSPMS_Employees.Add(addRole);
+                _db.tSPMS_EmployeeRole.Add(addRole);
 
             }
 

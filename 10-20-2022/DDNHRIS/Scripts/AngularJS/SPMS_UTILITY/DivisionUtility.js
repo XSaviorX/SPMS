@@ -23,25 +23,27 @@ app.controller("SPMS_DivisionUtility", function ($scope, $window, $http, filterF
         $http.post('../SPMS_DivisionUtility/getUsers', { OfficeId: s.currentOffice }).then(function (response) {
 
             //s.users = response.data.users;
-            console.log("users: ", s.users);
             s.officeRoles = response.data.officeRoles;
             console.log("officeRoles: ", s.officeRoles);
             s.divisions = response.data.divisions;
             console.log("divisions: ", s.divisions);
 
             s.listUsers = response.data.users;
+            console.log("listUsers: ", s.listUsers);
 
             angular.forEach(s.listUsers, function (user, keyfirst) {
 
                 s.users.push({
                     recNo: user.recNo, EIC: user.EIC, F_Name: user.F_Name, R_Description: user.R_Description, division: user.division,
                     divisionName: user.divisionName, officeId: user.officeId, officeName: user.officeName, officeNameShort: user.officeNameShort,
-                    officeRoleId: user.officeRoleId, officeheadId: user.officeheadId, officeheadName: user.officeheadName, positionTitle: user.positionTitle,
-                    supervisorId: user.supervisorId, supervisorName: user.supervisorName, oldOffcRoleId: user.officeRoleId, oldDivision: user.division
+                    RID: user.RID, officeheadId: user.officeheadId, officeheadName: user.officeheadName, positionTitle: user.positionTitle,
+                    supervisorId: user.supervisorId, supervisorName: user.supervisorName, oldOffcRoleId: user.RID, oldDivision: user.division,
+                    recNoEmployee: user.recNoEmployee, recNoRole: user.recNoRole
                 });
 
             });
-            console.log("s.newUsers", s.newUsers)
+            console.log("users: ", s.users);
+
         }), function (err) {
             alert(err);
         }

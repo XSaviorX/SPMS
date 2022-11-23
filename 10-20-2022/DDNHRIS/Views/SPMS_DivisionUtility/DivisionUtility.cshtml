@@ -57,7 +57,7 @@
                 <tbody ng-repeat="user in users| unique: 'EIC' | filter: search | filter: {oldOffcRoleId: roleFilter, oldDivision: divisionFilter}">
                     <tr ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
                         <td rowspan="{{rowCount(user.EIC,user)}}">
-                            <div ng-repeat="(chkIndex,chckbox) in users | filter:{'EIC': user.EIC }" ng-if="user.officeRoleId !== 'ORCKHKLG582947' && chkIndex == 0 ">
+                            <div ng-repeat="(chkIndex,chckbox) in users | filter:{'EIC': user.EIC }" ng-if="user.oldOffcRoleId !== 'ORCKHKLG582947' && chkIndex == 0 ">
 
                                 <input ng-if="$last" type="checkbox" style="height:25px; width:30px" ng-model="user.Selected">
 
@@ -73,23 +73,23 @@
                     </tr>
                     <tr ng-repeat="(key,roles) in users| filter:{EIC: user.EIC} " ng-style="user.Selected && {'background-color':'#EEF1FF', 'border-style': 'none'}">
                         <td>
-                            <div class="row" ng-if="roles.officeRoleId !== roles.oldOffcRoleId">
+                            <div class="row" ng-if="roles.RID !== roles.oldOffcRoleId">
                                 <div class="col-lg-6">
-                                    <span style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
+                                    <span ng-if="roles.R_Description !== null && roles.R_Description !== '' " style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
                                         <b>{{roles.R_Description}}</b> to
                                     </span>
 
                                 </div>
                                 <div class="col-lg-6">
-                                    <select ng-model="roles.officeRoleId" class="form-control" ng-style="roles.officeRoleId !== roles.oldOffcRoleId && {'border':'2px solid  #E14D2A', 'color': '#E14D2A'}">
+                                    <select ng-model="roles.RID" class="form-control" ng-style="roles.RID !== roles.oldOffcRoleId && {'border':'2px solid  #E14D2A', 'color': '#E14D2A'}">
                                         <option value="">  </option>
                                         <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
 
                                     </select>
                                 </div>
                             </div>
-                            <div ng-if="roles.officeRoleId == roles.oldOffcRoleId">
-                                <select ng-model="roles.officeRoleId" class="form-control" ng-style="roles.officeRoleId !== roles.oldOffcRoleId && {'border':'2px solid blue'}">
+                            <div ng-if="roles.RID == roles.oldOffcRoleId">
+                                <select ng-model="roles.RID" class="form-control" ng-style="roles.RID !== roles.oldOffcRoleId && {'border':'2px solid blue'}">
                                     <option value="">  </option>
                                     <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
 
@@ -104,7 +104,7 @@
                         <td>
                             <div class="row" ng-if="user.division !== user.oldDivision">
                                 <div class="col-lg-6">
-                                    <span style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
+                                    <span ng-if="user.divisionName !== null && user.divisionName !== '' " style="float: right; padding: 10px; background-color: #FFFBC1; color: #E14D2A; border-radius: 25px; ">
                                         <b>{{user.divisionName}}</b> to
                                     </span>
 
@@ -136,26 +136,7 @@
                     </tr>
 
 
-                    @*  <tr>
 
-                            <td>
-                                <select ng-model="user.officeRoleId" class="form-control">
-                                    <option value="">  </option>
-                                    <option ng-repeat="role in officeRoles" ng-value="role.officeRoleId">{{role.description}}</option>
-
-                                </select>
-
-                            </td>
-                            <td>
-                                <select ng-model="user.division" class="form-control">
-                                    <option value="">  </option>
-                                    <option ng-repeat="division in divisions" ng-value="division.divisionId">{{division.divisionName}}</option>
-
-                                </select>
-                            </td>
-
-
-                        </tr>*@
                 </tbody>
 
             </table>

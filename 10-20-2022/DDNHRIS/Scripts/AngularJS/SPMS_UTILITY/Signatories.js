@@ -29,7 +29,7 @@
                     supervisorId: user.supervisorId, supervisorName: user.supervisorName, oldsupervisorId: user.supervisorId
                 });
 
-                if (user.officeRoleId == s._officeHeadId || user.officeRoleId == s._divisionHeadId || user.officeRoleId == s._supervisorId) {
+                if (user.RID == s._officeHeadId || user.RID == s._divisionHeadId || user.RID == s._supervisorId) {
                     s.signatories.push({
                         recNo: user.recNo, EIC: user.EIC, F_Name: user.F_Name, R_Description: user.R_Description, division: user.division,
                         divisionName: user.divisionName, officeId: user.officeId, officeName: user.officeName, officeNameShort: user.officeNameShort,
