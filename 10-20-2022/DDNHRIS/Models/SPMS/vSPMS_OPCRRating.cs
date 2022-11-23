@@ -14,6 +14,7 @@ namespace DDNHRIS.Models.SPMS
     
     public partial class vSPMS_OPCRRating
     {
+        public string targetId { get; set; }
         public int recNo { get; set; }
         public string opcrID { get; set; }
         public string officeId { get; set; }
@@ -25,9 +26,8 @@ namespace DDNHRIS.Models.SPMS
         public Nullable<double> r_qty { get; set; }
         public Nullable<double> r_qly { get; set; }
         public Nullable<double> r_time { get; set; }
-        public Nullable<double> tCommittedQuantity { get; set; }
-        public Nullable<double> qty_rating { get; set; }
-        public Nullable<double> qly_rating { get; set; }
-        public Nullable<double> time_rating { get; set; }
+        public string strQuality { get; set; }
+        public string strTimeliness { get; set; }
+        public Nullable<double> tAccumulatedQuantity { get; set; }
     }
 }

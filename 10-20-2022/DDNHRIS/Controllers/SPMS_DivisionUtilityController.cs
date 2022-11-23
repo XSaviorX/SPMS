@@ -25,7 +25,7 @@ namespace DDNHRIS.Controllers
         public ActionResult getUsers(String OfficeId)
         {
 
-            var users = _db.vSPMS_Employees.Where(a => a.officeId == OfficeId).ToList();
+            var users = _db.vSPMS_Employees.Where(a=> a.officeId == OfficeId).ToList();
             var divisions = _db.tOfficeDivisions.Where(a => a.officeId == OfficeId).ToList();
             var officeRoles = _db.tSPMS_OfficeRole.ToList();
             return Json(new { users, divisions, officeRoles }, JsonRequestBehavior.AllowGet);
@@ -39,17 +39,17 @@ namespace DDNHRIS.Controllers
             {
                 var update = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC & a.recNo == i.recNo).FirstOrDefault();
 
-                if (i.officeRoleId == "ORCKHKLG582947") //IS OFFICE HEAD
-                {
-                    update.officeRoleId = i.officeRoleId;
-                    update.division = OfficeId;
-                }
-                else
-                {
-                    update.officeRoleId = i.officeRoleId;
+                //if (i.officeRoleId == "ORCKHKLG582947") //IS OFFICE HEAD
+                //{
+                //    update.officeRoleId = i.officeRoleId;
+                //    update.division = OfficeId;
+                //}
+                //else
+                //{
+                //    update.officeRoleId = i.officeRoleId;
 
-                    update.division = i.division;
-                }
+                //    update.division = i.division;
+                //}
 
                 /* var divsions = _db.tSPMS_Employees.Where(a => a.EIC == i.EIC).ToList();
 
@@ -129,26 +129,26 @@ namespace DDNHRIS.Controllers
         [HttpPost]
         public ActionResult saveRole(String OfficeRoleID, vSPMS_Employees User)
         {
-            var saveRole = _db.vSPMS_Employees.Where(a => a.EIC == User.EIC && a.officeRoleId == OfficeRoleID).FirstOrDefault();
-            var data = 0;
-            if (saveRole == null)
-            {
-                var addRole = new tSPMS_Employees()
-                {
-                    EIC = User.EIC,
-                    F_Name = User.F_Name,
-                    positionTitle = User.positionTitle,
-                    division = User.division,
-                    officeRoleId = OfficeRoleID
+            //var saveRole = _db.vSPMS_Employees.Where(a => a.EIC == User.EIC && a.officeRoleId == OfficeRoleID).FirstOrDefault();
+            //var data = 0;
+            //if (saveRole == null)
+            //{
+            //    var addRole = new tSPMS_Employees()
+            //    {
+            //        EIC = User.EIC,
+            //        F_Name = User.F_Name,
+            //        positionTitle = User.positionTitle,
+            //        division = User.division,
+            //        officeRoleId = OfficeRoleID
 
-                };
-                data = 1;
-                _db.tSPMS_Employees.Add(addRole);
+            //    };
+            //    data = 1;
+            //    _db.tSPMS_Employees.Add(addRole);
 
-            }
+            //}
 
-            _db.SaveChanges();
-            return Json(new { status = data }, JsonRequestBehavior.AllowGet);
+            //_db.SaveChanges();
+            return Json(new { status = "" }, JsonRequestBehavior.AllowGet);
         }
 
     }

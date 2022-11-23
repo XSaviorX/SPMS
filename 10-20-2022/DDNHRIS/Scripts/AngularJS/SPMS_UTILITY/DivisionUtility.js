@@ -22,8 +22,8 @@ app.controller("SPMS_DivisionUtility", function ($scope, $window, $http, filterF
     function loadData() {
         $http.post('../SPMS_DivisionUtility/getUsers', { OfficeId: s.currentOffice }).then(function (response) {
 
-            //s.users = response.data.users;
-            console.log("users: ", s.users);
+            s.userssssssss = response.data.users;
+            console.log("userss: ", s.userssssssss);
             s.officeRoles = response.data.officeRoles;
             console.log("officeRoles: ", s.officeRoles);
             s.divisions = response.data.divisions;
