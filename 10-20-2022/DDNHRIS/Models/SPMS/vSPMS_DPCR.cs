@@ -17,9 +17,6 @@ namespace DDNHRIS.Models.SPMS
         public int recNo { get; set; }
         public string indicatorId { get; set; }
         public string officeId { get; set; }
-        public string MFOId { get; set; }
-        public string MFO { get; set; }
-        public string indicator { get; set; }
         public Nullable<int> categoryId { get; set; }
         public string targetId { get; set; }
         public Nullable<int> target { get; set; }
@@ -35,5 +32,8 @@ namespace DDNHRIS.Models.SPMS
         public Nullable<int> canUpdate { get; set; }
         public string targetUnit { get; set; }
         public string targetIdparent { get; set; }
+        public string indicator { get; set; }
+        public string MFOId { get; set; }
+        public string MFO { get; set; }
     }
 }

@@ -1693,14 +1693,14 @@ namespace DDNHRIS.Reports.SPMS
             // 
             // getPrvAdmin
             // 
-            this.getPrvAdmin.ConnectionString = "SPMSDB";
+            this.getPrvAdmin.ConnectionString = "HRISDB";
             this.getPrvAdmin.Name = "getPrvAdmin";
             this.getPrvAdmin.SelectCommand = "\r\nSELECT *\r\nFROM     vSPMS_Employees\r\n\r\nWHERE positionTitle= \'Provincial Administ" +
     "rator\' ";
             // 
             // getGovernor
             // 
-            this.getGovernor.ConnectionString = "SPMSDB";
+            this.getGovernor.ConnectionString = "HRISDB";
             this.getGovernor.Name = "getGovernor";
             this.getGovernor.SelectCommand = "SELECT *\r\nFROM     tSPMS_Employees\r\nWHERE positionTitle= \'Governor\'";
             // 

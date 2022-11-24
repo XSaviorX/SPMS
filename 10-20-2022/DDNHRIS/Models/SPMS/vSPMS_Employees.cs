@@ -14,16 +14,19 @@ namespace DDNHRIS.Models.SPMS
     
     public partial class vSPMS_Employees
     {
-        public int recNo { get; set; }
+        public Nullable<int> recNo { get; set; }
         public string EIC { get; set; }
+        public string RID { get; set; }
         public string F_Name { get; set; }
         public string positionTitle { get; set; }
+        public string R_Description { get; set; }
+        public string supervisorId { get; set; }
+        public string officeheadId { get; set; }
+        public string supervisorName { get; set; }
+        public string officeheadName { get; set; }
         public string division { get; set; }
-        public string divisionName { get; set; }
         public string officeId { get; set; }
         public string officeName { get; set; }
         public string officeNameShort { get; set; }
-        public string officeRoleId { get; set; }
-        public string description { get; set; }
     }
 }

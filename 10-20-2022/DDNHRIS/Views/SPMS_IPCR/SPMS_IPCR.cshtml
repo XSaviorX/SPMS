@@ -248,8 +248,8 @@
 
                     </thead>
 
-                    <tbody ng-repeat="(keyopcr , item) in list_ipcrwCat  | unique: 'i_MFOId'| groupBy:'categoryId'| orderBy:'categoryId'">
-                        <tr ng-show="item.categoryId_CHANGED" style="background-color: #fcfcfc;">
+                    <tbody ng-repeat="(keyopcr,item) in list_ipcrwCat  | unique: 'i_MFOId'| groupBy:'i_category'| orderBy:'i_category'">
+                        <tr ng-show="item.i_category_CHANGED" style="background-color: #fcfcfc;">
                             <td colspan="8">
                                 <span><i>{{item.description}} Function</i></span>
 
@@ -268,11 +268,11 @@
                         <tr ng-repeat="(key , itemList) in list_ipcrwCat| filter:{i_MFOId: item.i_MFOId}">
 
                             <td>
-                                {{itemList.i_target}}   {{itemList.indicator}}
+                                {{itemList.i_target}}   {{itemList.indicator}} {{itemList.i_category}}
                             </td>
                             <td>
                                 <div ng-show="isVisible(itemList.r_Status)">
-                                    <i ng-click="getData(itemList)" data-toggle="modal" data-target="#add_OTS" class="bi bi-file-earmark-diff btn  btn-addots btn-rounded"></i>
+                                    <i ng-show="isLocked(itemList.r_Status)" ng-click="getData(itemList)" data-toggle="modal" data-target="#add_OTS" class="bi bi-file-earmark-diff btn  btn-addots btn-rounded"></i>
                                     <i ng-click="showOTS(itemList);setDefault()" data-toggle="modal" data-target="#ListOfOTS" class="bi bi-eye btn  btn-eye btn-rounded"></i>
                                     <i ng-click="removeSI(itemList)" class="bi bi-trash3 btn btn-rounded btn-remove"></i>
                                 </div>

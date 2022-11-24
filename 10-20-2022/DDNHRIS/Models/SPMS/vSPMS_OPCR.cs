@@ -15,24 +15,24 @@ namespace DDNHRIS.Models.SPMS
     public partial class vSPMS_OPCR
     {
         public int recNo { get; set; }
-        public string MFOId { get; set; }
         public string indicatorId { get; set; }
+        public string officeId { get; set; }
+        public string division { get; set; }
+        public string MFOId { get; set; }
         public string MFO { get; set; }
         public string indicator { get; set; }
-        public Nullable<int> target { get; set; }
-        public Nullable<int> tRemaining { get; set; }
-        public string officeId { get; set; }
         public Nullable<int> categoryId { get; set; }
         public string description { get; set; }
         public Nullable<int> isCMFO { get; set; }
-        public string TargetOffcId { get; set; }
-        public string targetId { get; set; }
         public string officeName { get; set; }
         public string officeNameShort { get; set; }
         public Nullable<int> year { get; set; }
         public Nullable<int> semester { get; set; }
+        public string targetId { get; set; }
+        public string TargetOffcId { get; set; }
+        public Nullable<int> target { get; set; }
+        public Nullable<int> tRemaining { get; set; }
         public string classificationId { get; set; }
         public string divisionId { get; set; }
-        public string division { get; set; }
     }
 }

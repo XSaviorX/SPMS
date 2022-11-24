@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fc11411be6cc4998862a7869d501ea9d" Name="Diagram1">
+      <Diagram DiagramId="90cf796dd1964daab7ee3697ba4d996b" Name="Diagram1">
         <EntityTypeShape EntityType="HRISDBModel1.tAppropriationProj" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.tAppropriationProjMFO" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.tAppropriationProjMFOInd" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -17,42 +17,47 @@
         <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Classification" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.tSPMS_CommonMFO" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRISDBModel1.tSPMS_DPCR" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCR" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCR_MPOR" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCR_SMPOR" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCRRequest" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_MFOCategory" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_MFOCategoryDesc" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_MFOStandard" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_OfficeRole" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_OPCR" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_OTS" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_RequestChange" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_TargetCountSI" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_EmployeeRole" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Employees" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Roles" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CheckListMFO" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CMFO" Width="1.5" PointX="6.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CommonMFO" Width="1.5" PointX="8.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_DisplayOPCR" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_DPCR" Width="1.5" PointX="16.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_EmployeeAccountRoles" Width="1.5" PointX="16.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_Employees" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_IPCR_Request" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_IPCR_SMPOR" Width="1.5" PointX="2.75" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_IPCRwCat" Width="1.5" PointX="10.75" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_MFO_ALL" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_MFOwCat" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_MPOR" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_nMFO_ALL" Width="1.5" PointX="18.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_nOPCR" Width="1.5" PointX="14.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_OPCR" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_OPCRTable" Width="1.5" PointX="20.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_prtOPCR" Width="1.5" PointX="20.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_RequestTable" Width="1.5" PointX="20.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_rOPCRStandard" Width="1.5" PointX="16.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_showOTS" Width="1.5" PointX="4.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Employees" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCR" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCR_MPOR" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCR_SMPOR" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_IPCRRequest" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_MFOCategory" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_MFOCategoryDesc" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_MFOStandard" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_OfficeRole" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_OPCR" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_OTS" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_RequestChange" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Signatories" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_TargetCountSI" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.tSPMS_Roles" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_AppropProject" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CheckListMFO" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CMFO" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_CommonMFO" Width="1.5" PointX="6.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_DisplayOPCR" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_DPCR" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_Employee" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_IPCR_Request" Width="1.5" PointX="8.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_IPCR_SMPOR" Width="1.5" PointX="14.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_IPCRwCat" Width="1.5" PointX="16.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_LoadDataView" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_MFO_ALL" Width="1.5" PointX="18.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_MFOwCat" Width="1.5" PointX="18.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_MPOR" Width="1.5" PointX="18.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_nMFO_ALL" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_nOPCR" Width="1.5" PointX="2.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_OPCR" Width="1.5" PointX="10.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_OPCRRating" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_OpcrStandard" Width="1.5" PointX="4.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_OPCRTable" Width="1.5" PointX="20.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_prtOPCR" Width="1.5" PointX="20.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_RequestTable" Width="1.5" PointX="20.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_rOPCRStandard" Width="1.5" PointX="6.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_showOTS" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMSIPCRRating" Width="1.5" PointX="22.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRISDBModel1.vSPMS_Employees" Width="1.5" PointX="23.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

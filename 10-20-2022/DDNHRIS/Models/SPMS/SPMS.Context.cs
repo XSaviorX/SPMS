@@ -37,6 +37,7 @@ namespace DDNHRIS.Models.SPMS
         public virtual DbSet<tSPMS_Classification> tSPMS_Classification { get; set; }
         public virtual DbSet<tSPMS_CommonMFO> tSPMS_CommonMFO { get; set; }
         public virtual DbSet<tSPMS_DPCR> tSPMS_DPCR { get; set; }
+        public virtual DbSet<tSPMS_Employees> tSPMS_Employees { get; set; }
         public virtual DbSet<tSPMS_IPCR> tSPMS_IPCR { get; set; }
         public virtual DbSet<tSPMS_IPCR_MPOR> tSPMS_IPCR_MPOR { get; set; }
         public virtual DbSet<tSPMS_IPCR_SMPOR> tSPMS_IPCR_SMPOR { get; set; }
@@ -48,30 +49,34 @@ namespace DDNHRIS.Models.SPMS
         public virtual DbSet<tSPMS_OPCR> tSPMS_OPCR { get; set; }
         public virtual DbSet<tSPMS_OTS> tSPMS_OTS { get; set; }
         public virtual DbSet<tSPMS_RequestChange> tSPMS_RequestChange { get; set; }
+        public virtual DbSet<tSPMS_Signatories> tSPMS_Signatories { get; set; }
         public virtual DbSet<tSPMS_TargetCountSI> tSPMS_TargetCountSI { get; set; }
-        public virtual DbSet<tSPMS_EmployeeRole> tSPMS_EmployeeRole { get; set; }
-        public virtual DbSet<tSPMS_Employees> tSPMS_Employees { get; set; }
         public virtual DbSet<tSPMS_Roles> tSPMS_Roles { get; set; }
+        public virtual DbSet<vSPMS_AppropProject> vSPMS_AppropProject { get; set; }
         public virtual DbSet<vSPMS_CheckListMFO> vSPMS_CheckListMFO { get; set; }
         public virtual DbSet<vSPMS_CMFO> vSPMS_CMFO { get; set; }
         public virtual DbSet<vSPMS_CommonMFO> vSPMS_CommonMFO { get; set; }
         public virtual DbSet<vSPMS_DisplayOPCR> vSPMS_DisplayOPCR { get; set; }
         public virtual DbSet<vSPMS_DPCR> vSPMS_DPCR { get; set; }
-        public virtual DbSet<vSPMS_EmployeeAccountRoles> vSPMS_EmployeeAccountRoles { get; set; }
-        public virtual DbSet<vSPMS_Employees> vSPMS_Employees { get; set; }
+        public virtual DbSet<vSPMS_Employee> vSPMS_Employee { get; set; }
         public virtual DbSet<vSPMS_IPCR_Request> vSPMS_IPCR_Request { get; set; }
         public virtual DbSet<vSPMS_IPCR_SMPOR> vSPMS_IPCR_SMPOR { get; set; }
         public virtual DbSet<vSPMS_IPCRwCat> vSPMS_IPCRwCat { get; set; }
+        public virtual DbSet<vSPMS_LoadDataView> vSPMS_LoadDataView { get; set; }
         public virtual DbSet<vSPMS_MFO_ALL> vSPMS_MFO_ALL { get; set; }
         public virtual DbSet<vSPMS_MFOwCat> vSPMS_MFOwCat { get; set; }
         public virtual DbSet<vSPMS_MPOR> vSPMS_MPOR { get; set; }
         public virtual DbSet<vSPMS_nMFO_ALL> vSPMS_nMFO_ALL { get; set; }
         public virtual DbSet<vSPMS_nOPCR> vSPMS_nOPCR { get; set; }
         public virtual DbSet<vSPMS_OPCR> vSPMS_OPCR { get; set; }
+        public virtual DbSet<vSPMS_OPCRRating> vSPMS_OPCRRating { get; set; }
+        public virtual DbSet<vSPMS_OpcrStandard> vSPMS_OpcrStandard { get; set; }
         public virtual DbSet<vSPMS_OPCRTable> vSPMS_OPCRTable { get; set; }
         public virtual DbSet<vSPMS_prtOPCR> vSPMS_prtOPCR { get; set; }
         public virtual DbSet<vSPMS_RequestTable> vSPMS_RequestTable { get; set; }
         public virtual DbSet<vSPMS_rOPCRStandard> vSPMS_rOPCRStandard { get; set; }
         public virtual DbSet<vSPMS_showOTS> vSPMS_showOTS { get; set; }
+        public virtual DbSet<vSPMSIPCRRating> vSPMSIPCRRatings { get; set; }
+        public virtual DbSet<vSPMS_Employees> vSPMS_Employees { get; set; }
     }
 }

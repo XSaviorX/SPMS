@@ -24,6 +24,8 @@ namespace DDNHRIS.Models.SPMS
         public Nullable<double> r_qty { get; set; }
         public Nullable<double> r_qly { get; set; }
         public Nullable<double> r_time { get; set; }
+        public string strQuality { get; set; }
+        public string strTimeliness { get; set; }
         public Nullable<int> isActive { get; set; }
         public Nullable<int> isLocked { get; set; }
     }

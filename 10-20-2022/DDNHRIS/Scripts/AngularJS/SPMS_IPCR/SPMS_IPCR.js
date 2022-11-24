@@ -71,7 +71,7 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
     var s = $scope;
 
     s.tbl_ipcr = {};
-    s.currentUser = "EMP128";
+    s.currentUser = "EMP131";
     s.s_month = 0;
     loadData();
     s.ipcrtemp = [];
@@ -83,7 +83,8 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
 
     function loadData() {
         s.officeId = "OFFPHRMONZ3WT7D";
-        $http.post('../SPMS_IPCR/ipcr_getList', { officeId: s.officeId, UserId: s.currentUser }).then(function (response) {
+        s.curDiv = "DIVPHRMO0003";
+        $http.post('../SPMS_IPCR/ipcr_getList', { officeId: s.officeId, UserId: s.currentUser, _divId: s.curDiv }).then(function (response) {
             //console.log("ipcr:", response.data.dpcr);
             //console.log("cl:", response.data.cldata);
             s.tbl_ipcr = response.data.dpcr;
@@ -479,7 +480,7 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
 
         //hr
         s.officeId = "OFFPHRMONZ3WT7D";
-        s.currentU = "EMP128";
+        s.currentU = "EMP131";
 
         //pbo
         //s.officeId = "OFFPBOEZ7SC4ZA9";
@@ -510,7 +511,7 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
     s.prt_actual = function () {
         //hr
         s.officeId = "OFFPHRMONZ3WT7D";
-        s.currentU = "EMP128";
+        s.currentU = "EMP131";
 
         //pbo
         //s.officeId = "OFFPBOEZ7SC4ZA9";
@@ -518,6 +519,22 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
         $http.post('../SPMS_IPCR/actualCookies', { officeId: s.officeId, EIC: s.currentU }).then(function (responses) {
             console.log("ds: " + JSON.stringify(responses.data));
             window.open('../Reports/SPMS/IPCR_ACTUAL.aspx?type=actual');
+        }), function (err) {
+            alert("error item (getPerformanceData)");
+        }
+    }
+
+    s.prt_mpor = function (_monthId,_year,_semester) {
+        //hr
+        s.officeId = "OFFPHRMONZ3WT7D";
+        s.currentU = "EMP131";
+
+        //pbo
+        //s.officeId = "OFFPBOEZ7SC4ZA9";
+
+        $http.post('../SPMS_IPCR/mporCookies', { officeId: s.officeId, EIC: s.currentU, monthId: _monthId, month: s.getMonthString(_monthId) , year: _year, semester: _semester}).then(function (responses) {
+            console.log("mpor: " + JSON.stringify(responses.data));
+            window.open('../Reports/SPMS/IPCR_MPOR.aspx?type=mpor');
         }), function (err) {
             alert("error item (getPerformanceData)");
         }
@@ -546,8 +563,8 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
 
     s.isVisible = function (data) {
         var res = false;
-        console.log("this is: ", data);
-        if (data == 2) {
+        //console.log("this is: ", data);
+        if (data == 2 || data == 3) {
             res = true;
         }
 
@@ -556,8 +573,18 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
 
     s.showSubmitButton = function (data) {
         var res = true;
-        console.log("this is: ", data);
-        if (data == 2) {
+        //console.log("this is: ", data);
+        if (data == 2 || data == 3) {
+            res = false;
+        }
+
+        return res;
+    }
+
+    s.isLocked = function (data) {
+        var res = true;
+        //console.log("this is: ", data);
+        if (data == 3) {
             res = false;
         }
 
@@ -702,7 +729,7 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
     }
 
     s.updateRequest = function (data, _status) {
-
+        console.log("updateRequestData: ", data);
         $http.post('../SPMS_IPCR/updateRequestStatus', { data: data, status: _status}).then(function (response) {
             if (response.data == 1 || response.data == 2) {
                 const Toast = Swal.mixin({
@@ -783,5 +810,71 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
         }), function (err) {
             alert("error item (smpor_getList)");
         }
+    }
+
+    s.checkStatus = function (data) {
+        var returnRes = false;
+
+        if (data == 2) {
+            returnRes = true;
+        }
+
+        return returnRes;
+    }
+
+    s.checkNull = function (data) {
+        var returnRes = false;
+
+        if (data != '' && data != null) {
+            returnRes = true;
+        }
+
+        return returnRes;
+    }
+
+    s.getMonthString = function (monthId) {
+        var returnMonthString = '';
+
+        if (monthId == 1) {
+            returnMonthString = 'January';
+        } else if (monthId == 2) {
+            returnMonthString = 'February';
+        } else if (monthId == 3) {
+            returnMonthString = 'March';
+        } else if (monthId == 4) {
+            returnMonthString = 'April';
+        } else if (monthId == 5) {
+            returnMonthString = 'May';
+        } else if (monthId == 6) {
+            returnMonthString = 'June';
+        } else if (monthId == 7) {
+            returnMonthString = 'July';
+        } else if (monthId == 8) {
+            returnMonthString = 'August';
+        } else if (monthId == 9) {
+            returnMonthString = 'September';
+        } else if (monthId == 10) {
+            returnMonthString = 'October';
+        } else if (monthId == 11) {
+            returnMonthString = 'November';
+        } else if (monthId == 12) {
+            returnMonthString = 'December';
+        }
+
+        return returnMonthString;
+    }
+
+    s.tgt_indDetails = {};
+    s.tempData = {};
+    s.tgt_indStandardDetails = {};
+    s.getIndicatorDetails = function (_indId, _targtId) {
+        //alert(_targtId);
+        $http.post('../SPMS_IPCR/MFO_getIndicatorDetails', { indId: _indId, targtId: _targtId }).then(function (response) {
+            s.tgt_indDetails = response.data.indDetails;
+            s.tgt_indStandardDetails = response.data.standardDatas;
+            console.log("here: ", s.tgt_indDetails);
+        }, function (err) {
+            alert("ERROR: GetIndicatorsDetails");
+        });
     }
 })
