@@ -248,8 +248,8 @@ namespace DDNHRIS.Reports.SPMS
             // 
             // table4
             // 
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(0.10050161182880402D)));
-            this.table4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.55800175666809082D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(0.10050161927938461D)));
+            this.table4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.558001697063446D)));
             this.table4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.57858955860137939D)));
             this.table4.Body.SetCellContent(1, 0, this.textBox41);
             this.table4.Body.SetCellContent(0, 0, this.textBox22);
@@ -336,7 +336,7 @@ namespace DDNHRIS.Reports.SPMS
             tableGroup2.ReportItem = this.textBox6;
             tableGroup2.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.categoryId", Telerik.Reporting.SortDirection.Asc));
             this.table4.RowGroups.Add(tableGroup2);
-            this.table4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(27.979690551757812D), Telerik.Reporting.Drawing.Unit.Cm(2.6232492923736572D));
+            this.table4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(27.979690551757812D), Telerik.Reporting.Drawing.Unit.Cm(1.8400824069976807D));
             this.table4.Style.Visible = true;
             // 
             // textBox41

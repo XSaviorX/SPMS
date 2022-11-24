@@ -452,6 +452,9 @@
 
             </div>
         </div>
+        <div class="btn-group dropup " ng-show="showSubmitButton(mpor[0].Status)">
+            <button type="button" class="btn btn-primary" style="width: 160px" ng-click=""> SUBMIT MPOR</button>
+        </div>
         <div class="btn-group dropup " ng-show="checkNull(selectedMonth)">
             <button type="button" class="btn btn-primary" ng-click="prt_mpor(selectedMonth,mporData[0].r_year,mporData[0].r_semester)"><i class="icon-printer position-left"></i> PRINT MPOR ({{getMonthString(selectedMonth)}})</button>
         </div>

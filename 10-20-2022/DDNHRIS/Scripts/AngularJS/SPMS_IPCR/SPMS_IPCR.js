@@ -563,8 +563,8 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
 
     s.isVisible = function (data) {
         var res = false;
-        console.log("this is: ", data);
-        if (data == 2) {
+        //console.log("this is: ", data);
+        if (data == 2 || data == 3) {
             res = true;
         }
 
@@ -573,8 +573,18 @@ app.controller("SPMS_IPCR", function ($scope, $http, filterFilter) {
 
     s.showSubmitButton = function (data) {
         var res = true;
-        console.log("this is: ", data);
-        if (data == 2) {
+        //console.log("this is: ", data);
+        if (data == 2 || data == 3) {
+            res = false;
+        }
+
+        return res;
+    }
+
+    s.isLocked = function (data) {
+        var res = true;
+        //console.log("this is: ", data);
+        if (data == 3) {
             res = false;
         }
 

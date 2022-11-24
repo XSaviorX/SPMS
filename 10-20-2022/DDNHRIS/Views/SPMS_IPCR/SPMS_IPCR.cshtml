@@ -272,7 +272,7 @@
                             </td>
                             <td>
                                 <div ng-show="isVisible(itemList.r_Status)">
-                                    <i ng-click="getData(itemList)" data-toggle="modal" data-target="#add_OTS" class="bi bi-file-earmark-diff btn  btn-addots btn-rounded"></i>
+                                    <i ng-show="isLocked(itemList.r_Status)" ng-click="getData(itemList)" data-toggle="modal" data-target="#add_OTS" class="bi bi-file-earmark-diff btn  btn-addots btn-rounded"></i>
                                     <i ng-click="showOTS(itemList);setDefault()" data-toggle="modal" data-target="#ListOfOTS" class="bi bi-eye btn  btn-eye btn-rounded"></i>
                                     <i ng-click="removeSI(itemList)" class="bi bi-trash3 btn btn-rounded btn-remove"></i>
                                 </div>
