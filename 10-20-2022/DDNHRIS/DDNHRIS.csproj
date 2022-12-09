@@ -183,6 +183,7 @@
     <Compile Include="Controllers\SPMS_DivisionUtilityController.cs" />
     <Compile Include="Controllers\SPMS_DPCRController.cs" />
     <Compile Include="Controllers\SPMS_IPCRController.cs" />
+    <Compile Include="Controllers\SPMS_RolesController.cs" />
     <Compile Include="Controllers\SPMS_SignatoriesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3370,6 +3371,7 @@
     <Content Include="Scripts\AngularJS\SPMS_DPCR\DPCR.js" />
     <Content Include="Scripts\AngularJS\SPMS_IPCR\SPMS_IPCR.js" />
     <Content Include="Scripts\AngularJS\SPMS_UTILITY\DivisionUtility.js" />
+    <Content Include="Scripts\AngularJS\SPMS_UTILITY\Roles.js" />
     <Content Include="Scripts\AngularJS\SPMS_UTILITY\Signatories.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3474,6 +3476,7 @@
     <Content Include="Views\SPMS_IPCR\SPMS_IPCR_SMPOR.cshtml" />
     <Content Include="Views\SPMS_DivisionUtility\DivisionUtility.cshtml" />
     <Content Include="Views\SPMS_Signatories\Signatories.cshtml" />
+    <Content Include="Views\SPMS_Roles\Roles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

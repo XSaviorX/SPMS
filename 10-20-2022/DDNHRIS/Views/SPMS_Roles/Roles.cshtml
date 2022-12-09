@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "SPMS_Roles";
+}
+
+<div ng-controller="SPMS_Roles" class=" col-lg-6" style="margin: 5px;">
+    
+    <div class="bg-white p-20">
+        <h3>
+            <b>
+                ROLES
+            </b>
+        </h3>
+     
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-slate-300" style="font-weight: 500 ">
+                    <tr>
+
+                        <td>ROLE NAME</td>
+                        <td><cente>MENU</cente></td>
+                        <td>Action</td>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                <tbody ng-repeat="role in roles">
+                    <tr>
+                        <td>
+                            {{role.R_Description}}
+                        </td>
+                        <td>
+                            <div ng-repeat="rm in rolesmenu | filter:{rID: role.RID} ">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <i ng-if="rm.mID !== rm.old_mID" class="bi bi-exclamation-lg btn btn-rounded btn-excla"></i>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select ng-model="rm.mID " ng-change="onChangeSelect(rm)" class="form-control">
+                                            <option value="">  </option>
+                                            <option ng-repeat="menu in menus" ng-value="menu.mID">{{menu.mDescription}}</option>
+
+                                        </select>
+                                        <div style="height: 5px"></div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <i ng-click="removedMenu(rm)" class="bi bi-trash3 btn btn-rounded btn-remove "></i>
+                                    </div>
+                                </div>
+
+                                </div>
+                                                  
+                        </td>
+                        <td>
+                            <button ng-click="addMenu(role)" class="btn btn-primary" ng-style="key >= 1 && {'display':'none'}" data-toggle="modal" data-target="#addRole">
+                                ADD MENU
+                            </button>
+                        </td>
+
+
+
+                    </tr>
+                </tbody>
+
+            </table>
+            <br />
+            <div style="position:absolute; bottom:5px">
+                <br />
+                <input class="btn btn-primary" type="button" value="Save Changes" ng-click="saveMenu()" />
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<style type="text/css">
+
+
+
+    .btn-excla {
+        background-color: #FFF9B0;
+        color: #F88F01;
+        font-size: 20px;
+        padding: 0px 6px 0px 6px;
+    }
+
+    .btn-remove {
+        background-color: #fcf2f2;
+        color: red;
+        font-size: 20px;
+        padding: 0px 6px 0px 6px;
+    }
+
+   
+</style>
+@section JavaScript{
+    <script src="~/Scripts/AngularJS/SPMS_UTILITY/Roles.js"></script>
+}
