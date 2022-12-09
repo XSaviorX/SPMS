@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="HRISDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="SPMSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="tAppropriationProj">
     <Key>
       <PropertyRef Name="appropProjectId" />
@@ -143,6 +143,14 @@
     <Property Name="categoryId" Type="int" />
     <Property Name="targetIdparent" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="tSPMS_EmployeeRole">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EIC" Type="varchar" MaxLength="50" />
+    <Property Name="RID" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="tSPMS_Employees">
     <Key>
       <PropertyRef Name="recNo" />
@@ -169,12 +177,11 @@
     <Property Name="i_actQuality" Type="varchar" MaxLength="50" />
     <Property Name="i_actTimeliness" Type="varchar" MaxLength="50" />
     <Property Name="targetId" Type="varchar" MaxLength="50" />
-    <Property Name="i_Rquantity" Type="float" />
-    <Property Name="i_Rquality" Type="float" />
-    <Property Name="i_Rtimeliness" Type="float" />
+    <Property Name="i_Rquantity" Type="int" />
+    <Property Name="i_Rquality" Type="int" />
+    <Property Name="i_Rtimeliness" Type="int" />
     <Property Name="i_category" Type="int" />
     <Property Name="targetIdparent" Type="varchar" MaxLength="50" />
-    <Property Name="i_Raverage" Type="float" />
   </EntityType>
   <EntityType Name="tSPMS_IPCR_MPOR">
     <Key>
@@ -201,8 +208,9 @@
     <Property Name="timeWk4" Type="int" />
     <Property Name="timeTotal" Type="int" />
     <Property Name="timeAve" Type="float" />
-    <Property Name="Status" Type="int" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.tSPMS_IPCR_SMPOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="tSPMS_IPCR_SMPOR">
     <Key>
       <PropertyRef Name="recNo" />
@@ -234,7 +242,6 @@
     <Property Name="time_mSixth" Type="float" />
     <Property Name="time_total" Type="float" />
     <Property Name="time_rating" Type="float" />
-    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="tSPMS_IPCRRequest">
     <Key>
@@ -243,10 +250,16 @@
     <Property Name="recNo." Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="r_EIC" Type="varchar" MaxLength="50" />
     <Property Name="r_ipcrId" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="r_year" Type="int" />
-    <Property Name="r_semester" Type="int" />
     <Property Name="r_Status" Type="int" />
     <Property Name="r_remarks" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tSPMS_Menu">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="mID" Type="varchar" MaxLength="50" />
+    <Property Name="mDescription" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tSPMS_MFOCategory">
     <Key>
@@ -304,11 +317,6 @@
     <Property Name="categoryId" Type="int" />
     <Property Name="division" Type="varchar" MaxLength="50" />
     <Property Name="targetId" Type="varchar" MaxLength="50" />
-    <Property Name="r_qty" Type="float" />
-    <Property Name="r_qly" Type="float" />
-    <Property Name="r_time" Type="float" />
-    <Property Name="strQuality" Type="varchar" MaxLength="50" />
-    <Property Name="strTimeliness" Type="varchar" MaxLength="50" />
     <Property Name="isActive" Type="int" />
     <Property Name="isLocked" Type="int" />
   </EntityType>
@@ -323,7 +331,7 @@
     <Property Name="indicatorId" Type="varchar" MaxLength="50" />
     <Property Name="officeId" Type="varchar" MaxLength="50" />
     <Property Name="divisionId" Type="nchar" MaxLength="10" />
-    <Property Name="output" Type="varchar(max)" />
+    <Property Name="output" Type="text" />
     <Property Name="r_quantity" Type="int" />
     <Property Name="r_quality" Type="int" />
     <Property Name="r_timeliness" Type="int" />
@@ -364,8 +372,14 @@
     <Property Name="o_semester" Type="varchar" MaxLength="50" />
     <Property Name="o_classification" Type="varchar" MaxLength="50" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.tSPMS_Roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tSPMS_RoleMenu">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rID" Type="varchar" MaxLength="50" />
+    <Property Name="mID" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="tSPMS_Roles">
     <Key>
       <PropertyRef Name="recNo" />
@@ -402,8 +416,8 @@ warning 6002: The table/view 'HRISDB.dbo.tSPMS_Roles' does not have a primary ke
     <Property Name="isOPCR" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_AppropProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_AppropProject">
+warning 6002: The table/view 'SPMSDB.dbo.appropprojectid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="appropprojectid">
     <Key>
       <PropertyRef Name="appropProjectId" />
     </Key>
@@ -413,7 +427,184 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_AppropProject' does not have a pr
     <Property Name="programId" Type="varchar" MaxLength="30" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_CheckListMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.loadDataView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="loadDataView">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.rOpcrStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="rOpcrStandard">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="indicatorId" Type="varchar" MaxLength="50" />
+    <Property Name="officeId" Type="varchar" MaxLength="50" />
+    <Property Name="targetId" Type="varchar" MaxLength="50" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="rating" Type="varchar" MaxLength="50" />
+    <Property Name="quantity" Type="varchar" MaxLength="50" />
+    <Property Name="quality" Type="varchar(max)" />
+    <Property Name="timeliness" Type="varchar(max)" />
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="targetUnit" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vDisplayOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vDisplayOPCR">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="rating" Type="varchar" MaxLength="50" />
+    <Property Name="quantity" Type="varchar" MaxLength="50" />
+    <Property Name="quality" Type="varchar(max)" />
+    <Property Name="timeliness" Type="varchar(max)" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="target" Type="int" />
+    <Property Name="targetId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vForPrintAllMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vForPrintAllMFO">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicator" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.view_OPCRTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_OPCRTable">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="programId" Type="varchar" MaxLength="30" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="isActive" Type="int" />
+    <Property Name="officeName" Type="varchar" MaxLength="150" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vNew_tOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vNew_tOPCR">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="isActive" Type="int" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="programId" Type="varchar" MaxLength="30" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
+    <Property Name="isCMFO" Type="int" />
+    <Property Name="TargetOffcId" Type="varchar" MaxLength="50" />
+    <Property Name="target" Type="int" />
+    <Property Name="targetId" Type="varchar" MaxLength="50" />
+    <Property Name="divisionId" Type="varchar" MaxLength="50" />
+    <Property Name="officeId" Type="varchar" MaxLength="50" />
+    <Property Name="classificationId" Type="varchar" MaxLength="50" />
+    <Property Name="semester" Type="int" />
+    <Property Name="year" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vprt_OPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vprt_OPCR">
+    <Key>
+      <PropertyRef Name="indicatorId" />
+    </Key>
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="programId" Type="varchar" MaxLength="30" />
+    <Property Name="programTypeId" Type="int" />
+    <Property Name="projectId" Type="varchar" MaxLength="30" />
+    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
+    <Property Name="MFOId" Type="varchar" MaxLength="30" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="target" Type="int" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="isActive" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vRequestTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vRequestTable">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="MFOId" Type="varchar" MaxLength="50" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="50" />
+    <Property Name="reqId" Type="varchar" MaxLength="50" />
+    <Property Name="target" Type="int" />
+    <Property Name="req_Rating" Type="int" />
+    <Property Name="req_quality" Type="varchar" MaxLength="50" />
+    <Property Name="req_timeliness" Type="varchar" MaxLength="50" />
+    <Property Name="targetId" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+    <Property Name="req_MFO" Type="text" />
+    <Property Name="req_indicator" Type="text" />
+    <Property Name="date" Type="varchar" MaxLength="50" />
+    <Property Name="req_categoryId" Type="int" />
+    <Property Name="year" Type="int" />
+    <Property Name="semester" Type="int" />
+    <Property Name="classificationId" Type="varchar" MaxLength="50" />
+    <Property Name="o_target" Type="int" />
+    <Property Name="o_mfo" Type="text" />
+    <Property Name="o_indicator" Type="text" />
+    <Property Name="o_quality" Type="varchar" MaxLength="50" />
+    <Property Name="o_timeliness" Type="varchar" MaxLength="50" />
+    <Property Name="o_category" Type="varchar" MaxLength="50" />
+    <Property Name="o_year" Type="varchar" MaxLength="50" />
+    <Property Name="o_semester" Type="varchar" MaxLength="50" />
+    <Property Name="o_classification" Type="varchar" MaxLength="50" />
+    <Property Name="classification" Type="varchar(max)" />
+    <Property Name="o_class" Type="varchar(max)" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="latest_target" Type="int" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="MFO" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_CheckListMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_CheckListMFO">
     <Key>
       <PropertyRef Name="recNo" />
@@ -437,7 +628,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_CheckListMFO' does not have a pri
     <Property Name="targetUnit" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_CMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_CMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_CMFO">
     <Key>
       <PropertyRef Name="recNo" />
@@ -466,7 +657,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_CMFO' does not have a primary key
     <Property Name="classificationId" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_CommonMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_CommonMFO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_CommonMFO">
     <Key>
       <PropertyRef Name="recNo" />
@@ -493,27 +684,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_CommonMFO' does not have a primar
     <Property Name="isHrtgt" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_DisplayOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_DisplayOPCR">
-    <Key>
-      <PropertyRef Name="indicatorId" />
-    </Key>
-    <Property Name="targetId" Type="varchar" MaxLength="50" />
-    <Property Name="officeId" Type="varchar" MaxLength="30" />
-    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
-    <Property Name="MFOId" Type="varchar" MaxLength="30" />
-    <Property Name="MFO" Type="varchar(max)" />
-    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="indicator" Type="varchar(max)" />
-    <Property Name="target" Type="int" />
-    <Property Name="rating" Type="varchar" MaxLength="50" />
-    <Property Name="quantity" Type="varchar" MaxLength="50" />
-    <Property Name="quality" Type="varchar(max)" />
-    <Property Name="timeliness" Type="varchar(max)" />
-    <Property Name="programTypeId" Type="int" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_DPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_DPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_DPCR">
     <Key>
       <PropertyRef Name="recNo" />
@@ -542,59 +713,72 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_DPCR' does not have a primary key
     <Property Name="MFO" Type="varchar(max)" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_Employee">
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_EmployeeAccountRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vSPMS_EmployeeAccountRoles">
     <Key>
       <PropertyRef Name="recNo" />
-      <PropertyRef Name="EIC" />
     </Key>
     <Property Name="recNo" Type="int" Nullable="false" />
-    <Property Name="EIC" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="idNo" Type="varchar" MaxLength="6" />
-    <Property Name="lastName" Type="varchar" MaxLength="30" />
-    <Property Name="firstName" Type="varchar" MaxLength="30" />
-    <Property Name="middleName" Type="varchar" MaxLength="30" />
-    <Property Name="extName" Type="varchar" MaxLength="4" />
-    <Property Name="fullNameLast" Type="varchar" MaxLength="150" />
-    <Property Name="fullNameFirst" Type="varchar" MaxLength="150" />
-    <Property Name="fullNameTitle" Type="varchar" MaxLength="150" />
-    <Property Name="sex" Type="varchar" MaxLength="6" />
+    <Property Name="EIC" Type="varchar" MaxLength="50" />
+    <Property Name="F_Name" Type="varchar" MaxLength="50" />
+    <Property Name="division" Type="varchar" MaxLength="50" />
+    <Property Name="RID" Type="varchar" MaxLength="50" />
+    <Property Name="R_Description" Type="varchar" MaxLength="50" />
     <Property Name="officeRoleId" Type="varchar" MaxLength="50" />
     <Property Name="positionTitle" Type="varchar" MaxLength="50" />
-    <Property Name="divisionId" Type="varchar" MaxLength="30" />
-    <Property Name="divisionName" Type="varchar" MaxLength="150" />
-    <Property Name="officeId" Type="varchar" MaxLength="30" />
-    <Property Name="officeCode" Type="varchar" MaxLength="10" />
-    <Property Name="officeName" Type="varchar" MaxLength="150" />
-    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
-    <Property Name="tag" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_Employees">
     <Key>
-      <PropertyRef Name="officeId" />
-      <PropertyRef Name="officeName" />
-      <PropertyRef Name="officeNameShort" />
-      <PropertyRef Name="EIC" />
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="recNoEmployee" />
     </Key>
-    <Property Name="recNo" Type="int" />
-    <Property Name="EIC" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="RID" Type="varchar" MaxLength="50" />
+    <Property Name="EIC" Type="varchar" MaxLength="50" />
     <Property Name="F_Name" Type="varchar" MaxLength="50" />
     <Property Name="positionTitle" Type="varchar" MaxLength="50" />
+    <Property Name="division" Type="varchar" MaxLength="50" />
     <Property Name="R_Description" Type="varchar" MaxLength="50" />
+    <Property Name="RID" Type="varchar" MaxLength="50" />
     <Property Name="supervisorId" Type="varchar" MaxLength="50" />
     <Property Name="officeheadId" Type="varchar" MaxLength="50" />
     <Property Name="supervisorName" Type="varchar" MaxLength="50" />
     <Property Name="officeheadName" Type="varchar" MaxLength="50" />
+    <Property Name="divisionName" Type="varchar" MaxLength="150" />
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="officeName" Type="varchar" MaxLength="150" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="recNoEmployee" Type="int" Nullable="false" />
+    <Property Name="recNoRole" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_EmployeeSignatories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vSPMS_EmployeeSignatories">
+    <Key>
+      <PropertyRef Name="recNo" />
+      <PropertyRef Name="officeId" />
+      <PropertyRef Name="officeName" />
+      <PropertyRef Name="officeNameShort" />
+    </Key>
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="EIC" Type="varchar" MaxLength="50" />
+    <Property Name="F_Name" Type="varchar" MaxLength="50" />
+    <Property Name="officeRoleId" Type="varchar" MaxLength="50" />
+    <Property Name="positionTitle" Type="varchar" MaxLength="50" />
     <Property Name="division" Type="varchar" MaxLength="50" />
-    <Property Name="officeId" Type="varchar" MaxLength="60" Nullable="false" />
-    <Property Name="officeName" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="supervisorId" Type="varchar" MaxLength="50" />
+    <Property Name="officeheadId" Type="varchar" MaxLength="50" />
+    <Property Name="supervisorName" Type="varchar" MaxLength="50" />
+    <Property Name="officeheadName" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="divisionName" Type="varchar" MaxLength="150" />
+    <Property Name="officeId" Type="varchar" MaxLength="61" Nullable="false" />
+    <Property Name="officeName" Type="varchar" MaxLength="301" Nullable="false" />
     <Property Name="officeNameShort" Type="varchar" MaxLength="41" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_IPCR_Request' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_IPCR_Request' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_IPCR_Request">
     <Key>
       <PropertyRef Name="recNo." />
@@ -609,64 +793,9 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_IPCR_Request' does not have a pri
     <Property Name="divisionName" Type="varchar" MaxLength="150" />
     <Property Name="officeRoleId" Type="varchar" MaxLength="50" />
     <Property Name="positionTitle" Type="varchar" MaxLength="50" />
-    <Property Name="r_year" Type="int" />
-    <Property Name="r_semester" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_IPCR_SMPOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_IPCR_SMPOR">
-    <Key>
-      <PropertyRef Name="recNo." />
-      <PropertyRef Name="r_ipcrId" />
-    </Key>
-    <Property Name="recNo." Type="int" Nullable="false" />
-    <Property Name="i_EIC" Type="varchar" MaxLength="50" />
-    <Property Name="i_MFOId" Type="varchar" MaxLength="50" />
-    <Property Name="CLDesc" Type="text" />
-    <Property Name="MFO" Type="varchar(max)" />
-    <Property Name="i_target" Type="int" />
-    <Property Name="i_indicatorId" Type="varchar" MaxLength="50" />
-    <Property Name="i_category" Type="int" />
-    <Property Name="description" Type="varchar" MaxLength="50" />
-    <Property Name="F_Name" Type="varchar" MaxLength="50" />
-    <Property Name="divisionName" Type="varchar" MaxLength="150" />
-    <Property Name="officeName" Type="varchar" MaxLength="150" />
-    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
-    <Property Name="officeRoleId" Type="varchar" MaxLength="50" />
-    <Property Name="positionTitle" Type="varchar" MaxLength="50" />
-    <Property Name="division" Type="varchar" MaxLength="50" />
-    <Property Name="smporId" Type="varchar" MaxLength="50" />
-    <Property Name="ipcrId" Type="varchar" MaxLength="50" />
-    <Property Name="qty_mFirst" Type="float" />
-    <Property Name="qty_mSecond" Type="float" />
-    <Property Name="qty_mThird" Type="float" />
-    <Property Name="qty_mFourth" Type="float" />
-    <Property Name="qty_mFifth" Type="float" />
-    <Property Name="qty_mSixth" Type="float" />
-    <Property Name="qty_total" Type="float" />
-    <Property Name="qty_rating" Type="float" />
-    <Property Name="qly_mFirst" Type="float" />
-    <Property Name="qly_mSecond" Type="float" />
-    <Property Name="qly_mThird" Type="float" />
-    <Property Name="qly_mFourth" Type="float" />
-    <Property Name="qly_mFifth" Type="float" />
-    <Property Name="qly_mSixth" Type="float" />
-    <Property Name="qly_total" Type="float" />
-    <Property Name="qly_rating" Type="float" />
-    <Property Name="time_mFirst" Type="float" />
-    <Property Name="time_mSecond" Type="float" />
-    <Property Name="time_mThird" Type="float" />
-    <Property Name="time_mFourth" Type="float" />
-    <Property Name="time_mFifth" Type="float" />
-    <Property Name="time_mSixth" Type="float" />
-    <Property Name="time_total" Type="float" />
-    <Property Name="time_rating" Type="float" />
-    <Property Name="r_ipcrId" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="r_year" Type="int" />
-    <Property Name="r_semester" Type="int" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_IPCRwCat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_IPCRwCat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_IPCRwCat">
     <Key>
       <PropertyRef Name="recNo." />
@@ -700,32 +829,9 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_IPCRwCat' does not have a primary
     <Property Name="officeName" Type="varchar" MaxLength="150" />
     <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
     <Property Name="divisionName" Type="varchar" MaxLength="150" />
-    <Property Name="i_Rquantity" Type="float" />
-    <Property Name="i_Rquality" Type="float" />
-    <Property Name="i_Rtimeliness" Type="float" />
-    <Property Name="i_Raverage" Type="float" />
-    <Property Name="r_year" Type="int" />
-    <Property Name="r_semester" Type="int" />
-    <Property Name="r_remarks" Type="varchar(max)" />
-    <Property Name="r_EIC" Type="varchar" MaxLength="50" />
-    <Property Name="i_actQuality" Type="varchar" MaxLength="50" />
-    <Property Name="i_actTimeliness" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_LoadDataView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_LoadDataView">
-    <Key>
-      <PropertyRef Name="indicatorId" />
-    </Key>
-    <Property Name="MFOId" Type="varchar" MaxLength="30" />
-    <Property Name="MFO" Type="varchar(max)" />
-    <Property Name="indicator" Type="varchar(max)" />
-    <Property Name="target" Type="int" />
-    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_MFO_ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_MFO_ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_MFO_ALL">
     <Key>
       <PropertyRef Name="MFOId" />
@@ -760,7 +866,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_MFO_ALL' does not have a primary 
     <Property Name="catTargetId" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_MFOwCat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_MFOwCat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_MFOwCat">
     <Key>
       <PropertyRef Name="recNo" />
@@ -789,7 +895,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_MFOwCat' does not have a primary 
     <Property Name="divisionId" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_MPOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_MPOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_MPOR">
     <Key>
       <PropertyRef Name="recNo." />
@@ -831,13 +937,9 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_MPOR' does not have a primary key
     <Property Name="officeRoleId" Type="varchar" MaxLength="50" />
     <Property Name="positionTitle" Type="varchar" MaxLength="50" />
     <Property Name="division" Type="varchar" MaxLength="50" />
-    <Property Name="r_year" Type="int" />
-    <Property Name="r_semester" Type="int" />
-    <Property Name="r_Status" Type="int" />
-    <Property Name="r_remarks" Type="varchar(max)" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_nMFO_ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_nMFO_ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_nMFO_ALL">
     <Key>
       <PropertyRef Name="MFOId" />
@@ -871,7 +973,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_nMFO_ALL' does not have a primary
     <Property Name="targetUnit" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_nOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_nOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_nOPCR">
     <Key>
       <PropertyRef Name="recNo" />
@@ -896,83 +998,39 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_nOPCR' does not have a primary ke
     <Property Name="targetId" Type="varchar" MaxLength="50" />
     <Property Name="target" Type="int" />
     <Property Name="opcrID" Type="varchar" MaxLength="50" />
-    <Property Name="r_qty" Type="float" />
-    <Property Name="r_qly" Type="float" />
-    <Property Name="r_time" Type="float" />
+    <Property Name="t_quality" Type="varchar" MaxLength="50" />
+    <Property Name="t_timeliness" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_OPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_OPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_OPCR">
     <Key>
       <PropertyRef Name="recNo" />
       <PropertyRef Name="MFOId" />
     </Key>
     <Property Name="recNo" Type="int" Nullable="false" />
-    <Property Name="indicatorId" Type="varchar" MaxLength="50" />
-    <Property Name="officeId" Type="varchar" MaxLength="50" />
-    <Property Name="division" Type="varchar" MaxLength="50" />
     <Property Name="MFOId" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="indicatorId" Type="varchar" MaxLength="50" />
     <Property Name="MFO" Type="varchar(max)" />
     <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="target" Type="int" />
+    <Property Name="tRemaining" Type="int" />
+    <Property Name="officeId" Type="varchar" MaxLength="50" />
     <Property Name="categoryId" Type="int" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="isCMFO" Type="int" />
+    <Property Name="TargetOffcId" Type="varchar" MaxLength="50" />
+    <Property Name="targetId" Type="varchar" MaxLength="50" />
     <Property Name="officeName" Type="varchar" MaxLength="150" />
     <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
     <Property Name="year" Type="int" />
     <Property Name="semester" Type="int" />
-    <Property Name="targetId" Type="varchar" MaxLength="50" />
-    <Property Name="TargetOffcId" Type="varchar" MaxLength="50" />
-    <Property Name="target" Type="int" />
-    <Property Name="tRemaining" Type="int" />
     <Property Name="classificationId" Type="varchar" MaxLength="50" />
     <Property Name="divisionId" Type="varchar" MaxLength="50" />
+    <Property Name="division" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_OPCRRating' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_OPCRRating">
-    <Key>
-      <PropertyRef Name="recNo" />
-    </Key>
-    <Property Name="targetId" Type="varchar" MaxLength="50" />
-    <Property Name="recNo" Type="int" Nullable="false" />
-    <Property Name="opcrID" Type="varchar" MaxLength="50" />
-    <Property Name="officeId" Type="varchar" MaxLength="50" />
-    <Property Name="MFO" Type="varchar(max)" />
-    <Property Name="indicator" Type="varchar(max)" />
-    <Property Name="target" Type="int" />
-    <Property Name="targetUnit" Type="varchar" MaxLength="50" />
-    <Property Name="tRemaining" Type="int" />
-    <Property Name="r_qty" Type="float" />
-    <Property Name="r_qly" Type="float" />
-    <Property Name="r_time" Type="float" />
-    <Property Name="strQuality" Type="varchar" MaxLength="50" />
-    <Property Name="strTimeliness" Type="varchar" MaxLength="50" />
-    <Property Name="tAccumulatedQuantity" Type="float" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_OpcrStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_OpcrStandard">
-    <Key>
-      <PropertyRef Name="recNo" />
-    </Key>
-    <Property Name="indicatorId" Type="varchar" MaxLength="50" />
-    <Property Name="officeId" Type="varchar" MaxLength="50" />
-    <Property Name="targetId" Type="varchar" MaxLength="50" />
-    <Property Name="target" Type="int" />
-    <Property Name="indicator" Type="varchar(max)" />
-    <Property Name="MFO" Type="varchar(max)" />
-    <Property Name="categoryId" Type="int" />
-    <Property Name="description" Type="varchar" MaxLength="50" />
-    <Property Name="rating" Type="varchar" MaxLength="50" />
-    <Property Name="quantity" Type="varchar" MaxLength="50" />
-    <Property Name="quality" Type="varchar(max)" />
-    <Property Name="timeliness" Type="varchar(max)" />
-    <Property Name="recNo" Type="int" Nullable="false" />
-    <Property Name="targetUnit" Type="varchar" MaxLength="50" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_OPCRTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_OPCRTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_OPCRTable">
     <Key>
       <PropertyRef Name="indicatorId" />
@@ -994,31 +1052,13 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_OPCRTable' does not have a primar
     <Property Name="description" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_prtOPCR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMS_prtOPCR">
-    <Key>
-      <PropertyRef Name="indicatorId" />
-    </Key>
-    <Property Name="description" Type="varchar" MaxLength="50" />
-    <Property Name="officeId" Type="varchar" MaxLength="30" />
-    <Property Name="programId" Type="varchar" MaxLength="30" />
-    <Property Name="programTypeId" Type="int" />
-    <Property Name="projectId" Type="varchar" MaxLength="30" />
-    <Property Name="appropProjectId" Type="varchar" MaxLength="30" />
-    <Property Name="MFOId" Type="varchar" MaxLength="30" />
-    <Property Name="MFO" Type="varchar(max)" />
-    <Property Name="indicatorId" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="target" Type="int" />
-    <Property Name="indicator" Type="varchar(max)" />
-    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
-    <Property Name="isActive" Type="int" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_RequestTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_RequestTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_RequestTable">
     <Key>
       <PropertyRef Name="recNo" />
     </Key>
+    <Property Name="officeId" Type="varchar" MaxLength="30" />
+    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
     <Property Name="recNo" Type="int" Nullable="false" />
     <Property Name="MFOId" Type="varchar" MaxLength="50" />
     <Property Name="indicatorId" Type="varchar" MaxLength="50" />
@@ -1029,10 +1069,15 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_RequestTable' does not have a pri
     <Property Name="req_timeliness" Type="varchar" MaxLength="50" />
     <Property Name="targetId" Type="varchar" MaxLength="50" />
     <Property Name="Status" Type="int" />
+    <Property Name="MFO" Type="varchar(max)" />
+    <Property Name="indicator" Type="varchar(max)" />
+    <Property Name="latest_target" Type="int" />
     <Property Name="req_MFO" Type="text" />
     <Property Name="req_indicator" Type="text" />
     <Property Name="date" Type="varchar" MaxLength="50" />
     <Property Name="req_categoryId" Type="int" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="year" Type="int" />
     <Property Name="semester" Type="int" />
     <Property Name="classificationId" Type="varchar" MaxLength="50" />
@@ -1047,16 +1092,21 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_RequestTable' does not have a pri
     <Property Name="o_classification" Type="varchar" MaxLength="50" />
     <Property Name="classification" Type="varchar(max)" />
     <Property Name="o_class" Type="varchar(max)" />
-    <Property Name="officeId" Type="varchar" MaxLength="30" />
-    <Property Name="officeNameShort" Type="varchar" MaxLength="20" />
-    <Property Name="indicator" Type="varchar(max)" />
-    <Property Name="latest_target" Type="int" />
-    <Property Name="categoryId" Type="int" />
-    <Property Name="description" Type="varchar" MaxLength="50" />
-    <Property Name="MFO" Type="varchar(max)" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_rOPCRStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_RoleMenu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vSPMS_RoleMenu">
+    <Key>
+      <PropertyRef Name="recNo" />
+    </Key>
+    <Property Name="recNo" Type="int" Nullable="false" />
+    <Property Name="rID" Type="varchar" MaxLength="50" />
+    <Property Name="R_Description" Type="varchar" MaxLength="50" />
+    <Property Name="mID" Type="varchar" MaxLength="50" />
+    <Property Name="mDescription" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_rOPCRStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_rOPCRStandard">
     <Key>
       <PropertyRef Name="recNo" />
@@ -1081,7 +1131,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_rOPCRStandard' does not have a pr
     <Property Name="targetUnit" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SPMSDB.dbo.vSPMS_showOTS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vSPMS_showOTS">
     <Key>
       <PropertyRef Name="recNo" />
@@ -1113,31 +1163,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMS_showOTS' does not have a primary 
     <Property Name="day" Type="int" />
     <Property Name="month" Type="int" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vSPMSIPCRRating">
-    <Key>
-      <PropertyRef Name="recNo" />
-      <PropertyRef Name="controlNo" />
-    </Key>
-    <Property Name="recNo" Type="int" Nullable="false" />
-    <Property Name="controlNo" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="EIC" Type="varchar" MaxLength="30" />
-    <Property Name="fullNameLast" Type="varchar" MaxLength="150" />
-    <Property Name="fullNameFirst" Type="varchar" MaxLength="150" />
-    <Property Name="positionTitle" Type="varchar" MaxLength="150" />
-    <Property Name="subPositionTitle" Type="varchar" MaxLength="1500" />
-    <Property Name="ratingNum" Type="numeric" Precision="18" Scale="2" />
-    <Property Name="ratingAdj" Type="varchar" MaxLength="50" />
-    <Property Name="semester" Type="int" />
-    <Property Name="year" Type="int" />
-    <Property Name="details" Type="varchar" MaxLength="1500" />
-    <Property Name="tag" Type="int" />
-    <Property Name="remarks" Type="varchar" MaxLength="1500" />
-    <Property Name="encoderEIC" Type="varchar" MaxLength="30" />
-    <Property Name="transDT" Type="datetime" />
-  </EntityType>
-  <EntityContainer Name="HRISDBModel1StoreContainer">
+  <EntityContainer Name="SPMSDBModelStoreContainer">
     <EntitySet Name="tAppropriationProj" EntityType="Self.tAppropriationProj" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tAppropriationProjMFO" EntityType="Self.tAppropriationProjMFO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tAppropriationProjMFOInd" EntityType="Self.tAppropriationProjMFOInd" Schema="dbo" store:Type="Tables" />
@@ -1150,11 +1176,12 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     <EntitySet Name="tSPMS_Classification" EntityType="Self.tSPMS_Classification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_CommonMFO" EntityType="Self.tSPMS_CommonMFO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_DPCR" EntityType="Self.tSPMS_DPCR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tSPMS_EmployeeRole" EntityType="Self.tSPMS_EmployeeRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_Employees" EntityType="Self.tSPMS_Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_IPCR" EntityType="Self.tSPMS_IPCR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_IPCR_MPOR" EntityType="Self.tSPMS_IPCR_MPOR" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tSPMS_IPCR_SMPOR" EntityType="Self.tSPMS_IPCR_SMPOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_IPCRRequest" EntityType="Self.tSPMS_IPCRRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tSPMS_Menu" EntityType="Self.tSPMS_Menu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_MFOCategory" EntityType="Self.tSPMS_MFOCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_MFOCategoryDesc" EntityType="Self.tSPMS_MFOCategoryDesc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_MFOStandard" EntityType="Self.tSPMS_MFOStandard" Schema="dbo" store:Type="Tables" />
@@ -1162,22 +1189,201 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     <EntitySet Name="tSPMS_OPCR" EntityType="Self.tSPMS_OPCR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_OTS" EntityType="Self.tSPMS_OTS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_RequestChange" EntityType="Self.tSPMS_RequestChange" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tSPMS_RoleMenu" EntityType="Self.tSPMS_RoleMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tSPMS_Roles" EntityType="Self.tSPMS_Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_Signatories" EntityType="Self.tSPMS_Signatories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSPMS_TargetCountSI" EntityType="Self.tSPMS_TargetCountSI" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tSPMS_Roles" EntityType="Self.tSPMS_Roles" store:Type="Tables" store:Schema="dbo">
+    <EntitySet Name="tSPMS_IPCR_SMPOR" EntityType="Self.tSPMS_IPCR_SMPOR" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [tSPMS_Roles].[recNo] AS [recNo], 
-    [tSPMS_Roles].[RID] AS [RID], 
-    [tSPMS_Roles].[R_Description] AS [R_Description]
-    FROM [dbo].[tSPMS_Roles] AS [tSPMS_Roles]</DefiningQuery>
+    [tSPMS_IPCR_SMPOR].[recNo] AS [recNo], 
+    [tSPMS_IPCR_SMPOR].[smporId] AS [smporId], 
+    [tSPMS_IPCR_SMPOR].[ipcrId] AS [ipcrId], 
+    [tSPMS_IPCR_SMPOR].[qty_mFirst] AS [qty_mFirst], 
+    [tSPMS_IPCR_SMPOR].[qty_mSecond] AS [qty_mSecond], 
+    [tSPMS_IPCR_SMPOR].[qty_mThird] AS [qty_mThird], 
+    [tSPMS_IPCR_SMPOR].[qty_mFourth] AS [qty_mFourth], 
+    [tSPMS_IPCR_SMPOR].[qty_mFifth] AS [qty_mFifth], 
+    [tSPMS_IPCR_SMPOR].[qty_mSixth] AS [qty_mSixth], 
+    [tSPMS_IPCR_SMPOR].[qty_total] AS [qty_total], 
+    [tSPMS_IPCR_SMPOR].[qty_rating] AS [qty_rating], 
+    [tSPMS_IPCR_SMPOR].[qly_mFirst] AS [qly_mFirst], 
+    [tSPMS_IPCR_SMPOR].[qly_mSecond] AS [qly_mSecond], 
+    [tSPMS_IPCR_SMPOR].[qly_mThird] AS [qly_mThird], 
+    [tSPMS_IPCR_SMPOR].[qly_mFourth] AS [qly_mFourth], 
+    [tSPMS_IPCR_SMPOR].[qly_mFifth] AS [qly_mFifth], 
+    [tSPMS_IPCR_SMPOR].[qly_mSixth] AS [qly_mSixth], 
+    [tSPMS_IPCR_SMPOR].[qly_total] AS [qly_total], 
+    [tSPMS_IPCR_SMPOR].[qly_rating] AS [qly_rating], 
+    [tSPMS_IPCR_SMPOR].[time_mFirst] AS [time_mFirst], 
+    [tSPMS_IPCR_SMPOR].[time_mSecond] AS [time_mSecond], 
+    [tSPMS_IPCR_SMPOR].[time_mThird] AS [time_mThird], 
+    [tSPMS_IPCR_SMPOR].[time_mFourth] AS [time_mFourth], 
+    [tSPMS_IPCR_SMPOR].[time_mFifth] AS [time_mFifth], 
+    [tSPMS_IPCR_SMPOR].[time_mSixth] AS [time_mSixth], 
+    [tSPMS_IPCR_SMPOR].[time_total] AS [time_total], 
+    [tSPMS_IPCR_SMPOR].[time_rating] AS [time_rating]
+    FROM [dbo].[tSPMS_IPCR_SMPOR] AS [tSPMS_IPCR_SMPOR]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="vSPMS_AppropProject" EntityType="Self.vSPMS_AppropProject" store:Type="Views" store:Schema="dbo">
+    <EntitySet Name="appropprojectid" EntityType="Self.appropprojectid" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [vSPMS_AppropProject].[projectName] AS [projectName], 
-    [vSPMS_AppropProject].[appropProjectId] AS [appropProjectId], 
-    [vSPMS_AppropProject].[budgetYear] AS [budgetYear], 
-    [vSPMS_AppropProject].[programId] AS [programId]
-    FROM [dbo].[vSPMS_AppropProject] AS [vSPMS_AppropProject]</DefiningQuery>
+    [appropprojectid].[projectName] AS [projectName], 
+    [appropprojectid].[appropProjectId] AS [appropProjectId], 
+    [appropprojectid].[budgetYear] AS [budgetYear], 
+    [appropprojectid].[programId] AS [programId]
+    FROM [dbo].[appropprojectid] AS [appropprojectid]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="loadDataView" EntityType="Self.loadDataView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [loadDataView].[MFOId] AS [MFOId], 
+    [loadDataView].[MFO] AS [MFO], 
+    [loadDataView].[indicator] AS [indicator], 
+    [loadDataView].[target] AS [target], 
+    [loadDataView].[indicatorId] AS [indicatorId], 
+    [loadDataView].[appropProjectId] AS [appropProjectId]
+    FROM [dbo].[loadDataView] AS [loadDataView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="rOpcrStandard" EntityType="Self.rOpcrStandard" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [rOpcrStandard].[indicatorId] AS [indicatorId], 
+    [rOpcrStandard].[officeId] AS [officeId], 
+    [rOpcrStandard].[targetId] AS [targetId], 
+    [rOpcrStandard].[target] AS [target], 
+    [rOpcrStandard].[indicator] AS [indicator], 
+    [rOpcrStandard].[MFO] AS [MFO], 
+    [rOpcrStandard].[categoryId] AS [categoryId], 
+    [rOpcrStandard].[description] AS [description], 
+    [rOpcrStandard].[rating] AS [rating], 
+    [rOpcrStandard].[quantity] AS [quantity], 
+    [rOpcrStandard].[quality] AS [quality], 
+    [rOpcrStandard].[timeliness] AS [timeliness], 
+    [rOpcrStandard].[recNo] AS [recNo], 
+    [rOpcrStandard].[targetUnit] AS [targetUnit]
+    FROM [dbo].[rOpcrStandard] AS [rOpcrStandard]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDisplayOPCR" EntityType="Self.vDisplayOPCR" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vDisplayOPCR].[officeId] AS [officeId], 
+    [vDisplayOPCR].[officeNameShort] AS [officeNameShort], 
+    [vDisplayOPCR].[MFOId] AS [MFOId], 
+    [vDisplayOPCR].[MFO] AS [MFO], 
+    [vDisplayOPCR].[indicatorId] AS [indicatorId], 
+    [vDisplayOPCR].[indicator] AS [indicator], 
+    [vDisplayOPCR].[rating] AS [rating], 
+    [vDisplayOPCR].[quantity] AS [quantity], 
+    [vDisplayOPCR].[quality] AS [quality], 
+    [vDisplayOPCR].[timeliness] AS [timeliness], 
+    [vDisplayOPCR].[programTypeId] AS [programTypeId], 
+    [vDisplayOPCR].[target] AS [target], 
+    [vDisplayOPCR].[targetId] AS [targetId]
+    FROM [dbo].[vDisplayOPCR] AS [vDisplayOPCR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vForPrintAllMFO" EntityType="Self.vForPrintAllMFO" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vForPrintAllMFO].[recNo] AS [recNo], 
+    [vForPrintAllMFO].[MFO] AS [MFO], 
+    [vForPrintAllMFO].[target] AS [target], 
+    [vForPrintAllMFO].[indicator] AS [indicator]
+    FROM [dbo].[vForPrintAllMFO] AS [vForPrintAllMFO]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_OPCRTable" EntityType="Self.view_OPCRTable" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_OPCRTable].[officeId] AS [officeId], 
+    [view_OPCRTable].[programId] AS [programId], 
+    [view_OPCRTable].[programTypeId] AS [programTypeId], 
+    [view_OPCRTable].[projectId] AS [projectId], 
+    [view_OPCRTable].[appropProjectId] AS [appropProjectId], 
+    [view_OPCRTable].[MFOId] AS [MFOId], 
+    [view_OPCRTable].[MFO] AS [MFO], 
+    [view_OPCRTable].[indicatorId] AS [indicatorId], 
+    [view_OPCRTable].[target] AS [target], 
+    [view_OPCRTable].[indicator] AS [indicator], 
+    [view_OPCRTable].[officeNameShort] AS [officeNameShort], 
+    [view_OPCRTable].[isActive] AS [isActive], 
+    [view_OPCRTable].[officeName] AS [officeName], 
+    [view_OPCRTable].[categoryId] AS [categoryId], 
+    [view_OPCRTable].[description] AS [description]
+    FROM [dbo].[view_OPCRTable] AS [view_OPCRTable]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vNew_tOPCR" EntityType="Self.vNew_tOPCR" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vNew_tOPCR].[MFOId] AS [MFOId], 
+    [vNew_tOPCR].[MFO] AS [MFO], 
+    [vNew_tOPCR].[indicatorId] AS [indicatorId], 
+    [vNew_tOPCR].[indicator] AS [indicator], 
+    [vNew_tOPCR].[officeNameShort] AS [officeNameShort], 
+    [vNew_tOPCR].[isActive] AS [isActive], 
+    [vNew_tOPCR].[categoryId] AS [categoryId], 
+    [vNew_tOPCR].[description] AS [description], 
+    [vNew_tOPCR].[programId] AS [programId], 
+    [vNew_tOPCR].[programTypeId] AS [programTypeId], 
+    [vNew_tOPCR].[projectId] AS [projectId], 
+    [vNew_tOPCR].[appropProjectId] AS [appropProjectId], 
+    [vNew_tOPCR].[isCMFO] AS [isCMFO], 
+    [vNew_tOPCR].[TargetOffcId] AS [TargetOffcId], 
+    [vNew_tOPCR].[target] AS [target], 
+    [vNew_tOPCR].[targetId] AS [targetId], 
+    [vNew_tOPCR].[divisionId] AS [divisionId], 
+    [vNew_tOPCR].[officeId] AS [officeId], 
+    [vNew_tOPCR].[classificationId] AS [classificationId], 
+    [vNew_tOPCR].[semester] AS [semester], 
+    [vNew_tOPCR].[year] AS [year]
+    FROM [dbo].[vNew_tOPCR] AS [vNew_tOPCR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vprt_OPCR" EntityType="Self.vprt_OPCR" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vprt_OPCR].[officeId] AS [officeId], 
+    [vprt_OPCR].[programId] AS [programId], 
+    [vprt_OPCR].[programTypeId] AS [programTypeId], 
+    [vprt_OPCR].[projectId] AS [projectId], 
+    [vprt_OPCR].[appropProjectId] AS [appropProjectId], 
+    [vprt_OPCR].[MFOId] AS [MFOId], 
+    [vprt_OPCR].[MFO] AS [MFO], 
+    [vprt_OPCR].[indicatorId] AS [indicatorId], 
+    [vprt_OPCR].[target] AS [target], 
+    [vprt_OPCR].[indicator] AS [indicator], 
+    [vprt_OPCR].[officeNameShort] AS [officeNameShort], 
+    [vprt_OPCR].[isActive] AS [isActive], 
+    [vprt_OPCR].[description] AS [description]
+    FROM [dbo].[vprt_OPCR] AS [vprt_OPCR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vRequestTable" EntityType="Self.vRequestTable" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vRequestTable].[recNo] AS [recNo], 
+    [vRequestTable].[MFOId] AS [MFOId], 
+    [vRequestTable].[indicatorId] AS [indicatorId], 
+    [vRequestTable].[reqId] AS [reqId], 
+    [vRequestTable].[target] AS [target], 
+    [vRequestTable].[req_Rating] AS [req_Rating], 
+    [vRequestTable].[req_quality] AS [req_quality], 
+    [vRequestTable].[req_timeliness] AS [req_timeliness], 
+    [vRequestTable].[targetId] AS [targetId], 
+    [vRequestTable].[Status] AS [Status], 
+    [vRequestTable].[req_MFO] AS [req_MFO], 
+    [vRequestTable].[req_indicator] AS [req_indicator], 
+    [vRequestTable].[date] AS [date], 
+    [vRequestTable].[req_categoryId] AS [req_categoryId], 
+    [vRequestTable].[year] AS [year], 
+    [vRequestTable].[semester] AS [semester], 
+    [vRequestTable].[classificationId] AS [classificationId], 
+    [vRequestTable].[o_target] AS [o_target], 
+    [vRequestTable].[o_mfo] AS [o_mfo], 
+    [vRequestTable].[o_indicator] AS [o_indicator], 
+    [vRequestTable].[o_quality] AS [o_quality], 
+    [vRequestTable].[o_timeliness] AS [o_timeliness], 
+    [vRequestTable].[o_category] AS [o_category], 
+    [vRequestTable].[o_year] AS [o_year], 
+    [vRequestTable].[o_semester] AS [o_semester], 
+    [vRequestTable].[o_classification] AS [o_classification], 
+    [vRequestTable].[classification] AS [classification], 
+    [vRequestTable].[o_class] AS [o_class], 
+    [vRequestTable].[officeId] AS [officeId], 
+    [vRequestTable].[officeNameShort] AS [officeNameShort], 
+    [vRequestTable].[indicator] AS [indicator], 
+    [vRequestTable].[latest_target] AS [latest_target], 
+    [vRequestTable].[categoryId] AS [categoryId], 
+    [vRequestTable].[description] AS [description], 
+    [vRequestTable].[MFO] AS [MFO]
+    FROM [dbo].[vRequestTable] AS [vRequestTable]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_CheckListMFO" EntityType="Self.vSPMS_CheckListMFO" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1247,23 +1453,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_CommonMFO].[isHrtgt] AS [isHrtgt]
     FROM [dbo].[vSPMS_CommonMFO] AS [vSPMS_CommonMFO]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="vSPMS_DisplayOPCR" EntityType="Self.vSPMS_DisplayOPCR" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMS_DisplayOPCR].[targetId] AS [targetId], 
-    [vSPMS_DisplayOPCR].[officeId] AS [officeId], 
-    [vSPMS_DisplayOPCR].[officeNameShort] AS [officeNameShort], 
-    [vSPMS_DisplayOPCR].[MFOId] AS [MFOId], 
-    [vSPMS_DisplayOPCR].[MFO] AS [MFO], 
-    [vSPMS_DisplayOPCR].[indicatorId] AS [indicatorId], 
-    [vSPMS_DisplayOPCR].[indicator] AS [indicator], 
-    [vSPMS_DisplayOPCR].[target] AS [target], 
-    [vSPMS_DisplayOPCR].[rating] AS [rating], 
-    [vSPMS_DisplayOPCR].[quantity] AS [quantity], 
-    [vSPMS_DisplayOPCR].[quality] AS [quality], 
-    [vSPMS_DisplayOPCR].[timeliness] AS [timeliness], 
-    [vSPMS_DisplayOPCR].[programTypeId] AS [programTypeId]
-    FROM [dbo].[vSPMS_DisplayOPCR] AS [vSPMS_DisplayOPCR]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="vSPMS_DPCR" EntityType="Self.vSPMS_DPCR" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [vSPMS_DPCR].[recNo] AS [recNo], 
@@ -1289,47 +1478,57 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_DPCR].[MFO] AS [MFO]
     FROM [dbo].[vSPMS_DPCR] AS [vSPMS_DPCR]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="vSPMS_Employee" EntityType="Self.vSPMS_Employee" store:Type="Views" store:Schema="dbo">
+    <EntitySet Name="vSPMS_EmployeeAccountRoles" EntityType="Self.vSPMS_EmployeeAccountRoles" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [vSPMS_Employee].[recNo] AS [recNo], 
-    [vSPMS_Employee].[EIC] AS [EIC], 
-    [vSPMS_Employee].[idNo] AS [idNo], 
-    [vSPMS_Employee].[lastName] AS [lastName], 
-    [vSPMS_Employee].[firstName] AS [firstName], 
-    [vSPMS_Employee].[middleName] AS [middleName], 
-    [vSPMS_Employee].[extName] AS [extName], 
-    [vSPMS_Employee].[fullNameLast] AS [fullNameLast], 
-    [vSPMS_Employee].[fullNameFirst] AS [fullNameFirst], 
-    [vSPMS_Employee].[fullNameTitle] AS [fullNameTitle], 
-    [vSPMS_Employee].[sex] AS [sex], 
-    [vSPMS_Employee].[officeRoleId] AS [officeRoleId], 
-    [vSPMS_Employee].[positionTitle] AS [positionTitle], 
-    [vSPMS_Employee].[divisionId] AS [divisionId], 
-    [vSPMS_Employee].[divisionName] AS [divisionName], 
-    [vSPMS_Employee].[officeId] AS [officeId], 
-    [vSPMS_Employee].[officeCode] AS [officeCode], 
-    [vSPMS_Employee].[officeName] AS [officeName], 
-    [vSPMS_Employee].[officeNameShort] AS [officeNameShort], 
-    [vSPMS_Employee].[tag] AS [tag]
-    FROM [dbo].[vSPMS_Employee] AS [vSPMS_Employee]</DefiningQuery>
+    [vSPMS_EmployeeAccountRoles].[recNo] AS [recNo], 
+    [vSPMS_EmployeeAccountRoles].[EIC] AS [EIC], 
+    [vSPMS_EmployeeAccountRoles].[F_Name] AS [F_Name], 
+    [vSPMS_EmployeeAccountRoles].[division] AS [division], 
+    [vSPMS_EmployeeAccountRoles].[RID] AS [RID], 
+    [vSPMS_EmployeeAccountRoles].[R_Description] AS [R_Description], 
+    [vSPMS_EmployeeAccountRoles].[officeRoleId] AS [officeRoleId], 
+    [vSPMS_EmployeeAccountRoles].[positionTitle] AS [positionTitle]
+    FROM [dbo].[vSPMS_EmployeeAccountRoles] AS [vSPMS_EmployeeAccountRoles]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_Employees" EntityType="Self.vSPMS_Employees" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [vSPMS_Employees].[recNo] AS [recNo], 
     [vSPMS_Employees].[EIC] AS [EIC], 
-    [vSPMS_Employees].[RID] AS [RID], 
     [vSPMS_Employees].[F_Name] AS [F_Name], 
     [vSPMS_Employees].[positionTitle] AS [positionTitle], 
+    [vSPMS_Employees].[division] AS [division], 
     [vSPMS_Employees].[R_Description] AS [R_Description], 
+    [vSPMS_Employees].[RID] AS [RID], 
     [vSPMS_Employees].[supervisorId] AS [supervisorId], 
     [vSPMS_Employees].[officeheadId] AS [officeheadId], 
     [vSPMS_Employees].[supervisorName] AS [supervisorName], 
     [vSPMS_Employees].[officeheadName] AS [officeheadName], 
-    [vSPMS_Employees].[division] AS [division], 
+    [vSPMS_Employees].[divisionName] AS [divisionName], 
     [vSPMS_Employees].[officeId] AS [officeId], 
     [vSPMS_Employees].[officeName] AS [officeName], 
-    [vSPMS_Employees].[officeNameShort] AS [officeNameShort]
+    [vSPMS_Employees].[officeNameShort] AS [officeNameShort], 
+    [vSPMS_Employees].[recNo] AS [recNo], 
+    [vSPMS_Employees].[recNoEmployee] AS [recNoEmployee], 
+    [vSPMS_Employees].[recNoRole] AS [recNoRole]
     FROM [dbo].[vSPMS_Employees] AS [vSPMS_Employees]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vSPMS_EmployeeSignatories" EntityType="Self.vSPMS_EmployeeSignatories" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vSPMS_EmployeeSignatories].[recNo] AS [recNo], 
+    [vSPMS_EmployeeSignatories].[EIC] AS [EIC], 
+    [vSPMS_EmployeeSignatories].[F_Name] AS [F_Name], 
+    [vSPMS_EmployeeSignatories].[officeRoleId] AS [officeRoleId], 
+    [vSPMS_EmployeeSignatories].[positionTitle] AS [positionTitle], 
+    [vSPMS_EmployeeSignatories].[division] AS [division], 
+    [vSPMS_EmployeeSignatories].[supervisorId] AS [supervisorId], 
+    [vSPMS_EmployeeSignatories].[officeheadId] AS [officeheadId], 
+    [vSPMS_EmployeeSignatories].[supervisorName] AS [supervisorName], 
+    [vSPMS_EmployeeSignatories].[officeheadName] AS [officeheadName], 
+    [vSPMS_EmployeeSignatories].[description] AS [description], 
+    [vSPMS_EmployeeSignatories].[divisionName] AS [divisionName], 
+    [vSPMS_EmployeeSignatories].[officeId] AS [officeId], 
+    [vSPMS_EmployeeSignatories].[officeName] AS [officeName], 
+    [vSPMS_EmployeeSignatories].[officeNameShort] AS [officeNameShort]
+    FROM [dbo].[vSPMS_EmployeeSignatories] AS [vSPMS_EmployeeSignatories]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_IPCR_Request" EntityType="Self.vSPMS_IPCR_Request" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1341,59 +1540,8 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_IPCR_Request].[r_Status] AS [r_Status], 
     [vSPMS_IPCR_Request].[divisionName] AS [divisionName], 
     [vSPMS_IPCR_Request].[officeRoleId] AS [officeRoleId], 
-    [vSPMS_IPCR_Request].[positionTitle] AS [positionTitle], 
-    [vSPMS_IPCR_Request].[r_year] AS [r_year], 
-    [vSPMS_IPCR_Request].[r_semester] AS [r_semester]
+    [vSPMS_IPCR_Request].[positionTitle] AS [positionTitle]
     FROM [dbo].[vSPMS_IPCR_Request] AS [vSPMS_IPCR_Request]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="vSPMS_IPCR_SMPOR" EntityType="Self.vSPMS_IPCR_SMPOR" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMS_IPCR_SMPOR].[recNo.] AS [recNo.], 
-    [vSPMS_IPCR_SMPOR].[i_EIC] AS [i_EIC], 
-    [vSPMS_IPCR_SMPOR].[i_MFOId] AS [i_MFOId], 
-    [vSPMS_IPCR_SMPOR].[CLDesc] AS [CLDesc], 
-    [vSPMS_IPCR_SMPOR].[MFO] AS [MFO], 
-    [vSPMS_IPCR_SMPOR].[i_target] AS [i_target], 
-    [vSPMS_IPCR_SMPOR].[i_indicatorId] AS [i_indicatorId], 
-    [vSPMS_IPCR_SMPOR].[i_category] AS [i_category], 
-    [vSPMS_IPCR_SMPOR].[description] AS [description], 
-    [vSPMS_IPCR_SMPOR].[F_Name] AS [F_Name], 
-    [vSPMS_IPCR_SMPOR].[divisionName] AS [divisionName], 
-    [vSPMS_IPCR_SMPOR].[officeName] AS [officeName], 
-    [vSPMS_IPCR_SMPOR].[officeNameShort] AS [officeNameShort], 
-    [vSPMS_IPCR_SMPOR].[officeRoleId] AS [officeRoleId], 
-    [vSPMS_IPCR_SMPOR].[positionTitle] AS [positionTitle], 
-    [vSPMS_IPCR_SMPOR].[division] AS [division], 
-    [vSPMS_IPCR_SMPOR].[smporId] AS [smporId], 
-    [vSPMS_IPCR_SMPOR].[ipcrId] AS [ipcrId], 
-    [vSPMS_IPCR_SMPOR].[qty_mFirst] AS [qty_mFirst], 
-    [vSPMS_IPCR_SMPOR].[qty_mSecond] AS [qty_mSecond], 
-    [vSPMS_IPCR_SMPOR].[qty_mThird] AS [qty_mThird], 
-    [vSPMS_IPCR_SMPOR].[qty_mFourth] AS [qty_mFourth], 
-    [vSPMS_IPCR_SMPOR].[qty_mFifth] AS [qty_mFifth], 
-    [vSPMS_IPCR_SMPOR].[qty_mSixth] AS [qty_mSixth], 
-    [vSPMS_IPCR_SMPOR].[qty_total] AS [qty_total], 
-    [vSPMS_IPCR_SMPOR].[qty_rating] AS [qty_rating], 
-    [vSPMS_IPCR_SMPOR].[qly_mFirst] AS [qly_mFirst], 
-    [vSPMS_IPCR_SMPOR].[qly_mSecond] AS [qly_mSecond], 
-    [vSPMS_IPCR_SMPOR].[qly_mThird] AS [qly_mThird], 
-    [vSPMS_IPCR_SMPOR].[qly_mFourth] AS [qly_mFourth], 
-    [vSPMS_IPCR_SMPOR].[qly_mFifth] AS [qly_mFifth], 
-    [vSPMS_IPCR_SMPOR].[qly_mSixth] AS [qly_mSixth], 
-    [vSPMS_IPCR_SMPOR].[qly_total] AS [qly_total], 
-    [vSPMS_IPCR_SMPOR].[qly_rating] AS [qly_rating], 
-    [vSPMS_IPCR_SMPOR].[time_mFirst] AS [time_mFirst], 
-    [vSPMS_IPCR_SMPOR].[time_mSecond] AS [time_mSecond], 
-    [vSPMS_IPCR_SMPOR].[time_mThird] AS [time_mThird], 
-    [vSPMS_IPCR_SMPOR].[time_mFourth] AS [time_mFourth], 
-    [vSPMS_IPCR_SMPOR].[time_mFifth] AS [time_mFifth], 
-    [vSPMS_IPCR_SMPOR].[time_mSixth] AS [time_mSixth], 
-    [vSPMS_IPCR_SMPOR].[time_total] AS [time_total], 
-    [vSPMS_IPCR_SMPOR].[time_rating] AS [time_rating], 
-    [vSPMS_IPCR_SMPOR].[r_ipcrId] AS [r_ipcrId], 
-    [vSPMS_IPCR_SMPOR].[r_year] AS [r_year], 
-    [vSPMS_IPCR_SMPOR].[r_semester] AS [r_semester]
-    FROM [dbo].[vSPMS_IPCR_SMPOR] AS [vSPMS_IPCR_SMPOR]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_IPCRwCat" EntityType="Self.vSPMS_IPCRwCat" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1425,28 +1573,8 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_IPCRwCat].[F_Name] AS [F_Name], 
     [vSPMS_IPCRwCat].[officeName] AS [officeName], 
     [vSPMS_IPCRwCat].[officeNameShort] AS [officeNameShort], 
-    [vSPMS_IPCRwCat].[divisionName] AS [divisionName], 
-    [vSPMS_IPCRwCat].[i_Rquantity] AS [i_Rquantity], 
-    [vSPMS_IPCRwCat].[i_Rquality] AS [i_Rquality], 
-    [vSPMS_IPCRwCat].[i_Rtimeliness] AS [i_Rtimeliness], 
-    [vSPMS_IPCRwCat].[i_Raverage] AS [i_Raverage], 
-    [vSPMS_IPCRwCat].[r_year] AS [r_year], 
-    [vSPMS_IPCRwCat].[r_semester] AS [r_semester], 
-    [vSPMS_IPCRwCat].[r_remarks] AS [r_remarks], 
-    [vSPMS_IPCRwCat].[r_EIC] AS [r_EIC], 
-    [vSPMS_IPCRwCat].[i_actQuality] AS [i_actQuality], 
-    [vSPMS_IPCRwCat].[i_actTimeliness] AS [i_actTimeliness]
+    [vSPMS_IPCRwCat].[divisionName] AS [divisionName]
     FROM [dbo].[vSPMS_IPCRwCat] AS [vSPMS_IPCRwCat]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="vSPMS_LoadDataView" EntityType="Self.vSPMS_LoadDataView" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMS_LoadDataView].[MFOId] AS [MFOId], 
-    [vSPMS_LoadDataView].[MFO] AS [MFO], 
-    [vSPMS_LoadDataView].[indicator] AS [indicator], 
-    [vSPMS_LoadDataView].[target] AS [target], 
-    [vSPMS_LoadDataView].[indicatorId] AS [indicatorId], 
-    [vSPMS_LoadDataView].[appropProjectId] AS [appropProjectId]
-    FROM [dbo].[vSPMS_LoadDataView] AS [vSPMS_LoadDataView]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_MFO_ALL" EntityType="Self.vSPMS_MFO_ALL" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1541,11 +1669,7 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_MPOR].[officeNameShort] AS [officeNameShort], 
     [vSPMS_MPOR].[officeRoleId] AS [officeRoleId], 
     [vSPMS_MPOR].[positionTitle] AS [positionTitle], 
-    [vSPMS_MPOR].[division] AS [division], 
-    [vSPMS_MPOR].[r_year] AS [r_year], 
-    [vSPMS_MPOR].[r_semester] AS [r_semester], 
-    [vSPMS_MPOR].[r_Status] AS [r_Status], 
-    [vSPMS_MPOR].[r_remarks] AS [r_remarks]
+    [vSPMS_MPOR].[division] AS [division]
     FROM [dbo].[vSPMS_MPOR] AS [vSPMS_MPOR]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_nMFO_ALL" EntityType="Self.vSPMS_nMFO_ALL" store:Type="Views" store:Schema="dbo">
@@ -1596,71 +1720,33 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_nOPCR].[targetId] AS [targetId], 
     [vSPMS_nOPCR].[target] AS [target], 
     [vSPMS_nOPCR].[opcrID] AS [opcrID], 
-    [vSPMS_nOPCR].[r_qty] AS [r_qty], 
-    [vSPMS_nOPCR].[r_qly] AS [r_qly], 
-    [vSPMS_nOPCR].[r_time] AS [r_time]
+    [vSPMS_nOPCR].[t_quality] AS [t_quality], 
+    [vSPMS_nOPCR].[t_timeliness] AS [t_timeliness]
     FROM [dbo].[vSPMS_nOPCR] AS [vSPMS_nOPCR]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_OPCR" EntityType="Self.vSPMS_OPCR" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [vSPMS_OPCR].[recNo] AS [recNo], 
-    [vSPMS_OPCR].[indicatorId] AS [indicatorId], 
-    [vSPMS_OPCR].[officeId] AS [officeId], 
-    [vSPMS_OPCR].[division] AS [division], 
     [vSPMS_OPCR].[MFOId] AS [MFOId], 
+    [vSPMS_OPCR].[indicatorId] AS [indicatorId], 
     [vSPMS_OPCR].[MFO] AS [MFO], 
     [vSPMS_OPCR].[indicator] AS [indicator], 
+    [vSPMS_OPCR].[target] AS [target], 
+    [vSPMS_OPCR].[tRemaining] AS [tRemaining], 
+    [vSPMS_OPCR].[officeId] AS [officeId], 
     [vSPMS_OPCR].[categoryId] AS [categoryId], 
     [vSPMS_OPCR].[description] AS [description], 
     [vSPMS_OPCR].[isCMFO] AS [isCMFO], 
+    [vSPMS_OPCR].[TargetOffcId] AS [TargetOffcId], 
+    [vSPMS_OPCR].[targetId] AS [targetId], 
     [vSPMS_OPCR].[officeName] AS [officeName], 
     [vSPMS_OPCR].[officeNameShort] AS [officeNameShort], 
     [vSPMS_OPCR].[year] AS [year], 
     [vSPMS_OPCR].[semester] AS [semester], 
-    [vSPMS_OPCR].[targetId] AS [targetId], 
-    [vSPMS_OPCR].[TargetOffcId] AS [TargetOffcId], 
-    [vSPMS_OPCR].[target] AS [target], 
-    [vSPMS_OPCR].[tRemaining] AS [tRemaining], 
     [vSPMS_OPCR].[classificationId] AS [classificationId], 
-    [vSPMS_OPCR].[divisionId] AS [divisionId]
+    [vSPMS_OPCR].[divisionId] AS [divisionId], 
+    [vSPMS_OPCR].[division] AS [division]
     FROM [dbo].[vSPMS_OPCR] AS [vSPMS_OPCR]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="vSPMS_OPCRRating" EntityType="Self.vSPMS_OPCRRating" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMS_OPCRRating].[targetId] AS [targetId], 
-    [vSPMS_OPCRRating].[recNo] AS [recNo], 
-    [vSPMS_OPCRRating].[opcrID] AS [opcrID], 
-    [vSPMS_OPCRRating].[officeId] AS [officeId], 
-    [vSPMS_OPCRRating].[MFO] AS [MFO], 
-    [vSPMS_OPCRRating].[indicator] AS [indicator], 
-    [vSPMS_OPCRRating].[target] AS [target], 
-    [vSPMS_OPCRRating].[targetUnit] AS [targetUnit], 
-    [vSPMS_OPCRRating].[tRemaining] AS [tRemaining], 
-    [vSPMS_OPCRRating].[r_qty] AS [r_qty], 
-    [vSPMS_OPCRRating].[r_qly] AS [r_qly], 
-    [vSPMS_OPCRRating].[r_time] AS [r_time], 
-    [vSPMS_OPCRRating].[strQuality] AS [strQuality], 
-    [vSPMS_OPCRRating].[strTimeliness] AS [strTimeliness], 
-    [vSPMS_OPCRRating].[tAccumulatedQuantity] AS [tAccumulatedQuantity]
-    FROM [dbo].[vSPMS_OPCRRating] AS [vSPMS_OPCRRating]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="vSPMS_OpcrStandard" EntityType="Self.vSPMS_OpcrStandard" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMS_OpcrStandard].[indicatorId] AS [indicatorId], 
-    [vSPMS_OpcrStandard].[officeId] AS [officeId], 
-    [vSPMS_OpcrStandard].[targetId] AS [targetId], 
-    [vSPMS_OpcrStandard].[target] AS [target], 
-    [vSPMS_OpcrStandard].[indicator] AS [indicator], 
-    [vSPMS_OpcrStandard].[MFO] AS [MFO], 
-    [vSPMS_OpcrStandard].[categoryId] AS [categoryId], 
-    [vSPMS_OpcrStandard].[description] AS [description], 
-    [vSPMS_OpcrStandard].[rating] AS [rating], 
-    [vSPMS_OpcrStandard].[quantity] AS [quantity], 
-    [vSPMS_OpcrStandard].[quality] AS [quality], 
-    [vSPMS_OpcrStandard].[timeliness] AS [timeliness], 
-    [vSPMS_OpcrStandard].[recNo] AS [recNo], 
-    [vSPMS_OpcrStandard].[targetUnit] AS [targetUnit]
-    FROM [dbo].[vSPMS_OpcrStandard] AS [vSPMS_OpcrStandard]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_OPCRTable" EntityType="Self.vSPMS_OPCRTable" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1681,25 +1767,10 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_OPCRTable].[description] AS [description]
     FROM [dbo].[vSPMS_OPCRTable] AS [vSPMS_OPCRTable]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="vSPMS_prtOPCR" EntityType="Self.vSPMS_prtOPCR" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMS_prtOPCR].[description] AS [description], 
-    [vSPMS_prtOPCR].[officeId] AS [officeId], 
-    [vSPMS_prtOPCR].[programId] AS [programId], 
-    [vSPMS_prtOPCR].[programTypeId] AS [programTypeId], 
-    [vSPMS_prtOPCR].[projectId] AS [projectId], 
-    [vSPMS_prtOPCR].[appropProjectId] AS [appropProjectId], 
-    [vSPMS_prtOPCR].[MFOId] AS [MFOId], 
-    [vSPMS_prtOPCR].[MFO] AS [MFO], 
-    [vSPMS_prtOPCR].[indicatorId] AS [indicatorId], 
-    [vSPMS_prtOPCR].[target] AS [target], 
-    [vSPMS_prtOPCR].[indicator] AS [indicator], 
-    [vSPMS_prtOPCR].[officeNameShort] AS [officeNameShort], 
-    [vSPMS_prtOPCR].[isActive] AS [isActive]
-    FROM [dbo].[vSPMS_prtOPCR] AS [vSPMS_prtOPCR]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="vSPMS_RequestTable" EntityType="Self.vSPMS_RequestTable" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
+    [vSPMS_RequestTable].[officeId] AS [officeId], 
+    [vSPMS_RequestTable].[officeNameShort] AS [officeNameShort], 
     [vSPMS_RequestTable].[recNo] AS [recNo], 
     [vSPMS_RequestTable].[MFOId] AS [MFOId], 
     [vSPMS_RequestTable].[indicatorId] AS [indicatorId], 
@@ -1710,10 +1781,15 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_RequestTable].[req_timeliness] AS [req_timeliness], 
     [vSPMS_RequestTable].[targetId] AS [targetId], 
     [vSPMS_RequestTable].[Status] AS [Status], 
+    [vSPMS_RequestTable].[MFO] AS [MFO], 
+    [vSPMS_RequestTable].[indicator] AS [indicator], 
+    [vSPMS_RequestTable].[latest_target] AS [latest_target], 
     [vSPMS_RequestTable].[req_MFO] AS [req_MFO], 
     [vSPMS_RequestTable].[req_indicator] AS [req_indicator], 
     [vSPMS_RequestTable].[date] AS [date], 
     [vSPMS_RequestTable].[req_categoryId] AS [req_categoryId], 
+    [vSPMS_RequestTable].[categoryId] AS [categoryId], 
+    [vSPMS_RequestTable].[description] AS [description], 
     [vSPMS_RequestTable].[year] AS [year], 
     [vSPMS_RequestTable].[semester] AS [semester], 
     [vSPMS_RequestTable].[classificationId] AS [classificationId], 
@@ -1727,15 +1803,17 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_RequestTable].[o_semester] AS [o_semester], 
     [vSPMS_RequestTable].[o_classification] AS [o_classification], 
     [vSPMS_RequestTable].[classification] AS [classification], 
-    [vSPMS_RequestTable].[o_class] AS [o_class], 
-    [vSPMS_RequestTable].[officeId] AS [officeId], 
-    [vSPMS_RequestTable].[officeNameShort] AS [officeNameShort], 
-    [vSPMS_RequestTable].[indicator] AS [indicator], 
-    [vSPMS_RequestTable].[latest_target] AS [latest_target], 
-    [vSPMS_RequestTable].[categoryId] AS [categoryId], 
-    [vSPMS_RequestTable].[description] AS [description], 
-    [vSPMS_RequestTable].[MFO] AS [MFO]
+    [vSPMS_RequestTable].[o_class] AS [o_class]
     FROM [dbo].[vSPMS_RequestTable] AS [vSPMS_RequestTable]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vSPMS_RoleMenu" EntityType="Self.vSPMS_RoleMenu" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vSPMS_RoleMenu].[recNo] AS [recNo], 
+    [vSPMS_RoleMenu].[rID] AS [rID], 
+    [vSPMS_RoleMenu].[R_Description] AS [R_Description], 
+    [vSPMS_RoleMenu].[mID] AS [mID], 
+    [vSPMS_RoleMenu].[mDescription] AS [mDescription]
+    FROM [dbo].[vSPMS_RoleMenu] AS [vSPMS_RoleMenu]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vSPMS_rOPCRStandard" EntityType="Self.vSPMS_rOPCRStandard" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1786,26 +1864,6 @@ warning 6002: The table/view 'HRISDB.dbo.vSPMSIPCRRating' does not have a primar
     [vSPMS_showOTS].[day] AS [day], 
     [vSPMS_showOTS].[month] AS [month]
     FROM [dbo].[vSPMS_showOTS] AS [vSPMS_showOTS]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="vSPMSIPCRRating" EntityType="Self.vSPMSIPCRRating" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vSPMSIPCRRating].[recNo] AS [recNo], 
-    [vSPMSIPCRRating].[controlNo] AS [controlNo], 
-    [vSPMSIPCRRating].[EIC] AS [EIC], 
-    [vSPMSIPCRRating].[fullNameLast] AS [fullNameLast], 
-    [vSPMSIPCRRating].[fullNameFirst] AS [fullNameFirst], 
-    [vSPMSIPCRRating].[positionTitle] AS [positionTitle], 
-    [vSPMSIPCRRating].[subPositionTitle] AS [subPositionTitle], 
-    [vSPMSIPCRRating].[ratingNum] AS [ratingNum], 
-    [vSPMSIPCRRating].[ratingAdj] AS [ratingAdj], 
-    [vSPMSIPCRRating].[semester] AS [semester], 
-    [vSPMSIPCRRating].[year] AS [year], 
-    [vSPMSIPCRRating].[details] AS [details], 
-    [vSPMSIPCRRating].[tag] AS [tag], 
-    [vSPMSIPCRRating].[remarks] AS [remarks], 
-    [vSPMSIPCRRating].[encoderEIC] AS [encoderEIC], 
-    [vSPMSIPCRRating].[transDT] AS [transDT]
-    FROM [dbo].[vSPMSIPCRRating] AS [vSPMSIPCRRating]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
 </Schema>

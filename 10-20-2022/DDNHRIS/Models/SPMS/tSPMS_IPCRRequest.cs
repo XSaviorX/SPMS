@@ -17,8 +17,6 @@ namespace DDNHRIS.Models.SPMS
         public int recNo_ { get; set; }
         public string r_EIC { get; set; }
         public string r_ipcrId { get; set; }
-        public Nullable<int> r_year { get; set; }
-        public Nullable<int> r_semester { get; set; }
         public Nullable<int> r_Status { get; set; }
         public string r_remarks { get; set; }
     }

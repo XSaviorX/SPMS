@@ -41,6 +41,5 @@ namespace DDNHRIS.Models.SPMS
         public Nullable<double> time_mSixth { get; set; }
         public Nullable<double> time_total { get; set; }
         public Nullable<double> time_rating { get; set; }
-        public Nullable<int> Status { get; set; }
     }
 }
