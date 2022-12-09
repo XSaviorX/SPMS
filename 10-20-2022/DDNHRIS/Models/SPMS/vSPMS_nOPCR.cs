@@ -31,8 +31,7 @@ namespace DDNHRIS.Models.SPMS
         public string targetId { get; set; }
         public Nullable<int> target { get; set; }
         public string opcrID { get; set; }
-        public Nullable<double> r_qty { get; set; }
-        public Nullable<double> r_qly { get; set; }
-        public Nullable<double> r_time { get; set; }
+        public string t_quality { get; set; }
+        public string t_timeliness { get; set; }
     }
 }

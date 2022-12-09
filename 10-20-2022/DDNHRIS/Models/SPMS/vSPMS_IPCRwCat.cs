@@ -43,15 +43,5 @@ namespace DDNHRIS.Models.SPMS
         public string officeName { get; set; }
         public string officeNameShort { get; set; }
         public string divisionName { get; set; }
-        public Nullable<double> i_Rquantity { get; set; }
-        public Nullable<double> i_Rquality { get; set; }
-        public Nullable<double> i_Rtimeliness { get; set; }
-        public Nullable<double> i_Raverage { get; set; }
-        public Nullable<int> r_year { get; set; }
-        public Nullable<int> r_semester { get; set; }
-        public string r_remarks { get; set; }
-        public string r_EIC { get; set; }
-        public string i_actQuality { get; set; }
-        public string i_actTimeliness { get; set; }
     }
 }

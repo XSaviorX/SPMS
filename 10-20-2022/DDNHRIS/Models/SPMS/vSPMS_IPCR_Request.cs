@@ -23,7 +23,5 @@ namespace DDNHRIS.Models.SPMS
         public string divisionName { get; set; }
         public string officeRoleId { get; set; }
         public string positionTitle { get; set; }
-        public Nullable<int> r_year { get; set; }
-        public Nullable<int> r_semester { get; set; }
     }
 }

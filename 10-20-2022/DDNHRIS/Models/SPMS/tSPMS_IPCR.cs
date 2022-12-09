@@ -25,11 +25,10 @@ namespace DDNHRIS.Models.SPMS
         public string i_actQuality { get; set; }
         public string i_actTimeliness { get; set; }
         public string targetId { get; set; }
-        public Nullable<double> i_Rquantity { get; set; }
-        public Nullable<double> i_Rquality { get; set; }
-        public Nullable<double> i_Rtimeliness { get; set; }
+        public Nullable<int> i_Rquantity { get; set; }
+        public Nullable<int> i_Rquality { get; set; }
+        public Nullable<int> i_Rtimeliness { get; set; }
         public Nullable<int> i_category { get; set; }
         public string targetIdparent { get; set; }
-        public Nullable<double> i_Raverage { get; set; }
     }
 }

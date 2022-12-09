@@ -217,6 +217,15 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\SessionViewModel.cs" />
+    <Compile Include="Models\SPMS\appropprojectid.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\loadDataView.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\rOpcrStandard.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SPMS\SPMS.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -268,6 +277,9 @@
     <Compile Include="Models\SPMS\tSPMS_DPCR.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SPMS\tSPMS_EmployeeRole.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SPMS\tSPMS_Employees.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
@@ -281,6 +293,9 @@
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\tSPMS_IPCR_SMPOR.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\tSPMS_Menu.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\tSPMS_MFOCategory.cs">
@@ -304,6 +319,9 @@
     <Compile Include="Models\SPMS\tSPMS_RequestChange.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SPMS\tSPMS_RoleMenu.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SPMS\tSPMS_Roles.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
@@ -313,10 +331,22 @@
     <Compile Include="Models\SPMS\tSPMS_TargetCountSI.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMSIPCRRating.cs">
+    <Compile Include="Models\SPMS\vDisplayOPCR.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMS_AppropProject.cs">
+    <Compile Include="Models\SPMS\vForPrintAllMFO.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\view_OPCRTable.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\vNew_tOPCR.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\vprt_OPCR.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\vRequestTable.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\vSPMS_CheckListMFO.cs">
@@ -328,28 +358,22 @@
     <Compile Include="Models\SPMS\vSPMS_CommonMFO.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMS_DisplayOPCR.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SPMS\vSPMS_DPCR.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMS_Employee.cs">
+    <Compile Include="Models\SPMS\vSPMS_EmployeeAccountRoles.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\vSPMS_Employees.cs">
+      <DependentUpon>SPMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPMS\vSPMS_EmployeeSignatories.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\vSPMS_IPCRwCat.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\vSPMS_IPCR_Request.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SPMS\vSPMS_IPCR_SMPOR.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SPMS\vSPMS_LoadDataView.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\vSPMS_MFOwCat.cs">
@@ -370,19 +394,13 @@
     <Compile Include="Models\SPMS\vSPMS_OPCR.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMS_OPCRRating.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SPMS\vSPMS_OpcrStandard.cs">
-      <DependentUpon>SPMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SPMS\vSPMS_OPCRTable.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMS_prtOPCR.cs">
+    <Compile Include="Models\SPMS\vSPMS_RequestTable.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SPMS\vSPMS_RequestTable.cs">
+    <Compile Include="Models\SPMS\vSPMS_RoleMenu.cs">
       <DependentUpon>SPMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SPMS\vSPMS_rOPCRStandard.cs">

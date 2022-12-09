@@ -14,6 +14,8 @@ namespace DDNHRIS.Models.SPMS
     
     public partial class vSPMS_RequestTable
     {
+        public string officeId { get; set; }
+        public string officeNameShort { get; set; }
         public int recNo { get; set; }
         public string MFOId { get; set; }
         public string indicatorId { get; set; }
@@ -24,10 +26,15 @@ namespace DDNHRIS.Models.SPMS
         public string req_timeliness { get; set; }
         public string targetId { get; set; }
         public Nullable<int> Status { get; set; }
+        public string MFO { get; set; }
+        public string indicator { get; set; }
+        public Nullable<int> latest_target { get; set; }
         public string req_MFO { get; set; }
         public string req_indicator { get; set; }
         public string date { get; set; }
         public Nullable<int> req_categoryId { get; set; }
+        public Nullable<int> categoryId { get; set; }
+        public string description { get; set; }
         public Nullable<int> year { get; set; }
         public Nullable<int> semester { get; set; }
         public string classificationId { get; set; }
@@ -42,12 +49,5 @@ namespace DDNHRIS.Models.SPMS
         public string o_classification { get; set; }
         public string classification { get; set; }
         public string o_class { get; set; }
-        public string officeId { get; set; }
-        public string officeNameShort { get; set; }
-        public string indicator { get; set; }
-        public Nullable<int> latest_target { get; set; }
-        public Nullable<int> categoryId { get; set; }
-        public string description { get; set; }
-        public string MFO { get; set; }
     }
 }

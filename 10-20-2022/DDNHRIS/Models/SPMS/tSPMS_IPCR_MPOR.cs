@@ -35,6 +35,5 @@ namespace DDNHRIS.Models.SPMS
         public Nullable<int> timeWk4 { get; set; }
         public Nullable<int> timeTotal { get; set; }
         public Nullable<double> timeAve { get; set; }
-        public Nullable<int> Status { get; set; }
     }
 }
